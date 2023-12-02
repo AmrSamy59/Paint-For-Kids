@@ -1,5 +1,6 @@
 #include "ApplicationManager.h"
 #include "Actions\AddRectAction.h"
+#include "Select.h"
 
 
 //Constructor
@@ -35,6 +36,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		case DRAW_RECT:
 			pAct = new AddRectAction(this);
+			break;
+
+		case DRAW_SELECT:
+			pAct = new Select(this);
 			break;
 
 		case EXIT:
@@ -73,6 +78,19 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 
 	//Add your code here to search for a figure given a point x,y	
 	//Remember that ApplicationManager only calls functions do NOT implement it.
+
+	
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->CheckSelection(x, y))
+		{
+			for (int j = 0; j < FigCount; j++)
+			{
+				FigList[j]->SetSelected(false);
+			}
+			return FigList[i];
+		}
+	}
 
 	return NULL;
 }

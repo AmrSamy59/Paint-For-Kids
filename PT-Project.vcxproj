@@ -171,6 +171,7 @@
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Select.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="Select.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
