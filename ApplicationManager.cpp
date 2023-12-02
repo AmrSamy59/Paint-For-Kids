@@ -15,6 +15,7 @@ ApplicationManager::ApplicationManager()
 	//Create an array of figure pointers and set them to NULL		
 	for(int i=0; i<MaxFigCount; i++)
 		FigList[i] = NULL;	
+
 }
 
 //==================================================================================//
@@ -37,7 +38,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_RECT:
 			pAct = new AddRectAction(this);
 			break;
-
+		case DRAW_SAVEGRAPH:
+			Save_All();
+			break;
 		case DRAW_SELECT:
 			pAct = new Select(this);
 			break;
@@ -59,6 +62,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
+void ApplicationManager::Save_All() const
+{
+	ofstream Fout;
+	Fout.open("test.txt");
+	for (int i = 0; i < FigCount; i++)
+		FigList[i]->Save(Fout);
+	pOut->PrintMessage("Graph has been saved succesfully");
+	Fout.close();
+}
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
@@ -66,8 +78,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
-	if(FigCount < MaxFigCount )
-		FigList[FigCount++] = pFig;	
+	if (FigCount < MaxFigCount)
+		FigList[FigCount++] = pFig;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const

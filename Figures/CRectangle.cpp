@@ -22,3 +22,7 @@ bool CRectangle::CheckSelection(int x, int y)
 	else
 		return false;
 }
+void CRectangle::Save(ofstream& OutFile)
+{
+	OutFile << "RECT" << "\t" << ID << "\t" << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t" << endl;
+}
