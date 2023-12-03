@@ -24,7 +24,7 @@ void Select::Execute()
 	{
 		CFigure* selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
 		selectedFigure->SetSelected(true);
-		selectedFigure->ChngFillClr(GREEN);
+		selectedFigure->Handle();
 	}
 	
 }
