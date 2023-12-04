@@ -14,17 +14,17 @@ void AddTriangleAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	pOut->PrintMessage("New triangle: Click at first vertx");
+	pOut->PrintMessage("New triangle: Click at first vertex");
 
 	//Read 1st vertx and store in point P1
 	pIn->GetPointForDrawing(p1.x, p1.y, pOut);
 
-	pOut->PrintMessage("New triangle: Click at second vertx");
+	pOut->PrintMessage("New triangle: Click at second vertex");
 
 	//Read 2nd vertx and store in point P2
 	pIn->GetPointForDrawing(p2.x, p2.y, pOut);
 
-	pOut->PrintMessage("New triangle: Click at thrid vertx");
+	pOut->PrintMessage("New triangle: Click at thrid vertex");
 
 	//Read 3th vertx and store in point P2
 	pIn->GetPointForDrawing(p3.x, p3.y, pOut);
