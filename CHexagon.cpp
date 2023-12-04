@@ -1,56 +1,45 @@
 #include "CHexagon.h"
 #include<cmath>
-CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
+CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 {
 	center = c;
+	L = l;
+
+	int toolBarH = UI.ToolBarHeight + 3;
+	int statusBarH = UI.height - UI.StatusBarHeight - 3;
+
+	if (abs(center.y - toolBarH) < L) {
+		L = abs(center.y - toolBarH);
+	}
+	if (abs(statusBarH - center.y) < L) {
+		L = abs(statusBarH - center.y);
+	}
 }
 
 void CHexagon::Draw(Output* pOut) const
 {
-	pOut->DrawHexagon(center, FigGfxInfo, Selected);
+	pOut->DrawHexagon(center, L, FigGfxInfo, Selected);
 }
 
 bool CHexagon::CheckSelection(int x, int y)
 {
-	bool xselected = false, yselected = false;
-	int l = 100;
-	int arrx[4]={center.x+l,center.x -l,center.x+(sqrt(3)/2)*l,center.x - (sqrt(3) / 2) * l } ;
-	int arry[3] = { center.y,center.y + 0.5 * l,center.y - 0.5 * l };
-	int xmin = arrx[0];
-	int xmax = arrx[0];
-	for (int i = 0; i < 4; i++)
-	{
-		if (xmin > arrx[i])
-			xmin = arrx[i];
-		if (xmax < arrx[i])
-			xmax = arrx[i];
-	}
-	if (x >= xmin && x <= xmax)
-		xselected = true;
+	bool selected = false;
 
-	//////////////  y select /////////////////
+	int xmin = center.x - L;
+	int xmax = center.x + L;
 
+	int ymin = center.y - L;
+	int ymax = center.y + L;
 
-	int ymin = arry[0];
-	int ymax = arry[0];
-	for (int i = 0; i < 3; i++)
-	{
-		if (ymin > arry[i])
-			ymin = arry[i];
-		if (ymax < arry[i])
-			ymax = arry[i];
-	}
-	if (y >= ymin && y <= ymax)
-		yselected = true;
-	if (xselected == true && yselected == true)
-		return true;
-	else
-		return false;
+	if (x >= xmin && x <= xmax && y >= ymin && y <= ymax)
+		selected = true;
 
-
+	//printf("min x: %d max x: %d min y: %d max y: %d\n", xmin, xmax, ymin, ymax);
+	//printf("x: %d y: %d\n", x, y);
+	return selected;
 }
 
 void CHexagon::Save(ofstream& OutFile)
 {
-	OutFile << "HEXAGON" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t"  << endl;
+	OutFile << "HEXAGON" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << L << "\t" << endl;
 }

@@ -112,7 +112,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	//Remember that ApplicationManager only calls functions do NOT implement it.
 
 	
-	for (int i = 0; i < FigCount; i++)
+	for (int i = FigCount - 1; i >= 0; i--) // Prioritize last added items
 	{
 		if (FigList[i]->CheckSelection(x, y))
 		{

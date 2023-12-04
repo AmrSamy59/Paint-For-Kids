@@ -25,11 +25,11 @@ public:
 
 	// -- Figures Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected=false) const;
-    void DrawSquare(Point P1,GfxInfo RectGfxInfo, bool selected = false) const;//Draw a Square
+    void DrawSquare(Point P1, int L, GfxInfo RectGfxInfo, bool selected = false) const;//Draw a Square
 	void DrawTriangle(Point P1, Point P2,Point p3 ,GfxInfo RectGfxInfo, bool selected = false) const; // Draw Triangle
-	void DrawCirc(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected = false) const;//Draw a circle
+	void DrawCirc(Point P1, int radius, GfxInfo RectGfxInfo, bool selected = false) const;//Draw a circle
 	
-	void DrawHexagon(Point P1, GfxInfo RectGfxInfo, bool selected = false) const;
+	void DrawHexagon(Point P1, int L, GfxInfo RectGfxInfo, bool selected = false) const;
 	///Make similar functions for drawing all other figure types.
 	void PrintMessage(string msg) const;	//Print a message on Status bar
 	int GetSelectedColor() const;

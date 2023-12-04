@@ -3,9 +3,10 @@
 #include"Figures/CFigure.h"
 class CCircle :public CFigure {
 private:
-	Point point1,point2;
+	Point point1;
+	int radius; // Because it doesn't always depend on Second Point
 public:
-	CCircle(Point, Point ,GfxInfo FigureGfxInfo);
+	CCircle(Point, int ,GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);

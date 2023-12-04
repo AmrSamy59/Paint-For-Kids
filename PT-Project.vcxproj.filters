@@ -175,6 +175,9 @@
     <ClCompile Include="AddCircleAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="LoadGraph.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -287,6 +290,9 @@
       <Filter>Figures Classes</Filter>
     </ClInclude>
     <ClInclude Include="AddCircleAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadGraph.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>

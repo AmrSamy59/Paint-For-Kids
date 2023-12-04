@@ -178,6 +178,7 @@
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
+    <ClCompile Include="LoadGraph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Select.cpp" />
   </ItemGroup>
@@ -218,6 +219,7 @@
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="LoadGraph.h" />
     <ClInclude Include="Select.h" />
     <ClInclude Include="CSquare.h" />
   </ItemGroup>

@@ -5,8 +5,9 @@ class CHexagon :public CFigure
 {
 private:
 	Point center;
+	int L; // Half The Height
 public:
-	CHexagon(Point,GfxInfo FigureGfxInfo);
+	CHexagon(Point,GfxInfo FigureGfxInfo, int l=100); // Default Length = 100
 	virtual void Draw(Output* pOut) const;
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);

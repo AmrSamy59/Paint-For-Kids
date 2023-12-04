@@ -5,9 +5,9 @@
 class CSquare : public CFigure {
 private:
 	Point center;
-
+	int L; // Half the length
 public:
-	CSquare(Point, GfxInfo FigureGfxInfo);
+	CSquare(Point, GfxInfo FigureGfxInfo, int l=100); // Default Length = 100
 	virtual void Draw(Output* pOut) const;
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);

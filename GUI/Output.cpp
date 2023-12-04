@@ -294,19 +294,8 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 }
 ///////////////////////////
 
-void Output::DrawSquare(Point P1,GfxInfo RectGfxInfo, bool selected) const
+void Output::DrawSquare(Point P1, int L, GfxInfo RectGfxInfo, bool selected) const
 {
-	int L = 100; // half the length
-	int toolBarH = UI.ToolBarHeight + 3;
-	int statusBarH = UI.height - UI.StatusBarHeight - 3;
-
-	if (abs(P1.y - toolBarH) < L) {
-		L = abs(P1.y - toolBarH);
-	}
-	if (abs(statusBarH - P1.y) < L) {
-		L = abs(statusBarH - P1.y);
-	}
-
 	color DrawingClr;
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
@@ -348,7 +337,7 @@ void Output::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo RectGfxInfo, boo
 	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
 }
 
-void Output::DrawCirc(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) const
+void Output::DrawCirc(Point P1, int radius, GfxInfo RectGfxInfo, bool selected) const
 {
 	color DrawingClr;
 	if (selected)
@@ -366,34 +355,15 @@ void Output::DrawCirc(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	else
 		style = FRAME;
 	
-	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
 	
-	int toolBarH = UI.ToolBarHeight + 3;
-	int statusBarH = UI.height - UI.StatusBarHeight - 3;
-
-	if (abs(P1.y - toolBarH) < radius) {
-		radius = abs(P1.y - toolBarH);
-	}
-	if (abs(statusBarH - P1.y) < radius) {
-		radius = abs(statusBarH - P1.y);
-	}
 
 	pWind->DrawCircle(P1.x, P1.y, radius, style);
 }
 
-void Output::DrawHexagon(Point P1, GfxInfo HexaGfxInfo, bool selected) const
+void Output::DrawHexagon(Point P1, int L, GfxInfo HexaGfxInfo, bool selected) const
 {
 	color DrawingClr;
-	int L = 100; // half the height
-	int toolBarH = UI.ToolBarHeight + 3;
-	int statusBarH = UI.height - UI.StatusBarHeight - 3;
 
-	if (abs(P1.y - toolBarH) < L) {
-		L = abs(P1.y - toolBarH);
-	}
-	if (abs(statusBarH - P1.y) < L) {
-		L = abs(statusBarH - P1.y);
-	}
 	if (selected)
 		DrawingClr = UI.HighlightColor; //Figure should be drawn highlighted
 	else
