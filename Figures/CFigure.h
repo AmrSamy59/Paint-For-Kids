@@ -6,7 +6,7 @@
 #include "..\GUI\Output.h"
 
 
-//Base class for all figures
+//Base class for all figures all figures inhert from it
 class CFigure
 {
 protected:

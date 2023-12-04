@@ -1,6 +1,5 @@
 #include "AddRectAction.h"
 #include "..\Figures\CRectangle.h"
-
 #include "..\ApplicationManager.h"
 
 #include "..\GUI\input.h"
@@ -42,7 +41,7 @@ void AddRectAction::Execute()
 	
 	//Create a rectangle with the parameters read from the user
 	CRectangle *R=new CRectangle(P1, P2, RectGfxInfo);
-
+	
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(R);
 }
