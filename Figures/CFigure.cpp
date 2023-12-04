@@ -23,8 +23,4 @@ void CFigure::ChngFillClr(color Fclr) /// fill color
 	FigGfxInfo.FillClr = Fclr; 
 }
 
-void CFigure::Handle()
-{
-	ChngFillClr(YELLOW);
-}
 

@@ -32,7 +32,6 @@ public:
 
 	///Decide the parameters that you should pass to each function	
 
-	void Handle();
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
 
