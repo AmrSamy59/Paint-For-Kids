@@ -129,6 +129,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AddCircleAction.cpp" />
+    <ClCompile Include="AddClearAllAction.cpp" />
+    <ClCompile Include="AddDeleteAction.cpp" />
     <ClCompile Include="AddHexagonAction.cpp" />
     <ClCompile Include="AddSquareAction.cpp" />
     <ClCompile Include="AddTriangleAction.cpp" />
@@ -184,6 +186,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddCircleAction.h" />
+    <ClInclude Include="AddClearAllAction.h" />
+    <ClInclude Include="AddDeleteAction.h" />
     <ClInclude Include="AddHexagonAction.h" />
     <ClInclude Include="AddSquareAction.h" />
     <ClInclude Include="AddTriangleAction.h" />

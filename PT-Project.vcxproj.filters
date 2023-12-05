@@ -178,6 +178,12 @@
     <ClCompile Include="LoadGraph.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="AddClearAllAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="AddDeleteAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -293,6 +299,12 @@
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="LoadGraph.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="AddClearAllAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="AddDeleteAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>
