@@ -25,13 +25,7 @@ void CSquare::Draw(Output* pOut) const
 
 bool CSquare::CheckSelection(int x, int y)
 {
-
-	if (x >= center.x- L && x <= center.x+ L && y >= center.y- L && y <= center.y+ L)
-	{
-		return true;
-	}
-	else
-	return false;
+	return (x >= center.x - L && x <= center.x + L && y >= center.y - L && y <= center.y + L);
 }
 
 void CSquare::Save(ofstream& OutFile)

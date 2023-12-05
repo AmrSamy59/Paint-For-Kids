@@ -15,12 +15,13 @@ void CRectangle::Draw(Output* pOut) const
 
 bool CRectangle::CheckSelection(int x, int y)
 {
-	if (x >= Corner1.x && x <= Corner2.x && y >= Corner1.y && y <= Corner2.y)
-	{
-		return true;
-	}
-	else
-		return false;
+	int xmin = min(Corner1.x, Corner2.x);
+	int xmax = max(Corner1.x, Corner2.x);
+
+	int ymin = min(Corner1.y, Corner2.y);
+	int ymax = max(Corner1.y, Corner2.y);
+
+	return (x >= xmin && x <= xmax && y >= ymin && y <= ymax);
 }
 void CRectangle::Save(ofstream& OutFile)
 {

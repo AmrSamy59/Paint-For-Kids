@@ -5,6 +5,8 @@
 #include "Select.h"
 #include"AddHexagonAction.h"
 #include"AddCircleAction.h"
+#include "AddClearAllAction.h"
+#include "AddDeleteAction.h"
 
 
 //Constructor
@@ -56,6 +58,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 
+		case DRAW_DELETE:
+			pAct = new AddDeleteAction(this); // Delete Selected Figure
+			break;
+		case DRAW_CLEARALL:
+			pAct = new AddClearAllAction(this); // Delete all Figures
+			break;
 
 
 		case DRAW_SAVEGRAPH:

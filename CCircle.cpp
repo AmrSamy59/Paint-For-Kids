@@ -25,21 +25,7 @@ void CCircle::Draw(Output* pOut) const
 bool CCircle::CheckSelection(int x, int y)
 { // point 1 is the center of circle
 
-	bool xselected = false, yselected = false;
-
-	int xmin = point1.x - radius;
-	int xmax= point1.x + radius;
-	int ymin= point1.y - radius;
-	int ymax= point1.y + radius;
-
-	 if ((x >= xmin && x <= xmax) )
-		 xselected = true;
-	 if ((y >= ymin && y <= ymax) )
-		 yselected = true;
-	 if (xselected == true && yselected == true)
-		 return true;
-	 else
-		 return false;
+	return (sqrt(pow((x- point1.x), 2)+pow((y - point1.y), 2)) <= radius);
 }
 
 void CCircle::Save(ofstream& OutFile)
