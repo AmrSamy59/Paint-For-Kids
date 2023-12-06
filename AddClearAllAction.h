@@ -3,7 +3,7 @@
 class AddClearAllAction : public Action
 {
 public:
-	AddClearAllAction();
+	AddClearAllAction(ApplicationManager* pApp);
 	//Reads clear all parameters
 	virtual void ReadActionParameters();
 

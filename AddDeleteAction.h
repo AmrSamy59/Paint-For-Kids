@@ -1,9 +1,11 @@
 #pragma once
 #include "Actions/Action.h"
+#include "Select.h"
+
 class AddDeleteAction : public Action
-{
+{private:
 public:
-	AddDeleteAction();
+	AddDeleteAction(ApplicationManager* pApp);
 	//Reads delete parameters
 	virtual void ReadActionParameters();
 

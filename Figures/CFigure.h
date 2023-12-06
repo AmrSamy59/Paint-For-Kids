@@ -13,8 +13,8 @@ protected:
 	int ID;		//Each figure has an ID
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
-	
 	/// Add more parameters if needed.
+	bool AbleToBeDrawn;
 
 public:
 	CFigure(GfxInfo FigureGfxInfo);
@@ -28,8 +28,9 @@ public:
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 
 	///The following functions should be supported by the figure class
-	///It should be overridden by each inherited figure
-
+	///It should be overridden by each inherited figure/// 
+	void SetFigureAbilityToBeDrawn(bool PermissionToBeDrawn);
+	bool GetFigureAbilityToBeDrawn() const;
 	///Decide the parameters that you should pass to each function	
 
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file

@@ -8,6 +8,8 @@
 #include "AddClearAllAction.h"
 #include "AddDeleteAction.h"
 
+#include <iostream>
+
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -59,7 +61,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 
 		case DRAW_DELETE:
-			pAct = new AddDeleteAction(this); // Delete Selected Figure
+			HandleDeleteOperation();// Delete Selected Figure
+			pOut->PrintMessage("Figure has been deleted succesfully");
 			break;
 		case DRAW_CLEARALL:
 			pAct = new AddClearAllAction(this); // Delete all Figures
@@ -72,7 +75,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_SELECT:
 			pAct = new Select(this);
 			break;
-
 		case EXIT:
 			///create ExitAction here
 			
@@ -90,6 +92,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
+void ApplicationManager::HandleUndoOperation()
+{
+
+}
 void ApplicationManager::Save_All() const
 {
 	ofstream Fout;
@@ -102,7 +108,14 @@ void ApplicationManager::Save_All() const
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
-
+void ApplicationManager::HandleDeleteOperation()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->IsSelected() == true)
+			FigList[i]->SetFigureAbilityToBeDrawn(false);
+	}
+}
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
@@ -146,8 +159,10 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 //Draw all figures on the user interface
 void ApplicationManager::UpdateInterface() const
 {	
+	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
-		FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+		if(FigList[i]->GetFigureAbilityToBeDrawn() == true)
+			FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

@@ -6,6 +6,7 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	ID = Previous_ID++;
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
+	AbleToBeDrawn = true;
 }
 
 void CFigure::SetSelected(bool s)
@@ -21,4 +22,12 @@ void CFigure::ChngFillClr(color Fclr) /// fill color
 {	
 	FigGfxInfo.isFilled = true;
 	FigGfxInfo.FillClr = Fclr; 
+}
+bool CFigure::GetFigureAbilityToBeDrawn() const
+{
+	return AbleToBeDrawn;
+}
+void CFigure::SetFigureAbilityToBeDrawn(bool PermissionToBeDrawn)
+{
+	AbleToBeDrawn = PermissionToBeDrawn;
 }
