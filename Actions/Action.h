@@ -3,6 +3,7 @@
 
 #include "..\DefS.h"
 
+
 class ApplicationManager; //forward class declaration
 
 //Base class for all possible actions
@@ -11,8 +12,8 @@ class Action
 protected:
 	ApplicationManager *pManager;	//Actions needs AppMngr to do their job
 public:
-
-	Action(ApplicationManager *pApp) { pManager = pApp; }	//constructor
+	
+	Action(ApplicationManager* pApp) { pManager = pApp;}	//constructor
 
 	//Reads parameters required for action to execute (code depends on action type)
 	virtual void ReadActionParameters() =0;

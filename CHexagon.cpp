@@ -21,6 +21,28 @@ void CHexagon::Draw(Output* pOut) const
 	pOut->DrawHexagon(center, L, FigGfxInfo, Selected);
 }
 
+void CHexagon::Move(Output* pOut, Point Pm)
+{
+	if (Pm.y + L > (UI.height - UI.StatusBarHeight))
+	{
+		Pm.y = UI.height - UI.StatusBarHeight - L - 1;
+	}
+	if (Pm.y - L < UI.ToolBarHeight)
+	{
+		Pm.y = UI.ToolBarHeight + L + 1;
+	}
+	if (Pm.x + L > UI.width)
+	{
+		Pm.x = UI.width - L - 1;
+	}
+	if (Pm.x - L < 0)
+	{
+		Pm.x = L + 1;
+	}
+	center = Pm;
+	Draw(pOut);
+}
+
 bool CHexagon::CheckSelection(int x, int y)
 {
 	bool selected = false;

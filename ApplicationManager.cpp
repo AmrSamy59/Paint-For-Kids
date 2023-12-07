@@ -7,6 +7,7 @@
 #include"AddCircleAction.h"
 #include "AddClearAllAction.h"
 #include "AddDeleteAction.h"
+#include "Move.h"
 
 #include <iostream>
 
@@ -65,7 +66,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pOut->PrintMessage("Figure has been deleted succesfully");
 			break;
 		case DRAW_CLEARALL:
-			pAct = new AddClearAllAction(this); // Delete all Figures
+		//	pAct = new AddClearAllAction(this); // Delete all Figures
 			break;
 
 
@@ -74,6 +75,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case DRAW_SELECT:
 			pAct = new Select(this);
+			break;
+		case DRAW_MOVE:
+			pAct = new Move(this);
 			break;
 		case EXIT:
 			///create ExitAction here
@@ -137,9 +141,11 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	{
 		if (FigList[i]->CheckSelection(x, y))
 		{
-			for (int j = 0; j < FigCount; j++)
+			int j = 0;
+			while(j < FigCount)
 			{
 				FigList[j]->SetSelected(false);
+				j++;
 			}
 			return FigList[i];
 		}
@@ -150,6 +156,20 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 		FigList[j]->SetSelected(false);
 	}
 
+	return NULL;
+}
+
+CFigure* ApplicationManager::GetSelectedFigure() const
+{
+	int j = 0;
+	while (j < FigCount)
+	{
+		if (FigList[j]->IsSelected())
+		{
+			return FigList[j];
+		}
+		j++;
+	}
 	return NULL;
 }
 //==================================================================================//

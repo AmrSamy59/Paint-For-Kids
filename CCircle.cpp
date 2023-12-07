@@ -22,6 +22,28 @@ void CCircle::Draw(Output* pOut) const
 	pOut->DrawCirc(point1, radius, FigGfxInfo, Selected);
 }
 
+void CCircle::Move(Output* pOut, Point Pm)
+{
+	if (Pm.y + radius > (UI.height - UI.StatusBarHeight))
+	{
+		Pm.y = UI.height - UI.StatusBarHeight - radius - 1;
+	}
+	if (Pm.y - radius < (UI.ToolBarHeight))
+	{
+		Pm.y = UI.ToolBarHeight + radius + 1;
+	}
+	if (Pm.x - radius < 0)
+	{
+		Pm.x = radius + 1;
+	}
+	if (Pm.x + radius > (UI.width))
+	{
+		Pm.x = UI.width - radius - 1;
+	}
+	point1 = Pm;
+	Draw(pOut);
+}
+
 bool CCircle::CheckSelection(int x, int y)
 { // point 1 is the center of circle
 

@@ -13,6 +13,75 @@ void CTriangle::Draw(Output* pOut) const
 	pOut->DrawTriangle(c1, c2, c3, FigGfxInfo, Selected);
 }
 
+void CTriangle::Move(Output* pOut, Point Pm)
+{
+	int diffX, diffY;
+	Point center;
+	center.x = (c1.x + c2.x + c3.x) / 3;
+	center.y = (c1.y + c2.y + c3.y) / 3;
+	int xi = center.x;
+	int yi = center.y;
+	center = Pm;
+	diffX = center.x - xi;
+	diffY = center.y - yi;
+	c1.x += diffX;
+	c1.y += diffY;
+	c2.x += diffX;
+	c2.y += diffY;
+	c3.x += diffX;
+	c3.y += diffY;
+	Point * PxMax,* PyMax, *PxMin, *PyMin;
+	Point arrP[3] = { c1, c2, c3 };
+	PxMax = &c1;
+	PyMax = &c1;
+	PxMin = &c1;
+	PyMin = &c1;
+	for (int i = 0; i < 3; i++)
+	{
+		if (arrP[i].x > PxMax->x)
+			PxMax = &arrP[i];
+		if (arrP[i].x < PxMin->x)
+			PxMin = &arrP[i];
+		if (arrP[i].y > PyMax->y)
+			PyMax = &arrP[i];
+		if (arrP[i].y < PyMin->y)
+			PyMin = &arrP[i];
+	}
+	if (PyMax->y > (UI.height - UI.StatusBarHeight))
+	{
+		int yi2 = PyMax->y;
+		int DiffY2 = UI.height - UI.StatusBarHeight - 1 - yi2;
+		c1.y += DiffY2;
+		c2.y += DiffY2;
+		c3.y += DiffY2;
+	}
+	if (PyMin->y < (UI.ToolBarHeight))
+	{
+		int yi2 = PyMin->y;
+		int DiffY2 = UI.ToolBarHeight + 1 - yi2;
+		c1.y += DiffY2;
+		c2.y += DiffY2;
+		c3.y += DiffY2;
+	}
+	if (PxMax->x > (UI.width))
+	{
+		int xi2 = PxMax->x;
+		int DiffX2 = UI.width - 1 - xi2;
+		c1.x += DiffX2;
+		c2.x += DiffX2;
+		c3.x += DiffX2;
+	}
+	if (PxMin->x < 0)
+	{
+		int xi2 = PxMin->x;
+		int DiffX2 = 1 - xi2;
+		c1.x += DiffX2;
+		c2.x += DiffX2;
+		c3.x += DiffX2;
+	}
+	Draw(pOut);
+}
+
 bool CTriangle::CheckSelection(int x, int y)
 {
 	bool selected=false;

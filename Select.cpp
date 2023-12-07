@@ -13,7 +13,7 @@ void Select::ReadActionParameters()
 
 	pOut->PrintMessage("Please select a figure");
 
-	pIn->GetPointClicked(Ps.x, Ps.y);
+	pIn->GetPointForDrawing(Ps.x, Ps.y, pOut);
 	pOut->ClearStatusBar();
 }
 
@@ -22,7 +22,7 @@ void Select::Execute()
 	ReadActionParameters();	 
 	if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 	{
-		CFigure* selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
+		CFigure *selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
 		selectedFigure->SetSelected(true);
 	}
 }

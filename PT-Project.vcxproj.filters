@@ -184,6 +184,9 @@
     <ClCompile Include="AddDeleteAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
     <ClCompile Include="Delete_Figure.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +309,9 @@
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="AddDeleteAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Delete_Figure.h" />

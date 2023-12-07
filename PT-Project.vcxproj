@@ -184,6 +184,7 @@
     <ClCompile Include="LoadGraph.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Select.cpp" />
+    <ClCompile Include="Move.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddCircleAction.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="Move.h" />
     <ClInclude Include="LoadGraph.h" />
     <ClInclude Include="Select.h" />
     <ClInclude Include="CSquare.h" />

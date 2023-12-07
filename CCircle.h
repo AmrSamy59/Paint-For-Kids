@@ -8,6 +8,7 @@ private:
 public:
 	CCircle(Point, int ,GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
+	virtual void Move(Output* pOut, Point Pm);
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
 

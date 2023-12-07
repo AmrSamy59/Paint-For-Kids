@@ -23,6 +23,28 @@ void CSquare::Draw(Output* pOut) const
 	pOut->DrawSquare(center, L, FigGfxInfo, Selected);
 }
 
+void CSquare::Move(Output* pOut, Point Pm)
+{
+	if ((Pm.y + L) >= (UI.height - UI.StatusBarHeight))
+	{
+		Pm.y = UI.height - UI.StatusBarHeight - L - 1;
+	}
+	if ((Pm.y - L) <= (UI.ToolBarHeight))
+	{
+		Pm.y = UI.ToolBarHeight + L + 1;
+	}
+	if ((Pm.x - L) <= (0))
+	{
+		Pm.x = L + 1;
+	}
+	if ((Pm.x + L) >= (UI.width))
+	{
+		Pm.x = UI.width - L - 1;
+	}
+	center = Pm;
+	Draw(pOut);
+}
+
 bool CSquare::CheckSelection(int x, int y)
 {
 	return (x >= center.x - L && x <= center.x + L && y >= center.y - L && y <= center.y + L);
