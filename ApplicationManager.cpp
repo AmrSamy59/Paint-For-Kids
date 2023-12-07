@@ -8,6 +8,7 @@
 #include "AddClearAllAction.h"
 #include "AddDeleteAction.h"
 #include "Move.h"
+#include "Switch.h"
 
 #include <iostream>
 
@@ -79,6 +80,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_MOVE:
 			pAct = new Move(this);
 			break;
+
+		case TO_PLAY:
+			pAct = new Switch(this);
+			break;
+		case DRAW_ITM_DRAWMODE:
+			pAct = new Switch(this);   
+			break;
+		
 		case EXIT:
 			///create ExitAction here
 			

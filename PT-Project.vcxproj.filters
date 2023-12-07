@@ -188,6 +188,9 @@
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Delete_Figure.cpp" />
+    <ClCompile Include="Switch.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -315,6 +318,9 @@
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Delete_Figure.h" />
+    <ClInclude Include="Switch.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
