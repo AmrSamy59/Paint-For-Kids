@@ -25,7 +25,6 @@ void AddDeleteAction::ReadActionParameters()
 		else
 			break;
 	}
-
 }
 //Add delete to the ApplicationManager
 void AddDeleteAction::Execute()

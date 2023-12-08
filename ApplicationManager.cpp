@@ -185,15 +185,19 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	
 	for (int i = FigCount - 1; i >= 0; i--) // Prioritize last added items
 	{
-		if (FigList[i]->CheckSelection(x, y) && FigList[i] != NULL)
+		if (FigList[i] != NULL)
 		{
-			int j = 0;
-			while(j < FigCount)
+			if (FigList[i]->CheckSelection(x, y))
 			{
-				FigList[j]->SetSelected(false);
-				j++;
+				int j = 0;
+				while (j < FigCount)
+				{
+					if (FigList[j] != NULL)
+						FigList[j]->SetSelected(false);
+					j++;
+				}
+				return FigList[i];
 			}
-			return FigList[i];
 		}
 	}
 
@@ -226,7 +230,7 @@ void ApplicationManager::UpdateInterface() const
 {	
 	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
-		if(FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn() == true )
+		if(FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn() == true)
 			FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
 }
 
