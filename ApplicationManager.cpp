@@ -9,6 +9,7 @@
 #include "AddDeleteAction.h"
 #include "Move.h"
 #include "UndoAction.h"
+#include "Switch.h"
 
 #include <iostream>
 
@@ -80,6 +81,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_UNDO:
 			ExecuteUndoAction();
 			break;
+
+		case TO_PLAY:
+			pAct = new Switch(this);
+			break;
+		case DRAW_ITM_DRAWMODE:
+			pAct = new Switch(this);   
+			break;
+		
 		case EXIT:
 			///create ExitAction here
 			
