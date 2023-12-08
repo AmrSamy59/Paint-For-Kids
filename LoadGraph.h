@@ -9,7 +9,7 @@ public:
 
 	// Reads graph parameters
 	virtual void ReadActionParameters();
-
+	virtual void UndoAction();
 	// Loads the graph
 	virtual void Execute();
 };

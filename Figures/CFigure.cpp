@@ -1,4 +1,5 @@
 #include "CFigure.h"
+#include <iostream>
 
 CFigure::CFigure(GfxInfo FigureGfxInfo)
 { //constractor

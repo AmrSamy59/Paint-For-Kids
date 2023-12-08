@@ -11,7 +11,7 @@ public:
 
 	//Reads square parameters
 	virtual void ReadActionParameters();
-
+	virtual void UndoAction();
 	//Add square to the ApplicationManager
 	virtual void Execute();
 

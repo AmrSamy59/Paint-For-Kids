@@ -3,6 +3,8 @@
 
 #include "Action.h"
 
+
+
 //Add Rectangle Action class
 class AddRectAction: public Action
 {
@@ -14,10 +16,9 @@ public:
 
 	//Reads rectangle parameters
 	virtual void ReadActionParameters();
-	
+	virtual void UndoAction();
 	//Add rectangle to the ApplicationManager
 	virtual void Execute() ;
-	
 };
 
 #endif

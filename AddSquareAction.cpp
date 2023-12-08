@@ -3,6 +3,8 @@
 #include"ApplicationManager.h"
 #include"GUI/Input.h"
 #include"GUI/Output.h"
+#include "AddDeleteAction.h"
+
 AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
 {}
 
@@ -31,4 +33,15 @@ void AddSquareAction::Execute()
 	CSquare* sq = new CSquare(CENTER, squareGfxInfo);
 	// add square to list of figures 
 	pManager->AddFigure(sq);
+}
+void AddSquareAction::UndoAction()
+{
+	CFigure* LastDrawnSquare = pManager->GetTheLastDrawnObject();
+	LastDrawnSquare->SetSelected(true);
+	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
+	pDelete->Execute();
+	delete LastDrawnSquare;
+	delete pDelete;
+	LastDrawnSquare = NULL;
+	pDelete = NULL;
 }

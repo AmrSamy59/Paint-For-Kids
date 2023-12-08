@@ -3,6 +3,8 @@
 #include"ApplicationManager.h"
 #include"GUI/Input.h"
 #include"GUI/Output.h"
+#include "AddDeleteAction.h"
+
 AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 {
 }
@@ -42,4 +44,15 @@ void AddCircleAction::Execute()
 
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(C);
+}
+void AddCircleAction::UndoAction()
+{
+	CFigure* LastDrawnCircle = pManager->GetTheLastDrawnObject();
+	LastDrawnCircle->SetSelected(true);
+	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
+	pDelete->Execute();
+	delete LastDrawnCircle;
+	delete pDelete;
+	LastDrawnCircle = NULL;
+	pDelete = NULL;
 }

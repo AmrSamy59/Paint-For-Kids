@@ -3,7 +3,6 @@
 
 #include "..\DefS.h"
 
-
 class ApplicationManager; //forward class declaration
 
 //Base class for all possible actions
@@ -14,10 +13,9 @@ protected:
 public:
 	
 	Action(ApplicationManager* pApp) { pManager = pApp;}	//constructor
-
+	virtual void UndoAction() = 0;
 	//Reads parameters required for action to execute (code depends on action type)
 	virtual void ReadActionParameters() =0;
-	
 	//Execute action (code depends on action type)
 	virtual void Execute() =0;
 

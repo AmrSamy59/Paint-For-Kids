@@ -187,7 +187,6 @@
     <ClCompile Include="Move.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Delete_Figure.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -314,7 +313,6 @@
     <ClInclude Include="Move.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Delete_Figure.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

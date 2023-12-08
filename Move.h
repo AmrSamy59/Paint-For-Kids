@@ -12,6 +12,7 @@ public:
 	Move(ApplicationManager* pApp);
 	virtual void ReadActionParameters();
 	virtual void Execute();
+	virtual void UndoAction();
 };
 
 #endif // !_MOVE_H

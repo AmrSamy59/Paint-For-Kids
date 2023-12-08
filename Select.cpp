@@ -10,7 +10,7 @@ void Select::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-
+	
 	pOut->PrintMessage("Please select a figure");
 
 	pIn->GetPointForDrawing(Ps.x, Ps.y, pOut);
@@ -26,4 +26,7 @@ void Select::Execute()
 		selectedFigure->SetSelected(true);
 	}
 }
+void Select::UndoAction()
+{
 
+}

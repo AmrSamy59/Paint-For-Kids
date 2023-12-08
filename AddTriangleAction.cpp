@@ -3,6 +3,7 @@
 #include"ApplicationManager.h"
 #include"GUI/Input.h"
 #include"GUI/Output.h"
+#include "AddDeleteAction.h"
 
 AddTriangleAction::AddTriangleAction(ApplicationManager* pApp):Action(pApp)
 {
@@ -50,4 +51,15 @@ void AddTriangleAction::Execute()
 	//Add the triandle to the list of figures
 	pManager->AddFigure(T);
 
+}
+void AddTriangleAction::UndoAction()
+{
+	CFigure* LastDrawnTriangle = pManager->GetTheLastDrawnObject();
+	LastDrawnTriangle->SetSelected(true);
+	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
+	pDelete->Execute();
+	delete LastDrawnTriangle;
+	delete pDelete;
+	LastDrawnTriangle = NULL;
+	pDelete = NULL;
 }

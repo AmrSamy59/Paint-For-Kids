@@ -3,6 +3,7 @@
 #include"ApplicationManager.h"
 #include"GUI/Input.h"
 #include"GUI/Output.h"
+#include "AddDeleteAction.h"
 
 AddHexagonAction::AddHexagonAction(ApplicationManager* pApp):Action(pApp)
 {
@@ -37,4 +38,15 @@ void AddHexagonAction::Execute()
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(hexa);
 
+}
+void AddHexagonAction::UndoAction()
+{
+	CFigure* LastDrawnHexagon = pManager->GetTheLastDrawnObject();
+	LastDrawnHexagon->SetSelected(true);
+	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
+	pDelete->Execute();
+	delete LastDrawnHexagon;
+	delete pDelete;
+	LastDrawnHexagon = NULL;
+	pDelete = NULL;
 }

@@ -1,6 +1,8 @@
 #ifndef _ADD_CIRCLE_ACTION_H
 #define _ADD_CIRCLE_ACTION_H
+
 #include"Actions/Action.h"
+
 class AddCircleAction :public Action
 {
 private:
@@ -8,7 +10,7 @@ private:
 	GfxInfo CircleGfxInfo;
 public:
 	AddCircleAction(ApplicationManager* pApp);
-
+	virtual void UndoAction();
 	//Reads circle parameters
 	virtual void ReadActionParameters();
 

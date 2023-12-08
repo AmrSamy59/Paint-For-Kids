@@ -1,9 +1,10 @@
 #include "AddRectAction.h"
-#include "..\Figures\CRectangle.h"
 #include "..\ApplicationManager.h"
-
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
+#include "../Figures/CRectangle.h"
+#include "../AddDeleteAction.h"
+#include "../Figures/CFigure.h"
 
 AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
 {}
@@ -30,9 +31,18 @@ void AddRectAction::ReadActionParameters()
 	RectGfxInfo.FillClr = pOut->getCrntFillColor();
 
 	pOut->ClearStatusBar();
-
 }
-
+void AddRectAction::UndoAction()
+{
+	CFigure* LastDrawnRect = pManager->GetTheLastDrawnObject();
+	LastDrawnRect->SetSelected(true);
+	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
+	pDelete->Execute();
+	delete LastDrawnRect;
+	delete pDelete;
+	LastDrawnRect = NULL;
+	pDelete = NULL;
+}
 //Execute the action
 void AddRectAction::Execute() 
 {
@@ -40,7 +50,7 @@ void AddRectAction::Execute()
 	ReadActionParameters();
 	
 	//Create a rectangle with the parameters read from the user
-	CRectangle *R=new CRectangle(P1, P2, RectGfxInfo);
+	CRectangle* R = new CRectangle(P1, P2, RectGfxInfo);
 	
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(R);

@@ -3,6 +3,7 @@
 
 #include "DEFS.h"
 #include "Figures\CFigure.h"
+#include "Actions/Action.h"
 #include "GUI\input.h"
 #include "GUI\output.h"
 
@@ -17,6 +18,7 @@ private:
 
 	CFigure* SelectedFig; //Pointer to the selected figure
 
+	Action* ActionList[MaxFigCount];
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -34,9 +36,11 @@ public:
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
+	void ExecuteUndoAction();
 
-	void HandleDeleteOperation();
-	void HandleUndoOperation();
+	CFigure* GetTheLastDrawnObject() const;
+
+	void AddAction(Action* pAction);
 	void Save_All() const;
 		
 	// -- Interface Management Functions

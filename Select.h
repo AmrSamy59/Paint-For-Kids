@@ -11,5 +11,6 @@ public :
 	Select(ApplicationManager* pApp);
 	virtual void ReadActionParameters();
 	virtual void Execute();
+	virtual void UndoAction();
 };
 #endif 

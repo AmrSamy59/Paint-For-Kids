@@ -13,3 +13,7 @@ void AddClearAllAction::Execute()
 {
 
 }
+void AddClearAllAction::UndoAction()
+{
+
+}

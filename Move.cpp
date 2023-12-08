@@ -31,3 +31,7 @@ void Move::Execute()
 		pManager->GetSelectedFigure()->Move(pOut, Pf);
 	}
 }
+void Move::UndoAction()
+{
+
+}
