@@ -203,7 +203,8 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 
 	for (int j = 0; j < FigCount; j++)
 	{
-		FigList[j]->SetSelected(false);
+		if (FigList[j] != NULL)
+			FigList[j]->SetSelected(false);
 	}
 
 	return NULL;
