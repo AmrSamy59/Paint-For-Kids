@@ -1,8 +1,8 @@
-#include "AddDeleteAction.h"
+#include "DeleteAction.h"
 #include "GUI\Output.h"
 #include "GUI/Input.h"
 #include "ApplicationManager.h"
-#include "Select.h"
+#include "SelectAction.h"
 
 AddDeleteAction::AddDeleteAction(ApplicationManager* pApp):Action(pApp)
 {

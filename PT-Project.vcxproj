@@ -129,8 +129,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AddCircleAction.cpp" />
-    <ClCompile Include="AddClearAllAction.cpp" />
-    <ClCompile Include="AddDeleteAction.cpp" />
+    <ClCompile Include="ClearAllAction.cpp" />
+    <ClCompile Include="DeleteAction.cpp" />
     <ClCompile Include="AddHexagonAction.cpp" />
     <ClCompile Include="AddSquareAction.cpp" />
     <ClCompile Include="AddTriangleAction.cpp" />
@@ -180,16 +180,16 @@
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
-    <ClCompile Include="LoadGraph.cpp" />
+    <ClCompile Include="LoadGraphAction.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Select.cpp" />
-    <ClCompile Include="Move.cpp" />
-    <ClCompile Include="Switch.cpp" />
+    <ClCompile Include="SelectAction.cpp" />
+    <ClCompile Include="MoveAction.cpp" />
+    <ClCompile Include="SwitchAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AddCircleAction.h" />
-    <ClInclude Include="AddClearAllAction.h" />
-    <ClInclude Include="AddDeleteAction.h" />
+    <ClInclude Include="ClearAllAction.h" />
+    <ClInclude Include="DeleteAction.h" />
     <ClInclude Include="AddHexagonAction.h" />
     <ClInclude Include="AddSquareAction.h" />
     <ClInclude Include="AddTriangleAction.h" />
@@ -225,10 +225,10 @@
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="DEFS.h" />
-    <ClInclude Include="Switch.h" />
-    <ClInclude Include="Move.h" />
-    <ClInclude Include="LoadGraph.h" />
-    <ClInclude Include="Select.h" />
+    <ClInclude Include="SwitchAction.h" />
+    <ClInclude Include="MoveAction.h" />
+    <ClInclude Include="LoadGraphAction.h" />
+    <ClInclude Include="SelectAction.h" />
     <ClInclude Include="CSquare.h" />
   </ItemGroup>
   <ItemGroup>

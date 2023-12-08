@@ -1,4 +1,4 @@
-#include "Select.h"
+#include "SelectAction.h"
 #include "GUI\Output.h"
 #include "GUI/Input.h"
 #include "ApplicationManager.h"
@@ -13,7 +13,7 @@ void Select::ReadActionParameters()
 	
 	pOut->PrintMessage("Please select a figure");
 
-	pIn->GetPointForDrawing(Ps.x, Ps.y, pOut);
+	pIn->GetPointClicked(Ps.x, Ps.y);
 	pOut->ClearStatusBar();
 }
 
@@ -24,6 +24,9 @@ void Select::Execute()
 	{
 		CFigure *selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
 		selectedFigure->SetSelected(true);
+	}
+	else {
+		pManager->GetOutput()->PrintMessage("No object was selected.");
 	}
 }
 void Select::UndoAction()

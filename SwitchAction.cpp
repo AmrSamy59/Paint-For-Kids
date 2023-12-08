@@ -1,4 +1,4 @@
-#include "Switch.h"
+#include "SwitchAction.h"
 #include "ApplicationManager.h"
 #include "GUI/Output.h"
 

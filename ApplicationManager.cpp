@@ -2,14 +2,14 @@
 #include "Actions\AddRectAction.h"
 #include"AddSquareAction.h"
 #include"AddTriangleAction.h"
-#include "Select.h"
+#include "SelectAction.h"
 #include"AddHexagonAction.h"
 #include"AddCircleAction.h"
-#include "AddClearAllAction.h"
-#include "AddDeleteAction.h"
-#include "Move.h"
+#include "ClearAllAction.h"
+#include "DeleteAction.h"
+#include "MoveAction.h"
 #include "UndoAction.h"
-#include "Switch.h"
+#include "SwitchAction.h"
 
 #include <iostream>
 

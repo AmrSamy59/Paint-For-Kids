@@ -3,7 +3,7 @@
 #include"ApplicationManager.h"
 #include"GUI/Input.h"
 #include"GUI/Output.h"
-#include "AddDeleteAction.h"
+#include "DeleteAction.h"
 
 AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 {

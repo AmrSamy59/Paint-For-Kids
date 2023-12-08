@@ -3,7 +3,7 @@
 #include"ApplicationManager.h"
 #include"GUI/Input.h"
 #include"GUI/Output.h"
-#include "AddDeleteAction.h"
+#include "DeleteAction.h"
 
 AddHexagonAction::AddHexagonAction(ApplicationManager* pApp):Action(pApp)
 {

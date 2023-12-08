@@ -126,7 +126,7 @@ bool CTriangle::CheckSelection(int x, int y)
 	if (_x3 >= x && _x3 <= xmax && _x3 >= xmin)
 		count++;
 
-	if (y >= xmin && y <= xmax && y >= ymin && y <= ymax)
+	if (x >= xmin && x <= xmax && y >= ymin && y <= ymax)
 		selected = true;
 
 

@@ -1,4 +1,4 @@
-#include "AddClearAllAction.h"
+#include "ClearAllAction.h"
 
 AddClearAllAction::AddClearAllAction(ApplicationManager* pApp) :Action(pApp)
 {
