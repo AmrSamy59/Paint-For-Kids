@@ -12,7 +12,10 @@ void Switch::ReadActionParameters()
 	if (UI.InterfaceMode == MODE_DRAW)
 		switch1 = 1;
 }
+void Switch::UndoAction()
+{
 
+}
 void Switch::Execute()
 {
 	ReadActionParameters();

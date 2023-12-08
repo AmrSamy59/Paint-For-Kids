@@ -8,7 +8,7 @@ class Switch : public Action
 public:
 	Switch(ApplicationManager* pApp);
 
-	
+	virtual void UndoAction();
 	virtual void ReadActionParameters();
 
 	
