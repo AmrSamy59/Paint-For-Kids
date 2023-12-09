@@ -47,7 +47,9 @@ Output::Output()
 	// Colors 
 	UI.c_rows = 2; // number of rows
 	UI.c_cols = 3; // number of columns
-	UI.drawColors = { new string[UI.c_rows * UI.c_cols] {"Red", "Green", "Blue", "Purple", "Orange", "Yellow" } };
+	UI.drawColors = { new string[UI.c_rows * UI.c_cols] { "Red", "Green", "Blue", "Purple", "Orange", "Yellow" } };
+	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, GREEN, BLUE, PURPLE, ORANGE, YELLOW  } };
+
 	UI.colorIconSize = 25; // px
 	
 	// Labels
@@ -253,6 +255,20 @@ void Output::SetSelectedColor(int i)
 {
 	selectedColor = i;
 }
+string Output::GetColorName(color c) {
+	for (int i = 0; i < UI.c_cols * UI.c_rows; i++) {
+		if (c == UI.drawColorsEq[i])
+			return UI.drawColors[i];
+	}
+	return "NO_COLOR";
+}
+color Output::GetColorFromName(string cname) {
+	for (int i = 0; i < UI.c_cols * UI.c_rows; i++) {
+		if (cname == UI.drawColors[i])
+			return UI.drawColorsEq[i];
+	}
+	return false;
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 
 color Output::getCrntDrawColor() const	//get current drawing color
@@ -415,6 +431,7 @@ Output::~Output()
 {
 	delete pWind;
 	delete[] UI.drawColors;
+	delete[] UI.drawColorsEq;
 	delete[] UI.DrawMenuLabels;
 	delete[] UI.PlayMenuLabels;
 }

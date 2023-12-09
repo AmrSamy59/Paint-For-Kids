@@ -34,6 +34,8 @@ public:
 	void PrintMessage(string msg) const;	//Print a message on Status bar
 	int GetSelectedColor() const;
 	void SetSelectedColor(int i);
+	static string GetColorName(color c);
+	static color GetColorFromName(string cname);
 	color getCrntDrawColor() const;	//get current drwawing color
 	color getCrntFillColor() const;	//get current filling color
 	int getCrntPenWidth() const;		//get current pen width

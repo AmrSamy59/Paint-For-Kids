@@ -1,27 +1,21 @@
 #include "ApplicationManager.h"
-#include "Actions\AddRectAction.h"
-#include"AddSquareAction.h"
-#include"AddTriangleAction.h"
-#include "SelectAction.h"
-#include"AddHexagonAction.h"
-#include"AddCircleAction.h"
-#include "ClearAllAction.h"
-#include "DeleteAction.h"
-#include "MoveAction.h"
-#include "UndoAction.h"
-#include "SwitchAction.h"
 
-#include <iostream>
+
 
 //Constructor
 ApplicationManager::ApplicationManager()
 {
 	//Create Input and output
+	UI.graphsDir = "GraphsData";
+	UI.graphsFile = "graphs.txt";
+
+	fs::create_directory(UI.graphsDir); // Create Graphs Directory if not exists
+
 	pOut = new Output;
 	pIn = pOut->CreateInput();
 	
 	FigCount = 0;
-		
+	ActionsCount = 0;
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 	{
@@ -72,6 +66,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_SAVEGRAPH:
 			Save_All();
 			break;
+		case DRAW_LOADGRAPH:
+			pAct = new LoadGraph(this);
+			break;
 		case DRAW_SELECT:
 			pAct = new Select(this);
 			break;
@@ -107,8 +104,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 }
 void ApplicationManager::AddAction(Action *pAction)
 {
-	if (FigCount < MaxFigCount)
-		ActionList[FigCount++] = pAction;
+	if (ActionsCount < MaxActionsCount)
+		ActionList[ActionsCount++] = pAction;
 }
 CFigure* ApplicationManager::GetTheLastDrawnObject() const
 {
@@ -156,11 +153,87 @@ void ApplicationManager::ExecuteUndoAction()
 void ApplicationManager::Save_All() const
 {
 	ofstream Fout;
-	Fout.open("test.txt");
-	for (int i = 0; i < FigCount; i++)
-		FigList[i]->Save(Fout);
-	pOut->PrintMessage("Graph has been saved succesfully");
-	Fout.close();
+	if (FigCount == 0) {
+		pOut->PrintMessage("There are no figures to save.");
+		return;
+	}
+	pOut->PrintMessage("Enter file name, Use your keyboard to type (Press ESC to cancel) .");
+	string fname = pIn->GetSrting(pOut);
+	if (fname == "") {
+		pOut->PrintMessage("Operation cancelled.");
+	}
+	if (!(fname.length() >= 4 && fname.substr(fname.length() - 4) == ".txt")) {
+		fname += ".txt";
+	}
+
+	string fpath = UI.graphsDir + "/" + fname;
+
+	Fout.open(fpath);
+	if (Fout.is_open()) {
+		for (int i = 0; i < FigCount; i++)
+			FigList[i]->Save(Fout);
+		
+		int fcount;
+		string* graphFiles = GetGraphFiles(fcount);
+		ofstream gFile;
+		gFile.open(UI.graphsFile);
+		if (gFile.is_open()) {
+			for (int i = 0; i < fcount; i++) {
+				gFile << graphFiles[i] << endl;
+			}
+			gFile << fname << endl;
+
+			delete[] graphFiles;
+			gFile.close();
+		}
+		
+		pOut->PrintMessage("Graph has been saved succesfully to: " + fpath);
+		Fout.close();
+	}
+	else {
+		pOut->PrintMessage("Failed to save graph to: " + fpath);
+	}
+}
+
+string* ApplicationManager::GetGraphFiles(int& lineCount) const
+{
+	ifstream gFile;
+	gFile.open(UI.graphsFile);
+
+	if (gFile.is_open()) {
+		string line;
+		int lcount = 0;
+
+		// Read the file line by line
+		while (getline(gFile, line)) { // I know it's more practical to use vectors in that case, but since we it wasn't in our course scope sooo..
+			lcount++;
+		}
+
+		// Reset the file position to the beginning
+		gFile.clear();
+		gFile.seekg(0, ios::beg);
+
+		// Allocate memory for the array
+		string* lines = new string[lcount];
+
+		// Read the file line by line
+		int lid = 0;
+		for (int i = 0; i < lcount; ++i) {
+			getline(gFile, line);
+			if (fs::exists(UI.graphsDir + "/" + line)) // Only get real graph files
+				lines[lid++] = line;
+		}
+
+		lineCount = lid;
+
+		// Close the file when done
+		gFile.close();
+
+		return lines;
+	}
+	else {
+		return {};
+	}
 }
 //==================================================================================//
 //						Figures Management Functions								//
@@ -170,7 +243,7 @@ void ApplicationManager::Save_All() const
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
 	if (FigCount < MaxFigCount)
-		FigList[FigCount] = pFig;
+		FigList[FigCount++] = pFig;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const

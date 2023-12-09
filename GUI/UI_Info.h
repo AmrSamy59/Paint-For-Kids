@@ -85,12 +85,16 @@ struct UI_Info	//User Interface Info.
 	// Colors
 	int c_rows;
 	int c_cols;
-	string *drawColors;
+	string* drawColors; // Colors Labels
+	color* drawColorsEq; // Equivalent Colors
 	int colorIconSize;
 
 	// Icon Labels
 	string *DrawMenuLabels;
 	string *PlayMenuLabels;
+	// Saved Graphs DIr
+	string graphsDir;
+	string graphsFile; // To keep track of saved files
 
 
 }UI;	//create a global object UI
