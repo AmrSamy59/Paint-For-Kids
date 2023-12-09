@@ -36,7 +36,7 @@ void AddSquareAction::Execute()
 }
 void AddSquareAction::UndoAction()
 {
-	CFigure* LastDrawnSquare = pManager->GetTheLastDrawnObject();
+	CFigure* LastDrawnSquare = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
 	LastDrawnSquare->SetSelected(true);
 	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
 	pDelete->Execute();

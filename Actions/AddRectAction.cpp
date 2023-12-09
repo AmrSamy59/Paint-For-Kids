@@ -34,7 +34,7 @@ void AddRectAction::ReadActionParameters()
 }
 void AddRectAction::UndoAction()
 {
-	CFigure* LastDrawnRect = pManager->GetTheLastDrawnObject();
+	CFigure* LastDrawnRect = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
 	LastDrawnRect->SetSelected(true);
 	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
 	pDelete->Execute();
