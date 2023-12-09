@@ -41,7 +41,7 @@ void AddHexagonAction::Execute()
 }
 void AddHexagonAction::UndoAction()
 {
-	CFigure* LastDrawnHexagon = pManager->GetTheLastDrawnObject();
+	CFigure* LastDrawnHexagon = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
 	LastDrawnHexagon->SetSelected(true);
 	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
 	pDelete->Execute();

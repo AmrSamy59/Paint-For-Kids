@@ -33,7 +33,7 @@ class ApplicationManager
 
 private:
 	int FigCount;		//Actual number of figures
-	int ActionsCount;
+	int Action_Count;
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 
 	CFigure* SelectedFig; //Pointer to the selected figure
@@ -44,6 +44,11 @@ private:
 	Output *pOut;
 
 public:	
+	typedef enum
+	{
+		DRAWN,
+		DELETED
+	}Required_Task_t;
 	ApplicationManager(); 
 	~ApplicationManager();
 	
@@ -58,7 +63,7 @@ public:
 	CFigure* GetSelectedFigure() const;
 	void ExecuteUndoAction();
 
-	CFigure* GetTheLastDrawnObject() const;
+	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
 	void AddAction(Action* pAction);
 	void Save_All() const;

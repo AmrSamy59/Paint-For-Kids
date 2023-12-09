@@ -1,4 +1,5 @@
 #include "ApplicationManager.h"
+#include "SwitchAction.h"
 
 
 
@@ -15,7 +16,7 @@ ApplicationManager::ApplicationManager()
 	pIn = pOut->CreateInput();
 	
 	FigCount = 0;
-	ActionsCount = 0;
+	Action_Count = 0;
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 	{
@@ -102,48 +103,81 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		AddAction(pAct);//You may need to change this line depending to your implementation
 	}
 }
-void ApplicationManager::AddAction(Action *pAction)
-{
-	if (ActionsCount < MaxActionsCount)
-		ActionList[ActionsCount++] = pAction;
-}
-CFigure* ApplicationManager::GetTheLastDrawnObject() const
-{
-	static unsigned short i;
-	static unsigned short PrevPassedFigCount = 0;
-	if (PrevPassedFigCount != FigCount)
+
+CFigure* ApplicationManager::GetTheLastDrawnObject(Required_Task_t task)
+	if (task == DRAWN)
 	{
-		PrevPassedFigCount = FigCount;
-		i = 1;
-	}
-	while (1) {
-		if (ActionList[FigCount - i])
+		static unsigned short i;
+		static unsigned short PrevPassedFigCount = 0;
+		if (PrevPassedFigCount != FigCount)
 		{
-			return FigList[FigCount - i++];
+			PrevPassedFigCount = FigCount;
+			i = 1;
 		}
-		else
-			i++;
+		while (1) {
+			if (FigList[FigCount - i])
+			{
+				return FigList[FigCount - i++];
+			}
+			else
+				i++;
+		}
 	}
+	else if (task == DELETED)
+	{
+		for (unsigned short j = FigCount-1;j > 0;j--)
+		{
+			if (FigList[j] != NULL && FigList[j]->GetFigureAbilityToBeDrawn() == false)
+			{
+				return FigList[j];
+			}
+		}
+	}
+}
 }
 void ApplicationManager::ExecuteUndoAction()
 {
 	static unsigned short i;
+	static unsigned short k;
+	static unsigned short PrevPassedActionCount = 0;
 	static unsigned short PrevPassedFigCount = 0;
 	if (PrevPassedFigCount != FigCount)
 	{
 		PrevPassedFigCount = FigCount;
+		k = 1;
+	}
+	if (PrevPassedActionCount != Action_Count)
+	{
+		PrevPassedActionCount = Action_Count;
 		i = 1;
 	}
 	while (1)
 	{
-		if (ActionList[FigCount - i])
+		if (i > Action_Count)
 		{
-			ActionList[FigCount - i]->UndoAction();
-			if (dynamic_cast<AddRectAction*>(ActionList[FigCount - i]) != NULL || dynamic_cast<AddSquareAction*>(ActionList[FigCount - i]) != NULL
-				|| dynamic_cast<AddHexagonAction*>(ActionList[FigCount - i]) != NULL || dynamic_cast<AddCircleAction*>(ActionList[FigCount - i]) != NULL
-				|| dynamic_cast<AddTriangleAction*>(ActionList[FigCount - i]) != NULL)
-				FigList[FigCount - i] = NULL;
-			ActionList[FigCount - i++] = NULL;
+			pOut->PrintMessage("No more actions to be undoed");
+			ActionType ActType = GetUserAction();
+			ExecuteAction(ActType);
+			break;
+		}
+		else if (ActionList[Action_Count - i])
+		{
+			ActionList[Action_Count - i]->UndoAction();
+			if (dynamic_cast<AddRectAction*>(ActionList[Action_Count - i]) != NULL || dynamic_cast<AddSquareAction*>(ActionList[Action_Count - i]) != NULL
+				|| dynamic_cast<AddHexagonAction*>(ActionList[Action_Count - i]) != NULL || dynamic_cast<AddCircleAction*>(ActionList[Action_Count - i]) != NULL
+				|| dynamic_cast<AddTriangleAction*>(ActionList[Action_Count - i]) != NULL)
+			{
+				FigList[FigCount - k++] = NULL;
+				i++;
+			}
+			for (unsigned short j = Action_Count-1;j >= 0;j--)
+			{
+				if (ActionList[j] != NULL)
+				{
+					ActionList[j] = NULL;
+					break;
+				}
+			}
 			break;
 		}
 		else
@@ -238,7 +272,11 @@ string* ApplicationManager::GetGraphFiles(int& lineCount) const
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
-
+//Add an Action to the list of Actions
+void ApplicationManager::AddAction(Action* pAction)
+{
+	ActionList[Action_Count++] = pAction;
+}
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
@@ -258,19 +296,16 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	
 	for (int i = FigCount - 1; i >= 0; i--) // Prioritize last added items
 	{
-		if (FigList[i] != NULL)
+		if (FigList[i] != NULL && FigList[i]->CheckSelection(x, y))
 		{
-			if (FigList[i]->CheckSelection(x, y))
+			int j = 0;
+			while (j < FigCount)
 			{
-				int j = 0;
-				while (j < FigCount)
-				{
-					if (FigList[j] != NULL)
-						FigList[j]->SetSelected(false);
-					j++;
-				}
-				return FigList[i];
+				if (FigList[j] != NULL)
+					FigList[j]->SetSelected(false);
+				j++;
 			}
+			return FigList[i];
 		}
 	}
 
@@ -304,8 +339,8 @@ void ApplicationManager::UpdateInterface() const
 {	
 	pOut->ClearDrawArea();
 	for(int i=0; i<FigCount; i++)
-		if(FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn() == true)
-			FigList[i]->Draw(pOut);		//Call Draw function (virtual member fn)
+		if (FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn() == true)
+			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

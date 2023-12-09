@@ -37,8 +37,6 @@ void AddTriangleAction::ReadActionParameters()
 	triangleGfxInfo.FillClr = pOut->getCrntFillColor();
 
 	pOut->ClearStatusBar();
-
-
 }
 
 void AddTriangleAction::Execute()
@@ -54,7 +52,7 @@ void AddTriangleAction::Execute()
 }
 void AddTriangleAction::UndoAction()
 {
-	CFigure* LastDrawnTriangle = pManager->GetTheLastDrawnObject();
+	CFigure* LastDrawnTriangle = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
 	LastDrawnTriangle->SetSelected(true);
 	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
 	pDelete->Execute();

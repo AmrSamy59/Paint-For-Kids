@@ -4,6 +4,7 @@
 #include "ApplicationManager.h"
 #include "SelectAction.h"
 
+
 AddDeleteAction::AddDeleteAction(ApplicationManager* pApp):Action(pApp)
 {
 
@@ -32,9 +33,11 @@ void AddDeleteAction::Execute()
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
 	Selected_Figure->SetFigureAbilityToBeDrawn(false);
+	Selected_Figure->SetSelected(false);
 	pOut->PrintMessage("Figure has been deleted succesfully");
 }
 void AddDeleteAction::UndoAction()
 {
-
+	Selected_Figure = pManager->GetTheLastDrawnObject(ApplicationManager::DELETED);
+	Selected_Figure->SetFigureAbilityToBeDrawn(true);
 }

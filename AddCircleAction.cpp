@@ -47,7 +47,7 @@ void AddCircleAction::Execute()
 }
 void AddCircleAction::UndoAction()
 {
-	CFigure* LastDrawnCircle = pManager->GetTheLastDrawnObject();
+	CFigure* LastDrawnCircle = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
 	LastDrawnCircle->SetSelected(true);
 	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
 	pDelete->Execute();
