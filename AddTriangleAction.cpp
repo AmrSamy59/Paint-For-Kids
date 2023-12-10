@@ -1,9 +1,5 @@
 #include "AddTriangleAction.h"
-#include"CTriangle.h"
-#include"ApplicationManager.h"
-#include"GUI/Input.h"
-#include"GUI/Output.h"
-#include "DeleteAction.h"
+
 
 AddTriangleAction::AddTriangleAction(ApplicationManager* pApp):Action(pApp)
 {

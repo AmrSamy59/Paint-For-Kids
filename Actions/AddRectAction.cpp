@@ -1,10 +1,5 @@
 #include "AddRectAction.h"
-#include "..\ApplicationManager.h"
-#include "..\GUI\input.h"
-#include "..\GUI\Output.h"
-#include "../Figures/CRectangle.h"
-#include "../DeleteAction.h"
-#include "../Figures/CFigure.h"
+
 
 AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
 {}

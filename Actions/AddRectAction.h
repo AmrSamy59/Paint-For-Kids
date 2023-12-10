@@ -3,7 +3,12 @@
 
 #include "Action.h"
 
-
+#include "..\ApplicationManager.h"
+#include "..\GUI\input.h"
+#include "..\GUI\Output.h"
+#include "../Figures/CRectangle.h"
+#include "../DeleteAction.h"
+#include "../Figures/CFigure.h"
 
 //Add Rectangle Action class
 class AddRectAction: public Action

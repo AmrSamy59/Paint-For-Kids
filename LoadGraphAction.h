@@ -6,6 +6,13 @@
 #include"GUI/Input.h"
 #include"GUI/Output.h"
 #include "DeleteAction.h"
+#include <iostream>
+#include "Figures\CFigure.h"
+#include "Actions\AddRectAction.h"
+#include"AddSquareAction.h"
+#include"AddTriangleAction.h"
+#include"AddHexagonAction.h"
+#include"AddCircleAction.h"
 
 class LoadGraph : public Action
 {
@@ -14,6 +21,8 @@ public:
 
 	// Reads graph parameters
 	LoadGraph(ApplicationManager* pApp);
+	void Load(string fName);
+	string* GetOptionParameters(string line, string option, string delimiter);
 	virtual void ReadActionParameters();
 	virtual void UndoAction();
 	// Loads the graph

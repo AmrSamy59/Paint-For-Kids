@@ -61,5 +61,5 @@ void CRectangle::Save(ofstream& OutFile)
 	string fcname = Output::GetColorName(FigGfxInfo.isFilled ? FigGfxInfo.FillClr : false); // Fill color
 	string dcname = Output::GetColorName(FigGfxInfo.DrawClr); // Draw color
 
-	OutFile << "RECT" << "\t" << ID << "\t" << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t" << fcname << "\t" << dcname << endl;
+	OutFile << "RECT" << "\t" << ID << "\t" << Corner1.x << "\t" << Corner1.y << "\t" << Corner2.x << "\t" << Corner2.y << "\t" << dcname << "\t" << fcname << endl;
 }

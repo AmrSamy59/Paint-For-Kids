@@ -15,7 +15,6 @@
 #include "ClearAllAction.h"
 #include "DeleteAction.h"
 #include "MoveAction.h"
-#include "UndoAction.h"
 #include "SwitchAction.h"
 #include "LoadGraphAction.h"
 
@@ -29,7 +28,7 @@ namespace fs = std::filesystem; // in < C++14, #include <expermintal/filesystem>
 //Main class that manages everything in the application.
 class ApplicationManager
 {
-	enum { MaxActionsCount = 10, MaxFigCount = 200 };	//Max no of figures
+	enum { MaxFigCount = 200 };	//Max no of figures
 
 private:
 	int FigCount;		//Actual number of figures
@@ -38,7 +37,7 @@ private:
 
 	CFigure* SelectedFig; //Pointer to the selected figure
 
-	Action* ActionList[MaxActionsCount];
+	Action* ActionList[MaxFigCount];
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -66,6 +65,7 @@ public:
 	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
 	void AddAction(Action* pAction);
+	void ClearAll();
 	void Save_All() const;
 
 	string* GetGraphFiles(int& lineCount) const;

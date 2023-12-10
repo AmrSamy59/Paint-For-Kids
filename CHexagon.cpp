@@ -102,5 +102,5 @@ void CHexagon::Save(ofstream& OutFile)
 	string fcname = Output::GetColorName(FigGfxInfo.isFilled ? FigGfxInfo.FillClr : false); // Fill color
 	string dcname = Output::GetColorName(FigGfxInfo.DrawClr); // Draw color
 
-	OutFile << "HEXAGON" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << L << "\t" << fcname << "\t" << dcname << endl;
+	OutFile << "HEXAGON" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << L << "\t" << dcname << "\t" << fcname << endl;
 }

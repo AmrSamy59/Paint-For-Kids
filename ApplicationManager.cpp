@@ -104,7 +104,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 }
 
-CFigure* ApplicationManager::GetTheLastDrawnObject(Required_Task_t task)
+CFigure* ApplicationManager::GetTheLastDrawnObject(Required_Task_t task) {
 	if (task == DRAWN)
 	{
 		static unsigned short i;
@@ -133,7 +133,6 @@ CFigure* ApplicationManager::GetTheLastDrawnObject(Required_Task_t task)
 			}
 		}
 	}
-}
 }
 void ApplicationManager::ExecuteUndoAction()
 {
@@ -184,6 +183,10 @@ void ApplicationManager::ExecuteUndoAction()
 			i++;
 	}
 }
+
+void ApplicationManager::ClearAll() {
+
+}
 void ApplicationManager::Save_All() const
 {
 	ofstream Fout;
@@ -201,9 +204,13 @@ void ApplicationManager::Save_All() const
 	}
 
 	string fpath = UI.graphsDir + "/" + fname;
-
+	
 	Fout.open(fpath);
 	if (Fout.is_open()) {
+
+		Fout << "SETTINGS" << "\t" << pOut->GetColorName(UI.DrawColor) << "\t" << pOut->GetColorName(UI.FillColor) << endl;
+		Fout << "FIGCOUNT" << "\t" << FigCount << endl;
+
 		for (int i = 0; i < FigCount; i++)
 			FigList[i]->Save(Fout);
 		
@@ -275,7 +282,8 @@ string* ApplicationManager::GetGraphFiles(int& lineCount) const
 //Add an Action to the list of Actions
 void ApplicationManager::AddAction(Action* pAction)
 {
-	ActionList[Action_Count++] = pAction;
+	if (Action_Count < MaxFigCount)
+		ActionList[Action_Count++] = pAction;
 }
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)

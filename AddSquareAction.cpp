@@ -1,9 +1,5 @@
 #include "AddSquareAction.h"
-#include"CSquare.h"
-#include"ApplicationManager.h"
-#include"GUI/Input.h"
-#include"GUI/Output.h"
-#include "DeleteAction.h"
+
 
 AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
 {}
