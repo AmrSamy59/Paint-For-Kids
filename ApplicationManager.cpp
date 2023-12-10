@@ -1,5 +1,6 @@
 #include "ApplicationManager.h"
 #include "SwitchAction.h"
+#include "ExitAction.h"
 
 
 
@@ -61,7 +62,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddDeleteAction(this);// Delete Selected Figure
 			break;
 		case DRAW_CLEARALL:
-		//	pAct = new AddClearAllAction(this); // Delete all Figures
+			pAct = new AddClearAllAction(this); // Delete all Figures
 			break;
 
 		case DRAW_SAVEGRAPH:
@@ -89,7 +90,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		
 		case EXIT:
 			///create ExitAction here
-			
+			pAct = new Exit(this);
 			break;
 		
 		case STATUS:	//a click on the status bar ==> no action
@@ -100,6 +101,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct != NULL)
 	{
 		pAct->Execute();//Execute
+		delete pAct;
 		AddAction(pAct);//You may need to change this line depending to your implementation
 	}
 }
@@ -185,8 +187,17 @@ void ApplicationManager::ExecuteUndoAction()
 }
 
 void ApplicationManager::ClearAll() {
-
+	for (int i = 0; i <MaxFigCount; i++)
+	{
+		if(FigList[i] != NULL)
+			FigList[i] = NULL;
+		if (ActionList[i] != NULL)
+			ActionList[i] = NULL;
+	}
+	FigCount = 0;
+	Action_Count = 0;
 }
+
 void ApplicationManager::Save_All() const
 {
 	ofstream Fout;

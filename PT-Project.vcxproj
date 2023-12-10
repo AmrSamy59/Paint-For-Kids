@@ -186,6 +186,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SelectAction.cpp" />
     <ClCompile Include="MoveAction.cpp" />
+    <ClCompile Include="ExitAction.cpp" />
     <ClCompile Include="SwitchAction.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +228,7 @@
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="ExitAction.h" />
     <ClInclude Include="SwitchAction.h" />
     <ClInclude Include="MoveAction.h" />
     <ClInclude Include="LoadGraphAction.h" />
