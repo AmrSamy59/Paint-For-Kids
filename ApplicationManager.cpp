@@ -1,6 +1,6 @@
 #include "ApplicationManager.h"
-#include "SwitchAction.h"
-#include "ExitAction.h"
+#include "Actions/SwitchAction.h"
+#include "Actions/ExitAction.h"
 
 
 

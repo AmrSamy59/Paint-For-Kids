@@ -1,6 +1,6 @@
 #ifndef _EXIT_H
 #define _EXIT_H
-#include "../Actions/Action.h"
+#include "Action.h"
 
 class Exit : public Action
 {

@@ -1,5 +1,5 @@
 #include "ExitAction.h"
-#include "..\ApplicationManager.h"
+#include "../ApplicationManager.h"
 
 
 Exit::Exit(ApplicationManager* pApp) : Action(pApp)
