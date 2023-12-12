@@ -208,12 +208,6 @@
     <ClCompile Include="PlayMode\PlayBytype.cpp">
       <Filter>PlayMode</Filter>
     </ClCompile>
-    <ClCompile Include="PlayMode\Playmode.cpp">
-      <Filter>PlayMode</Filter>
-    </ClCompile>
-    <ClCompile Include="ExitAction.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -357,12 +351,6 @@
     </ClInclude>
     <ClInclude Include="PlayMode\PlayBytype.h">
       <Filter>PlayMode</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayMode\Playmode.h">
-      <Filter>PlayMode</Filter>
-    </ClInclude>
-    <ClInclude Include="ExitAction.h">
-      <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

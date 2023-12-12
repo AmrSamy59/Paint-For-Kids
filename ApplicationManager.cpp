@@ -437,9 +437,10 @@ string ApplicationManager::radnomfigure()
 		return "hexagon";
 	else if (dynamic_cast<CCircle*>(Playlist[randomnumber]) != NULL)
 		return "circle";
-
+	
 	
 }
+
 
 int ApplicationManager::getrectanglecount()
 {
@@ -465,6 +466,14 @@ int ApplicationManager::getheaxgoncount()
 int ApplicationManager::getcirclecount()
 {
 	return circlecount;
+}
+
+void ApplicationManager::drawinplaymode()
+{
+	this->playmode();
+
+	for (int i = 0; i < FigCount; i++)
+		Playlist[i]->SetFigureAbilityToBeDrawn(true);
 }
 	
 

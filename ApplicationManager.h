@@ -17,7 +17,7 @@
 #include "Actions\MoveAction.h"
 #include "Actions\SwitchAction.h"
 #include "Actions\LoadGraphAction.h"
-#include"PlayMode\Playmode.h"
+#include"PlayMode/PlayBytype.h"
 #include "Actions\ExitAction.h"
 #include <fstream>
 #include <filesystem>
@@ -65,6 +65,7 @@ public:
 	int gettrianglecount();
 	int getheaxgoncount();
 	int getcirclecount();
+	void drawinplaymode();
 	
 	
 

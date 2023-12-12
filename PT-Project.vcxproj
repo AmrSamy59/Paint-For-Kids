@@ -192,7 +192,6 @@
     <ClCompile Include="PlayMode\PlayByboth.cpp" />
     <ClCompile Include="PlayMode\PlayBycolor.cpp" />
     <ClCompile Include="PlayMode\PlayBytype.cpp" />
-    <ClCompile Include="PlayMode\Playmode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -243,7 +242,6 @@
     <ClInclude Include="PlayMode\PlayByboth.h" />
     <ClInclude Include="PlayMode\PlayBycolor.h" />
     <ClInclude Include="PlayMode\PlayBytype.h" />
-    <ClInclude Include="PlayMode\Playmode.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
