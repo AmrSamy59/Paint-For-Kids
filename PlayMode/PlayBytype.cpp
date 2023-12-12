@@ -96,7 +96,7 @@ Output* pout = pManager->GetOutput();
 		}
 		
 	}
-	pout->PrintMessage(" You have got  " + to_string(rightcount) + " correct figuers from " + to_string(falsecount+rightcount)+" click ");
+	pout->PrintMessage(" You have got  " + to_string(rightcount) + " correct figuers and choose " + to_string(falsecount)+" wrong figuers "+"         "+" click any where to done");
 	
 
 	
