@@ -42,11 +42,11 @@ private:
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
-	int rectanglecount;
-	int squarecount;
-	int trianglecount;
-	int hexagoncount;
-	int circlecount;
+	int Rectanglecount;
+	int Squarecount;
+	int Trianglecount;
+	int Hexagoncount;
+	int Circlecount;
 	
 	//int arrayofcount[5] = {rectanglecount,squarecount,trianglecount,hexagoncount,circlecount};
 
@@ -59,16 +59,19 @@ public:
 	}Required_Task_t;
 	ApplicationManager(); 
 	~ApplicationManager();
-	void playmode();
-	int getrectanglecount();
-	int getsquarecount();
-	int gettrianglecount();
-	int getheaxgoncount();
-	int getcirclecount();
-	void drawinplaymode();
-	
-	
-
+	/// 
+	/// PLAY MODE FUNCTIONS////////////////////////////////////////////////////////////////////////
+	/// 
+	void Playlistformation();
+	int Getrectanglecount();
+	int Getsquarecount();
+	int Gettrianglecount();
+	int Getheaxgoncount();
+	int Getcirclecount();
+	void Drawinplaymode();
+	string Randomfigure();
+	void Playmodecounter();
+	/////////////////////// PLAY MODE FUNCTION END ///////////////////////////////////////////
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
 	ActionType GetUserAction() const;
@@ -79,14 +82,14 @@ public:
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
 	void ExecuteUndoAction();
-	int figcount();
-	string radnomfigure();
+	
+	
 	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
 	void AddAction(Action* pAction);
 	void ClearAll();
 	void Save_All() const;
-	void playmodecounter();
+	
 	string* GetGraphFiles(int& lineCount) const;
 	//CFigure* Getplaylist();
 	// -- Interface Management Functions

@@ -29,11 +29,7 @@ ApplicationManager::ApplicationManager()
 		ActionList[i] = NULL;
 		Playlist[i] = NULL;
 	}
-	 rectanglecount=0;
-	 squarecount=0;
-	 trianglecount=0;
-	 hexagoncount=0;
-	 circlecount=0;
+
 
 }
 
@@ -397,40 +393,40 @@ Input *ApplicationManager::GetInput() const
 Output *ApplicationManager::GetOutput() const
 {	return pOut; }
 ////////////////////////////////////////////////////////////////////////////////////
-void ApplicationManager::playmode() {
+void ApplicationManager::Playlistformation() {
 	for (int i = 0; i < FigCount; i++) {
 
 		Playlist[i] = FigList[i];
 
 	}
 }
-void ApplicationManager::playmodecounter()
+void ApplicationManager::Playmodecounter()
 {
-	rectanglecount = 0;
-	trianglecount = 0;
-	squarecount = 0;
-	hexagoncount = 0;
-	circlecount = 0;
+	Rectanglecount = 0;
+	Trianglecount = 0;
+	Squarecount = 0;
+	Hexagoncount = 0;
+	Circlecount = 0;
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (FigList[i]->GetFigureAbilityToBeDrawn()) {
 			if (dynamic_cast<CRectangle*>(Playlist[i]) != NULL)
-				rectanglecount++;
+				Rectanglecount++;
 			else if (dynamic_cast<CTriangle*>(Playlist[i]) != NULL)
-				trianglecount++;
+				Trianglecount++;
 			else if (dynamic_cast<CSquare*>(Playlist[i]) != NULL)
-				squarecount++;
+				Squarecount++;
 			else if (dynamic_cast<CHexagon*>(Playlist[i]) != NULL)
-				hexagoncount++;
+				Hexagoncount++;
 			else if (dynamic_cast<CCircle*>(Playlist[i]) != NULL)
-				circlecount++;
+				Circlecount++;
 		}
 	}
 	
 }
 
 
-string ApplicationManager::radnomfigure()
+string ApplicationManager::Randomfigure()
 {
 	int randomnumber = rand() % FigCount;
 	if (dynamic_cast<CRectangle*>(Playlist[randomnumber]) != NULL)
@@ -448,35 +444,35 @@ string ApplicationManager::radnomfigure()
 }
 
 
-int ApplicationManager::getrectanglecount()
+int ApplicationManager::Getrectanglecount()
 {
 	
-	return rectanglecount;
+	return Rectanglecount;
 }
 
-int ApplicationManager::getsquarecount()
+int ApplicationManager::Getsquarecount()
 {
-	return squarecount;
+	return Squarecount;
 }
 
-int ApplicationManager::gettrianglecount()
+int ApplicationManager::Gettrianglecount()
 {
-	return trianglecount;
+	return Trianglecount;
 }
 
-int ApplicationManager::getheaxgoncount()
+int ApplicationManager::Getheaxgoncount()
 {
-	return hexagoncount;
+	return Hexagoncount;
 }
 
-int ApplicationManager::getcirclecount()
+int ApplicationManager::Getcirclecount()
 {
-	return circlecount;
+	return Circlecount;
 }
 
-void ApplicationManager::drawinplaymode()
+void ApplicationManager::Drawinplaymode()
 {
-	this->playmode();
+	this->Playlistformation();
 
 	for (int i = 0; i < FigCount; i++)
 	{

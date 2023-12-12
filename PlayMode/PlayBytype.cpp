@@ -20,36 +20,35 @@ void Playmode::Execute()
 	//Get a Pointer to the Input / Output Interfaces
 Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
-	pManager->playmode();
-	pManager->playmodecounter();
-	int rectanglecount = pManager->getrectanglecount();
-	int squarecount = pManager->getsquarecount();
-	int trianglecount = pManager->gettrianglecount();
-	int hexagoncount = pManager->getheaxgoncount();
-	int circlecount = pManager->getcirclecount();
-	int figuerscount=0;
-	int rightcount=0;
-	int falsecount=0;
-	int arrayofcount[5] = { rectanglecount,squarecount,trianglecount,hexagoncount,circlecount };
+	pManager->Playlistformation();
+	pManager->Playmodecounter();
+	int Rectanglecount = pManager->Getrectanglecount();
+	int Squarecount = pManager->Getsquarecount();
+	int Trianglecount = pManager->Gettrianglecount();
+	int Hexagoncount = pManager->Getheaxgoncount();
+	int Circlecount = pManager->Getcirclecount();
+	int Figuerscount=0;
+	int Rightcount=0;
+	int Falsecount=0;
+	int arrayofcount[5] = { Rectanglecount,Squarecount,Trianglecount,Hexagoncount,Circlecount };
 	for (int i = 0; i < 5; i++) {
 
-		figuerscount += arrayofcount[i];
+		Figuerscount += arrayofcount[i];
 	}
-	int figureindex=0;
-	string radnomfig = pManager->radnomfigure();
-
+	int Figureindex=0;
+	string randomfig = pManager->Randomfigure();
 	for (int i = 0; i < 5; i++) {
-		if (radnomfig == figuers[i])
-			figureindex = i;
+		if (randomfig == figuers[i])
+			Figureindex = i;
 	}
-	pout->PrintMessage(" pick " + to_string(arrayofcount[figureindex]) + " " + this->figuers[figureindex] + " ");
+	pout->PrintMessage(" pick " + to_string(arrayofcount[Figureindex]) + " " + this->figuers[Figureindex] + " ");
 	
 	
 	for (int i = 0; i < 200; i++)
 	{
-		if (rightcount == arrayofcount[figureindex])
+		if (Rightcount == arrayofcount[Figureindex])
 			break;
-		pout->PrintMessage(" pick " + to_string(arrayofcount[figureindex]) + " " + this->figuers[figureindex]  + " ");
+		pout->PrintMessage(" pick " + to_string(arrayofcount[Figureindex]) + " " + this->figuers[Figureindex]  + " ");
 		pin->GetPointForDrawing(Ps.x, Ps.y,pout);
 
 		pout->ClearStatusBar();
@@ -60,49 +59,47 @@ Output* pout = pManager->GetOutput();
 			ptrfigure->SetSelected(true);
 			ptrfigure->SetFigureAbilityToBeDrawn(false);
 			pManager->UpdateInterface();
-			if (figuers[figureindex] == "rectangle")
+			if (figuers[Figureindex] == "rectangle")
 			{
 				if (dynamic_cast<CRectangle*>(ptrfigure) != NULL)
-					rightcount++;
+					Rightcount++;
 				else
-					falsecount++;
+					Falsecount++;
 			}
-			else if (figuers[figureindex] == "square") {
+			else if (figuers[Figureindex] == "square") {
 				if (dynamic_cast<CSquare*>(ptrfigure) != NULL)
-					rightcount++;
+					Rightcount++;
 				else
-					falsecount++;
+					Falsecount++;
 			}
-			else if (figuers[figureindex] == "triangle") {
+			else if (figuers[Figureindex] == "triangle") {
 				if (dynamic_cast<CTriangle*>(ptrfigure) != NULL)
-					rightcount++;
+					Rightcount++;
 				else
-					falsecount++;
+					Falsecount++;
 			}
-			else if (figuers[figureindex] == "hexagon") {
+			else if (figuers[Figureindex] == "hexagon") {
 				if (dynamic_cast<CHexagon*>(ptrfigure) != NULL)
-					rightcount++;
+					Rightcount++;
 				else
-					falsecount++;
+					Falsecount++;
 			}
-			else if (figuers[figureindex] == "circle") {
+			else if (figuers[Figureindex] == "circle") {
 				if (dynamic_cast<CCircle*>(ptrfigure) != NULL)
-					rightcount++;
+					Rightcount++;
 				else
-					falsecount++;
+					Falsecount++;
 			}
 		
 	
 		}
 		
 	}
-	pout->PrintMessage(" You have got  " + to_string(rightcount) + " correct figuers and choose " + to_string(falsecount)+" wrong figuers "+"         "+" click any where to done");
-	
+	pout->PrintMessage(" You have got  " + to_string(Rightcount) + " correct figuers and choose " + to_string(Falsecount)+" wrong figuers "+"         "+" click any where to done");
 
-	cout << figuerscount << endl;
 	pin->GetPointClicked(Ps.x, Ps.y);
 	pout->ClearStatusBar();
-	pManager->drawinplaymode();
+	pManager->Drawinplaymode();
 	
 	
 
