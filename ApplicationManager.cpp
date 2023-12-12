@@ -120,8 +120,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct != NULL)
 	{
 		pAct->Execute();//Execute
-		delete pAct;
 		AddAction(pAct);//You may need to change this line depending to your implementation
+		delete pAct;
 	}
 }
 
