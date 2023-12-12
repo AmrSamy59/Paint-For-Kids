@@ -1,7 +1,7 @@
 #ifndef _SELECT_H
 #define _SELECT_H
 
-#include "Actions/Action.h"
+#include "../Actions/Action.h"
 
 class Select : public Action
 {

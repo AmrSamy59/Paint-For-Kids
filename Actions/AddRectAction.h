@@ -1,13 +1,13 @@
 #ifndef ADD_RECT_ACTION_H
 #define ADD_RECT_ACTION_H
 
-#include "Action.h"
+#include "..\Actions\Action.h"
 
 #include "..\ApplicationManager.h"
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
 #include "../Figures/CRectangle.h"
-#include "../DeleteAction.h"
+#include "../Actions/DeleteAction.h"
 #include "../Figures/CFigure.h"
 
 //Add Rectangle Action class

@@ -1,6 +1,6 @@
 #pragma once
-#include "Actions/Action.h"
-#include "Figures/CFigure.h"
+#include "../Actions/Action.h"
+#include "../Figures/CFigure.h"
 
 class AddDeleteAction : public Action
 {private:

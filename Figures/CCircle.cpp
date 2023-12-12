@@ -1,5 +1,6 @@
 #include "CCircle.h"
 #include <cmath>
+static int circlecount = 0;
 CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	point1 = P1;
@@ -20,6 +21,7 @@ CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 void CCircle::Draw(Output* pOut) const
 {
 	pOut->DrawCirc(point1, radius, FigGfxInfo, Selected);
+	circlecount++;
 }
 
 void CCircle::Move(Output* pOut, Point Pm)

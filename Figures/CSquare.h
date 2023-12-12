@@ -1,6 +1,6 @@
 #ifndef CSQUARE_H
 #define CSQUARE_H
-#include "Figures/CFigure.h"
+#include "../Figures/CFigure.h"
 //#include "DEFS.h"
 class CSquare : public CFigure {
 private:

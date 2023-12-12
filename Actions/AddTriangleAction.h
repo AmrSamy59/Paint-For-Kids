@@ -1,11 +1,11 @@
 #ifndef ADD_TRIANGLE_ACTION_H
 #define ADD_TRIANGLE_ACTION_H
-#include"Actions/Action.h"
-#include"CTriangle.h"
-#include"ApplicationManager.h"
-#include"GUI/Input.h"
-#include"GUI/Output.h"
-#include "DeleteAction.h"
+#include"../Actions/Action.h"
+#include"../Figures\CTriangle.h"
+#include"../ApplicationManager.h"
+#include "../GUI/Input.h"
+#include "../GUI/Output.h"
+#include "..\Actions\DeleteAction.h"
 class AddTriangleAction :public Action
 {
 private:

@@ -1,6 +1,6 @@
 #include "SwitchAction.h"
-#include "ApplicationManager.h"
-#include "GUI/Output.h"
+#include "..\ApplicationManager.h"
+#include "../GUI/Output.h"
 
 Switch::Switch(ApplicationManager* pApp) :Action(pApp)
 {}

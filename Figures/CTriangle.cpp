@@ -1,6 +1,6 @@
 #include "CTriangle.h"
 
-
+static int trianglecount = 0;
 CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
 {
 	c1 = p1;
@@ -11,6 +11,7 @@ CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo):CFigur
 void CTriangle::Draw(Output* pOut) const
 {
 	pOut->DrawTriangle(c1, c2, c3, FigGfxInfo, Selected);
+	trianglecount++;
 }
 
 void CTriangle::Move(Output* pOut, Point Pm)

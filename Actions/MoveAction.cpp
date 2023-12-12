@@ -1,7 +1,7 @@
 #include "MoveAction.h"
-#include "ApplicationManager.h"
-#include "GUI/Output.h"
-#include "GUI/Input.h"
+#include "..\ApplicationManager.h"
+#include "../GUI/Output.h"
+#include "..\GUI\Input.h"
 
 Move::Move(ApplicationManager* pApp) : Action(pApp)
 {}
@@ -27,9 +27,9 @@ void Move::Execute()
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
 	if (pManager->GetSelectedFigure() != NULL)
-	{
+	
 		pManager->GetSelectedFigure()->Move(pOut, Pf);
-	}
+	
 }
 void Move::UndoAction()
 {

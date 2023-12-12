@@ -1,5 +1,6 @@
 #include "ApplicationManager.h"
-#include "SwitchAction.h"
+
+
 
 
 
@@ -17,13 +18,24 @@ ApplicationManager::ApplicationManager()
 	
 	FigCount = 0;
 	Action_Count = 0;
+
+
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 	{
 		FigList[i] = NULL;
 		ActionList[i] = NULL;
+		Playlist[i] = NULL;
 	}
+	 rectanglecount=0;
+	 squarecount=0;
+	 trianglecount=0;
+	 hexagoncount=0;
+	 circlecount=0;
+
 }
+
+
 
 //==================================================================================//
 //								Actions Related Functions							//
@@ -61,7 +73,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddDeleteAction(this);// Delete Selected Figure
 			break;
 		case DRAW_CLEARALL:
-		//	pAct = new AddClearAllAction(this); // Delete all Figures
+			pAct = new AddClearAllAction(this); // Delete all Figures
 			break;
 
 		case DRAW_SAVEGRAPH:
@@ -86,23 +98,36 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_ITM_DRAWMODE:
 			pAct = new Switch(this);   
 			break;
-		
+		case DRAW_ITM_BYTYPE:
+			pAct = new Playmode(this);
+			break;
+		case DRAW_ITM_BYCOLOR:
+			//		pAct = new PlayBycolor(this);
+			break;
+		case DRAW_ITM_BYBOTH:
+			//		pAct = new PlayBycolor(this);
+			break;
 		case EXIT:
 			///create ExitAction here
-			
+			pAct = new Exit(this);
 			break;
 		
 		case STATUS:	//a click on the status bar ==> no action
 			return;
 	}
+
+
 	
 	//Execute the created action
 	if(pAct != NULL)
 	{
 		pAct->Execute();//Execute
+		delete pAct;
 		AddAction(pAct);//You may need to change this line depending to your implementation
 	}
 }
+
+
 
 CFigure* ApplicationManager::GetTheLastDrawnObject(Required_Task_t task) {
 	if (task == DRAWN)
@@ -185,8 +210,17 @@ void ApplicationManager::ExecuteUndoAction()
 }
 
 void ApplicationManager::ClearAll() {
-
+	for (int i = 0; i <MaxFigCount; i++)
+	{
+		if(FigList[i] != NULL)
+			FigList[i] = NULL;
+		if (ActionList[i] != NULL)
+			ActionList[i] = NULL;
+	}
+	FigCount = 0;
+	Action_Count = 0;
 }
+
 void ApplicationManager::Save_All() const
 {
 	ofstream Fout;
@@ -235,6 +269,8 @@ void ApplicationManager::Save_All() const
 		pOut->PrintMessage("Failed to save graph to: " + fpath);
 	}
 }
+
+
 
 string* ApplicationManager::GetGraphFiles(int& lineCount) const
 {
@@ -359,6 +395,78 @@ Input *ApplicationManager::GetInput() const
 Output *ApplicationManager::GetOutput() const
 {	return pOut; }
 ////////////////////////////////////////////////////////////////////////////////////
+void ApplicationManager::playmode() {
+	for (int i = 0; i < FigCount; i++) {
+
+		Playlist[i] = FigList[i];
+
+	}
+}
+void ApplicationManager::playmodecounter()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->GetFigureAbilityToBeDrawn()) {
+			if (dynamic_cast<CRectangle*>(Playlist[i]) != NULL)
+				rectanglecount++;
+			else if (dynamic_cast<CTriangle*>(Playlist[i]) != NULL)
+				trianglecount++;
+			else if (dynamic_cast<CSquare*>(Playlist[i]) != NULL)
+				squarecount++;
+			else if (dynamic_cast<CHexagon*>(Playlist[i]) != NULL)
+				hexagoncount++;
+			else if (dynamic_cast<CCircle*>(Playlist[i]) != NULL)
+				circlecount++;
+		}
+	}
+}
+
+
+string ApplicationManager::radnomfigure()
+{
+	int randomnumber = rand() % FigCount;
+	if (dynamic_cast<CRectangle*>(Playlist[randomnumber]) != NULL)
+		return "retangle";
+	else if (dynamic_cast<CTriangle*>(Playlist[randomnumber]) != NULL)
+		return "triangle";
+	else if (dynamic_cast<CSquare*>(Playlist[randomnumber]) != NULL)
+		return "square";
+	else if (dynamic_cast<CHexagon*>(Playlist[randomnumber]) != NULL)
+		return "hexagon";
+	else if (dynamic_cast<CCircle*>(Playlist[randomnumber]) != NULL)
+		return "circle";
+
+	
+}
+
+int ApplicationManager::getrectanglecount()
+{
+	
+	return rectanglecount;
+}
+
+int ApplicationManager::getsquarecount()
+{
+	return squarecount;
+}
+
+int ApplicationManager::gettrianglecount()
+{
+	return trianglecount;
+}
+
+int ApplicationManager::getheaxgoncount()
+{
+	return hexagoncount;
+}
+
+int ApplicationManager::getcirclecount()
+{
+	return circlecount;
+}
+	
+
+
 //Destructor
 ApplicationManager::~ApplicationManager()
 {

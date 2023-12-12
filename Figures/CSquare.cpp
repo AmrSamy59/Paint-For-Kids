@@ -1,5 +1,5 @@
 #include "CSquare.h"
-
+static int squarecount = 0;
 CSquare::CSquare(Point C, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 {
 	center = C;
@@ -21,6 +21,7 @@ CSquare::CSquare(Point C, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 void CSquare::Draw(Output* pOut) const
 { 
 	pOut->DrawSquare(center, L, FigGfxInfo, Selected);
+	squarecount++;
 }
 
 void CSquare::Move(Output* pOut, Point Pm)

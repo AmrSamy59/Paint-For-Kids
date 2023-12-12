@@ -1,7 +1,7 @@
-#include "SelectAction.h"
-#include "GUI\Output.h"
-#include "GUI/Input.h"
-#include "ApplicationManager.h"
+#include "..\Actions\SelectAction.h"
+#include "..\GUI\Output.h"
+#include "..\GUI\Input.h"
+#include "..\ApplicationManager.h"
 
 Select::Select(ApplicationManager* pApp) :Action(pApp)
 {}

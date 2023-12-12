@@ -3,21 +3,22 @@
 
 #include "DEFS.h"
 #include "Figures\CFigure.h"
-#include "Actions/Action.h"
+#include "Actions\Action.h"
 #include "GUI\input.h"
 #include "GUI\output.h"
 #include "Actions\AddRectAction.h"
-#include"AddSquareAction.h"
-#include"AddTriangleAction.h"
-#include "SelectAction.h"
-#include"AddHexagonAction.h"
-#include"AddCircleAction.h"
-#include "ClearAllAction.h"
-#include "DeleteAction.h"
-#include "MoveAction.h"
-#include "SwitchAction.h"
-#include "LoadGraphAction.h"
-
+#include"Actions\AddSquareAction.h"
+#include"Actions\AddTriangleAction.h"
+#include "Actions\SelectAction.h"
+#include"Actions\AddHexagonAction.h"
+#include"Actions\AddCircleAction.h"
+#include "Actions\ClearAllAction.h"
+#include "Actions\DeleteAction.h"
+#include "Actions\MoveAction.h"
+#include "Actions\SwitchAction.h"
+#include "Actions\LoadGraphAction.h"
+#include"PlayMode\Playmode.h"
+#include "Actions\ExitAction.h"
 #include <fstream>
 #include <filesystem>
 
@@ -36,13 +37,21 @@ private:
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 
 	CFigure* SelectedFig; //Pointer to the selected figure
-
+	CFigure* Playlist[MaxFigCount];
 	Action* ActionList[MaxFigCount];
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
+	int rectanglecount;
+	int squarecount;
+	int trianglecount;
+	int hexagoncount;
+	int circlecount;
+	
+	//int arrayofcount[5] = {rectanglecount,squarecount,trianglecount,hexagoncount,circlecount};
 
 public:	
+
 	typedef enum
 	{
 		DRAWN,
@@ -50,7 +59,15 @@ public:
 	}Required_Task_t;
 	ApplicationManager(); 
 	~ApplicationManager();
+	void playmode();
+	int getrectanglecount();
+	int getsquarecount();
+	int gettrianglecount();
+	int getheaxgoncount();
+	int getcirclecount();
 	
+	
+
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
 	ActionType GetUserAction() const;
@@ -61,15 +78,16 @@ public:
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
 	void ExecuteUndoAction();
-
+	int figcount();
+	string radnomfigure();
 	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
 	void AddAction(Action* pAction);
 	void ClearAll();
 	void Save_All() const;
-
+	void playmodecounter();
 	string* GetGraphFiles(int& lineCount) const;
-		
+	//CFigure* Getplaylist();
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output

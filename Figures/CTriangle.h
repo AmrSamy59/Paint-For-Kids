@@ -1,6 +1,6 @@
 #ifndef _CTRIANGLR_H
 #define _CTRIANGLR_H
-#include"Figures/CFigure.h"
+#include"../Figures\CFigure.h"
 class CTriangle :public CFigure {
 private:
 	Point c1, c2, c3;

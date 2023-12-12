@@ -1,6 +1,6 @@
 #ifndef _MOVE_H
 #define _MOVE_H
-#include "Actions/Action.h"
+#include "../Actions/Action.h"
 
 
 class Move : public Action

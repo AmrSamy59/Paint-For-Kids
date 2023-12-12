@@ -1,6 +1,6 @@
 #ifndef _SWITCH_H
 #define _SWITCH_H
-#include "Actions/Action.h"
+#include "../Actions/Action.h"
 
 class Switch : public Action
 {

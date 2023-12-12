@@ -1,5 +1,6 @@
 #include "CHexagon.h"
 #include<cmath>
+static int hexagoncount = 0;
 CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 {
 	center = c;
@@ -19,6 +20,7 @@ CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 void CHexagon::Draw(Output* pOut) const
 {
 	pOut->DrawHexagon(center, L, FigGfxInfo, Selected);
+	hexagoncount++;
 }
 
 void CHexagon::Move(Output* pOut, Point Pm)
