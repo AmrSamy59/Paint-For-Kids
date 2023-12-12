@@ -406,6 +406,11 @@ void ApplicationManager::playmode() {
 }
 void ApplicationManager::playmodecounter()
 {
+	rectanglecount = 0;
+	trianglecount = 0;
+	squarecount = 0;
+	hexagoncount = 0;
+	circlecount = 0;
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (FigList[i]->GetFigureAbilityToBeDrawn()) {
@@ -421,6 +426,7 @@ void ApplicationManager::playmodecounter()
 				circlecount++;
 		}
 	}
+	
 }
 
 
@@ -473,7 +479,12 @@ void ApplicationManager::drawinplaymode()
 	this->playmode();
 
 	for (int i = 0; i < FigCount; i++)
+	{
 		Playlist[i]->SetFigureAbilityToBeDrawn(true);
+		Playlist[i]->SetSelected(false);
+	}
+		
+
 }
 	
 

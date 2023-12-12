@@ -99,10 +99,11 @@ Output* pout = pManager->GetOutput();
 	pout->PrintMessage(" You have got  " + to_string(rightcount) + " correct figuers and choose " + to_string(falsecount)+" wrong figuers "+"         "+" click any where to done");
 	
 
-	
+	cout << figuerscount << endl;
 	pin->GetPointClicked(Ps.x, Ps.y);
+	pout->ClearStatusBar();
 	pManager->drawinplaymode();
-	ptrfigure->SetSelected(false);
+	
 	
 
 
