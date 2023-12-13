@@ -426,6 +426,17 @@ void ApplicationManager::Playmodecounter()
 }
 
 
+void ApplicationManager::PlayModeClear()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (Playlist[i] != NULL)
+		{
+			Playlist[i] = NULL;
+		}
+	}
+}
+
 string ApplicationManager::Randomfigure()
 {
 	int randomnumber = rand() % FigCount;

@@ -71,6 +71,7 @@ public:
 	void Drawinplaymode();
 	string Randomfigure();
 	void Playmodecounter();
+	void PlayModeClear();
 	/////////////////////// PLAY MODE FUNCTION END ///////////////////////////////////////////
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
