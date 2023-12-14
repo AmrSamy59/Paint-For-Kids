@@ -20,7 +20,8 @@ void Playmode::Execute()
 	//Get a Pointer to the Input / Output Interfaces
 Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
-	pManager->Playmodecounter();
+	pManager->Playlistformation();
+	pManager->Playmodecounter();	
 	int Rectanglecount = pManager->Getrectanglecount();
 	int Squarecount = pManager->Getsquarecount();
 	int Trianglecount = pManager->Gettrianglecount();

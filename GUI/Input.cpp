@@ -19,7 +19,7 @@ void Input::GetPointForDrawing(int& x, int& y, Output * pO) const
 
 	while (y <= toolBarH || y >= (UI.height-UI.StatusBarHeight)) {
 		if (pO)
-			pO->PrintMessage("You can't draw on the toolbar/statusbar, Please pick a different point.");
+			pO->PrintMessage("You can't click on the toolbar/statusbar, Please pick a different point.");
 		GetPointClicked(x, y);
 	}
 	if(pO)
