@@ -13,7 +13,7 @@ void Move::ReadActionParameters()
 	if (pManager->GetSelectedFigure() != NULL)
 	{
 		pOut->PrintMessage("Please set the new center of the selected figure");
-		pIn->GetPointForDrawing(Pf.x, Pf.y, pOut);
+		pIn->GetPointClicked(Pf.x, Pf.y);
 		pOut->ClearStatusBar();
 	}
 	else
@@ -26,10 +26,15 @@ void Move::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
-	if (pManager->GetSelectedFigure() != NULL)
-	
-		pManager->GetSelectedFigure()->Move(pOut, Pf);
-	
+	if (Pf.y < UI.ToolBarHeight)
+	{
+		pOut->PrintMessage("You can't click here");
+	}
+	else {
+		if (pManager->GetSelectedFigure() != NULL)
+
+			pManager->GetSelectedFigure()->Move(pOut, Pf);
+	}
 }
 void Move::UndoAction()
 {
