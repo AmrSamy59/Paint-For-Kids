@@ -24,7 +24,7 @@ void Move::ReadActionParameters()
 	if (pManager->GetSelectedFigure() != NULL)
 	{
 		pOut->PrintMessage("Please set the new center of the selected figure");
-		pIn->GetPointForDrawing(Pf.x, Pf.y, pOut);
+		pIn->GetPointClicked(Pf.x, Pf.y);
 		pOut->ClearStatusBar();
 	}
 	else

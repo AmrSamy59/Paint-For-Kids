@@ -23,7 +23,6 @@ void Switch::Execute()
 	if (switch1 == 1)
 	{
 		pOut->CreatePlayToolBar();
-		pManager->Playlistformation();
 		pOut->ClearStatusBar();
 	}
 	if (switch1 == 0)    //has to be completed in (Switch to draw mode task)

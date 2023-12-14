@@ -396,7 +396,6 @@ void ApplicationManager::Playlistformation() {
 	for (int i = 0; i < FigCount; i++) {
 
 		Playlist[i] = FigList[i];
-
 	}
 }
 void ApplicationManager::Playmodecounter()
