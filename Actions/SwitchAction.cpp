@@ -24,11 +24,13 @@ void Switch::Execute()
 	{
 		pOut->CreatePlayToolBar();
 		pOut->ClearStatusBar();
+		pManager->PlayModeClearSelection();
 	}
 	if (switch1 == 0)    //has to be completed in (Switch to draw mode task)
 	{
 		pManager->PlayModeClear();
 		pOut->CreateDrawToolBar();
 		pOut->ClearStatusBar();
+		pManager->DrawModeOriginal();
 	}
 }

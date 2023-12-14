@@ -39,6 +39,7 @@ private:
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 
 	CFigure* SelectedFig; //Pointer to the selected figure
+	int SelectedFigNum;
 	CFigure* Playlist[MaxFigCount];
 	Action* ActionList[MaxFigCount];
 	//Pointers to Input and Output classes
@@ -63,7 +64,7 @@ public:
 	~ApplicationManager();
 	/// 
 	/// PLAY MODE FUNCTIONS////////////////////////////////////////////////////////////////////////
-	/// 
+	void PlayModeClearSelection();
 	void Playlistformation();
 	int Getrectanglecount();
 	int Getsquarecount();
@@ -84,9 +85,10 @@ public:
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
+	int GetSelectedFigureNumber();
 	void ExecuteUndoAction();
 	
-	
+	void DrawModeOriginal();
 	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
 	void AddAction(Action* pAction);

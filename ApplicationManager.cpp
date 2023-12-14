@@ -324,6 +324,7 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 	if (FigCount < MaxFigCount)
 		FigList[FigCount++] = pFig;
 }
+
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
@@ -337,6 +338,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	
 	for (int i = FigCount - 1; i >= 0; i--) // Prioritize last added items
 	{
+		
 		if (FigList[i] != NULL && FigList[i]->CheckSelection(x, y))
 		{
 			int j = 0;
@@ -346,6 +348,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 					FigList[j]->SetSelected(false);
 				j++;
 			}
+			
 			return FigList[i];
 		}
 	}
@@ -371,6 +374,21 @@ CFigure* ApplicationManager::GetSelectedFigure() const
 	}
 	return NULL;
 }
+
+int ApplicationManager::GetSelectedFigureNumber()
+{
+	int j = 0;
+	while (j < FigCount)
+	{
+		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->GetFigureAbilityToBeDrawn() == true)
+		{
+			return j;
+		}
+		j++;
+	}
+	return -1;
+}
+
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
@@ -382,6 +400,26 @@ void ApplicationManager::UpdateInterface() const
 	for(int i=0; i<FigCount; i++)
 		if (FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn() == true)
 			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
+}
+
+void ApplicationManager::PlayModeClearSelection()
+{
+	SelectedFigNum = GetSelectedFigureNumber();
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i] != NULL)
+			FigList[i]->SetSelected(false);
+	}
+	
+}
+
+void ApplicationManager::DrawModeOriginal()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i] != NULL && i == SelectedFigNum)
+			FigList[i]->SetSelected(true);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -434,6 +472,7 @@ void ApplicationManager::PlayModeClear()
 		}
 	}
 }
+
 
 string ApplicationManager::Randomfigure()
 {
