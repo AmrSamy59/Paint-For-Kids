@@ -138,7 +138,9 @@
     <ClCompile Include="Actions\ClearAllAction.cpp" />
     <ClCompile Include="Actions\DeleteAction.cpp" />
     <ClCompile Include="Actions\Delete_Figure.cpp" />
+    <ClCompile Include="Actions\DrawColorAction.cpp" />
     <ClCompile Include="Actions\ExitAction.cpp" />
+    <ClCompile Include="Actions\FillColorAction.cpp" />
     <ClCompile Include="Actions\LoadGraphAction.cpp" />
     <ClCompile Include="Actions\MoveAction.cpp" />
     <ClCompile Include="Actions\SelectAction.cpp" />
@@ -203,7 +205,9 @@
     <ClInclude Include="Actions\ClearAllAction.h" />
     <ClInclude Include="Actions\DeleteAction.h" />
     <ClInclude Include="Actions\Delete_Figure.h" />
+    <ClInclude Include="Actions\DrawColorAction.h" />
     <ClInclude Include="Actions\ExitAction.h" />
+    <ClInclude Include="Actions\FillColorAction.h" />
     <ClInclude Include="Actions\LoadGraphAction.h" />
     <ClInclude Include="Actions\MoveAction.h" />
     <ClInclude Include="Actions\SelectAction.h" />

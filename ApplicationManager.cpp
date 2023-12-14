@@ -1,10 +1,4 @@
 #include "ApplicationManager.h"
-#include "Actions/SwitchAction.h"
-#include "Actions/ExitAction.h"
-
-
-
-
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -73,7 +67,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_CLEARALL:
 			pAct = new AddClearAllAction(this); // Delete all Figures
 			break;
-
+		case DRAW_FILL_COLOR:
+			pAct = new FillColorAction(this);
+			break;
+		case DRAW_OUTLINE_COLOR:
+			pAct = new DrawColorAction(this);
+			break;
 		case DRAW_SAVEGRAPH:
 			Save_All();
 			break;

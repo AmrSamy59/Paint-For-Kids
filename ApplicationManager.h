@@ -17,8 +17,10 @@
 #include "Actions\MoveAction.h"
 #include "Actions\SwitchAction.h"
 #include "Actions\LoadGraphAction.h"
-#include"PlayMode/PlayBytype.h"
+#include"PlayMode\PlayBytype.h"
 #include "Actions\ExitAction.h"
+#include "Actions\FillColorAction.h"
+#include "Actions\DrawColorAction.h"
 #include <fstream>
 #include <filesystem>
 

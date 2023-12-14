@@ -27,7 +27,7 @@ void AddTriangleAction::ReadActionParameters()
 	pIn->GetPointForDrawing(p3.x, p3.y, pOut);
 
 
-	triangleGfxInfo.isFilled = false;	//default is not filled
+	triangleGfxInfo.isFilled = UI.FillColor != UI.ToolBarColor;	//default is not filled
 	//get drawing, filling colors and pen width from the interface
 	triangleGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	triangleGfxInfo.FillClr = pOut->getCrntFillColor();

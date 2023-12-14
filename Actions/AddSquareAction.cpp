@@ -13,7 +13,7 @@ void AddSquareAction::ReadActionParameters()
 	///////////// read center for square //////////////////
 	pin->GetPointForDrawing(CENTER.x, CENTER.y, pout);
 
-	squareGfxInfo.isFilled = false;  //default is not filled
+	squareGfxInfo.isFilled = UI.FillColor != UI.ToolBarColor;  //default is not filled
 
 	squareGfxInfo.DrawClr = pout->getCrntDrawColor();
 	squareGfxInfo.FillClr = pout->getCrntFillColor();

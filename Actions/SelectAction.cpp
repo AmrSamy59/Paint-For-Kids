@@ -11,7 +11,7 @@ void Select::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	
-	pOut->PrintMessage("Please select a figure");
+	pOut->PrintMessage("Click on a figure to select it.");
 
 	pIn->GetPointClicked(Ps.x, Ps.y);
 	pOut->ClearStatusBar();
@@ -24,6 +24,7 @@ void Select::Execute()
 	{
 		CFigure *selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
 		selectedFigure->SetSelected(true);
+		pManager->UpdateInterface();
 	}
 	else {
 		pManager->GetOutput()->PrintMessage("No object was selected.");

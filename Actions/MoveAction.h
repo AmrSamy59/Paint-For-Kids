@@ -1,7 +1,9 @@
 #ifndef _MOVE_H
 #define _MOVE_H
 #include "../Actions/Action.h"
-
+#include "../ApplicationManager.h"
+#include "../GUI/Output.h"
+#include "../GUI/Input.h"
 
 class Move : public Action
 {

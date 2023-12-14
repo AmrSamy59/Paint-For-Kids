@@ -35,12 +35,12 @@ Output::Output()
 
 
 	UI.DrawColor = BLUE;	//Drawing color
-	UI.FillColor = GREEN;	//Filling color
 	UI.MsgColor = WHITE;		//Messages color
 	UI.BkGrndColor = LIGHTGOLDENRODYELLOW;	//Background color
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
 	UI.StatusBarColor = color(53, 47, 68);
 	UI.ToolBarColor = UI.StatusBarColor;
+	UI.FillColor = UI.ToolBarColor;	//Filling color
 	UI.PenWidth = 3;	//width of the figures frames
 
 	UI.IconsPadding = 10; // px
@@ -48,7 +48,7 @@ Output::Output()
 	UI.c_rows = 2; // number of rows
 	UI.c_cols = 3; // number of columns
 	UI.drawColors = { new string[UI.c_rows * UI.c_cols] { "Red", "Green", "Blue", "Purple", "Orange", "Yellow" } };
-	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, GREEN, BLUE, PURPLE, ORANGE, YELLOW  } };
+	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, DARKGREEN, DEEPSKYBLUE, PURPLE, ORANGE, YELLOW  } };
 
 	UI.colorIconSize = 25; // px
 	
@@ -111,7 +111,6 @@ void Output::CreateDrawToolBar() const
 {
 	UI.InterfaceMode = MODE_DRAW;
 
-	string colors[6] = { "Red", "Green", "Blue", "Purple", "Orange", "Yellow" };
 	int color_icon_size = UI.colorIconSize;
 	string imagesPath = "images\\MenuItems\\";
 
@@ -169,6 +168,15 @@ void Output::CreateDrawToolBar() const
 			iy = 0;
 			pWind->DrawImage(imagesPath + MenuItemImages[i], ix, iy, UI.MenuItemWidth, UI.MenuItemHeight);
 			DrawCenteredText(UI.DrawMenuLabels[i], ix, UI.MenuItemHeight, UI.MenuItemWidth, UI.ToolBarHeight - UI.MenuItemHeight - 2, UI.BkGrndColor);
+		}
+		if (i == ITM_FILL_COLOR) { //Outline the icon with the current fill color
+			pWind->SetPen(UI.FillColor, 2);
+			pWind->DrawRectangle(ix+1, iy+2, ix + UI.MenuItemWidth, UI.ToolBarHeight - 2, FRAME, 10, 10);
+		}
+		else if (i == ITM_OUTLINE_COLOR) { //Outline the icon with the current draw color
+			pWind->SetPen(UI.DrawColor, 2);
+			pWind->DrawRectangle(ix, iy+2, ix + UI.MenuItemWidth - 1, UI.ToolBarHeight - 2, FRAME, 10, 10);
+
 		}
 	}
 

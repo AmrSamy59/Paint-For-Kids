@@ -21,7 +21,7 @@ void AddCircleAction::ReadActionParameters()
 	//Read 2nd point and store in point P2
 	pIn->GetPointForDrawing(P2.x, P2.y, pOut);
 
-	CircleGfxInfo.isFilled = false;	//default is not filled
+	CircleGfxInfo.isFilled = UI.FillColor != UI.ToolBarColor;	//default is not filled
 	//get drawing, filling colors and pen width from the interface
 	CircleGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	CircleGfxInfo.FillClr = pOut->getCrntFillColor();
