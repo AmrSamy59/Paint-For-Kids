@@ -24,9 +24,9 @@ void CFigure::ChngFillClr(color Fclr) /// fill color
 	FigGfxInfo.isFilled = true;
 	FigGfxInfo.FillClr = Fclr; 
 }
-color* CFigure::GetFillColor() const
+const color* CFigure::GetFillColor() const
 {
-	color fillclr = FigGfxInfo.FillClr;
+	const color fillclr = FigGfxInfo.FillClr;
 	return (FigGfxInfo.isFilled ? &fillclr : nullptr);
 }
 string CFigure::GetType() const
