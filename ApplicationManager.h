@@ -19,6 +19,7 @@
 #include "Actions\LoadGraphAction.h"
 #include"PlayMode\PlayBytype.h"
 #include"PlayMode/PlayBycolor.h"
+#include"PlayMode/PlayByboth.h"
 #include "Actions\ExitAction.h"
 #include "Actions\FillColorAction.h"
 #include "Actions\DrawColorAction.h"
@@ -65,11 +66,11 @@ public:
 	/// PLAY MODE FUNCTIONS////////////////////////////////////////////////////////////////////////
 	void PlayModeClearSelection();
 	void Playlistformation();
-
 	void ResetPlayMode();
 	CFigure* GetRandomfigure();
 	void PlayByTypecounter();
 	void PlayModeClear();
+	int Playmode_both(string type,color c);
 	/////////////////////// PLAY MODE FUNCTION END ///////////////////////////////////////////
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type

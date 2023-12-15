@@ -102,7 +102,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 				pAct = new PlayBycolor(this);
 			break;
 		case DRAW_ITM_BYBOTH:
-			//		pAct = new PlayBycolor(this);
+					pAct = new PlayByboth(this);
 			break;
 		case EXIT:
 			///create ExitAction here
@@ -438,7 +438,7 @@ void ApplicationManager::Playlistformation() {
 	for (int i = 0; i < FigCount; i++) {
 
 		Playlist[i] = FigList[i];
-		//Playlist[i]->ChngFillClr
+		
 	}
 }
 void ApplicationManager::PlayByTypecounter()
@@ -479,6 +479,8 @@ void ApplicationManager::PlayModeClear()
 }
 
 
+
+
 CFigure* ApplicationManager::GetRandomfigure()
 {
 	int randomnumber = rand() % FigCount;
@@ -513,7 +515,25 @@ int ApplicationManager::GetColoredFigsCount(string c)
 	}
 	return count;
 }
+int ApplicationManager::Playmode_both(string figType, color figCol)
+{
+	int typeColorCounter = 0;
+	//CFigure* randomFig =  this->GetRandomfigure();
+	
+	
+		//cout << pOut->GetColorName(*figCol) << endl;
+		for (int i = 0; i < FigCount; i++)
+		{
+			cout << Playlist[i]->GetFillColor()->ucRed << "    " << Playlist[i]->GetFillColor()->ucBlue << "    " << Playlist[i]->GetFillColor()->ucGreen << "    " << endl;
+			cout << "figure " << i + 1 << Playlist[i]->GetType() << pOut->GetColorName(*Playlist[i]->GetFillColor()) << endl;
+			if (Playlist[i]->GetType() == figType && *Playlist[i]->GetFillColor() == figCol)
+				typeColorCounter++;
+		}
 
+	
+	return typeColorCounter;
+
+	}
 
 
 //Destructor
