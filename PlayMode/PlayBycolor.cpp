@@ -16,26 +16,48 @@ void PlayBycolor::ReadActionParameters()
 
 void PlayBycolor::Execute()
 {
-	int	Hits = 0;
-	int Misses = 0;
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
+	int ColorsCount[6] = { 0,0,0,0,0,0 };
+	int Sum_of_colors = 0;
+	for (int i = 0; i < 6; i++) {
+		ColorsCount[i] = pManager->GetColoredFigsCount(UI.drawColors[i]);
+		Sum_of_colors += ColorsCount[i];
+	}
+
+	if(Sum_of_colors==0)
+	{
+		pout->PrintMessage("There are no colored figures");
+		return;
+	}
+	int	Hits = 0;
+	int Misses = 0;
 	pManager->Playlistformation();
-
 	int FigsCount = pManager->GetFigsCount();
-	
-	int color_index = rand() % 6;
-
+	int color_index = 0;
 	CFigure* randomfig = pManager->GetRandomfigure();
 	color* c = randomfig->GetFillColor();
+	
+	/////////////////////////////////
+	while (!c)
+	{
+		
+		randomfig = pManager->GetRandomfigure();
+		c = randomfig->GetFillColor();
+		
+		
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		if (UI.drawColorsEq[i] == *c)
+		{
+			color_index = i;
+			break;
+		}
+	}
 
 	string randomColor = pout->GetColorName(*c);
 	
-	int ColorsCount[6] = {0,0,0,0,0,0};
-
-	for (int i = 0; i < 6; i++) {
-		ColorsCount[i] = pManager->GetColoredFigsCount(UI.drawColors[i]);
-	}
 	pout->PrintMessage("Pick " + UI.drawColors[color_index] + " Figures");
 	while(Hits != ColorsCount[color_index])
 	{

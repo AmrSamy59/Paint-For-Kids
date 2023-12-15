@@ -206,21 +206,6 @@ void ApplicationManager::ExecuteUndoAction()
 	}
 }
 
-int ApplicationManager::GetFigsCount() const
-{
-	return FigCount;
-}
-
-int ApplicationManager::GetColoredFigsCount(string c)
-{
-	int count = 0;
-	Output* pOut = GetOutput();
-	for (int i = 0; i < FigCount; i++) {
-		if (FigList[i]->GetFillColor() && *FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
-			count++;
-	}
-	return count;
-}
 
 void ApplicationManager::ClearAll() {
 	for (int i = 0; i <MaxFigCount; i++)
@@ -513,7 +498,22 @@ void ApplicationManager::ResetPlayMode()
 		
 
 }
-	
+int ApplicationManager::GetFigsCount() const
+{
+	return FigCount;
+}
+
+int ApplicationManager::GetColoredFigsCount(string c)
+{
+	int count = 0;
+	Output* pOut = GetOutput();
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i]->GetFillColor() && *FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
+			count++;
+	}
+	return count;
+}
+
 
 
 //Destructor
