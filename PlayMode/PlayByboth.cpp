@@ -22,29 +22,39 @@ void PlayByboth::Execute()
 
 	int Hits = 0;
 	int Misses = 0;
-	int both = 0;
-	CFigure* randomfig = pManager->GetRandomfigure();
-	string c = pout->GetColorName(*randomfig->GetFillColor());
-	cout << "test: " << c << endl;
+	int Maxhits = 0;
+	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
+	string color_name = pout->GetColorName(*randomfig->GetFillColor()); //color for the random figure
+	cout << "test: " << color_name << endl;
 	string type = randomfig->GetType();
 	cout << type << endl;
-	both =	pManager->Playmode_both(type, c);
-	cout << both << endl;
-/*int RectCount = CRectangle::GetCount();
-	int SquareCount = CSquare::GetCount();
-	int TriangleCount = CTriangle::GetCount();
-	int HexagonCount = CHexagon::GetCount();
-	int CircleCount = CCircle::GetCount();
-	int FigsCount[5] = { RectCount,SquareCount,TriangleCount,HexagonCount,CircleCount };
-	*/
-	/*int typeColorCounter = 0;
-	Cfigure* randomFig = getRandomFig();
-	color* figCol = randomFig->getFillColor();
-	string figType = randomFig->getType();
-	for (int i = 0; i < figCount; i++)
+	Maxhits =	pManager->Playmode_both(type, color_name); // max number condition for whlie loop 
+	cout << Maxhits << endl;
+	pout->PrintMessage("Pick " + type + " with " + color_name + " color ");
+
+	while(Hits < Maxhits)
 	{
-		if (figList[i]->getType() == figType && figList[i]->getFillColor() == figCol)
-			typeColorCounter++;
+		pin->GetPointClicked(Ps.x, Ps.y);
+		if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
+		{
+			ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
+			ptrfigure->SetSelected(true);
+			ptrfigure->SetFigureAbilityToBeDrawn(false);
+			pManager->UpdateInterface();
+
+			if (ptrfigure->GetType() == type && pout->GetColorName(*ptrfigure->GetFillColor())== color_name)
+				Hits++;
+			else
+				Misses++;
+
+		}
+	
 	}
-	*/
+
+	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ Figure(s) ] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
+
+	pin->GetPointClicked(Ps.x, Ps.y);
+	pout->ClearStatusBar();
+	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
+	
 }

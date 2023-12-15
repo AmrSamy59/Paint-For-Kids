@@ -525,8 +525,7 @@ int ApplicationManager::Playmode_both(string figType, string figColName)
 		color figCol = pOut->GetColorFromName(figColName);
 		for (int i = 0; i < FigCount; i++)
 		{
-			cout << Playlist[i]->GetFillColor()->ucRed << "    " << Playlist[i]->GetFillColor()->ucBlue << "    " << Playlist[i]->GetFillColor()->ucGreen << "    " << endl;
-			cout << "figure " << i + 1 << Playlist[i]->GetType() << pOut->GetColorName(*Playlist[i]->GetFillColor()) << endl;
+	//		cout << "figure " << i + 1 << Playlist[i]->GetType() << pOut->GetColorName(*Playlist[i]->GetFillColor()) << endl;
 			if (Playlist[i]->GetType() == figType && *Playlist[i]->GetFillColor() == figCol)
 				typeColorCounter++;
 		}
