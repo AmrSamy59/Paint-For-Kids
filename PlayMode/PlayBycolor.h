@@ -17,7 +17,6 @@ private:
 	GfxInfo FigGfxInfo;
 	Point Ps;
 	CFigure* ptrfigure;
-	string colors[6] = { "Red", "Green", "Blue", "Black", "Orange", "Yellow" };
 	
 public:
 	PlayBycolor(ApplicationManager* pApp);

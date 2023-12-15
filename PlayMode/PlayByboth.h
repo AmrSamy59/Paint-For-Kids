@@ -1,5 +1,5 @@
 #pragma once
-#include"Playmode.h"
-class PlayByboth:public Playmode {
+#include"PlayByType.h"
+class PlayByboth:public PlayByType {
 
 };

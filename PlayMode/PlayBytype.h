@@ -11,15 +11,14 @@
 #include"../Figures/CCircle.h"
 #include"../Figures/CSquare.h"
 #include"../Figures/CTriangle.h"
-class Playmode :public Action {
+class PlayByType :public Action {
 private:
 	Point Ps;
-	string figuers[5] = { "rectangle","square","triangle","hexagon","circle" };
 	//ApplicationManager* pManager;
 	
 	CFigure* ptrfigure;
 public:
-	Playmode(ApplicationManager* pApp);
+	PlayByType(ApplicationManager* pApp);
 	// virtual void slected_figure(Select*ptrselected );
 	void UndoAction() ;
 	//Reads parameters required for action to execute (code depends on action type)

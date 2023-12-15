@@ -46,14 +46,12 @@ private:
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
-	int Rectanglecount;
-	int Squarecount;
-	int Trianglecount;
-	int Hexagoncount;
-	int Circlecount;
+	int RectCount;
+	int SquareCount;
+	int TriangleCount;
+	int HexagonCount;
+	int CircleCount;
 	
-	//int arrayofcount[5] = {rectanglecount,squarecount,trianglecount,hexagoncount,circlecount};
-
 public:	
 
 	typedef enum
@@ -67,14 +65,10 @@ public:
 	/// PLAY MODE FUNCTIONS////////////////////////////////////////////////////////////////////////
 	void PlayModeClearSelection();
 	void Playlistformation();
-	int Getrectanglecount();
-	int Getsquarecount();
-	int Gettrianglecount();
-	int Getheaxgoncount();
-	int Getcirclecount();
-	void Drawinplaymode();
-	string Randomfigure();
-	void Playmodecounter();
+
+	void ResetPlayMode();
+	CFigure* GetRandomfigure();
+	void PlayByTypecounter();
 	void PlayModeClear();
 	/////////////////////// PLAY MODE FUNCTION END ///////////////////////////////////////////
 	// -- Action-Related Functions
@@ -88,6 +82,9 @@ public:
 	CFigure* GetSelectedFigure() const;
 	int GetSelectedFigureNumber();
 	void ExecuteUndoAction();
+
+	int GetFigsCount() const;
+	int GetColoredFigsCount(string c);
 	
 	void DrawModeOriginal();
 	CFigure* GetTheLastDrawnObject(Required_Task_t task);

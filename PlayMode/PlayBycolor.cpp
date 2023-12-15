@@ -16,64 +16,53 @@ void PlayBycolor::ReadActionParameters()
 
 void PlayBycolor::Execute()
 {
-/*	int	Rightcount = 0;
-	int Falsecount = 0;
+	int	Hits = 0;
+	int Misses = 0;
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
 	pManager->Playlistformation();
-	pout->GetColorFromName("Red");
-	pout->PrintMessage("start");
-	//ptrfigure->get();
+
+	int FigsCount = pManager->GetFigsCount();
 	
-//Output::GetColorName(FigGfxInfo.isFilled ? FigGfxInfo.FillClr : false);
-int randomnumber = rand() % 6;
-string randomcolor= colors[randomnumber] ;
-cout << randomcolor << endl;
+	int color_index = rand() % 6;
 
-for (int i = 0; i < 200; i++)
-{
-	pin->GetPointForDrawing(Ps.x, Ps.y, pout);
-	pout->ClearStatusBar();
-	if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
+	CFigure* randomfig = pManager->GetRandomfigure();
+	color* c = randomfig->GetFillColor();
+
+	string randomColor = pout->GetColorName(*c);
+	
+	int ColorsCount[6] = {0,0,0,0,0,0};
+
+	for (int i = 0; i < 6; i++) {
+		ColorsCount[i] = pManager->GetColoredFigsCount(UI.drawColors[i]);
+	}
+	pout->PrintMessage("Pick " + UI.drawColors[color_index] + " Figures");
+	while(Hits != ColorsCount[color_index])
 	{
-		ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
-		ptrfigure->SetSelected(true);
-		ptrfigure->SetFigureAbilityToBeDrawn(false);
-		pManager->UpdateInterface();
-		if (randomcolor == "Red")
+		pin->GetPointForDrawing(Ps.x, Ps.y, pout);
+		pout->ClearStatusBar();
+		if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 		{
-			Rightcount++;
-			cout << 1;
+			ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
+			ptrfigure->SetSelected(true);
+			ptrfigure->SetFigureAbilityToBeDrawn(false);
+			pManager->UpdateInterface();
+			color* c = ptrfigure->GetFillColor();
+			if (c) {
+				string color_name = pout->GetColorName(*c);
+				if (color_name == randomColor)
+					Hits++;
+				else
+					Misses++;
+			}
+			else
+				Misses++;
+
 		}
-		else
-			cout << -1;//	Falsecount++;
-		if(randomcolor == "Green")
-			cout << 2;//Rightcount++;
-		else
-			cout << -2;//	Falsecount++;
-		if (randomcolor == "Blue")
-			cout << 3;//Rightcount++;
-		else
-			cout << -3;	//Falsecount++;
-		if (randomcolor == "Black")
-			cout << 4;//Rightcount++;
-		else
-			cout << -4;//Falsecount++;
-		if (randomcolor == "Orange")
-			cout << 5;// Rightcount++;
-		else
-			cout << -5;//Falsecount++;
-		if (randomcolor == "Yellow")
-			cout << 6;	//Rightcount++;
-		else
-			cout << -6;	//Falsecount++;
-
-
-		
 
 	}
-
-}
-cout << "R   " << Rightcount << endl;
-cout << "F  " << Falsecount << endl;*/
+	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [" + randomColor + " Figures(s)] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
+	pin->GetPointClicked(Ps.x, Ps.y);
+	pout->ClearStatusBar();
+	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
 }

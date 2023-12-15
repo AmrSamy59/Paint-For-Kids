@@ -14,8 +14,8 @@ protected:
 	bool Selected;	//true if the figure is selected.
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	/// Add more parameters if needed.
-	bool AbleToBeDrawn;
-
+	bool AbleToBeDrawn; // true if the figure is able to be drawn on interface update
+	string Type; // type of figure
 public:
 
 	CFigure(GfxInfo FigureGfxInfo);
@@ -29,6 +29,9 @@ public:
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 
+	color* GetFillColor() const;		//returns the figure's filling color
+
+	string GetType() const; // returns the type of the figure
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure/// 
 	void SetFigureAbilityToBeDrawn(bool PermissionToBeDrawn);

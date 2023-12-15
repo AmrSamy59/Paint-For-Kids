@@ -1,8 +1,11 @@
 #include "CCircle.h"
 #include <cmath>
-static int circlecount = 0;
+
+int CCircle::Count = 0;
 CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
+	Type = "circle";
+
 	point1 = P1;
 
 	radius = r;
@@ -16,12 +19,12 @@ CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 	if (abs(statusBarH - P1.y) < radius) {
 		radius = abs(statusBarH - P1.y);
 	}
+	CCircle::Count++;
 }
 
 void CCircle::Draw(Output* pOut) const
 {
 	pOut->DrawCirc(point1, radius, FigGfxInfo, Selected);
-	circlecount++;
 }
 
 void CCircle::Move(Output* pOut, Point Pm)
@@ -58,4 +61,14 @@ void CCircle::Save(ofstream& OutFile)
 	string dcname = Output::GetColorName(FigGfxInfo.DrawClr); // Draw color
 	
 	OutFile << "CIRCLE" << "\t" << ID << "\t" << point1.x << "\t" << point1.y << "\t" << radius << "\t" << dcname << "\t" << fcname << endl;
+}
+
+int CCircle::GetCount()
+{
+	return CCircle::Count;
+}
+
+CCircle::~CCircle()
+{
+	CCircle::Count--;
 }
