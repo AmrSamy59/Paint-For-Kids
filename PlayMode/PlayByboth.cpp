@@ -25,11 +25,8 @@ void PlayByboth::Execute()
 	int Maxhits = 0;
 	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
 	string color_name = pout->GetColorName(*randomfig->GetFillColor()); //color for the random figure
-	cout << "test: " << color_name << endl;
 	string type = randomfig->GetType();
-	cout << type << endl;
 	Maxhits =	pManager->Playmode_both(type, color_name); // max number condition for whlie loop 
-	cout << Maxhits << endl;
 	pout->PrintMessage("Pick " + type + " with " + color_name + " color ");
 
 	while(Hits < Maxhits)
