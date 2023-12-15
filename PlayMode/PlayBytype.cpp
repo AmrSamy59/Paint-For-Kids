@@ -34,9 +34,9 @@ Output* pout = pManager->GetOutput();
 	int FigsCount[5] = { RectCount,SquareCount,TriangleCount,HexagonCount,CircleCount };
 
 	int Figureindex=0;
-	string randomfig = pManager->GetRandomfigure()->GetType();
+	string randomfig_type = pManager->GetRandomfigure()->GetType();
 	for (int i = 0; i < 5; i++) {
-		if (randomfig == FigNames[i]) {
+		if (randomfig_type == FigNames[i]) {
 			Figureindex = i;
 			break;
 		}
