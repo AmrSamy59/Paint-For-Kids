@@ -19,17 +19,17 @@ void PlayByboth::Execute()
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
 	pManager->Playlistformation();
+
 	int Hits = 0;
 	int Misses = 0;
 	int both = 0;
 	CFigure* randomfig = pManager->GetRandomfigure();
-	color* c = randomfig->GetFillColor();
+	string c = pout->GetColorName(*randomfig->GetFillColor());
+	cout << "test: " << c << endl;
 	string type = randomfig->GetType();
 	cout << type << endl;
-	cout << c->ucRed << "    " << c->ucBlue << "    " << c->ucGreen << "    " << endl;
-	cout << pout->GetColorName(*c) << endl;
-	both =	pManager->Playmode_both(type,*c);
-cout << both << endl;
+	both =	pManager->Playmode_both(type, c);
+	cout << both << endl;
 /*int RectCount = CRectangle::GetCount();
 	int SquareCount = CSquare::GetCount();
 	int TriangleCount = CTriangle::GetCount();

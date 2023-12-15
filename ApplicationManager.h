@@ -70,7 +70,7 @@ public:
 	CFigure* GetRandomfigure();
 	void PlayByTypecounter();
 	void PlayModeClear();
-	int Playmode_both(string type,color c);
+	int Playmode_both(string figType, string figColName);
 	/////////////////////// PLAY MODE FUNCTION END ///////////////////////////////////////////
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type

@@ -515,13 +515,14 @@ int ApplicationManager::GetColoredFigsCount(string c)
 	}
 	return count;
 }
-int ApplicationManager::Playmode_both(string figType, color figCol)
+int ApplicationManager::Playmode_both(string figType, string figColName)
 {
 	int typeColorCounter = 0;
 	//CFigure* randomFig =  this->GetRandomfigure();
 	
 	
 		//cout << pOut->GetColorName(*figCol) << endl;
+		color figCol = pOut->GetColorFromName(figColName);
 		for (int i = 0; i < FigCount; i++)
 		{
 			cout << Playlist[i]->GetFillColor()->ucRed << "    " << Playlist[i]->GetFillColor()->ucBlue << "    " << Playlist[i]->GetFillColor()->ucGreen << "    " << endl;
