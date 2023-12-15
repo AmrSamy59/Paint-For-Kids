@@ -18,6 +18,7 @@
 #include "Actions\SwitchAction.h"
 #include "Actions\LoadGraphAction.h"
 #include"PlayMode\PlayBytype.h"
+#include"PlayMode/PlayBycolor.h"
 #include "Actions\ExitAction.h"
 #include "Actions\FillColorAction.h"
 #include "Actions\DrawColorAction.h"

@@ -99,7 +99,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new Playmode(this);
 			break;
 		case DRAW_ITM_BYCOLOR:
-			//		pAct = new PlayBycolor(this);
+				pAct = new PlayBycolor(this);
 			break;
 		case DRAW_ITM_BYBOTH:
 			//		pAct = new PlayBycolor(this);
@@ -434,6 +434,7 @@ void ApplicationManager::Playlistformation() {
 	for (int i = 0; i < FigCount; i++) {
 
 		Playlist[i] = FigList[i];
+		//Playlist[i]->ChngFillClr
 	}
 }
 void ApplicationManager::Playmodecounter()

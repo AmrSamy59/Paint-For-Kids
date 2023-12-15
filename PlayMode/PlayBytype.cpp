@@ -103,7 +103,6 @@ Output* pout = pManager->GetOutput();
 	
 	
 
-
 }
 
 

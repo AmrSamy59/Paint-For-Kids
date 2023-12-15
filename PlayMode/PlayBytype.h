@@ -16,7 +16,7 @@ private:
 	Point Ps;
 	string figuers[5] = { "rectangle","square","triangle","hexagon","circle" };
 	//ApplicationManager* pManager;
-	Select* ptrselect=new Select(pManager);
+	
 	CFigure* ptrfigure;
 public:
 	Playmode(ApplicationManager* pApp);

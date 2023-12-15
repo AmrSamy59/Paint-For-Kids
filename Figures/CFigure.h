@@ -17,6 +17,7 @@ protected:
 	bool AbleToBeDrawn;
 
 public:
+
 	CFigure(GfxInfo FigureGfxInfo);
 
 	void SetSelected(bool s);	//select/unselect the figure
@@ -25,8 +26,6 @@ public:
 	virtual void Draw(Output* pOut) const = 0 ;		//Draw the figure
 	virtual void Move(Output* pOut, Point Pm) = 0;
 	
-	
-
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 
