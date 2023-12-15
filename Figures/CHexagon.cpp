@@ -111,6 +111,7 @@ void CHexagon::Save(ofstream& OutFile)
 	OutFile << "HEXAGON" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << L << "\t" << dcname << "\t" << fcname << endl;
 }
 
+
 int CHexagon::GetCount()
 {
 	return CHexagon::Count;
