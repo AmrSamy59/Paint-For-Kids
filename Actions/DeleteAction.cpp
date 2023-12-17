@@ -65,9 +65,13 @@ void AddDeleteAction::UndoAction()
 	/*Selected_Figure = pManager->GetTheLastDrawnObject(ApplicationManager::DELETED);*/
 	cout<<"selected one:" << Selected_Figure << endl;
 	if (Selected_Figure)
+	{
 		Selected_Figure->SetFigureAbilityToBeDrawn(true);
+		//Selected_Figure->SetDelete(false);
+	}
 }
 void AddDeleteAction::RedoAction()
 {
 	Selected_Figure->SetFigureAbilityToBeDrawn(false);
+	//Selected_Figure->SetDelete(true);
 }
