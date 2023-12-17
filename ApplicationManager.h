@@ -98,6 +98,7 @@ public:
 	void DrawModeOriginal();
 	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
+	void AddAction(Action* pAction);
 	void AddActionForRecording(Action* pAction);
 	CFigure* ReturnLastFigureOfRedoList();
 	void AddFigToRedoFigList(CFigure* pFigure);

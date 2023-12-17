@@ -10,6 +10,10 @@ void PlayByboth::UndoAction()
 
 }
 
+void PlayByboth::RedoAction()
+{
+}
+
 void PlayByboth::ReadActionParameters()
 {
 }

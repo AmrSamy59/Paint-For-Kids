@@ -10,6 +10,10 @@ void PlayByType::UndoAction()
 {
 }
 
+void PlayByType::RedoAction()
+{
+}
+
 void PlayByType::ReadActionParameters()
 {
 

@@ -289,12 +289,7 @@ void ApplicationManager::SetRedoActionToNull(Action* pAction)
 	}
 }
 //Add a figure to the list of figures
-void ApplicationManager::AddFigure(CFigure* pFig)
-{
-	if (FigCount < MaxFigCount)
-		FigList[FigCount++] = pFig;
-	cout << "Added Figure No." << FigCount - 1 << ":" << FigList[FigCount-1] << endl;
-}
+
 
 
 

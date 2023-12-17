@@ -10,6 +10,10 @@ void PlayBycolor::UndoAction()
 {
 }
 
+void PlayBycolor::RedoAction()
+{
+}
+
 void PlayBycolor::ReadActionParameters()
 {
 }

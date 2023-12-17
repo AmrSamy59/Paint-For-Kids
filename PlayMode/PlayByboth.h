@@ -12,6 +12,8 @@
 #include"../Figures/CCircle.h"
 #include"../Figures/CSquare.h"
 #include"../Figures/CTriangle.h"
+
+
 class PlayByboth:public Action  {
 private:
 	Point Ps;
@@ -22,6 +24,7 @@ private:
 public:
 	PlayByboth(ApplicationManager* pApp);
 	void UndoAction();
+	void RedoAction();
 	//Reads parameters required for action to execute (code depends on action type)
 	void ReadActionParameters();
 	//Execute action (code depends on action type)
