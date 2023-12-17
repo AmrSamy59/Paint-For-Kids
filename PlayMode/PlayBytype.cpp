@@ -21,7 +21,7 @@ void PlayByType::Execute()
 Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
 	pManager->Playlistformation();
-
+	
 	int RectCount = CRectangle::GetCount();
 	int SquareCount = CSquare::GetCount();
 	int TriangleCount = CTriangle::GetCount();
@@ -65,7 +65,7 @@ Output* pout = pManager->GetOutput();
 	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) ["+ FigNames[Figureindex]  +"(s)] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
 
 	pin->GetPointClicked(Ps.x, Ps.y);
-	pout->ClearStatusBar();
+	//pout->ClearStatusBar();
 	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
 	
 	
