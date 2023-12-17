@@ -106,7 +106,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case EXIT:
 			///create ExitAction here
-			pAct = new Exit(this);
+		//	pAct = new Exit(this);
 			break;
 		
 		case STATUS:	//a click on the status bar ==> no action
@@ -483,7 +483,11 @@ void ApplicationManager::PlayModeClear()
 
 CFigure* ApplicationManager::GetRandomfigure()
 {
-	int randomnumber = rand() % FigCount;
+	int randomnumber;
+	do
+	{
+	    randomnumber = rand() % FigCount;
+	} while (FigList[randomnumber]->CheckDelete());
 	return FigList[randomnumber];
 }
 
@@ -494,8 +498,11 @@ void ApplicationManager::ResetPlayMode()
 
 	for (int i = 0; i < FigCount; i++)
 	{
-		Playlist[i]->SetFigureAbilityToBeDrawn(true);
-		Playlist[i]->SetSelected(false);
+		if (Playlist[i]->CheckDelete() == false)
+		{
+			Playlist[i]->SetFigureAbilityToBeDrawn(true);
+			Playlist[i]->SetSelected(false);
+		}
 	}
 		
 

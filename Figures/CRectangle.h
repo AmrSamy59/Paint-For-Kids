@@ -17,6 +17,7 @@ public:
 	virtual void Save(ofstream& OutFile);    //done in all with same implemation
 
 	static int GetCount();
+	static void SetCount(int i);
 	~CRectangle();
 };
 

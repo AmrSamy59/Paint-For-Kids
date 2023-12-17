@@ -15,6 +15,7 @@ protected:
 	GfxInfo FigGfxInfo;	//Figure graphis info
 	/// Add more parameters if needed.
 	bool AbleToBeDrawn; // true if the figure is able to be drawn on interface update
+	bool deleted;  //Checking whether the figure is deleted or not
 	string Type; // type of figure
 public:
 
@@ -30,6 +31,9 @@ public:
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 
 	color* GetFillColor() const;		//returns the figure's filling color
+
+	bool CheckDelete();
+	void SetDelete(bool delete1);
 
 	string GetType() const; // returns the type of the figure
 	///The following functions should be supported by the figure class

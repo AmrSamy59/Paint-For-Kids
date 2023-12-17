@@ -75,6 +75,11 @@ int CRectangle::GetCount()
 	return CRectangle::Count;
 }
 
+void CRectangle::SetCount(int i)
+{
+	CRectangle::Count = i;
+}
+
 CRectangle::~CRectangle()
 {
 	CRectangle::Count--;

@@ -63,6 +63,11 @@ void CSquare::Save(ofstream& OutFile)
 
 }
 
+void CSquare::SetCount(int i)
+{
+	CSquare::Count = i;
+}
+
 
 int CSquare::GetCount()
 {

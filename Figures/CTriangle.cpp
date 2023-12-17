@@ -147,6 +147,11 @@ void CTriangle::Save(ofstream& OutFile)
 		<< "\t" << dcname << "\t" << fcname << endl;
 }
 
+void CTriangle::SetCount(int i)
+{
+	CTriangle::Count = i;
+}
+
 int CTriangle::GetCount()
 {
 	return CTriangle::Count;
