@@ -47,8 +47,8 @@ Output::Output()
 	// Colors 
 	UI.c_rows = 2; // number of rows
 	UI.c_cols = 3; // number of columns
-	UI.drawColors = { new string[UI.c_rows * UI.c_cols] { "Red", "Green", "Blue", "Purple", "Orange", "Yellow" } };
-	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, DARKGREEN, DEEPSKYBLUE, PURPLE, ORANGE, YELLOW  } };
+	UI.drawColors = { new string[UI.c_rows * UI.c_cols] { "Red", "Green", "Blue", "Black", "Orange", "Yellow" } };
+	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, DARKGREEN, DEEPSKYBLUE, BLACK, ORANGE, YELLOW  } };
 
 	UI.colorIconSize = 25; // px
 	

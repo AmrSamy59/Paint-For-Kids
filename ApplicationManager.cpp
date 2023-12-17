@@ -104,18 +104,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new Switch(this);   
 			break;
 		case DRAW_ITM_BYTYPE:
-			pAct = new Playmode(this);
+			pAct = new PlayByType(this);
 			break;
 		case DRAW_ITM_BYCOLOR:
-			//		pAct = new PlayBycolor(this);
+				pAct = new PlayBycolor(this);
 			break;
 		case DRAW_ITM_BYBOTH:
-			//		pAct = new PlayBycolor(this);
+					pAct = new PlayByboth(this);
 			break;
 		case EXIT:
 			///create ExitAction here
-			pAct = new Exit(this);
-			delete pAct;
+		//	pAct = new Exit(this);
 			break;
 		case STATUS:	//a click on the status bar ==> no action
 			return;
@@ -372,7 +371,7 @@ void ApplicationManager::ExecuteUndoAction()
 	{
 		if (i > Action_Count)
 		{
-			pOut->PrintMessage("No more actions to be undoed");
+			pOut->PrintMessage("No more actions to be undone");
 			ActionType ActType = GetUserAction();
 			ExecuteAction(ActType);
 			break;
@@ -401,6 +400,7 @@ void ApplicationManager::ExecuteUndoAction()
 			i++;
 	}
 }
+
 
 void ApplicationManager::ClearAll() {
 	for (int i = 0; i <MaxFigCount; i++)
@@ -509,6 +509,18 @@ string* ApplicationManager::GetGraphFiles(int& lineCount) const
 //						Figures Management Functions								//
 //==================================================================================//
 //Add an Action to the list of Actions
+void ApplicationManager::AddAction(Action* pAction)
+{
+	if (Action_Count < MaxFigCount)
+		ActionList[Action_Count++] = pAction;
+}
+//Add a figure to the list of figures
+void ApplicationManager::AddFigure(CFigure* pFig)
+{
+	if (FigCount < MaxFigCount)
+		FigList[FigCount++] = pFig;
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
@@ -523,6 +535,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 	
 	for (int i = FigCount - 1; i >= 0; i--) // Prioritize last added items
 	{
+		
 		if (FigList[i] != NULL && FigList[i]->CheckSelection(x, y))
 		{
 			int j = 0;
@@ -532,6 +545,7 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 					FigList[j]->SetSelected(false);
 				j++;
 			}
+			
 			return FigList[i];
 		}
 	}
@@ -557,6 +571,21 @@ CFigure* ApplicationManager::GetSelectedFigure() const
 	}
 	return NULL;
 }
+
+int ApplicationManager::GetSelectedFigureNumber()
+{
+	int j = 0;
+	while (j < FigCount)
+	{
+		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->GetFigureAbilityToBeDrawn() == true)
+		{
+			return j;
+		}
+		j++;
+	}
+	return -1;
+}
+
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
@@ -565,14 +594,30 @@ CFigure* ApplicationManager::GetSelectedFigure() const
 void ApplicationManager::UpdateInterface() const
 {	
 	pOut->ClearDrawArea();
-	//cout<<"FigCount = "<<FigCount<<endl;
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn())
+			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
+	}
+		
+}
+
+void ApplicationManager::PlayModeClearSelection()
+{
+	SelectedFigNum = GetSelectedFigureNumber();
 	for (int i = 0; i < FigCount; i++)
 	{
-		//cout << FigList[i] << endl;
-		if (FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn() == true)
-		{
-			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
-		}
+		if (FigList[i] != NULL)
+			FigList[i]->SetSelected(false);
+	}
+	
+}
+
+void ApplicationManager::DrawModeOriginal()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i] != NULL && i == SelectedFigNum)
+			FigList[i]->SetSelected(true);
 	}
 }
 
@@ -588,28 +633,29 @@ void ApplicationManager::Playlistformation() {
 	for (int i = 0; i < FigCount; i++) {
 
 		Playlist[i] = FigList[i];
+		
 	}
 }
-void ApplicationManager::Playmodecounter()
+void ApplicationManager::PlayByTypecounter()
 {
-	Rectanglecount = 0;
-	Trianglecount = 0;
-	Squarecount = 0;
-	Hexagoncount = 0;
-	Circlecount = 0;
+	RectCount = 0;
+	TriangleCount = 0;
+	SquareCount = 0;
+	HexagonCount = 0;
+	CircleCount = 0;
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (FigList[i]->GetFigureAbilityToBeDrawn()) {
 			if (dynamic_cast<CRectangle*>(Playlist[i]) != NULL)
-				Rectanglecount++;
+				RectCount++;
 			else if (dynamic_cast<CTriangle*>(Playlist[i]) != NULL)
-				Trianglecount++;
+				TriangleCount++;
 			else if (dynamic_cast<CSquare*>(Playlist[i]) != NULL)
-				Squarecount++;
+				SquareCount++;
 			else if (dynamic_cast<CHexagon*>(Playlist[i]) != NULL)
-				Hexagoncount++;
+				HexagonCount++;
 			else if (dynamic_cast<CCircle*>(Playlist[i]) != NULL)
-				Circlecount++;
+				CircleCount++;
 		}
 	}
 	
@@ -627,60 +673,69 @@ void ApplicationManager::PlayModeClear()
 	}
 }
 
-string ApplicationManager::Randomfigure()
+
+
+
+CFigure* ApplicationManager::GetRandomfigure()
 {
-	int randomnumber = rand() % FigCount;
-	if (dynamic_cast<CRectangle*>(Playlist[randomnumber]) != NULL)
-		return "retangle";
-	else if (dynamic_cast<CTriangle*>(Playlist[randomnumber]) != NULL)
-		return "triangle";
-	else if (dynamic_cast<CSquare*>(Playlist[randomnumber]) != NULL)
-		return "square";
-	else if (dynamic_cast<CHexagon*>(Playlist[randomnumber]) != NULL)
-		return "hexagon";
-	else if (dynamic_cast<CCircle*>(Playlist[randomnumber]) != NULL)
-		return "circle";
-	
-	
+	int randomnumber;
+	do
+	{
+	    randomnumber = rand() % FigCount;
+	} while (FigList[randomnumber]->CheckDelete());
+	return FigList[randomnumber];
 }
 
 
-int ApplicationManager::Getrectanglecount()
-{
-	return Rectanglecount;
-}
-
-int ApplicationManager::Getsquarecount()
-{
-	return Squarecount;
-}
-
-int ApplicationManager::Gettrianglecount()
-{
-	return Trianglecount;
-}
-
-int ApplicationManager::Getheaxgoncount()
-{
-	return Hexagoncount;
-}
-
-int ApplicationManager::Getcirclecount()
-{
-	return Circlecount;
-}
-
-void ApplicationManager::Drawinplaymode()
+void ApplicationManager::ResetPlayMode()
 {
 	this->Playlistformation();
 
 	for (int i = 0; i < FigCount; i++)
 	{
-		Playlist[i]->SetFigureAbilityToBeDrawn(true);
-		Playlist[i]->SetSelected(false);
+		if (Playlist[i]->CheckDelete() == false)
+		{
+			Playlist[i]->SetFigureAbilityToBeDrawn(true);
+			Playlist[i]->SetSelected(false);
+		}
 	}
+		
+
 }
+int ApplicationManager::GetFigsCount() const
+{
+	return FigCount;
+}
+
+int ApplicationManager::GetColoredFigsCount(string c)
+{
+	int count = 0;
+	Output* pOut = GetOutput();
+	for (int i = 0; i < FigCount; i++) {
+		if (FigList[i]->GetFillColor() && *FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
+			count++;
+	}
+	return count;
+}
+int ApplicationManager::Playmode_both(string figType, string figColName)
+{
+	int typeColorCounter = 0;
+	//CFigure* randomFig =  this->GetRandomfigure();
 	
+	
+		//cout << pOut->GetColorName(*figCol) << endl;
+		color figCol = pOut->GetColorFromName(figColName);
+		for (int i = 0; i < FigCount; i++)
+		{
+	//		cout << "figure " << i + 1 << Playlist[i]->GetType() << pOut->GetColorName(*Playlist[i]->GetFillColor()) << endl;
+			if (Playlist[i]->GetType() == figType && *Playlist[i]->GetFillColor() == figCol)
+				typeColorCounter++;
+		}
+
+	
+	return typeColorCounter;
+
+	}
 
 
 //Destructor

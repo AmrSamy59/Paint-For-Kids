@@ -1,7 +1,10 @@
 #include "CSquare.h"
-static int squarecount = 0;
+
+int CSquare::Count = 0;
 CSquare::CSquare(Point C, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 {
+	Type = "square";
+
 	center = C;
 
 	L = l;
@@ -15,7 +18,7 @@ CSquare::CSquare(Point C, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 	if (abs(statusBarH - center.y) < L) {
 		L = abs(statusBarH - center.y);
 	}
-
+	CSquare::Count++;
 }
 
 Point CSquare::GetFigureCenter()
@@ -26,7 +29,7 @@ Point CSquare::GetFigureCenter()
 void CSquare::Draw(Output* pOut) const
 { 
 	pOut->DrawSquare(center, L, FigGfxInfo, Selected);
-	squarecount++;
+	
 }
 
 void CSquare::Move(Point Pm)
@@ -62,4 +65,20 @@ void CSquare::Save(ofstream& OutFile)
 
 	OutFile << "SQUARE" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t"  << L << "\t" << dcname << "\t" << fcname << endl;
 
+}
+
+void CSquare::SetCount(int i)
+{
+	CSquare::Count = i;
+}
+
+
+int CSquare::GetCount()
+{
+	return CSquare::Count;
+}
+
+CSquare::~CSquare()
+{
+	CSquare::Count--;
 }

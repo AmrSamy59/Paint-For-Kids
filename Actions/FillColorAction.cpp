@@ -35,7 +35,7 @@ void FillColorAction::ReadActionParameters()
 		
 		ActionType ActType = pManager->GetUserAction();
 		while ((ActType < DRAW_COLOR_0) || (ActType > DRAW_COLOR_0 + (UI.c_rows * UI.c_cols) - 1)) {
-			ActionType ActType = pManager->GetUserAction();
+			ActType = pManager->GetUserAction();
 		}
 		fillColor[1] = &(UI.drawColorsEq[ActType - DRAW_COLOR_0]);
 		

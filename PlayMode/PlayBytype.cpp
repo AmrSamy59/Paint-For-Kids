@@ -2,60 +2,51 @@
 
 #include<iostream>
 
-Playmode::Playmode(ApplicationManager* pApp) :Action(pApp)
+PlayByType::PlayByType(ApplicationManager* pApp) :Action(pApp)
 {
 }
 
-void Playmode::UndoAction()
+void PlayByType::UndoAction()
 {
 }
 
-void Playmode::RedoAction()
-{
-}
-
-void Playmode::ReadActionParameters()
+void PlayByType::ReadActionParameters()
 {
 
 }
 
-void Playmode::Execute()
+void PlayByType::Execute()
 {	
 	//Get a Pointer to the Input / Output Interfaces
 Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
 	pManager->Playlistformation();
-	pManager->Playmodecounter();	
-	int Rectanglecount = pManager->Getrectanglecount();
-	int Squarecount = pManager->Getsquarecount();
-	int Trianglecount = pManager->Gettrianglecount();
-	int Hexagoncount = pManager->Getheaxgoncount();
-	int Circlecount = pManager->Getcirclecount();
-	int Figuerscount=0;
-	int Rightcount=0;
-	int Falsecount=0;
-	int arrayofcount[5] = { Rectanglecount,Squarecount,Trianglecount,Hexagoncount,Circlecount };
-	for (int i = 0; i < 5; i++) {
+	
+	int RectCount = CRectangle::GetCount();
+	int SquareCount = CSquare::GetCount();
+	int TriangleCount = CTriangle::GetCount();
+	int HexagonCount = CHexagon::GetCount();
+	int CircleCount = CCircle::GetCount();
 
-		Figuerscount += arrayofcount[i];
-	}
+	int Hits = 0;
+	int Misses = 0;
+	string FigNames[5] = { "rectangle", "square", "triangle", "hexagon", "circle" };
+	int FigsCount[5] = { RectCount,SquareCount,TriangleCount,HexagonCount,CircleCount };
+
 	int Figureindex=0;
-	string randomfig = pManager->Randomfigure();
+	string randomfig_type = pManager->GetRandomfigure()->GetType();
 	for (int i = 0; i < 5; i++) {
-		if (randomfig == figuers[i])
+		if (randomfig_type == FigNames[i]) {
 			Figureindex = i;
-	}
-	pout->PrintMessage(" pick " + to_string(arrayofcount[Figureindex]) + " " + this->figuers[Figureindex] + " ");
-	
-	
-	for (int i = 0; i < 200; i++)
-	{
-		if (Rightcount == arrayofcount[Figureindex])
 			break;
-		pout->PrintMessage(" pick " + to_string(arrayofcount[Figureindex]) + " " + this->figuers[Figureindex]  + " ");
-		pin->GetPointForDrawing(Ps.x, Ps.y,pout);
-
-		pout->ClearStatusBar();
+		}
+	}
+	pout->PrintMessage("Pick " + FigNames[Figureindex] + "(s)");
+	
+	
+	while (Hits != FigsCount[Figureindex])
+	{
+		pin->GetPointClicked(Ps.x, Ps.y);
 
 		if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 		{
@@ -63,50 +54,21 @@ Output* pout = pManager->GetOutput();
 			ptrfigure->SetSelected(true);
 			ptrfigure->SetFigureAbilityToBeDrawn(false);
 			pManager->UpdateInterface();
-			if (figuers[Figureindex] == "rectangle")
-			{
-				if (dynamic_cast<CRectangle*>(ptrfigure) != NULL)
-					Rightcount++;
-				else
-					Falsecount++;
-			}
-			else if (figuers[Figureindex] == "square") {
-				if (dynamic_cast<CSquare*>(ptrfigure) != NULL)
-					Rightcount++;
-				else
-					Falsecount++;
-			}
-			else if (figuers[Figureindex] == "triangle") {
-				if (dynamic_cast<CTriangle*>(ptrfigure) != NULL)
-					Rightcount++;
-				else
-					Falsecount++;
-			}
-			else if (figuers[Figureindex] == "hexagon") {
-				if (dynamic_cast<CHexagon*>(ptrfigure) != NULL)
-					Rightcount++;
-				else
-					Falsecount++;
-			}
-			else if (figuers[Figureindex] == "circle") {
-				if (dynamic_cast<CCircle*>(ptrfigure) != NULL)
-					Rightcount++;
-				else
-					Falsecount++;
-			}
-		
+
+			if(ptrfigure->GetType() == FigNames[Figureindex])
+				Hits++;
+			else
+				Misses++;
 	
 		}
-		
 	}
-	pout->PrintMessage(" You have got  " + to_string(Rightcount) + " correct figuers and choose " + to_string(Falsecount)+" wrong figuers "+"         "+" click any where to done");
+	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) ["+ FigNames[Figureindex]  +"(s)] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
 
 	pin->GetPointClicked(Ps.x, Ps.y);
-	pout->ClearStatusBar();
-	pManager->Drawinplaymode();
+	//pout->ClearStatusBar();
+	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
 	
 	
-
 
 }
 

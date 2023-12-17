@@ -18,6 +18,8 @@
 #include "Actions\SwitchAction.h"
 #include "Actions\LoadGraphAction.h"
 #include"PlayMode\PlayBytype.h"
+#include"PlayMode/PlayBycolor.h"
+#include"PlayMode/PlayByboth.h"
 #include "Actions\ExitAction.h"
 #include "Actions\FillColorAction.h"
 #include "Actions\DrawColorAction.h"
@@ -46,20 +48,19 @@ private:
 
 	Action* ActionListForRecording[MaxFigCount];
 	CFigure* SelectedFig; //Pointer to the selected figure
+	int SelectedFigNum;
 	CFigure* Playlist[MaxFigCount];
 	Action* ActionList[MaxFigCount];
 	Action* RedoActionList[MaxFigCount];
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
-	int Rectanglecount;
-	int Squarecount;
-	int Trianglecount;
-	int Hexagoncount;
-	int Circlecount;
+	int RectCount;
+	int SquareCount;
+	int TriangleCount;
+	int HexagonCount;
+	int CircleCount;
 	
-	//int arrayofcount[5] = {rectanglecount,squarecount,trianglecount,hexagoncount,circlecount};
-
 public:	
 
 	typedef enum
@@ -71,17 +72,13 @@ public:
 	~ApplicationManager();
 	/// 
 	/// PLAY MODE FUNCTIONS////////////////////////////////////////////////////////////////////////
-	/// 
+	void PlayModeClearSelection();
 	void Playlistformation();
-	int Getrectanglecount();
-	int Getsquarecount();
-	int Gettrianglecount();
-	int Getheaxgoncount();
-	int Getcirclecount();
-	void Drawinplaymode();
-	string Randomfigure();
-	void Playmodecounter();
+	void ResetPlayMode();
+	CFigure* GetRandomfigure();
+	void PlayByTypecounter();
 	void PlayModeClear();
+	int Playmode_both(string figType, string figColName);
 	/////////////////////// PLAY MODE FUNCTION END ///////////////////////////////////////////
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
@@ -92,9 +89,13 @@ public:
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
+	int GetSelectedFigureNumber();
 	void ExecuteUndoAction();
+
+	int GetFigsCount() const;
+	int GetColoredFigsCount(string c);
 	
-	
+	void DrawModeOriginal();
 	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
 	void AddActionForRecording(Action* pAction);

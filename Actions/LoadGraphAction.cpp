@@ -146,7 +146,7 @@ void LoadGraph::ReadActionParameters()
 
 	int gRowHeight = 30; // px
 
-	window* lWind = new window(UI.width / 3, gRowHeight*gCount+10, UI.wx, UI.wy);
+	window* lWind = new window(UI.width / 3, gRowHeight * (gCount+1) +10, UI.wx, UI.wy);
 
 
 	//Change the title
@@ -159,7 +159,7 @@ void LoadGraph::ReadActionParameters()
 		lWind->DrawRectangle(0, gRowHeight*i, UI.width / 3, gRowHeight * i+gRowHeight);
 		
 		lWind->SetBrush(BLACK);
-		lWind->SetPen(BLACK, 3);
+		lWind->SetPen(BLACK, 2);
 		lWind->DrawLine(0, gRowHeight * (i+1), UI.width / 3, gRowHeight * (i + 1));
 		
 		lWind->SetPen(WHITE, gRowHeight/2);
@@ -168,13 +168,26 @@ void LoadGraph::ReadActionParameters()
 		lWind->GetStringSize(tw, th, title);
 		lWind->DrawString((UI.width / 6) - (tw / 2), (gRowHeight * i) + (gRowHeight / 2) - (th / 2), title); // Center the text
 	}
+	// close button
+	lWind->SetBrush(DARKRED);
+	lWind->SetPen(DARKRED, 1);
+	lWind->DrawRectangle(0, gRowHeight * (gCount), UI.width / 3, gRowHeight * (gCount + 1));
 
+
+	lWind->SetPen(WHITE, gRowHeight / 2);
+	lWind->SetFont(gRowHeight / 2, BOLD, BY_NAME, "Arial"); // Keep that default font
+	int tw, th; // Text Width, Height
+	lWind->GetStringSize(tw, th, "Cancel");
+	lWind->DrawString((UI.width / 6) - (tw / 2), gRowHeight * (gCount) + (gRowHeight / 2) - (th / 2) - 2, "Cancel"); // Center the text
+	//
 	int cx, cy;
 
 	lWind->FlushMouseQueue();
 	lWind->WaitMouseClick(cx, cy);
 	int row_clicked = gCount - ((gCount * gRowHeight) / cy);
-	printf("%d, %d, %d, %d\n", row_clicked, cy, gCount, gCount * gRowHeight);
+
+	if(row_clicked == gCount)
+		return delete lWind;
 
 	Load(gFiles[row_clicked]);
 	

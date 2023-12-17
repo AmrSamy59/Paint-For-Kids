@@ -4,6 +4,7 @@
 class CTriangle :public CFigure {
 private:
 	Point c1, c2, c3;
+	static int Count; // number of figures of this type
 public:
 	CTriangle(Point, Point, Point, GfxInfo FigureGfxInfo);
 	virtual Point GetFigureCenter();
@@ -12,7 +13,10 @@ public:
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
 
+	static void SetCount(int i);
 
+	static int GetCount();
+	~CTriangle();
 };
 #endif // !1
 

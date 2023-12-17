@@ -6,6 +6,7 @@ class CSquare : public CFigure {
 private:
 	Point center;
 	int L; // Half the length
+	static int Count; // number of figures of this type
 public:
 	CSquare(Point, GfxInfo FigureGfxInfo, int l=100); // Default Length = 100
 	virtual Point GetFigureCenter();
@@ -14,9 +15,10 @@ public:
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
 
+	static void SetCount(int i);
 
-
-
+	static int GetCount();
+	~CSquare();
 
 
  

@@ -8,6 +8,7 @@ class CRectangle : public CFigure
 private:
 	Point Corner1;	
 	Point Corner2;
+	static int Count; // number of figures of this type
 public:
 	CRectangle(Point , Point, GfxInfo FigureGfxInfo );
 	virtual Point GetFigureCenter();
@@ -15,7 +16,10 @@ public:
 	virtual void Move(Point Pm);
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);    //done in all with same implemation
-	
+
+	static int GetCount();
+	static void SetCount(int i);
+	~CRectangle();
 };
 
 #endif

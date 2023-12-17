@@ -1,8 +1,11 @@
 #include "CHexagon.h"
 #include<cmath>
-static int hexagoncount = 0;
+
+int CHexagon::Count = 0;
 CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 {
+	Type = "hexagon";
+
 	center = c;
 	L = l;
 
@@ -15,6 +18,8 @@ CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 	if (abs(statusBarH - center.y) < L) {
 		L = abs(statusBarH - center.y);
 	}
+
+	CHexagon::Count++;
 }
 
 Point CHexagon::GetFigureCenter()
@@ -25,7 +30,6 @@ Point CHexagon::GetFigureCenter()
 void CHexagon::Draw(Output* pOut) const
 {
 	pOut->DrawHexagon(center, L, FigGfxInfo, Selected);
-	hexagoncount++;
 }
 
 void CHexagon::Move(Point Pm)
@@ -109,4 +113,20 @@ void CHexagon::Save(ofstream& OutFile)
 	string dcname = Output::GetColorName(FigGfxInfo.DrawClr); // Draw color
 
 	OutFile << "HEXAGON" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << L << "\t" << dcname << "\t" << fcname << endl;
+}
+
+void CHexagon::SetCount(int i)
+{
+	CHexagon::Count = i;
+}
+
+
+int CHexagon::GetCount()
+{
+	return CHexagon::Count;
+}
+
+CHexagon::~CHexagon()
+{
+	CHexagon::Count--;
 }

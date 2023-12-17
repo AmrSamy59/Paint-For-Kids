@@ -1,11 +1,14 @@
 #include "CTriangle.h"
 
-static int trianglecount = 0;
+int CTriangle::Count = 0;
 CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
 {
+	Type = "triangle";
+
 	c1 = p1;
 	c2 = p2;
 	c3 = p3;
+	CTriangle::Count++;
 }
 
 Point CTriangle::GetFigureCenter()
@@ -19,7 +22,7 @@ Point CTriangle::GetFigureCenter()
 void CTriangle::Draw(Output* pOut) const
 {
 	pOut->DrawTriangle(c1, c2, c3, FigGfxInfo, Selected);
-	trianglecount++;
+	
 }
 
 void CTriangle::Move(Point Pm)
@@ -149,4 +152,19 @@ void CTriangle::Save(ofstream& OutFile)
 
 	OutFile << "TRIANGLE" << "\t" << ID << "\t" << c1.x << "\t" << c1.y << "\t" << c2.x << "\t" << c2.y << "\t" << c3.x << "\t" << c3.y 
 		<< "\t" << dcname << "\t" << fcname << endl;
+}
+
+void CTriangle::SetCount(int i)
+{
+	CTriangle::Count = i;
+}
+
+int CTriangle::GetCount()
+{
+	return CTriangle::Count;
+}
+
+CTriangle::~CTriangle()
+{
+	CTriangle::Count--;
 }

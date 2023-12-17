@@ -5,6 +5,7 @@ class CCircle :public CFigure {
 private:
 	Point point1;
 	int radius; // Because it doesn't always depend on Second Point
+	static int Count; // number of figures of this type
 public:
 	CCircle(Point, int ,GfxInfo FigureGfxInfo);
 	virtual Point GetFigureCenter();
@@ -13,6 +14,10 @@ public:
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
 
+	static void SetCount(int i);
+
+	static int GetCount();
+	~CCircle();
 };
 
 
