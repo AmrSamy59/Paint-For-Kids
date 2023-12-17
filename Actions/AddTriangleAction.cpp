@@ -4,7 +4,10 @@
 AddTriangleAction::AddTriangleAction(ApplicationManager* pApp):Action(pApp)
 {
 }
-
+void AddTriangleAction::RedoAction()
+{
+	LastDrawnTriangle->SetFigureAbilityToBeDrawn(true);
+}
 void AddTriangleAction::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
@@ -40,20 +43,13 @@ void AddTriangleAction::Execute()
 	ReadActionParameters();
 
 	//Create a triangle with the parameters read from the user
-	CTriangle* T = new CTriangle(p1, p2,p3, triangleGfxInfo);
+	LastDrawnTriangle = new CTriangle(p1, p2,p3, triangleGfxInfo);
 
 	//Add the triandle to the list of figures
-	pManager->AddFigure(T);
+	pManager->AddFigure(LastDrawnTriangle);
 
 }
 void AddTriangleAction::UndoAction()
 {
-	CFigure* LastDrawnTriangle = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
-	LastDrawnTriangle->SetSelected(true);
-	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
-	pDelete->Execute();
-	delete LastDrawnTriangle;
-	delete pDelete;
-	LastDrawnTriangle = NULL;
-	pDelete = NULL;
+	LastDrawnTriangle->SetFigureAbilityToBeDrawn(false);
 }

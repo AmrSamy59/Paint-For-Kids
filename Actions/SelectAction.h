@@ -9,6 +9,7 @@ private :
 	Point Ps;
 public :
 	Select(ApplicationManager* pApp);
+	virtual void RedoAction();
 	virtual void ReadActionParameters();
 	virtual void Execute();
 	virtual void UndoAction();

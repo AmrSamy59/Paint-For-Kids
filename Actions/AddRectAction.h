@@ -16,9 +16,10 @@ class AddRectAction: public Action
 private:
 	Point P1, P2; //Rectangle Corners
 	GfxInfo RectGfxInfo;
+	CFigure* LastDrawnRect;
 public:
 	AddRectAction(ApplicationManager *pApp);
-
+	virtual void RedoAction();
 	//Reads rectangle parameters
 	virtual void ReadActionParameters();
 	virtual void UndoAction();

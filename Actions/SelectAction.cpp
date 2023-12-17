@@ -5,7 +5,10 @@
 
 Select::Select(ApplicationManager* pApp) :Action(pApp)
 {}
+void Select::RedoAction()
+{
 
+}
 void Select::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();

@@ -3,7 +3,10 @@
 
 AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
 {}
-
+void AddSquareAction::RedoAction()
+{
+	LastDrawnSquare->SetFigureAbilityToBeDrawn(true);
+}
 void AddSquareAction::ReadActionParameters()
 {
 	// two pointer one to output and another for input
@@ -26,18 +29,11 @@ void AddSquareAction::Execute()
 { //This action needs to read some parameters first
 	ReadActionParameters();
 	//create new square
-	CSquare* sq = new CSquare(CENTER, squareGfxInfo);
+	LastDrawnSquare = new CSquare(CENTER, squareGfxInfo);
 	// add square to list of figures 
-	pManager->AddFigure(sq);
+	pManager->AddFigure(LastDrawnSquare);
 }
 void AddSquareAction::UndoAction()
 {
-	CFigure* LastDrawnSquare = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
-	LastDrawnSquare->SetSelected(true);
-	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
-	pDelete->Execute();
-	delete LastDrawnSquare;
-	delete pDelete;
-	LastDrawnSquare = NULL;
-	pDelete = NULL;
+	LastDrawnSquare->SetFigureAbilityToBeDrawn(false);
 }

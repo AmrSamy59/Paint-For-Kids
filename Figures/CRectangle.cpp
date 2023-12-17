@@ -5,6 +5,14 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo):CFigure(Figure
 	Corner1 = P1;
 	Corner2 = P2;
 }
+
+Point CRectangle::GetFigureCenter()
+{
+	Point p;
+	p.x = (Corner1.x + Corner2.x) / 2;
+	p.y = (Corner1.y + Corner2.y) / 2;
+	return p;
+}
 	
 
 void CRectangle::Draw(Output* pOut) const
@@ -13,7 +21,7 @@ void CRectangle::Draw(Output* pOut) const
 	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
 	rectcount++;
 }
-void CRectangle::Move(Output* pOut, Point Pm)
+void CRectangle::Move(Point Pm)
 {
 	Point P1n, P2n;
 	P2n.x = Pm.x + (abs(Corner2.x - Corner1.x) / 2.0);
@@ -44,7 +52,6 @@ void CRectangle::Move(Output* pOut, Point Pm)
 	}
 	Corner1 = P1n;
 	Corner2 = P2n;
-	Draw(pOut);
 }
 
 bool CRectangle::CheckSelection(int x, int y)

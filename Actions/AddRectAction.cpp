@@ -4,6 +4,11 @@
 AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
 {}
 
+void AddRectAction::RedoAction()
+{
+	LastDrawnRect->SetFigureAbilityToBeDrawn(true);
+}
+
 void AddRectAction::ReadActionParameters() 
 {	
 	//Get a Pointer to the Input / Output Interfaces
@@ -29,14 +34,7 @@ void AddRectAction::ReadActionParameters()
 }
 void AddRectAction::UndoAction()
 {
-	CFigure* LastDrawnRect = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
-	LastDrawnRect->SetSelected(true);
-	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
-	pDelete->Execute();
-	delete LastDrawnRect;
-	delete pDelete;
-	LastDrawnRect = NULL;
-	pDelete = NULL;
+	LastDrawnRect->SetFigureAbilityToBeDrawn(false);
 }
 //Execute the action
 void AddRectAction::Execute() 
@@ -45,8 +43,8 @@ void AddRectAction::Execute()
 	ReadActionParameters();
 	
 	//Create a rectangle with the parameters read from the user
-	CRectangle* R = new CRectangle(P1, P2, RectGfxInfo);
+	LastDrawnRect = new CRectangle(P1, P2, RectGfxInfo);
 	
 	//Add the rectangle to the list of figures
-	pManager->AddFigure(R);
+	pManager->AddFigure(LastDrawnRect);
 }

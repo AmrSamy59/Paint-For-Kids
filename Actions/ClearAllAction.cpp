@@ -6,10 +6,14 @@ AddClearAllAction::AddClearAllAction(ApplicationManager* pApp) :Action(pApp)
 {
 
 }
+void AddClearAllAction::RedoAction()
+{
+}
 void AddClearAllAction::ReadActionParameters()
 {
 	
 }
+
 //Add delete to the ApplicationManager
 void AddClearAllAction::Execute()
 {

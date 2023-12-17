@@ -17,13 +17,18 @@ CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 	}
 }
 
+Point CHexagon::GetFigureCenter()
+{
+	return center;
+}
+
 void CHexagon::Draw(Output* pOut) const
 {
 	pOut->DrawHexagon(center, L, FigGfxInfo, Selected);
 	hexagoncount++;
 }
 
-void CHexagon::Move(Output* pOut, Point Pm)
+void CHexagon::Move(Point Pm)
 {
 	if (Pm.y + L > (UI.height - UI.StatusBarHeight))
 	{
@@ -42,7 +47,6 @@ void CHexagon::Move(Output* pOut, Point Pm)
 		Pm.x = L + 1;
 	}
 	center = Pm;
-	Draw(pOut);
 }
 
 bool CHexagon::CheckSelection(int x, int y)

@@ -3,7 +3,9 @@
 LoadGraph::LoadGraph(ApplicationManager* pApp) : Action(pApp)
 {
 }
-
+void LoadGraph::RedoAction()
+{
+}
 void LoadGraph::Load(string fName)
 {
 	ifstream graphFile(UI.graphsDir + "/" + fName);

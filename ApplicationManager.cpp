@@ -1,5 +1,8 @@
 #include "ApplicationManager.h"
 
+#include <iostream>
+using namespace std;
+
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -14,17 +17,20 @@ ApplicationManager::ApplicationManager()
 	
 	FigCount = 0;
 	Action_Count = 0;
-
+	Redo_Action_Count = 0;
+	Fig_Redo_Count = 0;
+	Action_Count_For_Recording = 0;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 	{
 		FigList[i] = NULL;
 		ActionList[i] = NULL;
+		RedoActionList[i] = NULL;
+		FigListForRedoAction[i] = NULL;
+		ActionListForRecording[i] = NULL;
 		Playlist[i] = NULL;
 	}
-
-
 }
 
 
@@ -64,6 +70,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_DELETE:
 			pAct = new AddDeleteAction(this);// Delete Selected Figure
 			break;
+		case DRAW_UNDO:
+			pAct = new UndoActionClass(this);
+			break;
+		case DRAW_REDO:
+			pAct = new RedoActionClass(this);
+			break;
 		case DRAW_CLEARALL:
 			pAct = new AddClearAllAction(this); // Delete all Figures
 			break;
@@ -85,10 +97,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_MOVE:
 			pAct = new Move(this);
 			break;
-		case DRAW_UNDO:
-			ExecuteUndoAction();
-			break;
-
 		case TO_PLAY:
 			pAct = new Switch(this);
 			break;
@@ -107,25 +115,212 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case EXIT:
 			///create ExitAction here
 			pAct = new Exit(this);
+			delete pAct;
 			break;
-		
 		case STATUS:	//a click on the status bar ==> no action
 			return;
 	}
-
-
-	
 	//Execute the created action
 	if(pAct != NULL)
 	{
-		pAct->Execute();//Execute
-		AddAction(pAct);//You may need to change this line depending to your implementation
-		delete pAct;
+		if(dynamic_cast<UndoActionClass*>(pAct) == NULL && dynamic_cast<Select*>(pAct) == NULL && dynamic_cast<RedoActionClass*>(pAct) == NULL)
+			AddForUndoAction(pAct,true);	//You may need to change this line depending on your implementation
+		pAct->Execute();		//Execute
 	}
+}
+
+CFigure* ApplicationManager::ReturnLastFigureOfRedoList()
+{
+	static unsigned short k;
+	static unsigned short PrevPassedFigCount = 0;
+	if (PrevPassedFigCount != Fig_Redo_Count)
+	{
+		PrevPassedFigCount = Fig_Redo_Count;
+		k = 1;
+	}
+	cout << "fig redo count = " << Fig_Redo_Count << endl;
+	cout << "prev passed fig in redo var = " << PrevPassedFigCount << "  " << "k = " << k << endl;
+	while (1)
+	{
+		if (FigListForRedoAction[Fig_Redo_Count - k])
+			return FigListForRedoAction[Fig_Redo_Count - k++];
+		else
+			k++;
+	}
+}
+CFigure* ApplicationManager::ReturnLastFigureOnScreen(Required_Task_t task)
+{
+	static unsigned short k;
+	static unsigned short PrevPassedFigCount = 0;
+	if (PrevPassedFigCount != FigCount)
+	{
+		PrevPassedFigCount = FigCount;
+		k = 1;
+	}
+	if (task == DRAWN)
+	{
+		while (1)
+		{
+			if (FigList[FigCount - k])
+			{
+				if (FigList[FigCount - k]->GetFigureAbilityToBeDrawn())
+					return FigList[FigCount - k++];
+			}
+			else
+				k++;
+		}
+	}
+	if (task == DELETED)
+	{
+		while (1)
+		{
+			if (FigList[FigCount - k])
+			{
+				if (FigList[FigCount - k]->GetFigureAbilityToBeDrawn() == false)
+					return FigList[FigCount - k++];
+			}
+			else
+				k++;
+		}
+	}
+}
+Action* ApplicationManager::ReturnLastAction()
+{
+	static unsigned short count;
+	static unsigned short PrevPassedActionCount = 0;
+	bool flag = true;
+	if (PrevPassedActionCount != Action_Count)
+	{
+		PrevPassedActionCount = Action_Count;
+		count = 1;
+	}
+	for (unsigned short i = 0;i < 200;i++)
+	{
+		flag &= (ActionList[i] == NULL) ? true : false;
+	}
+	cout << flag << endl;
+	while (1)
+	{
+		if (flag)
+		{
+			pOut->PrintMessage("No more actions to be undoed");
+			ActionType ActType = GetUserAction();
+			ExecuteAction(ActType);
+			return NULL;
+		}
+		else if (ActionList[Action_Count - count])
+			return ActionList[Action_Count - count++];
+		else
+			count++;
+	}
+}
+void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
+{
+	if (Fig_Redo_Count < 200)
+		FigListForRedoAction[Fig_Redo_Count++] = pFigure;
+	cout << "added fig in redo fig list" << FigListForRedoAction[Fig_Redo_Count - 1] << endl;
+}
+void ApplicationManager::AddActionForRecording(Action* pAction)
+{
+	if (Action_Count_For_Recording < 200)
+		ActionListForRecording[Action_Count_For_Recording++] = pAction;
+}
+void ApplicationManager::AddForRedoAction(Action* pAction)
+{
+	if (Redo_Action_Count < 200)
+		RedoActionList[Redo_Action_Count++] = pAction;
+	cout << "Added Action to redo list : " << RedoActionList[Redo_Action_Count - 1] << endl;
+}
+void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
+{
+	if (Action_Count < MaxFigCount)
+		ActionList[Action_Count++] = pAction;
+	//Setting Redo List To NULL
+	if (E_Ok)
+	{
+		for (unsigned int i = 0;i < 200;i++)
+		{
+			RedoActionList[i] = NULL;
+		}
+		Redo_Action_Count = 0;
+	}
+}
+Action* ApplicationManager::HandleAndReturnRedoActions()
+{
+	static unsigned short j;
+	static unsigned short PrevPassedRedoActionCount = 0;
+	bool flag = true;
+	if (PrevPassedRedoActionCount != Redo_Action_Count && flag)
+	{
+		PrevPassedRedoActionCount = Redo_Action_Count;
+		j = 1;
+	}
+	for (unsigned short i = 0;i < 200;i++)
+	{
+		flag &= (RedoActionList[i] == NULL) ? true : false;
+	}
+	cout << "Redo Flag:" << flag << endl;
+	cout << "Redo Action Count:" << Redo_Action_Count << endl;
+	cout << "j:" << j << endl;
+	while(1)
+	{
+		if (flag)
+		{
+			pOut->PrintMessage("No more actions to be redoed");
+			ActionType ActType = GetUserAction();
+			ExecuteAction(ActType);
+			return NULL;
+		}
+		else if (RedoActionList[Redo_Action_Count - j])
+			return RedoActionList[Redo_Action_Count - j++];
+		else
+			j++;
+	}
+}
+
+void ApplicationManager::SetRedoActionToNull(Action* pAction)
+{
+	for (unsigned short i = 0;i < Redo_Action_Count;i++)
+	{
+		if (RedoActionList[i] == pAction)
+		{
+			RedoActionList[i] = NULL;
+			break;
+		}
+	}
+}
+//Add a figure to the list of figures
+void ApplicationManager::AddFigure(CFigure* pFig)
+{
+	if (FigCount < MaxFigCount)
+		FigList[FigCount++] = pFig;
+	cout << "Added Figure No." << FigCount - 1 << ":" << FigList[FigCount-1] << endl;
 }
 
 
 
+void ApplicationManager::SetActionToNull(Action* pAction)
+{
+	for(unsigned short i = 0;i < Action_Count;i++)
+	{
+		if (ActionList[i] == pAction)
+		{
+			ActionList[i] = NULL;
+			break;
+		}
+	}
+}
+void ApplicationManager::SetFigureToNull(CFigure* pFigure)
+{
+	for (unsigned short i = 0;i < FigCount;i++)
+	{
+		if (FigList[i] == pFigure)
+		{
+			FigList[i] = NULL;
+			break;
+		}
+	}
+}
 CFigure* ApplicationManager::GetTheLastDrawnObject(Required_Task_t task) {
 	if (task == DRAWN)
 	{
@@ -136,7 +331,8 @@ CFigure* ApplicationManager::GetTheLastDrawnObject(Required_Task_t task) {
 			PrevPassedFigCount = FigCount;
 			i = 1;
 		}
-		while (1) {
+		while (1) 
+		{
 			if (FigList[FigCount - i])
 			{
 				return FigList[FigCount - i++];
@@ -147,7 +343,7 @@ CFigure* ApplicationManager::GetTheLastDrawnObject(Required_Task_t task) {
 	}
 	else if (task == DELETED)
 	{
-		for (unsigned short j = FigCount-1;j > 0;j--)
+		for (unsigned short j = 0;j < FigCount;j++)
 		{
 			if (FigList[j] != NULL && FigList[j]->GetFigureAbilityToBeDrawn() == false)
 			{
@@ -313,17 +509,7 @@ string* ApplicationManager::GetGraphFiles(int& lineCount) const
 //						Figures Management Functions								//
 //==================================================================================//
 //Add an Action to the list of Actions
-void ApplicationManager::AddAction(Action* pAction)
-{
-	if (Action_Count < MaxFigCount)
-		ActionList[Action_Count++] = pAction;
-}
-//Add a figure to the list of figures
-void ApplicationManager::AddFigure(CFigure* pFig)
-{
-	if (FigCount < MaxFigCount)
-		FigList[FigCount++] = pFig;
-}
+
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
@@ -379,9 +565,15 @@ CFigure* ApplicationManager::GetSelectedFigure() const
 void ApplicationManager::UpdateInterface() const
 {	
 	pOut->ClearDrawArea();
-	for(int i=0; i<FigCount; i++)
+	//cout<<"FigCount = "<<FigCount<<endl;
+	for (int i = 0; i < FigCount; i++)
+	{
+		//cout << FigList[i] << endl;
 		if (FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn() == true)
+		{
 			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
+		}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -455,7 +647,6 @@ string ApplicationManager::Randomfigure()
 
 int ApplicationManager::Getrectanglecount()
 {
-	
 	return Rectanglecount;
 }
 
@@ -488,8 +679,6 @@ void ApplicationManager::Drawinplaymode()
 		Playlist[i]->SetFigureAbilityToBeDrawn(true);
 		Playlist[i]->SetSelected(false);
 	}
-		
-
 }
 	
 

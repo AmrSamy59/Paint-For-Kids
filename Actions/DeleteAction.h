@@ -7,6 +7,7 @@ class AddDeleteAction : public Action
 	CFigure* Selected_Figure;
 public:
 	AddDeleteAction(ApplicationManager* pApp);
+	virtual void RedoAction();
 	//Reads delete parameters
 	virtual void ReadActionParameters();
 	virtual void UndoAction();

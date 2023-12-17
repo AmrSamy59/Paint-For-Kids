@@ -2,7 +2,11 @@
 
 
 Move::Move(ApplicationManager* pApp) : Action(pApp)
-{}
+{
+	
+}
+
+
 
 void Move::ReadActionParameters()
 {
@@ -23,8 +27,9 @@ void Move::ReadActionParameters()
 	}
 	if (pManager->GetSelectedFigure() != NULL)
 	{
+		Pf[0] = pManager->GetSelectedFigure()->GetFigureCenter();
 		pOut->PrintMessage("Please set the new center of the selected figure");
-		pIn->GetPointClicked(Pf.x, Pf.y);
+		pIn->GetPointClicked(Pf[1].x, Pf[1].y);
 		pOut->ClearStatusBar();
 	}
 	else
@@ -35,16 +40,20 @@ void Move::ReadActionParameters()
 
 void Move::Execute()
 {
-	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
-	if (pManager->GetSelectedFigure() != NULL) {
-		pManager->GetSelectedFigure()->Move(pOut, Pf);
-		pManager->GetSelectedFigure()->SetSelected(false);
+	fig = pManager->GetSelectedFigure();
+	if (fig != NULL)
+	{
+		cout << Pf[1].x << " " << Pf[1].y << endl;
+		fig->Move(Pf[1]);
+		fig->SetSelected(false);
 	}
-	
-	
 }
 void Move::UndoAction()
 {
-
+	fig->Move(Pf[0]);
+}
+void Move::RedoAction()
+{
+	fig->Move(Pf[1]);
 }

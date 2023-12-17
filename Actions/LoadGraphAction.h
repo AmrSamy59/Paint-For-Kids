@@ -25,6 +25,7 @@ public:
 	string* GetOptionParameters(string line, string option, string delimiter);
 	virtual void ReadActionParameters();
 	virtual void UndoAction();
+	virtual void RedoAction();
 	// Loads the graph
 	virtual void Execute();
 };

@@ -18,13 +18,19 @@ CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 	}
 }
 
+Point CCircle::GetFigureCenter()
+{
+	return point1;
+}
+
 void CCircle::Draw(Output* pOut) const
 {
 	pOut->DrawCirc(point1, radius, FigGfxInfo, Selected);
 	circlecount++;
+
 }
 
-void CCircle::Move(Output* pOut, Point Pm)
+void CCircle::Move(Point Pm)
 {
 	if (Pm.y + radius > (UI.height - UI.StatusBarHeight))
 	{
@@ -43,7 +49,6 @@ void CCircle::Move(Output* pOut, Point Pm)
 		Pm.x = UI.width - radius - 1;
 	}
 	point1 = Pm;
-	Draw(pOut);
 }
 
 bool CCircle::CheckSelection(int x, int y)

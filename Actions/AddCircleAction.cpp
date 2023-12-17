@@ -4,7 +4,10 @@
 AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 {
 }
-
+void AddCircleAction::RedoAction()
+{
+	LastDrawnCircle->SetFigureAbilityToBeDrawn(true);
+}
 void AddCircleAction::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
@@ -36,19 +39,12 @@ void AddCircleAction::Execute()
 
 	//Create a circle with the parameters read from the user
 	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
-	CCircle* C = new CCircle(P1, radius, CircleGfxInfo);
+	LastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
 
 	//Add the rectangle to the list of figures
-	pManager->AddFigure(C);
+	pManager->AddFigure(LastDrawnCircle);
 }
 void AddCircleAction::UndoAction()
 {
-	CFigure* LastDrawnCircle = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
-	LastDrawnCircle->SetSelected(true);
-	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
-	pDelete->Execute();
-	delete LastDrawnCircle;
-	delete pDelete;
-	LastDrawnCircle = NULL;
-	pDelete = NULL;
+	LastDrawnCircle->SetFigureAbilityToBeDrawn(false);
 }

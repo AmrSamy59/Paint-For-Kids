@@ -16,6 +16,9 @@ void Switch::UndoAction()
 {
 
 }
+void Switch::RedoAction()
+{
+}
 void Switch::Execute()
 {
 	ReadActionParameters();

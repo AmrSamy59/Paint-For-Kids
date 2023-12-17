@@ -194,6 +194,8 @@
     <ClCompile Include="PlayMode\PlayByboth.cpp" />
     <ClCompile Include="PlayMode\PlayBycolor.cpp" />
     <ClCompile Include="PlayMode\PlayBytype.cpp" />
+    <ClCompile Include="RedoActionClass.cpp" />
+    <ClCompile Include="UndoActionClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -246,6 +248,8 @@
     <ClInclude Include="PlayMode\PlayByboth.h" />
     <ClInclude Include="PlayMode\PlayBycolor.h" />
     <ClInclude Include="PlayMode\PlayBytype.h" />
+    <ClInclude Include="RedoActionClass.h" />
+    <ClInclude Include="UndoActionClass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

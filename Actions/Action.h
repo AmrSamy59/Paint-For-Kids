@@ -14,10 +14,11 @@ public:
 	
 	Action(ApplicationManager* pApp) { pManager = pApp;}	//constructor
 	virtual void UndoAction() = 0;
+	virtual void RedoAction() = 0;
 	//Reads parameters required for action to execute (code depends on action type)
-	virtual void ReadActionParameters() =0;
+	virtual void ReadActionParameters() = 0;
 	//Execute action (code depends on action type)
-	virtual void Execute() =0;
+	virtual void Execute() = 0;
 
 };
 

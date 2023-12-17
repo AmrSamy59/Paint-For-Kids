@@ -6,7 +6,9 @@ Exit::Exit(ApplicationManager* pApp) : Action(pApp)
 {}
 
 void Exit::ReadActionParameters() {}
-
+void Exit::RedoAction()
+{
+}
 void Exit::Execute()
 {
 	exit(0);

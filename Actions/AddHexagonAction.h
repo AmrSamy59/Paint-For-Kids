@@ -11,12 +11,14 @@ class AddHexagonAction:public Action
 private:
 	Point center;
 	GfxInfo HexagonGfxInfo;
+	CFigure* LastDrawnHexagon;
 public:
 	AddHexagonAction(ApplicationManager* pApp);
 
 	//Reads hexagon parameters
 	virtual void ReadActionParameters();
 	virtual void UndoAction();
+	virtual void RedoAction();
 	//Add hexagon to the ApplicationManager
 	virtual void Execute();
 

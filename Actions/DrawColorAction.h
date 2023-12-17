@@ -9,10 +9,10 @@
 class DrawColorAction : public Action {
 private:
 	CFigure* SelectedFigure;
-	color* drawColor;
+	color* drawColor[2];
 public:
 	DrawColorAction(ApplicationManager* pApp);
-
+	virtual void RedoAction();
 	//Reads parameters required for action to execute
 	void ReadActionParameters();
 

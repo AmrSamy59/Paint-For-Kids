@@ -9,6 +9,7 @@ AddDeleteAction::AddDeleteAction(ApplicationManager* pApp):Action(pApp)
 {
 
 }
+
 void AddDeleteAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
@@ -38,6 +39,12 @@ void AddDeleteAction::Execute()
 }
 void AddDeleteAction::UndoAction()
 {
-	Selected_Figure = pManager->GetTheLastDrawnObject(ApplicationManager::DELETED);
-	Selected_Figure->SetFigureAbilityToBeDrawn(true);
+	/*Selected_Figure = pManager->GetTheLastDrawnObject(ApplicationManager::DELETED);*/
+	cout<<"selected one:" << Selected_Figure << endl;
+	if (Selected_Figure)
+		Selected_Figure->SetFigureAbilityToBeDrawn(true);
+}
+void AddDeleteAction::RedoAction()
+{
+	Selected_Figure->SetFigureAbilityToBeDrawn(false);
 }

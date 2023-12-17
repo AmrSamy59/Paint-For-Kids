@@ -21,9 +21,14 @@ public:
 
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
+	virtual Point GetFigureCenter() = 0;
+	bool GetFilledStatus();
+	color GetLastFigFilledColor();
+	void SetFilledStatus(bool status);
+	color GetLastFigBorderColor();
 	virtual bool CheckSelection(int x, int y) = 0;
 	virtual void Draw(Output* pOut) const = 0 ;		//Draw the figure
-	virtual void Move(Output* pOut, Point Pm) = 0;
+	virtual void Move(Point Pm) = 0;
 	
 	
 

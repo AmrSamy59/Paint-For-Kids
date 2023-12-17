@@ -10,6 +10,10 @@ void Playmode::UndoAction()
 {
 }
 
+void Playmode::RedoAction()
+{
+}
+
 void Playmode::ReadActionParameters()
 {
 

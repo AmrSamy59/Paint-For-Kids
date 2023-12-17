@@ -9,10 +9,11 @@
 class FillColorAction : public Action {
 private:
 	CFigure* SelectedFigure;
-	color* fillColor;
+	color* fillColor[2];
+	bool isFilled[2];
 public:
 	FillColorAction(ApplicationManager* pApp);
-
+	virtual void RedoAction();
 	//Reads parameters required for action to execute
 	void ReadActionParameters();
 
@@ -20,7 +21,7 @@ public:
 	void Execute();
 
 	//To undo this action (code depends on action type)
-	void UndoAction();
+	virtual void UndoAction();
 
 
 	~FillColorAction();

@@ -8,13 +8,21 @@ CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo):CFigur
 	c3 = p3;
 }
 
+Point CTriangle::GetFigureCenter()
+{
+	Point Center;
+	Center.x = (c1.x + c2.x + c3.x) / 3;
+	Center.y = (c1.y + c2.y + c3.y) / 3;
+	return Center;
+}
+
 void CTriangle::Draw(Output* pOut) const
 {
 	pOut->DrawTriangle(c1, c2, c3, FigGfxInfo, Selected);
 	trianglecount++;
 }
 
-void CTriangle::Move(Output* pOut, Point Pm)
+void CTriangle::Move(Point Pm)
 {
 	int diffX, diffY;
 	Point center;
@@ -80,7 +88,6 @@ void CTriangle::Move(Output* pOut, Point Pm)
 		c2.x += DiffX2;
 		c3.x += DiffX2;
 	}
-	Draw(pOut);
 }
 
 bool CTriangle::CheckSelection(int x, int y)

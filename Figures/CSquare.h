@@ -8,8 +8,9 @@ private:
 	int L; // Half the length
 public:
 	CSquare(Point, GfxInfo FigureGfxInfo, int l=100); // Default Length = 100
+	virtual Point GetFigureCenter();
 	virtual void Draw(Output* pOut) const;
-	virtual void Move(Output* pOut, Point Pm);
+	virtual void Move(Point Pm);
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
 

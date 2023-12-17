@@ -21,6 +21,8 @@
 #include "Actions\ExitAction.h"
 #include "Actions\FillColorAction.h"
 #include "Actions\DrawColorAction.h"
+#include "UndoActionClass.h"
+#include "RedoActionClass.h"
 #include <fstream>
 #include <filesystem>
 
@@ -35,12 +37,18 @@ class ApplicationManager
 
 private:
 	int FigCount;		//Actual number of figures
+	int Action_Count_For_Recording;
 	int Action_Count;
+	int Redo_Action_Count;
+	int Fig_Redo_Count;
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
+	CFigure* FigListForRedoAction[MaxFigCount];
 
+	Action* ActionListForRecording[MaxFigCount];
 	CFigure* SelectedFig; //Pointer to the selected figure
 	CFigure* Playlist[MaxFigCount];
 	Action* ActionList[MaxFigCount];
+	Action* RedoActionList[MaxFigCount];
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -89,9 +97,20 @@ public:
 	
 	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
-	void AddAction(Action* pAction);
+	void AddActionForRecording(Action* pAction);
+	CFigure* ReturnLastFigureOfRedoList();
+	void AddFigToRedoFigList(CFigure* pFigure);
+	void AddForRedoAction(Action* pAction);
+	Action* HandleAndReturnRedoActions();
+	void SetRedoActionToNull(Action *pAction);
+	void AddForUndoAction(Action* pAction,bool E_Ok);
+	void SetActionToNull(Action* pAction);
+	void SetFigureToNull(CFigure* pFigure);
+	Action* ReturnLastAction();
+	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
 	void Save_All() const;
+
 	
 	string* GetGraphFiles(int& lineCount) const;
 	//CFigure* Getplaylist();

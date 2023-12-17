@@ -5,13 +5,17 @@
 #include "../GUI/Output.h"
 #include "../GUI/Input.h"
 
+#include <iostream>
+using namespace std;
+
 class Move : public Action
 {
 private :
-	Point Pf;
-
+	Point Pf[2];
+	CFigure* fig;
 public:
 	Move(ApplicationManager* pApp);
+	virtual void RedoAction();
 	virtual void ReadActionParameters();
 	virtual void Execute();
 	virtual void UndoAction();

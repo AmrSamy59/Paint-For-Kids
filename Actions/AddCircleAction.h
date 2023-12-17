@@ -13,9 +13,11 @@ class AddCircleAction :public Action
 private:
 	Point P1, P2; 
 	GfxInfo CircleGfxInfo;
+	CFigure* LastDrawnCircle;
 public:
 	AddCircleAction(ApplicationManager* pApp);
 	virtual void UndoAction();
+	virtual void RedoAction();
 	//Reads circle parameters
 	virtual void ReadActionParameters();
 

@@ -18,13 +18,18 @@ CSquare::CSquare(Point C, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 
 }
 
+Point CSquare::GetFigureCenter()
+{
+	return center;
+}
+
 void CSquare::Draw(Output* pOut) const
 { 
 	pOut->DrawSquare(center, L, FigGfxInfo, Selected);
 	squarecount++;
 }
 
-void CSquare::Move(Output* pOut, Point Pm)
+void CSquare::Move(Point Pm)
 {
 	if ((Pm.y + L) >= (UI.height - UI.StatusBarHeight))
 	{
@@ -43,7 +48,6 @@ void CSquare::Move(Output* pOut, Point Pm)
 		Pm.x = UI.width - L - 1;
 	}
 	center = Pm;
-	Draw(pOut);
 }
 
 bool CSquare::CheckSelection(int x, int y)

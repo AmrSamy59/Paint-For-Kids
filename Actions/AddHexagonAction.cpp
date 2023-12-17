@@ -4,7 +4,10 @@
 AddHexagonAction::AddHexagonAction(ApplicationManager* pApp):Action(pApp)
 {
 }
-
+void AddHexagonAction::RedoAction()
+{
+	LastDrawnHexagon->SetFigureAbilityToBeDrawn(true);
+}
 void AddHexagonAction::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
@@ -29,20 +32,13 @@ void AddHexagonAction::Execute()
 	ReadActionParameters();
 
 	//Create a rectangle with the parameters read from the user
-	CHexagon* hexa = new CHexagon(center,HexagonGfxInfo);
+	LastDrawnHexagon = new CHexagon(center,HexagonGfxInfo);
 
 	//Add the rectangle to the list of figures
-	pManager->AddFigure(hexa);
+	pManager->AddFigure(LastDrawnHexagon);
 
 }
 void AddHexagonAction::UndoAction()
 {
-	CFigure* LastDrawnHexagon = pManager->GetTheLastDrawnObject(ApplicationManager::DRAWN);
-	LastDrawnHexagon->SetSelected(true);
-	AddDeleteAction* pDelete = new AddDeleteAction(pManager);
-	pDelete->Execute();
-	delete LastDrawnHexagon;
-	delete pDelete;
-	LastDrawnHexagon = NULL;
-	pDelete = NULL;
+	LastDrawnHexagon->SetFigureAbilityToBeDrawn(false);
 }

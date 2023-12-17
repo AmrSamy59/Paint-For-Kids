@@ -12,9 +12,10 @@ class AddSquareAction :public Action {
 private:
 	Point CENTER; // center of square
 	GfxInfo squareGfxInfo; 
+	CFigure* LastDrawnSquare;
 public:
 	AddSquareAction(ApplicationManager* pApp);
-
+	virtual void RedoAction();
 	//Reads square parameters
 	virtual void ReadActionParameters();
 	virtual void UndoAction();
