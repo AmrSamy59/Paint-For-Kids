@@ -36,7 +36,6 @@ void AddDeleteAction::Execute()
 	Selected_Figure->SetFigureAbilityToBeDrawn(false);
 	Selected_Figure->SetSelected(false);
 	Selected_Figure->SetDelete(true);
-
 	if (dynamic_cast<CRectangle*>(Selected_Figure))
 	{
 		CRectangle::SetCount(CRectangle::GetCount() - 1);
@@ -62,8 +61,6 @@ void AddDeleteAction::Execute()
 }
 void AddDeleteAction::UndoAction()
 {
-	/*Selected_Figure = pManager->GetTheLastDrawnObject(ApplicationManager::DELETED);*/
-	cout<<"selected one:" << Selected_Figure << endl;
 	if (Selected_Figure)
 		Selected_Figure->SetFigureAbilityToBeDrawn(true);
 }

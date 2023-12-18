@@ -217,6 +217,7 @@
     <ClCompile Include="RedoActionClass.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="StartRecording.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -370,6 +371,7 @@
     <ClInclude Include="RedoActionClass.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
+    <ClInclude Include="StartRecording.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

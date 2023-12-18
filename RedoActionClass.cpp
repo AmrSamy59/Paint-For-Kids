@@ -27,12 +27,6 @@ void RedoActionClass::Execute()
 	if (PassedAction)
 	{
 		PassedAction->RedoAction();
-		/*if (dynamic_cast<AddRectAction*>(PassedAction) != NULL || dynamic_cast<AddSquareAction*>(PassedAction) != NULL
-			|| dynamic_cast<AddHexagonAction*>(PassedAction) != NULL || dynamic_cast<AddCircleAction*>(PassedAction) != NULL
-			|| dynamic_cast<AddTriangleAction*>(PassedAction) != NULL)
-		{
-			pManager->AddFigure(PassedFigure);
-		}*/
 		pManager->AddForUndoAction(PassedAction,false);
 		pManager->SetRedoActionToNull(PassedAction);
 	}

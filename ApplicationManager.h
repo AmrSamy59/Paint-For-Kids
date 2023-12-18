@@ -1,6 +1,7 @@
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
 
+#include <ctime>
 #include "DEFS.h"
 #include "Figures\CFigure.h"
 #include "Actions\Action.h"
@@ -25,6 +26,7 @@
 #include "Actions\DrawColorAction.h"
 #include "UndoActionClass.h"
 #include "RedoActionClass.h"
+#include "StartRecording.h"
 #include <fstream>
 #include <filesystem>
 
@@ -43,23 +45,27 @@ private:
 	int Action_Count;
 	int Redo_Action_Count;
 	int Fig_Redo_Count;
-	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
-	CFigure* FigListForRedoAction[MaxFigCount];
-
-	Action* ActionListForRecording[MaxFigCount];
-	CFigure* SelectedFig; //Pointer to the selected figure
 	int SelectedFigNum;
-	CFigure* Playlist[MaxFigCount];
-	Action* ActionList[MaxFigCount];
-	Action* RedoActionList[MaxFigCount];
-	//Pointers to Input and Output classes
-	Input *pIn;
-	Output *pOut;
 	int RectCount;
 	int SquareCount;
 	int TriangleCount;
 	int HexagonCount;
 	int CircleCount;
+
+	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
+	CFigure* FigListForRedoAction[MaxFigCount];
+	CFigure* SelectedFig; //Pointer to the selected figure
+	CFigure* Playlist[MaxFigCount];
+
+	bool PermissionToStartRecord;
+	bool StartToRecord;
+
+	Action* ActionListForRecording[MaxFigCount];
+	Action* ActionList[MaxFigCount];
+	Action* RedoActionList[MaxFigCount];
+	//Pointers to Input and Output classes
+	Input *pIn;
+	Output *pOut;
 	
 public:	
 
@@ -90,14 +96,14 @@ public:
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
 	int GetSelectedFigureNumber();
-	void ExecuteUndoAction();
 
 	int GetFigsCount() const;
 	int GetColoredFigsCount(string c);
 	
 	void DrawModeOriginal();
-	CFigure* GetTheLastDrawnObject(Required_Task_t task);
 
+	void SetPermissionToRecord(bool StartRecordiong);
+	bool GetRecordingPermission();
 	void AddAction(Action* pAction);
 	void AddActionForRecording(Action* pAction);
 	CFigure* ReturnLastFigureOfRedoList();

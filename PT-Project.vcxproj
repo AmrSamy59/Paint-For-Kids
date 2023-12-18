@@ -194,6 +194,7 @@
     <ClCompile Include="PlayMode\PlayBycolor.cpp" />
     <ClCompile Include="PlayMode\PlayBytype.cpp" />
     <ClCompile Include="RedoActionClass.cpp" />
+    <ClCompile Include="StartRecording.cpp" />
     <ClCompile Include="UndoActionClass.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +248,7 @@
     <ClInclude Include="PlayMode\PlayBycolor.h" />
     <ClInclude Include="PlayMode\PlayBytype.h" />
     <ClInclude Include="RedoActionClass.h" />
+    <ClInclude Include="StartRecording.h" />
     <ClInclude Include="UndoActionClass.h" />
   </ItemGroup>
   <ItemGroup>
