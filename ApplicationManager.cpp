@@ -120,7 +120,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case STATUS:	//a click on the status bar ==> no action
 			return;
 	}
-	//Execute the created action
+	//Execute the created action with recording
 	if(pAct != NULL)
 	{
 		pAct->Execute();		//Execute
