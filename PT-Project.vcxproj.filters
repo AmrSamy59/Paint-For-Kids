@@ -217,7 +217,15 @@
     <ClCompile Include="RedoActionClass.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="StartRecording.cpp" />
+    <ClCompile Include="StartRecording.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayRecording.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="StopRecording.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -371,7 +379,15 @@
     <ClInclude Include="RedoActionClass.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="StartRecording.h" />
+    <ClInclude Include="StartRecording.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayRecording.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="StopRecording.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -16,6 +16,7 @@ private:
 	CFigure* LastDrawnCircle;
 public:
 	AddCircleAction(ApplicationManager* pApp);
+	virtual void PlayRecordingFunc();
 	virtual void UndoAction();
 	virtual void RedoAction();
 	//Reads circle parameters

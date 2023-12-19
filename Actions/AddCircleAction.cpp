@@ -4,6 +4,10 @@
 AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 {
 }
+void AddCircleAction::PlayRecordingFunc()
+{
+	pManager->AddFigure(LastDrawnCircle);
+}
 void AddCircleAction::RedoAction()
 {
 	LastDrawnCircle->SetFigureAbilityToBeDrawn(true);

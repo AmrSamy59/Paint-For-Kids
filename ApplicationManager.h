@@ -1,7 +1,6 @@
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
 
-#include <ctime>
 #include "DEFS.h"
 #include "Figures\CFigure.h"
 #include "Actions\Action.h"
@@ -27,6 +26,8 @@
 #include "UndoActionClass.h"
 #include "RedoActionClass.h"
 #include "StartRecording.h"
+#include "StopRecording.h"
+#include "PlayRecording.h"
 #include <fstream>
 #include <filesystem>
 
@@ -60,7 +61,7 @@ private:
 	bool PermissionToStartRecord;
 	bool StartToRecord;
 
-	Action* ActionListForRecording[MaxFigCount];
+	Action* ActionListForRecording[20];
 	Action* ActionList[MaxFigCount];
 	Action* RedoActionList[MaxFigCount];
 	//Pointers to Input and Output classes
@@ -105,6 +106,7 @@ public:
 	void SetPermissionToRecord(bool StartRecordiong);
 	bool GetRecordingPermission();
 	void AddAction(Action* pAction);
+	Action* GetActionForRecording();
 	void AddActionForRecording(Action* pAction);
 	CFigure* ReturnLastFigureOfRedoList();
 	void AddFigToRedoFigList(CFigure* pFigure);

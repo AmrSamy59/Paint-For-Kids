@@ -95,6 +95,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_RECORDING:
 			pAct = new StartRecording(this);
 			break;
+		case DRAW_PLAYRECORDING:
+			pAct = new PlayRecording(this);
+			break;
+		case DRAW_PAUSERECORING:
+			pAct = new StopRecording(this);
+			break;
 		case DRAW_MOVE:
 			pAct = new Move(this);
 			break;
@@ -124,14 +130,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct != NULL)
 	{
 		pAct->Execute();		//Execute
-		if (dynamic_cast<AddRectAction*>(pAct)|| dynamic_cast<AddSquareAction*>(pAct)
+		if (dynamic_cast<AddRectAction*>(pAct) || dynamic_cast<AddSquareAction*>(pAct)
 			|| dynamic_cast<AddHexagonAction*>(pAct) || dynamic_cast<AddCircleAction*>(pAct)
 			|| dynamic_cast<AddTriangleAction*>(pAct) || dynamic_cast<Move*>(pAct)
 			|| dynamic_cast<DrawColorAction*>(pAct) || dynamic_cast<FillColorAction*>(pAct))
 		{
-			AddForUndoAction(pAct, true);	
-			if(StartToRecord)
+			AddForUndoAction(pAct, true);
+			if (StartToRecord)
+			{
 				AddActionForRecording(pAct);
+				cout << "Action is added to record with recording count " << Action_Count_For_Recording << endl;
+			}
 		}
 		else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct)))
 			AddActionForRecording(pAct);
@@ -140,9 +149,25 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			delete pAct;
 	}
 }
+Action* ApplicationManager::GetActionForRecording()
+{
+	static unsigned short i = 0;
+	if (ActionListForRecording[i] && i < 20)
+		return ActionListForRecording[i++];
+	else
+	{
+		i = 0;
+		Action_Count_For_Recording = 0;
+		pOut->PrintMessage("Nothing to be recorded motherf***");
+		return NULL;
+	}
+}
 void ApplicationManager::SetPermissionToRecord(bool StartRecordiong)
 {
 	StartToRecord = StartRecordiong;
+	if(StartToRecord)
+		for (unsigned short i = 0;i < 20;i++)
+			ActionListForRecording[i] = NULL;
 }
 bool ApplicationManager::GetRecordingPermission()
 {
@@ -150,8 +175,13 @@ bool ApplicationManager::GetRecordingPermission()
 }
 void ApplicationManager::AddActionForRecording(Action* pAction)
 {
-	if (Action_Count_For_Recording < 200)
+	if (Action_Count_For_Recording < 20)
 		ActionListForRecording[Action_Count_For_Recording++] = pAction;
+	else
+	{
+		pOut->PrintMessage("stop this shit motherf***,recording is over");
+		SetPermissionToRecord(false);
+	}
 }
 CFigure* ApplicationManager::ReturnLastFigureOfRedoList()
 {
@@ -641,6 +671,9 @@ ApplicationManager::~ApplicationManager()
 	{
 		delete FigList[i];
 		delete ActionList[i];
+		delete RedoActionList[i];
+		if(i < 20)
+			delete ActionListForRecording[i];
 	}
 	delete pIn;
 	delete pOut;
