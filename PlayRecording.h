@@ -12,6 +12,7 @@ class PlayRecording : public Action
 {
 private:
 	Action* PassedRecordingAction;
+	bool canPlay = true;
 public:
 	PlayRecording(ApplicationManager* pApp);	//constructor
 	void UndoAction();

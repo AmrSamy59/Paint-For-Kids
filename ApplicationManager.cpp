@@ -158,7 +158,7 @@ Action* ApplicationManager::GetActionForRecording()
 	{
 		i = 0;
 		Action_Count_For_Recording = 0;
-		pOut->PrintMessage("Nothing to be recorded motherf***");
+		pOut->PrintMessage("Nothing to be recorded");
 		return NULL;
 	}
 }
@@ -173,13 +173,17 @@ bool ApplicationManager::GetRecordingPermission()
 {
 	return PermissionToStartRecord;
 }
+bool ApplicationManager::CheckRecording()
+{
+	return StartToRecord;
+}
 void ApplicationManager::AddActionForRecording(Action* pAction)
 {
 	if (Action_Count_For_Recording < 20)
 		ActionListForRecording[Action_Count_For_Recording++] = pAction;
 	else
 	{
-		pOut->PrintMessage("stop this shit motherf***,recording is over");
+		pOut->PrintMessage("Recording is over");
 		SetPermissionToRecord(false);
 	}
 }
@@ -281,6 +285,14 @@ void ApplicationManager::AddForRedoAction(Action* pAction)
 	cout << "Added Action to redo list : " << RedoActionList[Redo_Action_Count - 1] << endl;
 }
 
+void ApplicationManager::AddPlayRecordingFigure(CFigure* pFigure)
+{
+	if (PlayRecordingFigCount < 20)
+	{
+		PlayRecordingFigList[PlayRecordingFigCount++] = pFigure;
+	}
+}
+
 void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 {
 	if (Action_Count < MaxFigCount)
@@ -352,10 +364,12 @@ void ApplicationManager::SetActionToNull(Action* pAction)
 void ApplicationManager::ClearAll() {
 	for (int i = 0; i <MaxFigCount; i++)
 	{
-		if(FigList[i] != NULL)
+		if (FigList[i] != NULL) {
 			FigList[i] = NULL;
-		if (ActionList[i] != NULL)
+		}
+		if (ActionList[i] != NULL) {
 			ActionList[i] = NULL;
+		}
 	}
 	FigCount = 0;
 	Action_Count = 0;

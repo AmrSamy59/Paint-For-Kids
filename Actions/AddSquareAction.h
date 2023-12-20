@@ -18,6 +18,7 @@ public:
 	virtual void RedoAction();
 	//Reads square parameters
 	virtual void ReadActionParameters();
+	virtual void PlayRecordingFunc();
 	virtual void UndoAction();
 	//Add square to the ApplicationManager
 	virtual void Execute();

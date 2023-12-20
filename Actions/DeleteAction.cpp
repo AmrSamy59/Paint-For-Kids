@@ -64,11 +64,52 @@ void AddDeleteAction::UndoAction()
 	if (Selected_Figure)
 	{
 		Selected_Figure->SetFigureAbilityToBeDrawn(true);
-		//Selected_Figure->SetDelete(false);
+		Selected_Figure->SetDelete(false);
+		if (dynamic_cast<CRectangle*>(Selected_Figure))
+		{
+			CRectangle::SetCount(CRectangle::GetCount() + 1);
+		}
+		else if (dynamic_cast<CSquare*>(Selected_Figure))
+		{
+			CSquare::SetCount(CSquare::GetCount() + 1);
+		}
+		else if (dynamic_cast<CTriangle*>(Selected_Figure))
+		{
+			CTriangle::SetCount(CTriangle::GetCount() + 1);
+		}
+		else if (dynamic_cast<CCircle*>(Selected_Figure))
+		{
+			CCircle::SetCount(CCircle::GetCount() + 1);
+		}
+		else if (dynamic_cast<CHexagon*>(Selected_Figure))
+		{
+			CHexagon::SetCount(CHexagon::GetCount() + 1);
+		}  
+
 	}
 }
 void AddDeleteAction::RedoAction()
 {
 	Selected_Figure->SetFigureAbilityToBeDrawn(false);
-	//Selected_Figure->SetDelete(true);
+	Selected_Figure->SetDelete(true);
+	if (dynamic_cast<CRectangle*>(Selected_Figure))
+	{
+		CRectangle::SetCount(CRectangle::GetCount() - 1);
+	}
+	else if (dynamic_cast<CSquare*>(Selected_Figure))
+	{
+		CSquare::SetCount(CSquare::GetCount() - 1);
+	}
+	else if (dynamic_cast<CTriangle*>(Selected_Figure))
+	{
+		CTriangle::SetCount(CTriangle::GetCount() - 1);
+	}
+	else if (dynamic_cast<CCircle*>(Selected_Figure))
+	{
+		CCircle::SetCount(CCircle::GetCount() - 1);
+	}
+	else if (dynamic_cast<CHexagon*>(Selected_Figure))
+	{
+		CHexagon::SetCount(CHexagon::GetCount() - 1);
+	}  
 }

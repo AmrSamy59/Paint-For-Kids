@@ -26,6 +26,11 @@ void AddHexagonAction::ReadActionParameters()
 	pOut->ClearStatusBar();
 }
 
+void AddHexagonAction::PlayRecordingFunc()
+{
+	pManager->AddFigure(LastDrawnHexagon);
+}
+
 void AddHexagonAction::Execute()
 {
 	//This action needs to read some parameters first

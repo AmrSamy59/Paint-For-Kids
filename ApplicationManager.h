@@ -47,6 +47,7 @@ private:
 	int Redo_Action_Count;
 	int Fig_Redo_Count;
 	int SelectedFigNum;
+	int PlayRecordingFigCount;
 	int RectCount;
 	int SquareCount;
 	int TriangleCount;
@@ -55,6 +56,7 @@ private:
 
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* FigListForRedoAction[MaxFigCount];
+	CFigure* PlayRecordingFigList[20];
 	CFigure* SelectedFig; //Pointer to the selected figure
 	CFigure* Playlist[MaxFigCount];
 
@@ -105,12 +107,14 @@ public:
 
 	void SetPermissionToRecord(bool StartRecordiong);
 	bool GetRecordingPermission();
+	bool CheckRecording();
 	void AddAction(Action* pAction);
 	Action* GetActionForRecording();
 	void AddActionForRecording(Action* pAction);
 	CFigure* ReturnLastFigureOfRedoList();
 	void AddFigToRedoFigList(CFigure* pFigure);
 	void AddForRedoAction(Action* pAction);
+	void AddPlayRecordingFigure(CFigure* pFigure);
 	Action* HandleAndReturnRedoActions();
 	void SetRedoActionToNull(Action *pAction);
 	void AddForUndoAction(Action* pAction,bool E_Ok);

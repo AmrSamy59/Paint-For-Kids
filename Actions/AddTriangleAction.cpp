@@ -38,6 +38,11 @@ void AddTriangleAction::ReadActionParameters()
 	pOut->ClearStatusBar();
 }
 
+void AddTriangleAction::PlayRecordingFunc()
+{
+	pManager->AddFigure(LastDrawnTriangle);
+}
+
 void AddTriangleAction::Execute()
 {
 	ReadActionParameters();

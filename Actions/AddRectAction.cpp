@@ -32,6 +32,10 @@ void AddRectAction::ReadActionParameters()
 
 	pOut->ClearStatusBar();
 }
+void AddRectAction::PlayRecordingFunc()
+{
+	pManager->AddFigure(LastDrawnRect);
+}
 void AddRectAction::UndoAction()
 {
 	LastDrawnRect->SetFigureAbilityToBeDrawn(false);

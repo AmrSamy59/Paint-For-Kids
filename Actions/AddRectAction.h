@@ -22,6 +22,7 @@ public:
 	virtual void RedoAction();
 	//Reads rectangle parameters
 	virtual void ReadActionParameters();
+	virtual void PlayRecordingFunc();
 	virtual void UndoAction();
 	//Add rectangle to the ApplicationManager
 	virtual void Execute() ;

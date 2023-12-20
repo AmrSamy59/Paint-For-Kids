@@ -25,6 +25,11 @@ void AddSquareAction::ReadActionParameters()
 
 }
 
+void AddSquareAction::PlayRecordingFunc()
+{
+	pManager->AddFigure(LastDrawnSquare);
+}
+
 void AddSquareAction::Execute()
 { //This action needs to read some parameters first
 	ReadActionParameters();

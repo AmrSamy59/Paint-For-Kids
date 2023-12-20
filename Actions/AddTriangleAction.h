@@ -17,6 +17,7 @@ public:
 	virtual void RedoAction();
 	//Reads triangle parameters
 	virtual void ReadActionParameters();
+	virtual void PlayRecordingFunc();
 	virtual void UndoAction();
 	//Add triangle to the ApplicationManager
 	virtual void Execute();

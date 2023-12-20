@@ -17,6 +17,7 @@ public:
 
 	//Reads hexagon parameters
 	virtual void ReadActionParameters();
+	virtual void PlayRecordingFunc();
 	virtual void UndoAction();
 	virtual void RedoAction();
 	//Add hexagon to the ApplicationManager

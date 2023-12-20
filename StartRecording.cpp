@@ -30,6 +30,6 @@ void StartRecording::Execute()
 		pManager->SetPermissionToRecord(true);
 	}
 	else
-		pOut->PrintMessage("You Cannot Record Now motherf***,focus");
+		pOut->PrintMessage("You Cannot Record Now");
 }
 

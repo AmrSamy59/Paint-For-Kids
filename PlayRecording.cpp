@@ -21,13 +21,27 @@ void PlayRecording::ReadActionParameters()
 void PlayRecording::Execute()
 {
 	Output* pOut = pManager->GetOutput();
-	pManager->ClearAll();
-	pManager->UpdateInterface();
-	ReadActionParameters();
-	while (PassedRecordingAction)
+	if (pManager->CheckRecording())
 	{
-		Sleep(5000);
-		PassedRecordingAction->PlayRecordingFunc();
+		canPlay = false;
+	}
+	else
+		canPlay = true;
+	if (canPlay) {
+		pManager->ClearAll();
+		pManager->UpdateInterface();
 		ReadActionParameters();
+		UI.FillColor = 0;
+		while (PassedRecordingAction) 
+		{
+			Sleep(1000);
+			PassedRecordingAction->PlayRecordingFunc();
+			pManager->UpdateInterface();
+			ReadActionParameters();
+		}
+	}
+	else
+	{
+		pOut->PrintMessage("You can't play any recording while recording!");
 	}
 }
