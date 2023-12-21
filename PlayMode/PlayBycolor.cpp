@@ -40,6 +40,10 @@ void PlayBycolor::Execute()
 	int FigsCount = pManager->GetFigsCount();
 	int color_index = 0;
 	CFigure* randomfig = pManager->GetRandomfigure();
+	if (!randomfig) {
+		pout->PrintMessage("There are no figures to play with.");
+		return;
+	}
 	color* c = randomfig->GetFillColor();
 	
 	/////////////////////////////////

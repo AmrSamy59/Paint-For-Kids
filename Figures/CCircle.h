@@ -13,7 +13,7 @@ public:
 	virtual void Move(Point Pm);
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
-
+	//CCircle* SaveCopyOfFigure();
 	static void SetCount(int i);
 
 	static int GetCount();

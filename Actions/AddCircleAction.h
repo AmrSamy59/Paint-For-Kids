@@ -14,6 +14,7 @@ private:
 	Point P1, P2; 
 	GfxInfo CircleGfxInfo;
 	CFigure* LastDrawnCircle;
+	CFigure* copyLastDrawnCircle;
 public:
 	AddCircleAction(ApplicationManager* pApp);
 	virtual void PlayRecordingFunc();

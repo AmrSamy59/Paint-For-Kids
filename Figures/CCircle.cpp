@@ -67,6 +67,13 @@ void CCircle::Save(ofstream& OutFile)
 	OutFile << "CIRCLE" << "\t" << ID << "\t" << point1.x << "\t" << point1.y << "\t" << radius << "\t" << dcname << "\t" << fcname << endl;
 }
 
+/*CCircle* CCircle::SaveCopyOfFigure()
+{
+	CCircle* x = new CCircle(*this);
+	return x;
+
+}
+*/
 void CCircle::SetCount(int i)
 {
 	CCircle::Count = i;

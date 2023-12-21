@@ -64,7 +64,7 @@ void AddDeleteAction::UndoAction()
 	if (Selected_Figure)
 	{
 		Selected_Figure->SetFigureAbilityToBeDrawn(true);
-		Selected_Figure->SetDelete(false);
+		/* Selected_Figure->SetDelete(false);
 		if (dynamic_cast<CRectangle*>(Selected_Figure))
 		{
 			CRectangle::SetCount(CRectangle::GetCount() + 1);
@@ -84,14 +84,14 @@ void AddDeleteAction::UndoAction()
 		else if (dynamic_cast<CHexagon*>(Selected_Figure))
 		{
 			CHexagon::SetCount(CHexagon::GetCount() + 1);
-		}  
+		}  */
 
 	}
 }
 void AddDeleteAction::RedoAction()
 {
 	Selected_Figure->SetFigureAbilityToBeDrawn(false);
-	Selected_Figure->SetDelete(true);
+	/* Selected_Figure->SetDelete(true);
 	if (dynamic_cast<CRectangle*>(Selected_Figure))
 	{
 		CRectangle::SetCount(CRectangle::GetCount() - 1);
@@ -111,5 +111,5 @@ void AddDeleteAction::RedoAction()
 	else if (dynamic_cast<CHexagon*>(Selected_Figure))
 	{
 		CHexagon::SetCount(CHexagon::GetCount() - 1);
-	}  
+	}  */
 }

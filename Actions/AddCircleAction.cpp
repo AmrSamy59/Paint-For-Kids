@@ -44,9 +44,11 @@ void AddCircleAction::Execute()
 	//Create a circle with the parameters read from the user
 	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
 	LastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
-
+	CCircle* ptr=nullptr;
+//	copyLastDrawnCircle = ptr->SaveCopyOfFigure();
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(LastDrawnCircle);
+	//pManager->AddFigureplay(copyLastDrawnCircle);
 }
 void AddCircleAction::UndoAction()
 {

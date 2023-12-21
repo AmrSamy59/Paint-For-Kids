@@ -31,7 +31,6 @@ void PlayRecording::Execute()
 		pManager->ClearAll();
 		pManager->UpdateInterface();
 		ReadActionParameters();
-		UI.FillColor = 0;
 		while (PassedRecordingAction) 
 		{
 			Sleep(1000);

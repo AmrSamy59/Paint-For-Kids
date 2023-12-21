@@ -28,6 +28,10 @@ void PlayByboth::Execute()
 	int Misses = 0;
 	int Maxhits = 0;
 	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
+	if (!randomfig) {
+		pout->PrintMessage("There are no figures to play with.");
+		return;
+	}
 	string color_name=" ";
 	//string name = " ";
 	/*if ((randomfig->GetFillColor()) != nullptr)

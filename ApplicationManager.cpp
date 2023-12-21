@@ -18,6 +18,7 @@ ApplicationManager::ApplicationManager()
 	StartToRecord = false;
 
 	FigCount = 0;
+	//playCount = 0;
 	Action_Count = 0;
 	Redo_Action_Count = 0;
 	Fig_Redo_Count = 0;
@@ -365,9 +366,11 @@ void ApplicationManager::ClearAll() {
 	for (int i = 0; i <MaxFigCount; i++)
 	{
 		if (FigList[i] != NULL) {
+			delete FigList[i];
 			FigList[i] = NULL;
 		}
 		if (ActionList[i] != NULL) {
+			delete ActionList[i];
 			ActionList[i] = NULL;
 		}
 	}
@@ -478,6 +481,12 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		FigList[FigCount++] = pFig;
 
 }
+/*void ApplicationManager::AddFigureplay(CFigure* pFig)
+{
+	if (playCount < MaxFigCount)
+		Playlist[playCount++] = pFig;
+	cout << 1<<endl;
+}*/
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {
@@ -623,6 +632,8 @@ void ApplicationManager::PlayModeClear()
 CFigure* ApplicationManager::GetRandomfigure()
 {
 	int randomnumber;
+	if (FigCount == 0)
+		return nullptr;
 	do
 	{
 	    randomnumber = rand() % FigCount;

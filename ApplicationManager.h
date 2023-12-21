@@ -42,6 +42,7 @@ class ApplicationManager
 
 private:
 	int FigCount;		//Actual number of figures
+	//int playCount;
 	int Action_Count_For_Recording;
 	int Action_Count;
 	int Redo_Action_Count;
@@ -81,6 +82,7 @@ public:
 	~ApplicationManager();
 	/// 
 	/// PLAY MODE FUNCTIONS////////////////////////////////////////////////////////////////////////
+	//void AddFigureplay(CFigure* pFig);
 	void PlayModeClearSelection();
 	void Playlistformation();
 	void ResetPlayMode();

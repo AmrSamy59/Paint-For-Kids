@@ -38,7 +38,12 @@ Output* pout = pManager->GetOutput();
 	int FigsCount[5] = { RectCount,SquareCount,TriangleCount,HexagonCount,CircleCount };
 
 	int Figureindex=0;
-	string randomfig_type = pManager->GetRandomfigure()->GetType();
+	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
+	if (!randomfig) {
+			pout->PrintMessage("There are no figures to play with.");
+			return;
+	}
+	string randomfig_type = randomfig->GetType();
 	for (int i = 0; i < 5; i++) {
 		if (randomfig_type == FigNames[i]) {
 			Figureindex = i;
