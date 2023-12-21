@@ -590,7 +590,7 @@ Output *ApplicationManager::GetOutput() const
 ////////////////////////////////////////////////////////////////////////////////////
 void ApplicationManager::Playlistformation() {
 	for (int i = 0; i < FigCount; i++) {
-		if(FigList[i]->GetFigureAbilityToBeDrawn())
+		if(FigList[i] && FigList[i]->GetFigureAbilityToBeDrawn())
 			Playlist[i] = FigList[i];
 	}
 }
