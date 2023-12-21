@@ -44,7 +44,6 @@ void Move::Execute()
 	fig = pManager->GetSelectedFigure();
 	if (fig != NULL)
 	{
-		cout << Pf[1].x << " " << Pf[1].y << endl;
 		fig->Move(Pf[1]);
 		fig->SetSelected(false);
 	}

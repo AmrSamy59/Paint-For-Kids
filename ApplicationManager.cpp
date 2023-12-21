@@ -140,7 +140,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			if (StartToRecord)
 			{
 				AddActionForRecording(pAct);
-				cout << "Action is added to record with recording count " << Action_Count_For_Recording << endl;
 			}
 		}
 		else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct)))
@@ -197,8 +196,6 @@ CFigure* ApplicationManager::ReturnLastFigureOfRedoList()
 		PrevPassedFigCount = Fig_Redo_Count;
 		k = 1;
 	}
-	cout << "fig redo count = " << Fig_Redo_Count << endl;
-	cout << "prev passed fig in redo var = " << PrevPassedFigCount << "  " << "k = " << k << endl;
 	while (1)
 	{
 		if (FigListForRedoAction[Fig_Redo_Count - k])
@@ -257,7 +254,6 @@ Action* ApplicationManager::ReturnLastAction()
 	{
 		flag &= (ActionList[i] == NULL) ? true : false;
 	}
-	cout << flag << endl;
 	while (1)
 	{
 		if (flag)
@@ -277,13 +273,11 @@ void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
 {
 	if (Fig_Redo_Count < 200)
 		FigListForRedoAction[Fig_Redo_Count++] = pFigure;
-	cout << "added fig in redo fig list" << FigListForRedoAction[Fig_Redo_Count - 1] << endl;
 }
 void ApplicationManager::AddForRedoAction(Action* pAction)
 {
 	if (Redo_Action_Count < 200)
 		RedoActionList[Redo_Action_Count++] = pAction;
-	cout << "Added Action to redo list : " << RedoActionList[Redo_Action_Count - 1] << endl;
 }
 
 void ApplicationManager::AddPlayRecordingFigure(CFigure* pFigure)
@@ -322,9 +316,7 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 	{
 		flag &= (RedoActionList[i] == NULL) ? true : false;
 	}
-	cout << "Redo Flag:" << flag << endl;
-	cout << "Redo Action Count:" << Redo_Action_Count << endl;
-	cout << "j:" << j << endl;
+
 	while(1)
 	{
 		if (flag)
@@ -484,12 +476,7 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 		FigList[FigCount++] = pFig;
 
 }
-/*void ApplicationManager::AddFigureplay(CFigure* pFig)
-{
-	if (playCount < MaxFigCount)
-		Playlist[playCount++] = pFig;
-	cout << 1<<endl;
-}*/
+
 ////////////////////////////////////////////////////////////////////////////////////
 CFigure *ApplicationManager::GetFigure(int x, int y) const
 {

@@ -27,7 +27,6 @@ void PlayBycolor::Execute()
 	int Sum_of_colors = 0;
 	for (int i = 0; i < c_count; i++) {
 		ColorsCount[i] = pManager->GetColoredFigsCount(UI.drawColors[i]);
-		cout << UI.drawColors[i] << " " << ColorsCount[i] << endl;
 		Sum_of_colors += ColorsCount[i];
 	}
 
