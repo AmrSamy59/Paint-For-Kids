@@ -22,52 +22,49 @@ void PlayBycolor::Execute()
 {
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
-	int ColorsCount[6] = { 0,0,0,0,0,0 };
+	const int c_count = UI.c_cols * UI.c_rows;
+	int* ColorsCount = new int[c_count]{ 0,0,0,0,0,0,0,0 };
 	int Sum_of_colors = 0;
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < c_count; i++) {
 		ColorsCount[i] = pManager->GetColoredFigsCount(UI.drawColors[i]);
+		cout << UI.drawColors[i] << " " << ColorsCount[i] << endl;
 		Sum_of_colors += ColorsCount[i];
 	}
 
 	if(Sum_of_colors==0)
 	{
 		pout->PrintMessage("There are no colored figures");
+		delete[] ColorsCount;
 		return;
 	}
 	int	Hits = 0;
 	int Misses = 0;
 	pManager->Playlistformation();
-	int FigsCount = pManager->GetFigsCount();
+	const int FigsCount = pManager->GetFigsCount();
 	int color_index = 0;
 	CFigure* randomfig = pManager->GetRandomfigure();
 	if (!randomfig) {
 		pout->PrintMessage("There are no figures to play with.");
+		delete[] ColorsCount;
 		return;
 	}
-	color* c = randomfig->GetFillColor();
+	color c = randomfig->GetFillColor();
 	
 	/////////////////////////////////
-	while (!c)
+
+	for (int i = 0; i < c_count; i++)
 	{
-		
-		randomfig = pManager->GetRandomfigure();
-		c = randomfig->GetFillColor();
-		
-		
-	}
-	for (int i = 0; i < 6; i++)
-	{
-		if (UI.drawColorsEq[i] == *c)
+		if (UI.drawColorsEq[i] == c)
 		{
 			color_index = i;
 			break;
 		}
 	}
 
-	string randomColor = pout->GetColorName(*c);
+	string randomColor = pout->GetColorName(c);
 	
 	pout->PrintMessage("Pick " + UI.drawColors[color_index] + " Figures");
-	while(Hits != ColorsCount[color_index])
+	while(Hits < ColorsCount[color_index])
 	{
 		pin->GetPointForDrawing(Ps.x, Ps.y, pout);
 		pout->ClearStatusBar();
@@ -77,22 +74,19 @@ void PlayBycolor::Execute()
 			ptrfigure->SetSelected(true);
 			ptrfigure->SetFigureAbilityToBeDrawn(false);
 			pManager->UpdateInterface();
-			color* c = ptrfigure->GetFillColor();
-			if (c) {
-				string color_name = pout->GetColorName(*c);
-				if (color_name == randomColor)
-					Hits++;
-				else
-					Misses++;
-			}
+			color c = ptrfigure->GetFillColor();
+			string color_name = pout->GetColorName(c);
+			if (color_name == randomColor)
+				Hits++;
 			else
 				Misses++;
-
 		}
 
 	}
-	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [" + randomColor + " Figures(s)] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
+	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [" + randomColor + " Figures] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
 	pin->GetPointClicked(Ps.x, Ps.y);
 	pout->ClearStatusBar();
 	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
+
+	delete[] ColorsCount;
 }

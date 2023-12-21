@@ -33,22 +33,25 @@ Output::Output()
 	UI.MenuItemHeight = UI.MenuItemWidth; // 50x50 Icons
 	UI.ToolBarHeight = UI.MenuItemHeight + 14; // 14px offset for labels (12px font height + 2px padding)
 
+	UI.DefaultDrawColor = BLUE;
+	UI.DrawColor = UI.DefaultDrawColor;	//Drawing color
 
-	UI.DrawColor = BLUE;	//Drawing color
 	UI.MsgColor = WHITE;		//Messages color
 	UI.BkGrndColor = LIGHTGOLDENRODYELLOW;	//Background color
 	UI.HighlightColor = MAGENTA;	//This color should NOT be used to draw figures. use if for highlight only
 	UI.StatusBarColor = color(53, 47, 68);
+
 	UI.ToolBarColor = UI.StatusBarColor;
 	UI.FillColor = UI.ToolBarColor;	//Filling color
+
 	UI.PenWidth = 3;	//width of the figures frames
 
 	UI.IconsPadding = 10; // px
 	// Colors 
 	UI.c_rows = 2; // number of rows
-	UI.c_cols = 3; // number of columns
-	UI.drawColors = { new string[UI.c_rows * UI.c_cols] { "Red", "Green", "Blue", "Black", "Orange", "Yellow" } };
-	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, DARKGREEN, DEEPSKYBLUE, BLACK, ORANGE, YELLOW  } };
+	UI.c_cols = 4; // number of columns
+	UI.drawColors = { new string[UI.c_rows * UI.c_cols] { "Red", "Green", "Blue", "Purple", "Orange", "Yellow", "Black", "Transparent"}};
+	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, DARKGREEN, DEEPSKYBLUE, PURPLE, ORANGE, YELLOW, BLACK, UI.FillColor } };
 
 	UI.colorIconSize = 25; // px
 	
@@ -149,7 +152,7 @@ void Output::CreateDrawToolBar() const
 	//Draw menu item one image at a time
 	pWind->SetPen(UI.ToolBarColor, 0);
 
-	int paddingAfterColors = UI.IconsPadding + UI.colorIconSize;
+	int paddingAfterColors = UI.IconsPadding + UI.colorIconSize*(UI.c_cols-2);
 	for (int i = 0; i < DRAW_ITM_COUNT; i++) {
 		int ix, iy;
 		if (i == ITM_COLORS) {
@@ -268,14 +271,14 @@ string Output::GetColorName(color c) {
 		if (c == UI.drawColorsEq[i])
 			return UI.drawColors[i];
 	}
-	return "NO_COLOR";
+	return UI.drawColors[UI.c_cols * UI.c_rows - 1];
 }
 color Output::GetColorFromName(string cname) {
 	for (int i = 0; i < UI.c_cols * UI.c_rows; i++) {
 		if (cname == UI.drawColors[i])
 			return UI.drawColorsEq[i];
 	}
-	return false;
+	return UI.drawColorsEq[UI.c_cols * UI.c_rows -1];
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 

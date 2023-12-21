@@ -25,9 +25,7 @@ public:
 	bool IsSelected() const;	//check whether fig is selected
 	virtual Point GetFigureCenter() = 0;
 	bool GetFilledStatus();
-	color GetLastFigFilledColor();
 	void SetFilledStatus(bool status);
-	color GetLastFigBorderColor();
 	virtual bool CheckSelection(int x, int y) = 0;
 	virtual void Draw(Output* pOut) const = 0 ;		//Draw the figure
 	virtual void Move(Point Pm) = 0;
@@ -35,7 +33,8 @@ public:
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 
-	color* GetFillColor() const;		//returns the figure's filling color
+	color GetDrawColor() const;		//returns the figure's border color
+	color GetFillColor() const;		//returns the figure's filling color
 
 	bool CheckDelete();
 	void SetDelete(bool delete1);

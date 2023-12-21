@@ -32,18 +32,12 @@ void PlayByboth::Execute()
 		pout->PrintMessage("There are no figures to play with.");
 		return;
 	}
-	string color_name=" ";
-	//string name = " ";
-	/*if ((randomfig->GetFillColor()) != nullptr)
-	{
-		color_name = pout->GetColorName(*randomfig->GetFillColor()); //color for the random figure
-	}
-	name = "NO_COLOR";
-	cout << color_name;*/
+	string color_name="";
 	string type = randomfig->GetType();
-	color_name = pout->GetColorName(*randomfig->GetFillColor()); //color for the random figure
-	Maxhits =	pManager->Playmode_both(type, color_name); // max number condition for whlie loop 
-	pout->PrintMessage("Pick " + type + " with " + color_name + " color ");
+	color_name = pout->GetColorName(randomfig->GetFillColor()); //color for the random figure
+	Maxhits = pManager->GetSpecificTypeCount(type, color_name); // max number condition for whlie loop 
+
+	pout->PrintMessage("Pick " + color_name + " " + type + "s");
 	//if(name!= "NO_COLOR")
 	while(Hits < Maxhits)
 	{
@@ -55,7 +49,7 @@ void PlayByboth::Execute()
 			ptrfigure->SetFigureAbilityToBeDrawn(false);
 			pManager->UpdateInterface();
 
-			if (ptrfigure->GetType() == type && pout->GetColorName(*ptrfigure->GetFillColor())== color_name)
+			if (ptrfigure->GetType() == type && pout->GetColorName(ptrfigure->GetFillColor())== color_name)
 				Hits++;
 			else
 				Misses++;
@@ -83,7 +77,7 @@ void PlayByboth::Execute()
 			}
 		}
 		*/
-	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ Figure(s) ] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
+	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
 
 	pin->GetPointClicked(Ps.x, Ps.y);
 	pout->ClearStatusBar();

@@ -13,7 +13,7 @@ void Select::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	
+
 	pOut->PrintMessage("Click on a figure to select it.");
 
 	pIn->GetPointClicked(Ps.x, Ps.y);
@@ -22,6 +22,11 @@ void Select::ReadActionParameters()
 
 void Select::Execute()
 {
+	Output* pOut = pManager->GetOutput();
+	if (pManager->GetFigsCount() == 0) {
+		pOut->PrintMessage("No figures to select");
+		return;
+	}
 	ReadActionParameters();	 
 	if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 	{

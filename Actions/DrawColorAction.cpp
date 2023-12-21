@@ -3,17 +3,15 @@
 DrawColorAction::DrawColorAction(ApplicationManager* pApp) : Action(pApp)
 {
 	SelectedFigure = NULL;
-	drawColor[0] = NULL;
-	drawColor[1] = NULL;
+
 }
 
-void DrawColorAction::RedoAction()
-{
-}
+
 void DrawColorAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+
 	while (1)
 	{
 		SelectedFigure = pManager->GetSelectedFigure();
@@ -30,14 +28,14 @@ void DrawColorAction::ReadActionParameters()
 	}
 	if (SelectedFigure != NULL)
 	{
-		drawColor[0] = &(SelectedFigure->GetLastFigBorderColor());
+		c_drawColor = SelectedFigure->GetDrawColor();
 		pOut->PrintMessage("Please select a color");
 		
 		ActionType ActType = pManager->GetUserAction();
 		while ((ActType < DRAW_COLOR_0) || (ActType > DRAW_COLOR_0 + (UI.c_rows * UI.c_cols) - 1)) {
 			ActionType ActType = pManager->GetUserAction();
 		}
-		drawColor[1] = &(UI.drawColorsEq[ActType - DRAW_COLOR_0]);
+		drawColor = (UI.drawColorsEq[ActType - DRAW_COLOR_0]);
 	}
 	else
 	{
@@ -47,19 +45,21 @@ void DrawColorAction::ReadActionParameters()
 
 void DrawColorAction::Execute()
 {
-	int i = 0;
 	Output* pOut = pManager->GetOutput();
+	if (pManager->GetFigsCount() == 0) {
+		pOut->PrintMessage("No figures to change their drawing color");
+		return;
+	}
 	ReadActionParameters();
-	if (!SelectedFigure || !drawColor[1]) {
+	if (!SelectedFigure || !&drawColor) {
 		return;
 	}
 
-	UI.DrawColor = *drawColor[1];
-	if (i++ % 2 == 1 || i == 1)
-		*drawColor[0] = *drawColor[1];
-	SelectedFigure->ChngDrawClr(*drawColor[1]);
+	UI.DrawColor = drawColor;
 
-	string colorName = pOut->GetColorName(*drawColor[1]);
+	SelectedFigure->ChngDrawClr(drawColor);
+
+	string colorName = pOut->GetColorName(drawColor);
 	SelectedFigure->SetSelected(false);
 	pOut->CreateDrawToolBar();
 	pOut->PrintMessage("Successfully changed the drawing color to: " + colorName);
@@ -68,21 +68,33 @@ void DrawColorAction::Execute()
 
 void DrawColorAction::UndoAction()
 {
-	if (drawColor[0] == false)
+	if (c_drawColor == false)
 	{
 		SelectedFigure->SetFilledStatus(false);
 	}
 	else
 	{
-		SelectedFigure->ChngFillClr(*drawColor[0]);
+		SelectedFigure->ChngDrawClr(c_drawColor);
 	}
-	UI.FillColor = *drawColor[0];
+	UI.DrawColor = c_drawColor;
+	pManager->GetOutput()->CreateDrawToolBar();
 }
 
+void DrawColorAction::RedoAction()
+{
+	if (drawColor == false)
+	{
+		SelectedFigure->SetFilledStatus(false);
+	}
+	else
+	{
+		SelectedFigure->ChngDrawClr(drawColor);
+	}
+	UI.DrawColor = drawColor;
+	pManager->GetOutput()->CreateDrawToolBar();
+}
 
 DrawColorAction::~DrawColorAction()
 {
 	SelectedFigure = NULL;
-	drawColor[0] = NULL;
-	drawColor[1] = NULL;
 }

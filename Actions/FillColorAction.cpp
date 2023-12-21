@@ -3,16 +3,15 @@
 FillColorAction::FillColorAction(ApplicationManager* pApp) : Action(pApp)
 {
 	SelectedFigure = NULL;
-	isFilled[0] = false;
-	isFilled[1] = false;
+	isFilled = false;
+	c_isFilled = false;
 }
-void FillColorAction::RedoAction()
-{
-}
+
 void FillColorAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	
 	while (1)
 	{
 		SelectedFigure = pManager->GetSelectedFigure();
@@ -29,16 +28,20 @@ void FillColorAction::ReadActionParameters()
 	}
 	if (SelectedFigure != NULL)
 	{
-		isFilled[0] = SelectedFigure->GetFilledStatus();
-		fillColor[0] = &(SelectedFigure->GetLastFigFilledColor());
+		c_isFilled = SelectedFigure->GetFilledStatus();
+		c_fillColor = SelectedFigure->GetFillColor();
 		pOut->PrintMessage("Please select a color");
 		
 		ActionType ActType = pManager->GetUserAction();
+
 		while ((ActType < DRAW_COLOR_0) || (ActType > DRAW_COLOR_0 + (UI.c_rows * UI.c_cols) - 1)) {
 			ActType = pManager->GetUserAction();
 		}
-		fillColor[1] = &(UI.drawColorsEq[ActType - DRAW_COLOR_0]);
-		
+		fillColor = (UI.drawColorsEq[ActType - DRAW_COLOR_0]);
+		if (fillColor != UI.ToolBarColor)
+			isFilled = true;
+		else
+			isFilled = false;
 	}
 	else
 	{
@@ -48,19 +51,23 @@ void FillColorAction::ReadActionParameters()
 
 void FillColorAction::Execute()
 {
-	int i = 0;
 	Output* pOut = pManager->GetOutput();
-	ReadActionParameters();
-	
-	if (!SelectedFigure || !fillColor[1]) {
+	if (pManager->GetFigsCount() == 0) {
+		pOut->PrintMessage("No figures to change their fill color");
 		return;
 	}
-	UI.FillColor = *fillColor[1];
-	if (i++ % 2 == 1 || i == 1)
-		*fillColor[0] = *fillColor[1];
-	SelectedFigure->ChngFillClr(*fillColor[1]);
+	ReadActionParameters();
+	
+	if (!SelectedFigure || !isFilled) {
+		return;
+	}
 
-	string colorName = pOut->GetColorName(*fillColor[1]);
+
+	UI.FillColor = fillColor;
+
+	SelectedFigure->ChngFillClr(fillColor);
+
+	string colorName = pOut->GetColorName(fillColor);
 	SelectedFigure->SetSelected(false);
 	pOut->CreateDrawToolBar();
 	pOut->PrintMessage("Successfully changed the filling color to: " + colorName);
@@ -68,17 +75,30 @@ void FillColorAction::Execute()
 
 void FillColorAction::UndoAction()
 {
-	if (isFilled[0] == false)
+	if (c_isFilled == false)
 	{
 		SelectedFigure->SetFilledStatus(false);
 	}
 	else
 	{
-		SelectedFigure->ChngFillClr(*fillColor[0]);
+		SelectedFigure->ChngFillClr(c_fillColor);
 	}
-	UI.FillColor = *fillColor[0];
+	UI.FillColor = c_fillColor;
+	pManager->GetOutput()->CreateDrawToolBar();
 }
-
+void FillColorAction::RedoAction()
+{
+	if (isFilled == false)
+	{
+		SelectedFigure->SetFilledStatus(false);
+	}
+	else
+	{
+		SelectedFigure->ChngFillClr(fillColor);
+	}
+	UI.FillColor = fillColor;
+	pManager->GetOutput()->CreateDrawToolBar();
+}
 
 FillColorAction::~FillColorAction()
 {

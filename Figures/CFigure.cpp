@@ -16,16 +16,19 @@ void CFigure::SetSelected(bool s)
 
 bool CFigure::IsSelected() const   // get function for selection
 {	return Selected; }
-color CFigure::GetLastFigBorderColor()
+color CFigure::GetDrawColor() const
 {
 	return FigGfxInfo.DrawClr;
 }
-color CFigure::GetLastFigFilledColor()
-{
-	return FigGfxInfo.FillClr;
-}
+
 void CFigure::ChngDrawClr(color Dclr) // oulinr color
-{	FigGfxInfo.DrawClr = Dclr; }
+{	
+	if (Dclr == UI.ToolBarColor) {
+		FigGfxInfo.DrawClr = UI.DefaultDrawColor;
+		return;
+	}
+	FigGfxInfo.DrawClr = Dclr; 
+}
 bool CFigure::GetFilledStatus()
 {
 	return FigGfxInfo.isFilled;
@@ -37,12 +40,14 @@ void CFigure::SetFilledStatus(bool status)
 void CFigure::ChngFillClr(color Fclr) /// fill color
 {	
 	FigGfxInfo.isFilled = true;
+	if (Fclr == UI.ToolBarColor) {
+		FigGfxInfo.isFilled = false;
+	}
 	FigGfxInfo.FillClr = Fclr; 
 }
-color* CFigure::GetFillColor() const
+color CFigure::GetFillColor() const
 {
-	color fillclr = FigGfxInfo.FillClr;
-	return (FigGfxInfo.isFilled ? &fillclr : nullptr);
+	return FigGfxInfo.FillClr;
 }
 string CFigure::GetType() const
 {

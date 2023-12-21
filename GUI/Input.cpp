@@ -67,7 +67,7 @@ ActionType Input::GetUserAction() const
 		{	
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-			int paddingAfterColors = UI.IconsPadding + UI.colorIconSize;
+			int paddingAfterColors = UI.IconsPadding + UI.colorIconSize * (UI.c_cols - 2);
 			int ClickedItemOrder = ((x - UI.IconsPadding) / (UI.MenuItemWidth));
 			if (ClickedItemOrder > ITM_COLORS) // to deal with spacing after colors icons
 				ClickedItemOrder = ((x - paddingAfterColors) / (UI.MenuItemWidth));

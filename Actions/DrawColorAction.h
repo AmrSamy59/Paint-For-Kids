@@ -9,7 +9,8 @@
 class DrawColorAction : public Action {
 private:
 	CFigure* SelectedFigure;
-	color* drawColor[2];
+	color c_drawColor;
+	color drawColor;
 public:
 	DrawColorAction(ApplicationManager* pApp);
 	virtual void RedoAction();

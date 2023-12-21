@@ -665,23 +665,19 @@ int ApplicationManager::GetColoredFigsCount(string c)
 	int count = 0;
 	Output* pOut = GetOutput();
 	for (int i = 0; i < FigCount; i++) {
-		if (FigList[i]->GetFillColor() && *FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
+		if (FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
 			count++;
 	}
 	return count;
 }
-int ApplicationManager::Playmode_both(string figType, string figColName)
+int ApplicationManager::GetSpecificTypeCount(string figType, string figColName)
 {
 	int typeColorCounter = 0;
-	//CFigure* randomFig =  this->GetRandomfigure();
-	
-	
-		//cout << pOut->GetColorName(*figCol) << endl;
+
 		color figCol = pOut->GetColorFromName(figColName);
 		for (int i = 0; i < FigCount; i++)
 		{
-	//		cout << "figure " << i + 1 << Playlist[i]->GetType() << pOut->GetColorName(*Playlist[i]->GetFillColor()) << endl;
-			if (Playlist[i]->GetType() == figType && *Playlist[i]->GetFillColor() == figCol)
+			if (Playlist[i]->GetType() == figType && Playlist[i]->GetFillColor() == figCol)
 				typeColorCounter++;
 		}
 

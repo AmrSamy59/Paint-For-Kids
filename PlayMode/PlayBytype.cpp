@@ -53,7 +53,7 @@ Output* pout = pManager->GetOutput();
 	pout->PrintMessage("Pick " + FigNames[Figureindex] + "(s)");
 	
 	
-	while (Hits != FigsCount[Figureindex])
+	while (Hits < FigsCount[Figureindex])
 	{
 		pin->GetPointClicked(Ps.x, Ps.y);
 

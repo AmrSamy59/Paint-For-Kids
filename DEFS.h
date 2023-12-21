@@ -18,6 +18,8 @@ enum ActionType //The actions supported
 	DRAW_COLOR_3,
 	DRAW_COLOR_4,
 	DRAW_COLOR_5,
+	DRAW_COLOR_6,
+	DRAW_COLOR_7,
 	DRAW_FILL_COLOR, // Draw fill color icon
 	DRAW_OUTLINE_COLOR, // Draw outline color icon
 	DRAW_MOVE,	//Draw Move Icon

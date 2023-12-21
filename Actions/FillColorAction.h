@@ -9,8 +9,10 @@
 class FillColorAction : public Action {
 private:
 	CFigure* SelectedFigure;
-	color* fillColor[2];
-	bool isFilled[2];
+	color c_fillColor;
+	bool c_isFilled;
+	color fillColor;
+	bool isFilled;
 public:
 	FillColorAction(ApplicationManager* pApp);
 	virtual void RedoAction();
