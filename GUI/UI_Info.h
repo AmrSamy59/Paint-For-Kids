@@ -73,7 +73,8 @@ struct UI_Info	//User Interface Info.
 
 	int IconsPadding;
 
-	color DefaultDrawColor;
+	color DefaultDrawColor;	//Default drawing color
+	color DefaultFillColor;	//Default filling color
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
 	color HighlightColor;	//Highlighting color

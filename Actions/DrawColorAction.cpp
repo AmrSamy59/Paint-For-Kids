@@ -55,7 +55,7 @@ void DrawColorAction::Execute()
 		return;
 	}
 
-	UI.DrawColor = drawColor;
+	UI.DrawColor = drawColor != UI.DefaultFillColor ? drawColor : UI.DefaultDrawColor;
 
 	SelectedFigure->ChngDrawClr(drawColor);
 

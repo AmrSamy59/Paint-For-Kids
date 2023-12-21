@@ -36,9 +36,10 @@ void FillColorAction::ReadActionParameters()
 
 		while ((ActType < DRAW_COLOR_0) || (ActType > DRAW_COLOR_0 + (UI.c_rows * UI.c_cols) - 1)) {
 			ActType = pManager->GetUserAction();
+			cout << "rep" << int(ActType) << " " << int(DRAW_COLOR_0) << " " << int(DRAW_COLOR_0 + (UI.c_rows * UI.c_cols) - 1) << endl;
 		}
 		fillColor = (UI.drawColorsEq[ActType - DRAW_COLOR_0]);
-		if (fillColor != UI.ToolBarColor)
+		if (fillColor != UI.DefaultFillColor)
 			isFilled = true;
 		else
 			isFilled = false;
@@ -58,7 +59,7 @@ void FillColorAction::Execute()
 	}
 	ReadActionParameters();
 	
-	if (!SelectedFigure || !isFilled) {
+	if (!SelectedFigure) {
 		return;
 	}
 

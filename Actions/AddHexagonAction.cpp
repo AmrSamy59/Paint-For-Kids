@@ -18,7 +18,7 @@ void AddHexagonAction::ReadActionParameters()
 
 	//Read center and store in point center
 	pIn->GetPointForDrawing(center.x, center.y, pOut);
-	HexagonGfxInfo.isFilled = UI.FillColor != UI.ToolBarColor;	//default is not filled
+	HexagonGfxInfo.isFilled = UI.FillColor != UI.DefaultFillColor;	//default is not filled
 	//get drawing, filling colors and pen width from the interface
 	HexagonGfxInfo.DrawClr = pOut->getCrntDrawColor();
 	HexagonGfxInfo.FillClr = pOut->getCrntFillColor();

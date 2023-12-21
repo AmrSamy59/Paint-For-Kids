@@ -401,8 +401,11 @@ void ApplicationManager::Save_All() const
 		Fout << "SETTINGS" << "\t" << pOut->GetColorName(UI.DrawColor) << "\t" << pOut->GetColorName(UI.FillColor) << endl;
 		Fout << "FIGCOUNT" << "\t" << FigCount << endl;
 
-		for (int i = 0; i < FigCount; i++)
-			FigList[i]->Save(Fout);
+		for (int i = 0; i < FigCount; i++) {
+			if(FigList[i] && FigList[i]->GetFigureAbilityToBeDrawn())
+				FigList[i]->Save(Fout);
+		}
+			
 		
 		int fcount;
 		string* graphFiles = GetGraphFiles(fcount);

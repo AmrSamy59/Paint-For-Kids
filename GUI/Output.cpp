@@ -42,7 +42,8 @@ Output::Output()
 	UI.StatusBarColor = color(53, 47, 68);
 
 	UI.ToolBarColor = UI.StatusBarColor;
-	UI.FillColor = UI.ToolBarColor;	//Filling color
+	UI.DefaultFillColor = UI.ToolBarColor;	//Filling color
+	UI.FillColor = UI.DefaultFillColor;	//Filling color
 
 	UI.PenWidth = 3;	//width of the figures frames
 
@@ -51,7 +52,7 @@ Output::Output()
 	UI.c_rows = 2; // number of rows
 	UI.c_cols = 4; // number of columns
 	UI.drawColors = { new string[UI.c_rows * UI.c_cols] { "Red", "Green", "Blue", "Purple", "Orange", "Yellow", "Black", "Transparent"}};
-	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, DARKGREEN, DEEPSKYBLUE, PURPLE, ORANGE, YELLOW, BLACK, UI.FillColor } };
+	UI.drawColorsEq = { new color[UI.c_rows * UI.c_cols] { RED, DARKGREEN, DEEPSKYBLUE, PURPLE, ORANGE, YELLOW, BLACK, UI.DefaultFillColor } };
 
 	UI.colorIconSize = 25; // px
 	

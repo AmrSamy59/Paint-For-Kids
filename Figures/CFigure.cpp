@@ -23,7 +23,7 @@ color CFigure::GetDrawColor() const
 
 void CFigure::ChngDrawClr(color Dclr) // oulinr color
 {	
-	if (Dclr == UI.ToolBarColor) {
+	if (Dclr == UI.DefaultFillColor) {
 		FigGfxInfo.DrawClr = UI.DefaultDrawColor;
 		return;
 	}
@@ -40,7 +40,7 @@ void CFigure::SetFilledStatus(bool status)
 void CFigure::ChngFillClr(color Fclr) /// fill color
 {	
 	FigGfxInfo.isFilled = true;
-	if (Fclr == UI.ToolBarColor) {
+	if (Fclr == UI.DefaultFillColor) {
 		FigGfxInfo.isFilled = false;
 	}
 	FigGfxInfo.FillClr = Fclr; 

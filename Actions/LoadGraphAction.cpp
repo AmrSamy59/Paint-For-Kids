@@ -39,8 +39,9 @@ void LoadGraph::Load(string fName)
 
 				
 				gfx.DrawClr = pManager->GetOutput()->GetColorFromName(parmList[7]);
+				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
 				gfx.FillClr = pManager->GetOutput()->GetColorFromName(parmList[8]);
-				gfx.isFilled = gfx.FillClr != false;
+				gfx.isFilled = gfx.FillClr != UI.DefaultFillColor;
 				CTriangle* Tri = new CTriangle(p1 , p2, p3, gfx);
 				pManager->AddFigure(Tri);
 			}
@@ -51,8 +52,9 @@ void LoadGraph::Load(string fName)
 				int L = stoi(parmList[3]);
 
 				gfx.DrawClr = pManager->GetOutput()->GetColorFromName(parmList[4]);
+				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
 				gfx.FillClr = pManager->GetOutput()->GetColorFromName(parmList[5]);
-				gfx.isFilled = gfx.FillClr != false;
+				gfx.isFilled = gfx.FillClr != UI.DefaultFillColor;
 				CHexagon* Hex = new CHexagon(c, gfx, L);
 				pManager->AddFigure(Hex);
 			}
@@ -63,8 +65,9 @@ void LoadGraph::Load(string fName)
 				int L = stoi(parmList[3]);
 
 				gfx.DrawClr = pManager->GetOutput()->GetColorFromName(parmList[4]);
+				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
 				gfx.FillClr = pManager->GetOutput()->GetColorFromName(parmList[5]);
-				gfx.isFilled = gfx.FillClr != false;
+				gfx.isFilled = gfx.FillClr != UI.DefaultFillColor;
 				CSquare* Sq = new CSquare(c, gfx, L);
 				pManager->AddFigure(Sq);
 			}
@@ -77,8 +80,9 @@ void LoadGraph::Load(string fName)
 
 
 				gfx.DrawClr = pManager->GetOutput()->GetColorFromName(parmList[5]);
+				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
 				gfx.FillClr = pManager->GetOutput()->GetColorFromName(parmList[6]);
-				gfx.isFilled = gfx.FillClr != false;
+				gfx.isFilled = gfx.FillClr != UI.DefaultFillColor;
 				CRectangle* Rect = new CRectangle(p1, p2, gfx);
 				pManager->AddFigure(Rect);
 			}
@@ -88,8 +92,9 @@ void LoadGraph::Load(string fName)
 				c.y = stoi(parmList[2]);
 
 				gfx.DrawClr = pManager->GetOutput()->GetColorFromName(parmList[4]);
+				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
 				gfx.FillClr = pManager->GetOutput()->GetColorFromName(parmList[5]);
-				gfx.isFilled = gfx.FillClr != false;
+				gfx.isFilled = gfx.FillClr != UI.DefaultFillColor;
 				CCircle* Circ = new CCircle(c, stoi(parmList[3]), gfx);
 				pManager->AddFigure(Circ);
 			}
@@ -184,7 +189,7 @@ void LoadGraph::ReadActionParameters()
 
 	lWind->FlushMouseQueue();
 	lWind->WaitMouseClick(cx, cy);
-	int row_clicked = gCount - ((gCount * gRowHeight) / cy);
+	int row_clicked = (cy / (gRowHeight));
 
 	if(row_clicked == gCount)
 		return delete lWind;
