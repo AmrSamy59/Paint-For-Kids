@@ -38,7 +38,7 @@ void PlayByboth::Execute()
 	Maxhits = pManager->GetSpecificTypeCount(type, color_name); // max number condition for whlie loop 
 
 	pout->PrintMessage("Pick " + color_name + " " + type + "s");
-	//if(name!= "NO_COLOR")
+
 	while(Hits < Maxhits)
 	{
 		pin->GetPointClicked(Ps.x, Ps.y);
@@ -57,26 +57,7 @@ void PlayByboth::Execute()
 		}
 	
 	}
-/*	else
-		while (Hits != Maxhits)
-		{
-			pin->GetPointClicked(Ps.x, Ps.y);
 
-			if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
-			{
-				ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
-				ptrfigure->SetSelected(true);
-				ptrfigure->SetFigureAbilityToBeDrawn(false);
-				pManager->UpdateInterface();
-
-				if (ptrfigure->GetType() == type)
-					Hits++;
-				else
-					Misses++;
-
-			}
-		}
-		*/
 	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
 
 	pin->GetPointClicked(Ps.x, Ps.y);
