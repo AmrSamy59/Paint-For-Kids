@@ -12,6 +12,10 @@ void Input::GetPointClicked(int &x, int &y) const
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
+buttonstate Input::GetButtonState(button button_spec, int &x, int &y) {
+	return pWind->GetButtonState(button_spec, x, y);
+}
+
 void Input::GetPointForDrawing(int& x, int& y, Output * pO) const
 {
 	int toolBarH = UI.ToolBarHeight;

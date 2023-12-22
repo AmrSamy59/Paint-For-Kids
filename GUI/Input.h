@@ -13,7 +13,9 @@ private:
 	window *pWind;	//Pointer to the Graphics Window
 public:
 	Input(window *pW);		//Consturctor
-	void GetPointClicked(int &x, int &y) const;//Get coordinate where user clicks
+	void GetPointClicked(int &x, int &y) const;
+	buttonstate GetButtonState(button button_spec, int& x, int& y);
+	//Get coordinate where user clicks
 	void GetPointForDrawing(int& x, int& y, Output* pO) const;
 
 	string GetSrting(Output* pO) const ;	 //Returns a string entered by the user
