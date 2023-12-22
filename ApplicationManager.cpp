@@ -31,11 +31,8 @@ ApplicationManager::ApplicationManager()
 		ActionList[i] = NULL;
 		RedoActionList[i] = NULL;
 		FigListForRedoAction[i] = NULL;
-		Playlist[i] = NULL;
-	}
-	for (int i = 0; i < 20; i++)
-	{
 		ActionListForRecording[i] = NULL;
+		Playlist[i] = NULL;
 	}
 }
 //==================================================================================//
@@ -155,7 +152,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 Action* ApplicationManager::GetActionForRecording()
 {
 	static unsigned short i = 0;
-	if (ActionListForRecording[i] != NULL && i < 20)
+	if (ActionListForRecording[i] && i < 20)
 		return ActionListForRecording[i++];
 	else
 	{
@@ -180,7 +177,6 @@ bool ApplicationManager::CheckRecording()
 {
 	return StartToRecord;
 }
-
 void ApplicationManager::AddActionForRecording(Action* pAction)
 {
 	if (Action_Count_For_Recording < 20)
@@ -530,20 +526,6 @@ CFigure* ApplicationManager::GetSelectedFigure() const
 	}
 	return NULL;
 }
-void ApplicationManager::DeleteFigureComplete()
-{
-	for (int i = 0; i < FigCount; i++)
-	{
-		if (FigList[i] != NULL) {
-			if (FigList[i]->CheckDelete())
-			{
-				delete FigList[i];
-				FigList[i] = NULL;
-			}
-		}
-	}
-}
-
 int ApplicationManager::GetSelectedFigureNumber()
 {
 	int j = 0;
@@ -644,7 +626,7 @@ CFigure* ApplicationManager::GetRandomfigure()
 	do
 	{
 	    randomnumber = rand() % FigCount;
-	} while (FigList[randomnumber] == NULL);
+	} while (FigList[randomnumber]->CheckDelete());
 	return FigList[randomnumber];
 }
 void ApplicationManager::ResetPlayMode()
@@ -653,7 +635,7 @@ void ApplicationManager::ResetPlayMode()
 
 	for (int i = 0; i < FigCount; i++)
 	{
-		if (Playlist[i] != NULL)
+		if (Playlist[i]->CheckDelete() == false)
 		{
 			Playlist[i]->SetFigureAbilityToBeDrawn(true);
 			Playlist[i]->SetSelected(false);
@@ -672,12 +654,11 @@ int ApplicationManager::GetColoredFigsCount(string c)
 	int count = 0;
 	Output* pOut = GetOutput();
 	for (int i = 0; i < FigCount; i++) {
-			if (FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
-				count++;
+		if (FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
+			count++;
 	}
 	return count;
 }
-
 int ApplicationManager::GetSpecificTypeCount(string figType, string figColName)
 {
 	int typeColorCounter = 0;

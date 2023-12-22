@@ -100,7 +100,6 @@ public:
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
-	void DeleteFigureComplete();
 	int GetSelectedFigureNumber();
 
 	int GetFigsCount() const;

@@ -33,11 +33,29 @@ void AddDeleteAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
-	//Selected_Figure->SetFigureAbilityToBeDrawn(false);
-	//Selected_Figure->SetSelected(false);
+	Selected_Figure->SetFigureAbilityToBeDrawn(false);
+	Selected_Figure->SetSelected(false);
 	Selected_Figure->SetDelete(true);
-	Selected_Figure = NULL;
-	pManager->DeleteFigureComplete();
+	if (dynamic_cast<CRectangle*>(Selected_Figure))
+	{
+		CRectangle::SetCount(CRectangle::GetCount() - 1);
+	}
+	else if (dynamic_cast<CSquare*>(Selected_Figure))
+	{
+		CSquare::SetCount(CSquare::GetCount() - 1);
+	}
+	else if (dynamic_cast<CTriangle*>(Selected_Figure))
+	{
+		CTriangle::SetCount(CTriangle::GetCount() - 1);
+	}
+	else if (dynamic_cast<CCircle*>(Selected_Figure))
+	{
+		CCircle::SetCount(CCircle::GetCount() - 1);
+	}
+	else if (dynamic_cast<CHexagon*>(Selected_Figure))
+	{
+		CHexagon::SetCount(CHexagon::GetCount() - 1);
+	}
 
 	pOut->PrintMessage("Figure has been deleted succesfully");
 }
