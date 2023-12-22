@@ -19,6 +19,7 @@ ApplicationManager::ApplicationManager()
 
 	FigCount = 0;
 	//playCount = 0;
+	deletedFigCount = 0;
 	Action_Count = 0;
 	Redo_Action_Count = 0;
 	Fig_Redo_Count = 0;
@@ -32,6 +33,7 @@ ApplicationManager::ApplicationManager()
 		RedoActionList[i] = NULL;
 		FigListForRedoAction[i] = NULL;
 		Playlist[i] = NULL;
+		DeletedFigList[i] = NULL;
 	}
 	for (int i = 0; i < 20; i++)
 	{
@@ -369,8 +371,18 @@ void ApplicationManager::ClearAll() {
 			delete ActionList[i];
 			ActionList[i] = NULL;
 		}
+		if (DeletedFigList[i] != NULL)
+		{
+			delete DeletedFigList[i];
+			DeletedFigList[i] = NULL;
+		}
 	}
 	FigCount = 0;
+	CRectangle::SetCount(0);
+	CCircle::SetCount(0);
+	CTriangle::SetCount(0);
+	CHexagon::SetCount(0);
+	CSquare::SetCount(0);
 	Action_Count = 0;
 }
 void ApplicationManager::Save_All() const
@@ -537,9 +549,41 @@ void ApplicationManager::DeleteFigureComplete()
 		if (FigList[i] != NULL) {
 			if (FigList[i]->CheckDelete())
 			{
-				delete FigList[i];
+				if (dynamic_cast<CRectangle*>(FigList[i]))
+				{
+					CRectangle::SetCount(CRectangle::GetCount() - 1);
+				}
+				else if (dynamic_cast<CSquare*>(FigList[i]))
+				{
+					CSquare::SetCount(CSquare::GetCount() - 1);
+				}
+				else if (dynamic_cast<CTriangle*>(FigList[i]))
+				{
+					CTriangle::SetCount(CTriangle::GetCount() - 1);
+				}
+				else if (dynamic_cast<CCircle*>(FigList[i]))
+				{
+					CCircle::SetCount(CCircle::GetCount() - 1);
+				}
+				else if (dynamic_cast<CHexagon*>(FigList[i]))
+				{
+					CHexagon::SetCount(CHexagon::GetCount() - 1);
+				}
+				DeletedFigList[deletedFigCount++] = FigList[i];
 				FigList[i] = NULL;
 			}
+		}
+	}
+
+	for (int i = 0; i < deletedFigCount; i++)
+	{
+		if (DeletedFigList[i] != NULL)
+		{
+			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() + 1);
+		}
+		if (DeletedFigList[i]->GetDeletedID() > 20)
+		{
+			delete DeletedFigList[i];
 		}
 	}
 }
@@ -639,7 +683,7 @@ void ApplicationManager::PlayModeClear()
 CFigure* ApplicationManager::GetRandomfigure()
 {
 	int randomnumber;
-	if (FigCount == 0)
+	if (CRectangle::GetCount() == 0 && CSquare::GetCount() == 0 && CCircle::GetCount() == 0 && CTriangle::GetCount() == 0 && CHexagon::GetCount() == 0)
 		return nullptr;
 	do
 	{
@@ -688,8 +732,10 @@ int ApplicationManager::GetSpecificTypeCount(string figType, string figColName)
 		*/
 		for (int i = 0; i < FigCount; i++)
 		{
-			if (Playlist[i]->GetType() == figType && Playlist[i]->GetFillColor() == figCol)
-				typeColorCounter++;
+			if (Playlist[i] != NULL) {
+				if (Playlist[i]->GetType() == figType && Playlist[i]->GetFillColor() == figCol)
+					typeColorCounter++;
+			}
 		}
 
 	

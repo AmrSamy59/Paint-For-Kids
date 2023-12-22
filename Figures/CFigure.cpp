@@ -9,6 +9,7 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
 	AbleToBeDrawn = true;
+	deletedID = 0;
 }
 
 void CFigure::SetSelected(bool s)
@@ -19,6 +20,16 @@ bool CFigure::IsSelected() const   // get function for selection
 color CFigure::GetDrawColor() const
 {
 	return FigGfxInfo.DrawClr;
+}
+
+int CFigure::GetDeletedID()
+{
+	return deletedID;
+}
+
+void CFigure::SetDeletedID(int i)
+{
+	deletedID = i;
 }
 
 void CFigure::ChngDrawClr(color Dclr) // oulinr color
