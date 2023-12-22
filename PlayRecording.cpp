@@ -29,15 +29,16 @@ void PlayRecording::Execute()
 		canPlay = true;
 	if (canPlay) {
 		pManager->ClearAll();
-		pManager->UpdateInterface();
+		pManager->UpdatePlayRecordingInterface();
 		ReadActionParameters();
 		while (PassedRecordingAction) 
 		{
 			Sleep(1000);
 			PassedRecordingAction->PlayRecordingFunc();
-			pManager->UpdateInterface();
+			pManager->UpdatePlayRecordingInterface();
 			ReadActionParameters();
 		}
+		Sleep(3000);
 	}
 	else
 	{

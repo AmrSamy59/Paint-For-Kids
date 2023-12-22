@@ -23,6 +23,7 @@ ApplicationManager::ApplicationManager()
 	Action_Count = 0;
 	Redo_Action_Count = 0;
 	Fig_Redo_Count = 0;
+	PlayRecordingFigCount = 0;
 	Action_Count_For_Recording = 0;
 
 	//Create an array of figure pointers and set them to NULL		
@@ -38,6 +39,7 @@ ApplicationManager::ApplicationManager()
 	for (int i = 0; i < 20; i++)
 	{
 		ActionListForRecording[i] = NULL;
+		PlayRecordingFigList[i] = NULL;
 	}
 }
 //==================================================================================//
@@ -370,10 +372,10 @@ void ApplicationManager::ClearAll() {
 			delete FigList[i];
 			FigList[i] = NULL;
 		}
-		if (ActionList[i] != NULL) {
-			delete ActionList[i];
-			ActionList[i] = NULL;
-		}
+		//if (ActionList[i] != NULL) {
+			//delete ActionList[i];
+			//ActionList[i] = NULL;
+		//}
 		if (DeletedFigList[i] != NULL)
 		{
 			delete DeletedFigList[i];
@@ -574,15 +576,19 @@ void ApplicationManager::DeleteFigureComplete()
 				}
 				DeletedFigList[deletedFigCount++] = FigList[i];
 				FigList[i] = NULL;
+				sortFigList();
+				FigCount--;
 			}
 		}
 	}
 
 	for (int i = 0; i < deletedFigCount; i++)
 	{
+
 		if (DeletedFigList[i] != NULL)
 		{
 			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() + 1);
+			std::cout << DeletedFigList[i]->GetDeletedID() << endl;
 		}
 		if (DeletedFigList[i]->GetDeletedID() > 20)
 		{
@@ -604,6 +610,19 @@ int ApplicationManager::GetSelectedFigureNumber()
 	}
 	return -1;
 }
+
+void ApplicationManager::sortFigList() {
+	for (int i = 0; i < FigCount - 1; ++i) {
+		for (int j = 0; j < FigCount - i - 1; ++j) {
+			if (!FigList[j] && FigList[j + 1]) {
+				// Swap pointers if they need to be reordered
+				CFigure* temp = FigList[j];
+				FigList[j] = FigList[j + 1];
+				FigList[j + 1] = temp;
+			}
+		}
+	}
+}
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
@@ -616,6 +635,14 @@ void ApplicationManager::UpdateInterface() const
 			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 	}
 		
+}
+
+void ApplicationManager::UpdatePlayRecordingInterface() const {
+	pOut->ClearDrawArea();
+	for (int i = 0; i < 20; i++) {
+		if (PlayRecordingFigList[i] != NULL && PlayRecordingFigList[i]->GetFigureAbilityToBeDrawn())
+			PlayRecordingFigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
+	}
 }
 void ApplicationManager::PlayModeClearSelection()
 {

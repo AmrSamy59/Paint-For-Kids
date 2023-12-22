@@ -6,7 +6,9 @@ AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 }
 void AddCircleAction::PlayRecordingFunc()
 {
-	pManager->AddFigure(LastDrawnCircle);
+	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
+	copyLastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
+	pManager->AddPlayRecordingFigure(copyLastDrawnCircle);
 }
 void AddCircleAction::RedoAction()
 {
