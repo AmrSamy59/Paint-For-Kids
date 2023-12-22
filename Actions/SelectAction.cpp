@@ -5,6 +5,10 @@
 
 Select::Select(ApplicationManager* pApp) :Action(pApp)
 {}
+bool Select::wasCanceled()
+{
+	return cType == RIGHT_CLICK;
+}
 void Select::RedoAction()
 {
 
@@ -14,9 +18,9 @@ void Select::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	pOut->PrintMessage("Click on a figure to select it.");
+	pOut->PrintMessage("Click on a figure to select it, right-click to cancel operation.");
 
-	pIn->GetPointClicked(Ps.x, Ps.y);
+	cType = pIn->GetPointClicked(Ps.x, Ps.y);
 	pOut->ClearStatusBar();
 }
 
@@ -28,6 +32,12 @@ void Select::Execute()
 		return;
 	}
 	ReadActionParameters();	 
+	if (wasCanceled())
+	{
+		isCanceled = true;
+		pOut->PrintMessage("Successfully canceled the operation.");
+		return;
+	}
 	if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 	{
 		CFigure *selectedFigure = pManager->GetFigure(Ps.x, Ps.y);

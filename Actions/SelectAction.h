@@ -7,8 +7,10 @@ class Select : public Action
 {
 private :
 	Point Ps;
+	clicktype cType;
 public :
 	Select(ApplicationManager* pApp);
+	bool wasCanceled();
 	virtual void RedoAction();
 	virtual void ReadActionParameters();
 	virtual void Execute();

@@ -6,28 +6,29 @@ Input::Input(window* pW)
 	pWind = pW; //point to the passed window
 }
 
-void Input::GetPointClicked(int &x, int &y) const
+clicktype Input::GetPointClicked(int &x, int &y) const
 {
 	pWind->FlushMouseQueue(); //To fix an error where it reads cached mouse-presses
-	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+	return pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
 buttonstate Input::GetButtonState(button button_spec, int &x, int &y) {
 	return pWind->GetButtonState(button_spec, x, y);
 }
 
-void Input::GetPointForDrawing(int& x, int& y, Output * pO) const
+clicktype Input::GetPointForDrawing(int& x, int& y, Output * pO) const
 {
 	int toolBarH = UI.ToolBarHeight;
-	GetPointClicked(x, y);
+	clicktype bState = GetPointClicked(x, y);
 
 	while (y <= toolBarH || y >= (UI.height-UI.StatusBarHeight)) {
 		if (pO)
 			pO->PrintMessage("You can't draw on the toolbar/statusbar, Please pick a different point.");
-		GetPointClicked(x, y);
+		bState = GetPointClicked(x, y);
 	}
 	if(pO)
 		pO->PrintMessage("Point Picked, Pick Another point (if any).");
+	return bState;
 }
 
 string Input::GetSrting(Output *pO) const 
@@ -62,7 +63,9 @@ string Input::GetSrting(Output *pO) const
 ActionType Input::GetUserAction() const
 {	
 	int x,y;
-	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+	clicktype cType = pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+	if (cType == RIGHT_CLICK)
+		return OPERATION_CANCELED;
 
 	if(UI.InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{

@@ -12,15 +12,25 @@ void Move::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	
+	int x, y;
 	while (1)
 	{
+
 		if (pManager->GetSelectedFigure() == NULL)
 		{
 			Select* Sel = new Select(pManager);
 			Sel->Execute();
-			delete Sel;
-			Sel = NULL;
-			pOut->ClearStatusBar();
+			if (Sel->wasCanceled())
+			{
+				delete Sel;
+				Sel = NULL;
+				return;
+			}
+			if (Sel) {
+				delete Sel;
+				Sel = NULL;
+			}
 		}
 		else
 			break;
@@ -41,9 +51,16 @@ void Move::ReadActionParameters()
 
 void Move::Execute()
 {
-	ReadActionParameters();
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	if (pManager->GetFigsCount() == 0) {
+		pOut->PrintMessage("No figures to move");
+		return;
+	}
+	ReadActionParameters();
+	if (isCanceled) {
+		return;
+	}
 	fig = pManager->GetSelectedFigure();
 	if (fig != NULL)
 	{
@@ -68,6 +85,7 @@ void Move::Execute()
 			{
 				fig->Move(Pf[0]);
 				pManager->UpdateInterface();
+				isCanceled = true;
 				pOut->PrintMessage("Successfully canceled the operation.");
 				break;
 			}

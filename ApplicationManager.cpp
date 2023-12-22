@@ -136,20 +136,23 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct != NULL)
 	{
 		pAct->Execute();		//Execute
-		if (dynamic_cast<AddRectAction*>(pAct) || dynamic_cast<AddSquareAction*>(pAct)
-			|| dynamic_cast<AddHexagonAction*>(pAct) || dynamic_cast<AddCircleAction*>(pAct)
-			|| dynamic_cast<AddTriangleAction*>(pAct) || dynamic_cast<Move*>(pAct)
-			|| dynamic_cast<DrawColorAction*>(pAct) || dynamic_cast<FillColorAction*>(pAct))
-		{
-			AddForUndoAction(pAct, true);
-			if (StartToRecord)
+		if (!pAct->IsCanceled()) {
+			if (dynamic_cast<AddRectAction*>(pAct) || dynamic_cast<AddSquareAction*>(pAct)
+				|| dynamic_cast<AddHexagonAction*>(pAct) || dynamic_cast<AddCircleAction*>(pAct)
+				|| dynamic_cast<AddTriangleAction*>(pAct) || dynamic_cast<Move*>(pAct)
+				|| dynamic_cast<DrawColorAction*>(pAct) || dynamic_cast<FillColorAction*>(pAct))
 			{
-				AddActionForRecording(pAct);
+				AddForUndoAction(pAct, true);
+				if (StartToRecord)
+				{
+					AddActionForRecording(pAct);
+				}
 			}
+			else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct)))
+				AddActionForRecording(pAct);
+			PermissionToStartRecord = (dynamic_cast<AddClearAllAction*>(pAct)) ? true : false;
 		}
-		else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct)))
-			AddActionForRecording(pAct);
-		PermissionToStartRecord = (dynamic_cast<AddClearAllAction*>(pAct)) ? true : false;
+		
 		if (dynamic_cast<Exit*>(pAct))
 			delete pAct;
 	}

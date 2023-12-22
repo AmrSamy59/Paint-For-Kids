@@ -37,26 +37,32 @@ void PlayByboth::Execute()
 	color_name = pout->GetColorName(randomfig->GetFillColor()); //color for the random figure
 	Maxhits = pManager->GetSpecificTypeCount(type, color_name); // max number condition for whlie loop 
 
-	pout->PrintMessage("Pick " + color_name + " " + type + "s");
+	pout->PrintMessage("Pick " + color_name + " " + type + "s, right-click or change mode anytime to end the game.");
 
+	clicktype cType;
 	while(Hits < Maxhits)
 	{
-		pin->GetPointClicked(Ps.x, Ps.y);
-		
-		if (Ps.x <= PLAY_ITM_COUNT * UI.MenuItemWidth && Ps.y <= UI.ToolBarHeight) //// 250 is icons size 5*50=250 //////
+		cType = pin->GetPointClicked(Ps.x, Ps.y);
+		if (cType == RIGHT_CLICK)
 		{
-			pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!" + "  You clicked on play mode tool bar clicked on icons to change mode");
-
-			Action* pAct = NULL;
-			ActionType ActType = pin->GetUserAction();
-			while (ActType == PLAYING_AREA)
-			{
-				pout->PrintMessage(" please click on icon ");
-				ActType = pin->GetUserAction();
-			}
+			pout->PrintMessage("Operation canceled (Right Click), You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!");
+			isCanceled = true;
 			pManager->ResetPlayMode();
 			pManager->UpdateInterface();
-			pManager->ExecuteAction(ActType);
+
+			return;
+		}
+		if (Ps.x <= PLAY_ITM_COUNT * UI.MenuItemWidth && Ps.y <= UI.ToolBarHeight) //// 250 is icons size 5*50=250 //////
+		{
+			pout->PrintMessage("Operation canceled (Mode Changed), You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!");
+			isCanceled = true;
+			Action* pAct = NULL;
+			ActionType ActType = pin->GetUserAction();
+			pManager->ResetPlayMode();
+			pManager->UpdateInterface();
+			if (ActType != PLAYING_AREA)
+				pManager->ExecuteAction(ActType);
+
 			return;
 
 		}
@@ -77,9 +83,9 @@ void PlayByboth::Execute()
 	}
 
 	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
-
+	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
 	pin->GetPointClicked(Ps.x, Ps.y);
 	pout->ClearStatusBar();
-	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
+	
 	
 }

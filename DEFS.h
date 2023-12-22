@@ -43,8 +43,9 @@ enum ActionType //The actions supported
 	EMPTY_PLAY_TOOLBAR,//A click on empty place in the play toolbar
 	DRAWING_AREA,	//A click on the drawing area
 	PLAYING_AREA, //A click on the playing area
-	STATUS			//A click on the status bar
+	STATUS,			//A click on the status bar
 
+	OPERATION_CANCELED,		//operation canceled event
 };
 
 struct Point	//To be used for figures points

@@ -20,9 +20,18 @@ void AddDeleteAction::ReadActionParameters()
 		{
 			Select* Sel = new Select(pManager);
 			Sel->Execute();
-			delete Sel;
-			Sel = NULL;
-			pOut->ClearStatusBar();
+
+			
+			if (Sel->wasCanceled())
+			{
+				delete Sel;
+				Sel = NULL;
+				return;
+			}
+			if (Sel) {
+				delete Sel;
+				Sel = NULL;
+			}
 		}
 		else
 			break;
@@ -32,7 +41,15 @@ void AddDeleteAction::ReadActionParameters()
 void AddDeleteAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
+	if (pManager->GetFigsCount() == 0) {
+		pOut->PrintMessage("No figures to delete");
+		return;
+	}
 	ReadActionParameters();
+	if (Selected_Figure == NULL)
+	{
+		return;
+	}
 	//Selected_Figure->SetFigureAbilityToBeDrawn(false);
 	//Selected_Figure->SetSelected(false);
 	Selected_Figure->SetDelete(true);

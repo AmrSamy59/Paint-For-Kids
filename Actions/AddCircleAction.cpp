@@ -18,16 +18,25 @@ void AddCircleAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	pOut->PrintMessage("New Circle: Click at first point");
+	pOut->PrintMessage("New Circle: Click at first point, right-click to cancel operation");
 
 	//Read 1st point and store in point P1
-	pIn->GetPointForDrawing(P1.x, P1.y, pOut);
-
-	pOut->PrintMessage("New Circle: Click at second point");
+	clicktype cType;
+	cType = pIn->GetPointForDrawing(P1.x, P1.y, pOut);
+	if (cType == RIGHT_CLICK)
+	{
+		isCanceled = true;
+		return;
+	}
+	pOut->PrintMessage("New Circle: Click at second poin, right-click to cancel operation");
 
 	//Read 2nd point and store in point P2
-	pIn->GetPointForDrawing(P2.x, P2.y, pOut);
-
+	cType = pIn->GetPointForDrawing(P2.x, P2.y, pOut);
+	if (cType == RIGHT_CLICK)
+	{
+		isCanceled = true;
+		return;
+	}
 	CircleGfxInfo.isFilled = UI.FillColor != UI.DefaultFillColor;	//default is not filled
 	//get drawing, filling colors and pen width from the interface
 	CircleGfxInfo.DrawClr = pOut->getCrntDrawColor();
@@ -40,7 +49,12 @@ void AddCircleAction::ReadActionParameters()
 void AddCircleAction::Execute()
 {
 	ReadActionParameters();
-
+	Output* pOut = pManager->GetOutput();
+	if (isCanceled) {
+		pOut->PrintMessage("Successfully canceled the operation.");
+		return;
+	}
+		
 	//Create a circle with the parameters read from the user
 	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
 	LastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);

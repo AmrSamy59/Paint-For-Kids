@@ -19,9 +19,17 @@ void FillColorAction::ReadActionParameters()
 		{
 			Select* Sel = new Select(pManager);
 			Sel->Execute();
-			delete Sel;
-			Sel = NULL;
-			pOut->ClearStatusBar();
+
+			if (Sel->wasCanceled())
+			{
+				delete Sel;
+				Sel = NULL;
+				return;
+			}
+			if (Sel) {
+				delete Sel;
+				Sel = NULL;
+			}
 		}
 		else
 			break;
@@ -30,11 +38,13 @@ void FillColorAction::ReadActionParameters()
 	{
 		c_isFilled = SelectedFigure->GetFilledStatus();
 		c_fillColor = SelectedFigure->GetFillColor();
-		pOut->PrintMessage("Please select a color");
+		pOut->PrintMessage("Please select a color, right-click to cancel operation.");
 		
 		ActionType ActType = pManager->GetUserAction();
+		if(ActType == OPERATION_CANCELED)
+			isCanceled = true;
 
-		while ((ActType < DRAW_COLOR_0) || (ActType > DRAW_COLOR_0 + (UI.c_rows * UI.c_cols) - 1)) {
+		while (!isCanceled && ((ActType < DRAW_COLOR_0) || (ActType > DRAW_COLOR_0 + (UI.c_rows * UI.c_cols) - 1))) {
 			ActType = pManager->GetUserAction();
 		}
 		fillColor = (UI.drawColorsEq[ActType - DRAW_COLOR_0]);
@@ -43,10 +53,7 @@ void FillColorAction::ReadActionParameters()
 		else
 			isFilled = false;
 	}
-	else
-	{
-		pOut->PrintMessage("No figure is selected");
-	};
+
 }
 
 void FillColorAction::Execute()
@@ -57,6 +64,13 @@ void FillColorAction::Execute()
 		return;
 	}
 	ReadActionParameters();
+	if (isCanceled) {
+		pOut->PrintMessage("Successfully canceled the operation.");
+		if (SelectedFigure) {
+			SelectedFigure->SetSelected(false);
+		}
+		return;
+	}
 	
 	if (!SelectedFigure) {
 		return;

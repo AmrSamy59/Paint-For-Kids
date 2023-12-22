@@ -14,10 +14,16 @@ void AddHexagonAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	pOut->PrintMessage("New Hexagon: Click at center");
+	pOut->PrintMessage("New Hexagon: Click at center, right-click to cancel operation");
 
 	//Read center and store in point center
-	pIn->GetPointForDrawing(center.x, center.y, pOut);
+	clicktype cType;
+	cType = pIn->GetPointForDrawing(center.x, center.y, pOut);
+	if (cType == RIGHT_CLICK)
+	{
+		isCanceled = true;
+		return;
+	}
 	HexagonGfxInfo.isFilled = UI.FillColor != UI.DefaultFillColor;	//default is not filled
 	//get drawing, filling colors and pen width from the interface
 	HexagonGfxInfo.DrawClr = pOut->getCrntDrawColor();
@@ -35,6 +41,11 @@ void AddHexagonAction::Execute()
 {
 	//This action needs to read some parameters first
 	ReadActionParameters();
+	Output* pOut = pManager->GetOutput();
+	if (isCanceled) {
+		pOut->PrintMessage("Successfully canceled the operation.");
+		return;
+	}
 
 	//Create a rectangle with the parameters read from the user
 	LastDrawnHexagon = new CHexagon(center,HexagonGfxInfo);

@@ -14,21 +14,39 @@ void AddTriangleAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	pOut->PrintMessage("New triangle: Click at first vertex");
+	pOut->PrintMessage("New triangle: Click at first vertex, right-click to cancel operation");
 
+	clicktype cType;
+	cType = pIn->GetPointForDrawing(p1.x, p1.y, pOut);
+	if (cType == RIGHT_CLICK)
+	{
+		isCanceled = true;
+		return;
+	}
 	//Read 1st vertx and store in point P1
-	pIn->GetPointForDrawing(p1.x, p1.y, pOut);
+	
 
-	pOut->PrintMessage("New triangle: Click at second vertex");
+	pOut->PrintMessage("New triangle: Click at second vertex, right-click to cancel operation");
 
 	//Read 2nd vertx and store in point P2
-	pIn->GetPointForDrawing(p2.x, p2.y, pOut);
+	
+	cType = pIn->GetPointForDrawing(p2.x, p2.y, pOut);
+	if (cType == RIGHT_CLICK)
+	{
+		isCanceled = true;
+		return;
+	}
 
-	pOut->PrintMessage("New triangle: Click at thrid vertex");
+	pOut->PrintMessage("New triangle: Click at thrid vertex, right-click to cancel operation");
 
 	//Read 3th vertx and store in point P2
-	pIn->GetPointForDrawing(p3.x, p3.y, pOut);
-
+	
+	cType = pIn->GetPointForDrawing(p3.x, p3.y, pOut);
+	if (cType == RIGHT_CLICK)
+	{
+		isCanceled = true;
+		return;
+	}
 
 	triangleGfxInfo.isFilled = UI.FillColor != UI.DefaultFillColor;	//default is not filled
 	//get drawing, filling colors and pen width from the interface
@@ -46,6 +64,11 @@ void AddTriangleAction::PlayRecordingFunc()
 void AddTriangleAction::Execute()
 {
 	ReadActionParameters();
+	Output* pOut = pManager->GetOutput();
+	if (isCanceled) {
+		pOut->PrintMessage("Successfully canceled the operation.");
+		return;
+	}
 
 	//Create a triangle with the parameters read from the user
 	LastDrawnTriangle = new CTriangle(p1, p2,p3, triangleGfxInfo);
