@@ -77,9 +77,9 @@ void PlayByboth::Execute()
 	}
 
 	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
-
+	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
 	pin->GetPointClicked(Ps.x, Ps.y);
 	pout->ClearStatusBar();
-	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
+	
 	
 }

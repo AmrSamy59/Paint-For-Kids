@@ -39,6 +39,7 @@ Output* pout = pManager->GetOutput();
 
 	int Figureindex=0;
 	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
+	cout << pManager->GetFigsCount() << endl;
 	if (!randomfig) {
 			pout->PrintMessage("There are no figures to play with.");
 			return;
@@ -51,7 +52,6 @@ Output* pout = pManager->GetOutput();
 		}
 	}
 	pout->PrintMessage("Pick " + FigNames[Figureindex] + "(s)");
-	
 	
 	while (Hits < FigsCount[Figureindex])
 	{
@@ -91,10 +91,10 @@ Output* pout = pManager->GetOutput();
 
 	}
 	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) ["+ FigNames[Figureindex]  +"(s)] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
-	
+	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
 	pin->GetPointClicked(Ps.x, Ps.y);
 	
-	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
+	
 	pout->ClearStatusBar();
 
 }
