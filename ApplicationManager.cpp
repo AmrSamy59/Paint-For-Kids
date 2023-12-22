@@ -663,7 +663,10 @@ int ApplicationManager::GetSpecificTypeCount(string figType, string figColName)
 {
 	int typeColorCounter = 0;
 
-		color figCol = pOut->GetColorFromName(figColName);
+		color figCol = pOut->GetColorFromName(figColName);   // get color from name send by class play by both
+	/*	 in this for loop i search for figures with same type and color for that I selected by random way in play by both
+		 if figure for one itreation equal random figure color and type count increases one and so on 
+		*/
 		for (int i = 0; i < FigCount; i++)
 		{
 			if (Playlist[i]->GetType() == figType && Playlist[i]->GetFillColor() == figCol)

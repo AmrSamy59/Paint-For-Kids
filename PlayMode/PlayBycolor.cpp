@@ -23,14 +23,18 @@ void PlayBycolor::Execute()
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
 	const int c_count = UI.c_cols * UI.c_rows;
-	int* ColorsCount = new int[c_count]{ 0,0,0,0,0,0,0,0 };
+	int* ColorsCount = new int[c_count];
+	for (int i = 0; i < c_count; i++) {
+		ColorsCount[i] = 0;
+	}
+	
 	int Sum_of_colors = 0;
 	for (int i = 0; i < c_count; i++) {
 		ColorsCount[i] = pManager->GetColoredFigsCount(UI.drawColors[i]);
 		Sum_of_colors += ColorsCount[i];
 	}
 
-	if(Sum_of_colors==0)
+	if(Sum_of_colors== ColorsCount[c_count-1])
 	{
 		pout->PrintMessage("There are no colored figures");
 		delete[] ColorsCount;
@@ -42,11 +46,6 @@ void PlayBycolor::Execute()
 	const int FigsCount = pManager->GetFigsCount();
 	int color_index = 0;
 	CFigure* randomfig = pManager->GetRandomfigure();
-	if (!randomfig) {
-		pout->PrintMessage("There are no figures to play with.");
-		delete[] ColorsCount;
-		return;
-	}
 	color c = randomfig->GetFillColor();
 	
 	/////////////////////////////////
@@ -56,16 +55,56 @@ void PlayBycolor::Execute()
 		if (UI.drawColorsEq[i] == c)
 		{
 			color_index = i;
+			if (color_index == 7)
+				
 			break;
 		}
-	}
+	} /// search for color index in array of color in UI
 
 	string randomColor = pout->GetColorName(c);
+	
+	while (randomColor == "Transparent")
+	{
+		randomfig = pManager->GetRandomfigure();
+		c = randomfig->GetFillColor();
+		randomColor= pout->GetColorName(c);
+
+	}
+
+	for (int i = 0; i < c_count; i++)
+	{
+		if (UI.drawColorsEq[i] == c)
+		{
+			color_index = i;
+			if (color_index == 7)
+				
+				break;
+		}
+	}   /// search for color index in array of color in UI after neglected transparent color 
 	
 	pout->PrintMessage("Pick " + UI.drawColors[color_index] + " Figures");
 	while(Hits < ColorsCount[color_index])
 	{
-		pin->GetPointForDrawing(Ps.x, Ps.y, pout);
+		pin->GetPointClicked(Ps.x, Ps.y);
+		
+		if (Ps.x <= 250 && Ps.y <= UI.ToolBarHeight) //// 250 is icons size 5*50=250 //////
+		{
+			pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [" + randomColor + " Figures] & " + to_string(Misses) + " Misses!" + "  You clicked on play mode tool bar clicked on icons to change mode");
+
+			Action* pAct = NULL;
+			ActionType ActType = pin->GetUserAction();
+			while (ActType == PLAYING_AREA)
+			{
+				pout->PrintMessage(" please click on icon ");
+				ActType = pin->GetUserAction();
+			}
+			pManager->ResetPlayMode();
+			pManager->UpdateInterface();
+			pManager->ExecuteAction(ActType);
+			return;
+
+		}
+		
 		pout->ClearStatusBar();
 		if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 		{

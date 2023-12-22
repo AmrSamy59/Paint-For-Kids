@@ -55,8 +55,26 @@ Output* pout = pManager->GetOutput();
 	
 	while (Hits < FigsCount[Figureindex])
 	{
-		pin->GetPointClicked(Ps.x, Ps.y);
+		
 
+		pin->GetPointClicked(Ps.x, Ps.y);
+		if (Ps.x <= 250 && Ps.y <= UI.ToolBarHeight) //// 250 is icons size 5*50=250 //////
+		{
+			pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [" + FigNames[Figureindex] + "(s)] & " + to_string(Misses) + " Misses! " + "you clicked on play mode tool bar clicked on icons to change mode");
+
+			Action* pAct = NULL;
+			ActionType ActType = pin->GetUserAction();
+			while (ActType == PLAYING_AREA)
+			{
+				pout->PrintMessage(" please click on icon ");
+				ActType = pin->GetUserAction();
+			}
+			pManager->ResetPlayMode();
+			pManager->UpdateInterface();
+			pManager->ExecuteAction(ActType);
+			return;
+
+		}
 		if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 		{
 			ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
@@ -70,14 +88,14 @@ Output* pout = pManager->GetOutput();
 				Misses++;
 	
 		}
+
 	}
 	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) ["+ FigNames[Figureindex]  +"(s)] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
-
+	
 	pin->GetPointClicked(Ps.x, Ps.y);
-	//pout->ClearStatusBar();
+	
 	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
-	
-	
+	pout->ClearStatusBar();
 
 }
 

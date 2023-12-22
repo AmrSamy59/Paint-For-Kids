@@ -42,6 +42,24 @@ void PlayByboth::Execute()
 	while(Hits < Maxhits)
 	{
 		pin->GetPointClicked(Ps.x, Ps.y);
+		
+		if (Ps.x <= 250 && Ps.y <= UI.ToolBarHeight) //// 250 is icons size 5*50=250 //////
+		{
+			pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!" + "  You clicked on play mode tool bar clicked on icons to change mode");
+
+			Action* pAct = NULL;
+			ActionType ActType = pin->GetUserAction();
+			while (ActType == PLAYING_AREA)
+			{
+				pout->PrintMessage(" please click on icon ");
+				ActType = pin->GetUserAction();
+			}
+			pManager->ResetPlayMode();
+			pManager->UpdateInterface();
+			pManager->ExecuteAction(ActType);
+			return;
+
+		}
 		if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 		{
 			ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
