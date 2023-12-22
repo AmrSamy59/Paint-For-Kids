@@ -53,6 +53,7 @@ Output* pout = pManager->GetOutput();
 	}
 	pout->PrintMessage("Pick " + FigNames[Figureindex] + "s, right-click or change mode anytime to end the game.");
 	
+	clicktype cType;
 	while (Hits < FigsCount[Figureindex])
 	{
 		
