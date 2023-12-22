@@ -43,7 +43,7 @@ void PlayByboth::Execute()
 	{
 		pin->GetPointClicked(Ps.x, Ps.y);
 		
-		if (Ps.x <= 250 && Ps.y <= UI.ToolBarHeight) //// 250 is icons size 5*50=250 //////
+		if (Ps.x <= PLAY_ITM_COUNT * UI.MenuItemWidth && Ps.y <= UI.ToolBarHeight) //// 250 is icons size 5*50=250 //////
 		{
 			pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) [ " + color_name + " " + type + "s ] & " + to_string(Misses) + " Misses!" + "  You clicked on play mode tool bar clicked on icons to change mode");
 

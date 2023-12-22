@@ -16,6 +16,7 @@ protected:
 	/// Add more parameters if needed.
 	bool AbleToBeDrawn; // true if the figure is able to be drawn on interface update
 	bool deleted;  //Checking whether the figure is deleted or not
+	int deletedID;
 	string Type; // type of figure
 public:
 
@@ -29,6 +30,8 @@ public:
 	virtual bool CheckSelection(int x, int y) = 0;
 	virtual void Draw(Output* pOut) const = 0 ;		//Draw the figure
 	virtual void Move(Point Pm) = 0;
+	int GetDeletedID();
+	void SetDeletedID(int i);
 	
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color

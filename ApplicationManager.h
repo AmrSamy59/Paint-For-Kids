@@ -43,6 +43,7 @@ class ApplicationManager
 private:
 	int FigCount;		//Actual number of figures
 	//int playCount;
+	int deletedFigCount;
 	int Action_Count_For_Recording;
 	int Action_Count;
 	int Redo_Action_Count;
@@ -57,6 +58,7 @@ private:
 
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* FigListForRedoAction[MaxFigCount];
+	CFigure* DeletedFigList[MaxFigCount];
 	CFigure* PlayRecordingFigList[20];
 	CFigure* SelectedFig; //Pointer to the selected figure
 	CFigure* Playlist[MaxFigCount];
