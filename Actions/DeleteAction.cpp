@@ -21,7 +21,6 @@ void AddDeleteAction::ReadActionParameters()
 			Select* Sel = new Select(pManager);
 			Sel->Execute();
 
-			
 			if (Sel->wasCanceled())
 			{
 				delete Sel;
@@ -50,10 +49,9 @@ void AddDeleteAction::Execute()
 	{
 		return;
 	}
-	//Selected_Figure->SetFigureAbilityToBeDrawn(false);
-	//Selected_Figure->SetSelected(false);
+	Selected_Figure->SetFigureAbilityToBeDrawn(false);
+	Selected_Figure->SetSelected(false);
 	Selected_Figure->SetDelete(true);
-	Selected_Figure = NULL;
 	pManager->DeleteFigureComplete();
 
 	pOut->PrintMessage("Figure has been deleted succesfully");
@@ -62,8 +60,12 @@ void AddDeleteAction::UndoAction()
 {
 	if (Selected_Figure)
 	{
+		
 		Selected_Figure->SetFigureAbilityToBeDrawn(true);
-		/* Selected_Figure->SetDelete(false);
+		Selected_Figure->SetDelete(false);
+		pManager->AddFigure(Selected_Figure);
+		pManager->sortDeleteList();
+
 		if (dynamic_cast<CRectangle*>(Selected_Figure))
 		{
 			CRectangle::SetCount(CRectangle::GetCount() + 1);
@@ -83,32 +85,38 @@ void AddDeleteAction::UndoAction()
 		else if (dynamic_cast<CHexagon*>(Selected_Figure))
 		{
 			CHexagon::SetCount(CHexagon::GetCount() + 1);
-		}  */
-
+		}
 	}
 }
 void AddDeleteAction::RedoAction()
 {
-	Selected_Figure->SetFigureAbilityToBeDrawn(false);
-	/* Selected_Figure->SetDelete(true);
-	if (dynamic_cast<CRectangle*>(Selected_Figure))
+	if (Selected_Figure)
 	{
-		CRectangle::SetCount(CRectangle::GetCount() - 1);
+		Selected_Figure->SetFigureAbilityToBeDrawn(false);
+		Selected_Figure->SetDelete(true);
+		Selected_Figure = NULL;
+		pManager->DeleteFigureComplete();
+
+		if (dynamic_cast<CRectangle*>(Selected_Figure))
+		{
+			CRectangle::SetCount(CRectangle::GetCount() - 1);
+		}
+		else if (dynamic_cast<CSquare*>(Selected_Figure))
+		{
+			CSquare::SetCount(CSquare::GetCount() - 1);
+		}
+		else if (dynamic_cast<CTriangle*>(Selected_Figure))
+		{
+			CTriangle::SetCount(CTriangle::GetCount() - 1);
+		}
+		else if (dynamic_cast<CCircle*>(Selected_Figure))
+		{
+			CCircle::SetCount(CCircle::GetCount() - 1);
+		}
+		else if (dynamic_cast<CHexagon*>(Selected_Figure))
+		{
+			CHexagon::SetCount(CHexagon::GetCount() - 1);
+		}
 	}
-	else if (dynamic_cast<CSquare*>(Selected_Figure))
-	{
-		CSquare::SetCount(CSquare::GetCount() - 1);
-	}
-	else if (dynamic_cast<CTriangle*>(Selected_Figure))
-	{
-		CTriangle::SetCount(CTriangle::GetCount() - 1);
-	}
-	else if (dynamic_cast<CCircle*>(Selected_Figure))
-	{
-		CCircle::SetCount(CCircle::GetCount() - 1);
-	}
-	else if (dynamic_cast<CHexagon*>(Selected_Figure))
-	{
-		CHexagon::SetCount(CHexagon::GetCount() - 1);
-	}  */
+	
 }

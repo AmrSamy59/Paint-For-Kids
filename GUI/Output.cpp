@@ -45,7 +45,7 @@ Output::Output()
 	UI.DefaultFillColor = UI.ToolBarColor;	//Filling color
 	UI.FillColor = UI.DefaultFillColor;	//Filling color
 
-	UI.PenWidth = 3;	//width of the figures frames
+	UI.PenWidth = 2;	//width of the figures frames
 
 	UI.IconsPadding = 10; // px
 	// Colors 
@@ -306,7 +306,7 @@ void Output::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo, bool selected) co
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr,1);
+	pWind->SetPen(DrawingClr, UI.PenWidth);
 	drawstyle style;
 	if (RectGfxInfo.isFilled)
 	{
@@ -330,7 +330,7 @@ void Output::DrawSquare(Point P1, int L, GfxInfo RectGfxInfo, bool selected) con
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, 1);
+	pWind->SetPen(DrawingClr, UI.PenWidth);
 	drawstyle style;
 	if (RectGfxInfo.isFilled)
 	{
@@ -353,7 +353,7 @@ void Output::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo RectGfxInfo, boo
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, 1);
+	pWind->SetPen(DrawingClr, UI.PenWidth);
 	drawstyle style;
 	if (RectGfxInfo.isFilled)
 	{
@@ -373,7 +373,7 @@ void Output::DrawCirc(Point P1, int radius, GfxInfo RectGfxInfo, bool selected) 
 	else
 		DrawingClr = RectGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, 1);
+	pWind->SetPen(DrawingClr, UI.PenWidth);
 	drawstyle style;
 	if (RectGfxInfo.isFilled)
 	{
@@ -397,7 +397,7 @@ void Output::DrawHexagon(Point P1, int L, GfxInfo HexaGfxInfo, bool selected) co
 	else
 		DrawingClr = HexaGfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, 1);
+	pWind->SetPen(DrawingClr, UI.PenWidth);
 	drawstyle style;
 	if (HexaGfxInfo.isFilled)
 	{

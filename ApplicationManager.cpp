@@ -142,7 +142,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			if (dynamic_cast<AddRectAction*>(pAct) || dynamic_cast<AddSquareAction*>(pAct)
 				|| dynamic_cast<AddHexagonAction*>(pAct) || dynamic_cast<AddCircleAction*>(pAct)
 				|| dynamic_cast<AddTriangleAction*>(pAct) || dynamic_cast<Move*>(pAct)
-				|| dynamic_cast<DrawColorAction*>(pAct) || dynamic_cast<FillColorAction*>(pAct))
+				|| dynamic_cast<DrawColorAction*>(pAct) || dynamic_cast<FillColorAction*>(pAct) || dynamic_cast<AddDeleteAction*>(pAct))
 			{
 				AddForUndoAction(pAct, true);
 				if (StartToRecord)
@@ -597,6 +597,7 @@ void ApplicationManager::DeleteFigureComplete()
 	}
 }
 
+
 int ApplicationManager::GetSelectedFigureNumber()
 {
 	int j = 0;
@@ -619,6 +620,19 @@ void ApplicationManager::sortFigList() {
 				CFigure* temp = FigList[j];
 				FigList[j] = FigList[j + 1];
 				FigList[j + 1] = temp;
+			}
+		}
+	}
+}
+void ApplicationManager::sortDeleteList() {
+	for (int i = 0; i < deletedFigCount - 1; ++i) {
+		for (int j = 0; j < deletedFigCount - i - 1; ++j) {
+			if ((!DeletedFigList[j] || !DeletedFigList[j]->CheckDelete()) && DeletedFigList[j + 1]) {
+				// Swap pointers if they need to be reordered
+				CFigure* temp = DeletedFigList[j];
+				DeletedFigList[j] = DeletedFigList[j + 1];
+				DeletedFigList[j + 1] = temp;
+				deletedFigCount--;
 			}
 		}
 	}

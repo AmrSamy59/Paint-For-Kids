@@ -32,6 +32,8 @@ public:
 	virtual void Move(Point Pm) = 0;
 	int GetDeletedID();
 	void SetDeletedID(int i);
+
+	int GetID();
 	
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color

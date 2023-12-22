@@ -31,7 +31,10 @@ void CFigure::SetDeletedID(int i)
 {
 	deletedID = i;
 }
-
+int CFigure::GetID()
+{
+	return ID;
+}
 void CFigure::ChngDrawClr(color Dclr) // oulinr color
 {	
 	if (Dclr == UI.DefaultFillColor) {
