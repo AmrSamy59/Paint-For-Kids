@@ -2,7 +2,7 @@
 
 StartRecording::StartRecording(ApplicationManager* pApp):Action(pApp)
 {
-
+	voice = "Sound\\Started Recording.wav";
 }
 
 void StartRecording::UndoAction()

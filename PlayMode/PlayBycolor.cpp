@@ -3,7 +3,7 @@
 using namespace std;
 PlayBycolor::PlayBycolor(ApplicationManager* pApp):Action(pApp)
 {
-
+	voice = "Sound\\Pick By Color.wav";
 }
 
 void PlayBycolor::UndoAction()

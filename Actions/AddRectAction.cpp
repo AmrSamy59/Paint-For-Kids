@@ -2,7 +2,9 @@
 
 
 AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
-{}
+{
+	voice = "Sound\\Rectangle.wav";
+}
 
 void AddRectAction::RedoAction()
 {

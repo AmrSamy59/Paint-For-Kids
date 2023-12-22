@@ -3,7 +3,7 @@
 
 Move::Move(ApplicationManager* pApp) : Action(pApp)
 {
-	
+	voice = "Sound\\Shape Moved.wav";
 }
 
 

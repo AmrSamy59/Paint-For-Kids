@@ -3,7 +3,7 @@
 DrawColorAction::DrawColorAction(ApplicationManager* pApp) : Action(pApp)
 {
 	SelectedFigure = NULL;
-
+	voice = "Sound\\Draw Color Changed.wav";
 }
 
 

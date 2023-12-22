@@ -7,7 +7,7 @@
 
 AddDeleteAction::AddDeleteAction(ApplicationManager* pApp):Action(pApp)
 {
-
+	voice = "Sound\\Shape Deleted.wav";
 }
 
 void AddDeleteAction::ReadActionParameters()

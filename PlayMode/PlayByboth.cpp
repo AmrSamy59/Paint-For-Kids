@@ -2,7 +2,7 @@
 
 PlayByboth::PlayByboth(ApplicationManager* pApp):Action(pApp)
 {
-
+	voice = "Sound\\Pick By Type and Color.wav";
 }
 
 void PlayByboth::UndoAction()

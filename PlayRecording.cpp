@@ -3,6 +3,7 @@
 PlayRecording::PlayRecording(ApplicationManager* pApp):Action(pApp)
 {
 	PassedRecordingAction = NULL;
+	voice = "Sound\\Playing Recording.wav";
 }
 
 void PlayRecording::UndoAction()

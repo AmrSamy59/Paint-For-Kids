@@ -4,6 +4,7 @@
 
 PlayByType::PlayByType(ApplicationManager* pApp) :Action(pApp)
 {
+	voice = "Sound\\Pick By Type.wav";
 }
 
 void PlayByType::UndoAction()

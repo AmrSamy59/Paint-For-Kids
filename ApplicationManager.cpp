@@ -153,6 +153,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct)))
 				AddActionForRecording(pAct);
 			PermissionToStartRecord = (dynamic_cast<AddClearAllAction*>(pAct)) ? true : false;
+			pAct->PlayActionVoice();
 		}
 		
 		if (dynamic_cast<Exit*>(pAct))

@@ -2,6 +2,7 @@
 
 LoadGraph::LoadGraph(ApplicationManager* pApp) : Action(pApp)
 {
+	//voice = "Sound\\Draw Color Changed.wav";
 }
 void LoadGraph::RedoAction()
 {

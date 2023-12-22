@@ -6,6 +6,7 @@ using namespace std;
 UndoActionClass::UndoActionClass(ApplicationManager* pApp):Action(pApp)
 {
 	PassedAction = NULL;
+	voice = "Sound\\Undo.wav";
 }
 
 void UndoActionClass::UndoAction()

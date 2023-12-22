@@ -3,6 +3,7 @@
 
 AddTriangleAction::AddTriangleAction(ApplicationManager* pApp):Action(pApp)
 {
+	voice = "Sound\\Triangle.wav";
 }
 void AddTriangleAction::RedoAction()
 {
