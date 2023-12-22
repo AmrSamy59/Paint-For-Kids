@@ -60,7 +60,7 @@ bool CSquare::CheckSelection(int x, int y)
 
 void CSquare::Save(ofstream& OutFile)
 {
-	string fcname = Output::GetColorName(FigGfxInfo.isFilled ? FigGfxInfo.FillClr : false); // Fill color
+	string fcname = Output::GetColorName(FigGfxInfo.FillClr); // Fill color
 	string dcname = Output::GetColorName(FigGfxInfo.DrawClr); // Draw color
 
 	OutFile << "SQUARE" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t"  << L << "\t" << dcname << "\t" << fcname << endl;

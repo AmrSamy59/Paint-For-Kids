@@ -109,7 +109,7 @@ bool CHexagon::CheckSelection(int x, int y)
 
 void CHexagon::Save(ofstream& OutFile)
 {
-	string fcname = Output::GetColorName(FigGfxInfo.isFilled ? FigGfxInfo.FillClr : false); // Fill color
+	string fcname = Output::GetColorName(FigGfxInfo.FillClr); // Fill color
 	string dcname = Output::GetColorName(FigGfxInfo.DrawClr); // Draw color
 
 	OutFile << "HEXAGON" << "\t" << ID << "\t" << center.x << "\t" << center.y << "\t" << L << "\t" << dcname << "\t" << fcname << endl;

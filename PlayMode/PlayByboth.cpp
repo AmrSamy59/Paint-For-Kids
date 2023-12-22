@@ -20,6 +20,7 @@ void PlayByboth::ReadActionParameters()
 
 void PlayByboth::Execute()
 {
+	PlayActionVoice();
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
 	pManager->Playlistformation();

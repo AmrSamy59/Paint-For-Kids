@@ -61,7 +61,7 @@ bool CCircle::CheckSelection(int x, int y)
 
 void CCircle::Save(ofstream& OutFile)
 {
-	string fcname =  Output::GetColorName(FigGfxInfo.isFilled ? FigGfxInfo.FillClr : false); // Fill color
+	string fcname =  Output::GetColorName(FigGfxInfo.FillClr); // Fill color
 	string dcname = Output::GetColorName(FigGfxInfo.DrawClr); // Draw color
 	
 	OutFile << "CIRCLE" << "\t" << ID << "\t" << point1.x << "\t" << point1.y << "\t" << radius << "\t" << dcname << "\t" << fcname << endl;

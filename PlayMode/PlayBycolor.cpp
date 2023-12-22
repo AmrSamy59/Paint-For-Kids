@@ -20,6 +20,7 @@ void PlayBycolor::ReadActionParameters()
 
 void PlayBycolor::Execute()
 {
+	PlayActionVoice();
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
 	const int c_count = UI.c_cols * UI.c_rows;

@@ -143,6 +143,7 @@
     <ClCompile Include="Actions\FillColorAction.cpp" />
     <ClCompile Include="Actions\LoadGraphAction.cpp" />
     <ClCompile Include="Actions\MoveAction.cpp" />
+    <ClCompile Include="Actions\SaveGraphAction.cpp" />
     <ClCompile Include="Actions\SelectAction.cpp" />
     <ClCompile Include="Actions\SwitchAction.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Actions\FillColorAction.h" />
     <ClInclude Include="Actions\LoadGraphAction.h" />
     <ClInclude Include="Actions\MoveAction.h" />
+    <ClInclude Include="Actions\SaveGraphAction.h" />
     <ClInclude Include="Actions\SelectAction.h" />
     <ClInclude Include="Actions\SwitchAction.h" />
     <ClInclude Include="ApplicationManager.h" />

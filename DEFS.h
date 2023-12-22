@@ -20,8 +20,8 @@ enum ActionType //The actions supported
 	DRAW_COLOR_5,
 	DRAW_COLOR_6,
 	DRAW_COLOR_7,
-	DRAW_FILL_COLOR, // Draw fill color icon
-	DRAW_OUTLINE_COLOR, // Draw outline color icon
+	DRAW_CHNG_FILL_COLOR, // Draw fill color icon
+	DRAW_CHNG_OUTLINE_COLOR, // Draw outline color icon
 	DRAW_MOVE,	//Draw Move Icon
 	DRAW_DELETE,	//Draw Delete Icon
 	DRAW_UNDO,	//Draw Undo Icon
@@ -34,10 +34,9 @@ enum ActionType //The actions supported
 	DRAW_PAUSERECORING,	//Draw Pause recording Icon
 	EXIT,			//Exit
 	TO_DRAW,		//Switch interface to Draw mode
-	DRAW_ITM_BYTYPE, //Draw Picking an item by type Icon
-	DRAW_ITM_BYCOLOR, //Draw Picking an item by color Icon
-	DRAW_ITM_BYBOTH, //Draw Picking an item by both of type and color Icon
-	DRAW_ITM_DRAWMODE, //Draw Draw Mode Icon
+	PLAYMODE_BYTYPE, //Draw Picking an item by type Icon
+	PLAYMODE_BYCOLOR, //Draw Picking an item by color Icon
+	PLAYMODE_BYBOTH, //Draw Picking an item by both of type and color Icon
 	TO_PLAY,		//Switch interface to Play mode
 	EMPTY_DRAW_TOOLBAR,	//A click on empty place in the draw toolbar
 	EMPTY_PLAY_TOOLBAR,//A click on empty place in the play toolbar

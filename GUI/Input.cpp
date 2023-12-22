@@ -96,8 +96,8 @@ ActionType Input::GetUserAction() const
 			case ITM_HEXA :			return DRAW_HEXAGON;
 			case ITM_CIRC:			return DRAW_CIRC;
 			case ITM_SELECT:		return DRAW_SELECT;
-			case ITM_FILL_COLOR:	return DRAW_FILL_COLOR;
-			case ITM_OUTLINE_COLOR:	return DRAW_OUTLINE_COLOR;
+			case ITM_FILL_COLOR:	return DRAW_CHNG_FILL_COLOR;
+			case ITM_OUTLINE_COLOR:	return DRAW_CHNG_OUTLINE_COLOR;
 			case ITM_MOVE:			return DRAW_MOVE;
 			case ITM_DELETE:		return DRAW_DELETE;
 			case ITM_UNDO:			return DRAW_UNDO;
@@ -135,10 +135,10 @@ ActionType Input::GetUserAction() const
 			
 			switch (ClickedItemOrder)
 			{
-			case PLAY_ITM_BYTYPE:      return DRAW_ITM_BYTYPE;
-			case PLAY_ITM_BYCOLOR:     return DRAW_ITM_BYCOLOR;
-			case PLAY_ITM_BYBOTH:      return DRAW_ITM_BYBOTH;
-			case PLAY_ITM_DRAWMODE:    return DRAW_ITM_DRAWMODE;
+			case PLAY_ITM_BYTYPE:      return PLAYMODE_BYTYPE;
+			case PLAY_ITM_BYCOLOR:     return PLAYMODE_BYCOLOR;
+			case PLAY_ITM_BYBOTH:      return PLAYMODE_BYBOTH;
+			case PLAY_ITM_DRAWMODE:    return TO_DRAW;
 			case PLAY_ITM_EXIT:		   return EXIT;
 			default: return EMPTY_PLAY_TOOLBAR;	//A click on empty place in desgin toolbar
 			}

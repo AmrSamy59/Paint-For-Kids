@@ -20,7 +20,7 @@ void UndoActionClass::RedoAction()
 void UndoActionClass::ReadActionParameters()
 {
 	PassedAction = pManager->ReturnLastAction();
-	/*if (dynamic_cast<AddDeleteAction*>(PassedAction))
+	/*if (dynamic_cast<DeleteAction*>(PassedAction))
 		PassedFigure = pManager->ReturnLastFigureOnScreen(ApplicationManager::DELETED);
 	else
 		PassedFigure = pManager->ReturnLastFigureOnScreen(ApplicationManager::DRAWN);*/

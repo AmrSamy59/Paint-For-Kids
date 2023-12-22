@@ -22,6 +22,7 @@ void PlayByType::ReadActionParameters()
 
 void PlayByType::Execute()
 {	
+	PlayActionVoice();
 	//Get a Pointer to the Input / Output Interfaces
 Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
@@ -40,7 +41,7 @@ Output* pout = pManager->GetOutput();
 
 	int Figureindex=0;
 	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
-	cout << pManager->GetFigsCount() << endl;
+
 	if (!randomfig) {
 			pout->PrintMessage("There are no figures to play with.");
 			return;
