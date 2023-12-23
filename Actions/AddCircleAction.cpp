@@ -3,6 +3,8 @@
 
 AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 {
+	voice = "Sound\\Circle.wav ";
+
 }
 void AddCircleAction::PlayRecordingFunc()
 {
@@ -64,6 +66,7 @@ void AddCircleAction::Execute()
 //	copyLastDrawnCircle = ptr->SaveCopyOfFigure();
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(LastDrawnCircle);
+
 	//pManager->AddFigureplay(copyLastDrawnCircle);
 }
 void AddCircleAction::UndoAction()

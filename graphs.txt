@@ -1,6 +1,2 @@
-amr.txt
-pp.txt
-nice.txt
-amr hany fig.txt
-test333.txt
-testnew333.txt
+ww3.txt
+squah.txt

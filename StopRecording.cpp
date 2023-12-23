@@ -2,6 +2,7 @@
 
 StopRecording::StopRecording(ApplicationManager* pApp):Action(pApp)
 {
+	voice = "Sound\\Stopped Recording.wav";
 }
 
 void StopRecording::UndoAction()

@@ -2,7 +2,9 @@
 
 
 AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
-{}
+{
+	voice = "Sound\\Square.wav";
+}
 void AddSquareAction::RedoAction()
 {
 	LastDrawnSquare->SetFigureAbilityToBeDrawn(true);

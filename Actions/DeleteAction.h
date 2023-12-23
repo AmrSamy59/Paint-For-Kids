@@ -2,11 +2,11 @@
 #include "../Actions/Action.h"
 #include "../Figures/CFigure.h"
 
-class AddDeleteAction : public Action
+class DeleteAction : public Action
 {private:
 	CFigure* Selected_Figure;
 public:
-	AddDeleteAction(ApplicationManager* pApp);
+	DeleteAction(ApplicationManager* pApp);
 	virtual void RedoAction();
 	//Reads delete parameters
 	virtual void ReadActionParameters();

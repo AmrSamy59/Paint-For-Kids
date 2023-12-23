@@ -5,6 +5,7 @@ FillColorAction::FillColorAction(ApplicationManager* pApp) : Action(pApp)
 	SelectedFigure = NULL;
 	isFilled = false;
 	c_isFilled = false;
+	voice = "Sound\\Fill Color Changed.wav";
 }
 
 void FillColorAction::ReadActionParameters()

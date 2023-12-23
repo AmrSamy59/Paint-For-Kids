@@ -3,6 +3,7 @@
 
 AddHexagonAction::AddHexagonAction(ApplicationManager* pApp):Action(pApp)
 {
+	voice = "Sound\\Hexagon.wav";
 }
 void AddHexagonAction::RedoAction()
 {

@@ -4,7 +4,9 @@
 #include "..\ApplicationManager.h"
 
 Select::Select(ApplicationManager* pApp) :Action(pApp)
-{}
+{
+	voice = "Sound\\Shape Selected.wav";
+}
 bool Select::wasCanceled()
 {
 	return cType == RIGHT_CLICK;

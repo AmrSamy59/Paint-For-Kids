@@ -16,6 +16,7 @@
 #include "Actions\DeleteAction.h"
 #include "Actions\MoveAction.h"
 #include "Actions\SwitchAction.h"
+#include "Actions\SaveGraphAction.h"
 #include "Actions\LoadGraphAction.h"
 #include"PlayMode\PlayBytype.h"
 #include"PlayMode/PlayBycolor.h"
@@ -133,7 +134,7 @@ public:
 	Action* ReturnLastAction();
 	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
-	void Save_All() const;
+	CFigure** GetFiguresToSave(int &count) const;
 
 	
 	string* GetGraphFiles(int& lineCount) const;

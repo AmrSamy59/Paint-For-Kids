@@ -61,26 +61,34 @@ ActionType ApplicationManager::GetUserAction() const
 void ApplicationManager::ExecuteAction(ActionType ActType) 
 {
 	Action* pAct = NULL;
+	bool isPlayMode = false;
+	bool canBeUndone = false;
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
 		case DRAW_RECT:
+			canBeUndone = true;
 			pAct = new AddRectAction(this);
 			break;
 		case DRAW_SQUARE:
+			canBeUndone = true;
 			pAct = new AddSquareAction(this);
 			break;
 		case DRAW_TRIANGLE:
+			canBeUndone = true;
 			pAct = new AddTriangleAction(this);
 			break;
 		case DRAW_HEXAGON:
+			canBeUndone = true;
 			pAct = new AddHexagonAction(this);
 			break;
 		case DRAW_CIRC :
+			canBeUndone = true;
 			pAct = new AddCircleAction(this);
 			break;
 		case DRAW_DELETE:
-			pAct = new AddDeleteAction(this);// Delete Selected Figure
+			canBeUndone = true;
+			pAct = new DeleteAction(this);// Delete Selected Figure
 			break;
 		case DRAW_UNDO:
 			pAct = new UndoActionClass(this);
@@ -91,14 +99,16 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case DRAW_CLEARALL:
 			pAct = new AddClearAllAction(this); // Delete all Figures
 			break;
-		case DRAW_FILL_COLOR:
+		case DRAW_CHNG_FILL_COLOR:
+			canBeUndone = true;
 			pAct = new FillColorAction(this);
 			break;
-		case DRAW_OUTLINE_COLOR:
+		case DRAW_CHNG_OUTLINE_COLOR:
+			canBeUndone = true;
 			pAct = new DrawColorAction(this);
 			break;
 		case DRAW_SAVEGRAPH:
-			Save_All();
+			pAct = new SaveGraph(this);
 			break;
 		case DRAW_LOADGRAPH:
 			pAct = new LoadGraph(this);
@@ -116,21 +126,25 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new StopRecording(this);
 			break;
 		case DRAW_MOVE:
+			canBeUndone = true;
 			pAct = new Move(this);
 			break;
 		case TO_PLAY:
 			pAct = new Switch(this);
 			break;
-		case DRAW_ITM_DRAWMODE:
+		case TO_DRAW:
 			pAct = new Switch(this);   
 			break;
-		case DRAW_ITM_BYTYPE:
+		case PLAYMODE_BYTYPE:
+			isPlayMode = true;
 			pAct = new PlayByType(this);
 			break;
-		case DRAW_ITM_BYCOLOR:
-				pAct = new PlayBycolor(this);
+		case PLAYMODE_BYCOLOR:
+			isPlayMode = true;
+			pAct = new PlayBycolor(this);
 			break;
-		case DRAW_ITM_BYBOTH:
+		case PLAYMODE_BYBOTH:
+			isPlayMode = true;
 			pAct = new PlayByboth(this);
 			break;
 		case EXIT:
@@ -145,10 +159,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 		pAct->Execute();		//Execute
 		if (!pAct->IsCanceled()) {
-			if (dynamic_cast<AddRectAction*>(pAct) || dynamic_cast<AddSquareAction*>(pAct)
-				|| dynamic_cast<AddHexagonAction*>(pAct) || dynamic_cast<AddCircleAction*>(pAct)
-				|| dynamic_cast<AddTriangleAction*>(pAct) || dynamic_cast<Move*>(pAct)
-				|| dynamic_cast<DrawColorAction*>(pAct) || dynamic_cast<FillColorAction*>(pAct) || dynamic_cast<AddDeleteAction*>(pAct))
+			if (canBeUndone)
 			{
 				AddForUndoAction(pAct, true);
 				if (StartToRecord)
@@ -159,6 +170,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct)))
 				AddActionForRecording(pAct);
 			PermissionToStartRecord = (dynamic_cast<AddClearAllAction*>(pAct)) ? true : false;
+			if(!isPlayMode)
+				pAct->PlayActionVoice();
 		}
 		
 		if (dynamic_cast<Exit*>(pAct))
@@ -448,56 +461,19 @@ void ApplicationManager::ClearAll() {
 	CSquare::SetCount(0);
 	Action_Count = 0;
 }
-void ApplicationManager::Save_All() const
+CFigure** ApplicationManager::GetFiguresToSave(int &count) const
 {
-	ofstream Fout;
-	if (FigCount == 0) {
-		pOut->PrintMessage("There are no figures to save.");
-		return;
-	}
-	pOut->PrintMessage("Enter file name, Use your keyboard to type (Press ESC to cancel) .");
-	string fname = pIn->GetSrting(pOut);
-	if (fname == "") {
-		pOut->PrintMessage("Operation cancelled.");
-	}
-	if (!(fname.length() >= 4 && fname.substr(fname.length() - 4) == ".txt")) {
-		fname += ".txt";
-	}
-
-	string fpath = UI.graphsDir + "/" + fname;
-	
-	Fout.open(fpath);
-	if (Fout.is_open()) {
-
-		Fout << "SETTINGS" << "\t" << pOut->GetColorName(UI.DrawColor) << "\t" << pOut->GetColorName(UI.FillColor) << endl;
-		Fout << "FIGCOUNT" << "\t" << FigCount << endl;
-
-		for (int i = 0; i < FigCount; i++) {
-			if(FigList[i] && FigList[i]->GetFigureAbilityToBeDrawn())
-				FigList[i]->Save(Fout);
+	CFigure** SaveFigList = new CFigure*[FigCount];
+	count = 0;
+	for (int i = 0; i < FigCount; i++)
+	{
+		if(FigList[i] && FigList[i]->GetFigureAbilityToBeDrawn() && !FigList[i]->CheckDelete())
+		{
+			SaveFigList[i] = this->FigList[i];
+			count++;
 		}
-			
-		
-		int fcount;
-		string* graphFiles = GetGraphFiles(fcount);
-		ofstream gFile;
-		gFile.open(UI.graphsFile);
-		if (gFile.is_open()) {
-			for (int i = 0; i < fcount; i++) {
-				gFile << graphFiles[i] << endl;
-			}
-			gFile << fname << endl;
-
-			delete[] graphFiles;
-			gFile.close();
-		}
-		
-		pOut->PrintMessage("Graph has been saved succesfully to: " + fpath);
-		Fout.close();
 	}
-	else {
-		pOut->PrintMessage("Failed to save graph to: " + fpath);
-	}
+	return SaveFigList;
 }
 string* ApplicationManager::GetGraphFiles(int& lineCount) const
 {
@@ -646,7 +622,6 @@ void ApplicationManager::DeleteFigureComplete()
 		if (DeletedFigList[i] != NULL)
 		{
 			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() + 1);
-			std::cout << DeletedFigList[i]->GetDeletedID() << endl;
 		}
 		if (DeletedFigList[i]->GetDeletedID() > 20)
 		{

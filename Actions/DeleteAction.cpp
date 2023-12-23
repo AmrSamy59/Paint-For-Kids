@@ -5,12 +5,12 @@
 #include "..\Actions\SelectAction.h"
 
 
-AddDeleteAction::AddDeleteAction(ApplicationManager* pApp):Action(pApp)
+DeleteAction::DeleteAction(ApplicationManager* pApp):Action(pApp)
 {
-
+	voice = "Sound\\Shape Deleted.wav";
 }
 
-void AddDeleteAction::ReadActionParameters()
+void DeleteAction::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	while (1)
@@ -37,7 +37,7 @@ void AddDeleteAction::ReadActionParameters()
 	}
 }
 //Add delete to the ApplicationManager
-void AddDeleteAction::Execute()
+void DeleteAction::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	if (pManager->GetFigsCount() == 0) {
@@ -93,7 +93,7 @@ void AddDeleteAction::UndoAction()
 		}
 	}
 }
-void AddDeleteAction::RedoAction()
+void DeleteAction::RedoAction()
 {
 	if (Selected_Figure)
 	{

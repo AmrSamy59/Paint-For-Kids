@@ -25,12 +25,14 @@ void Switch::Execute()
 	Output* pOut = pManager->GetOutput();
 	if (switch1 == 1)
 	{
+		voice = "Sound\\Switching To Play Mode.wav";
 		pOut->CreatePlayToolBar();
 		pOut->ClearStatusBar();
 		pManager->PlayModeClearSelection();
 	}
 	if (switch1 == 0)    //has to be completed in (Switch to draw mode task)
 	{
+		voice = "Sound\\Switching To Draw Mode.wav";
 		pManager->PlayModeClear();
 		pOut->CreateDrawToolBar();
 		pOut->ClearStatusBar();

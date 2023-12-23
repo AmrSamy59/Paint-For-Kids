@@ -2,7 +2,7 @@
 
 RedoActionClass::RedoActionClass(ApplicationManager* pApp):Action(pApp)
 {
-
+	voice = "Sound\\Redo.wav";
 }
 
 void RedoActionClass::UndoAction()

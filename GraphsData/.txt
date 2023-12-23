@@ -1,2 +1,0 @@
-SETTINGS	Blue	Green
-FIGCOUNT	2

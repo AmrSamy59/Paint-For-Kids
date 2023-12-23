@@ -4,7 +4,7 @@
 
 AddClearAllAction::AddClearAllAction(ApplicationManager* pApp) :Action(pApp)
 {
-
+	voice = "Sound\\Clear all.wav";
 }
 void AddClearAllAction::RedoAction()
 {

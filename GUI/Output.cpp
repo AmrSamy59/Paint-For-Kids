@@ -275,6 +275,8 @@ string Output::GetColorName(color c) {
 	return UI.drawColors[UI.c_cols * UI.c_rows - 1];
 }
 color Output::GetColorFromName(string cname) {
+	if(cname == "DEFAULT_DRAW_CLR")
+		return UI.DefaultDrawColor;
 	for (int i = 0; i < UI.c_cols * UI.c_rows; i++) {
 		if (cname == UI.drawColors[i])
 			return UI.drawColorsEq[i];

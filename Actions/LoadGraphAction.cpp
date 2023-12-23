@@ -2,6 +2,7 @@
 
 LoadGraph::LoadGraph(ApplicationManager* pApp) : Action(pApp)
 {
+	voice = "Sound\\Graph Loaded.wav";
 }
 void LoadGraph::RedoAction()
 {
