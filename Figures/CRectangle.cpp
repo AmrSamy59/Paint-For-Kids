@@ -1,8 +1,12 @@
 #include "CRectangle.h"
+#include <iostream>
+using namespace std;
 
 int CRectangle::Count = 0;
-CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
+CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo),Difference(0)
 {
+	pointForResizing.x = 0;
+	pointForResizing.y = 0;
 	Type = "rectangle";
 
 	Corner1 = P1;
@@ -19,12 +23,19 @@ Point CRectangle::GetFigureCenter()
 	return p;
 }
 	
+void CRectangle::ResizeByDragging(Point& P)
+{
+	Point PRectangle = GetFigureCenter();
+	Difference = (P.x - PRectangle.x);
+	pointForResizing.x = Difference;
+	pointForResizing.y = Difference;
+}
 
 void CRectangle::Draw(Output* pOut) const
 {
-	//Call Output::DrawRect to draw a rectangle on the screen	
-	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
-	
+	//Call Output::DrawRect to draw a rectangle on the screen
+	pOut->DrawRect(Corner1 - pointForResizing, Corner2 + pointForResizing, FigGfxInfo, Selected);
+	cout << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << endl;
 }
 void CRectangle::Move(Point Pm)
 {

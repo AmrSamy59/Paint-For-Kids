@@ -16,6 +16,8 @@ public:
 	//CCircle* SaveCopyOfFigure();
 	static void SetCount(int i);
 
+	virtual void ResizeByDragging(Point& P);
+
 	static int GetCount();
 	~CCircle();
 };

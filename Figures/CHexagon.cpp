@@ -22,6 +22,11 @@ CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 	CHexagon::Count++;
 }
 
+void CHexagon::ResizeByDragging(Point& P)
+{
+
+}
+
 Point CHexagon::GetFigureCenter()
 {
 	return center;

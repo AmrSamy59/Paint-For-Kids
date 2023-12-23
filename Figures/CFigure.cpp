@@ -11,7 +11,6 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	AbleToBeDrawn = true;
 	deletedID = 0;
 }
-
 void CFigure::SetSelected(bool s)
 {	Selected = s; }
 

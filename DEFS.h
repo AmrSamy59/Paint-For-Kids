@@ -48,7 +48,20 @@ enum ActionType //The actions supported
 };
 
 struct Point	//To be used for figures points
-{ int x,y; };
+{ int x,y; 
+const Point operator+(const Point& P) const {
+	Point jh;
+	jh.x = x + P.x;
+	jh.y = y + P.y;
+	return jh;
+	}
+const Point operator-(const Point& P) const {
+	Point jh;
+	jh.x = x - P.x;
+	jh.y = y - P.y;
+	return jh;
+}
+};
 
 struct GfxInfo	//Graphical info of each figure
 {

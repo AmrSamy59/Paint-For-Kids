@@ -175,7 +175,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			if(!isPlayMode)
 				pAct->PlayActionVoice();
 		}
-		
 		if (dynamic_cast<Exit*>(pAct))
 			delete pAct;
 	}
@@ -352,10 +351,6 @@ void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 	Action_Count++;
 	if (!StartToRecord)
 	{
-		for (unsigned int i = 0;i < 15;i++)
-		{
-			cout << "Deleted action " << i << ":" << DeletedActions[i] << endl;
-		}
 		for(unsigned short i = j++;i < 15;i++)
 			if (DeletedActions[i])
 			{
@@ -688,7 +683,6 @@ void ApplicationManager::UpdateInterface() const
 		if (FigList[i] != NULL && FigList[i]->GetFigureAbilityToBeDrawn())
 			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 	}
-		
 }
 
 void ApplicationManager::UpdatePlayRecordingInterface() const {

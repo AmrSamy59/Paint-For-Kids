@@ -22,7 +22,11 @@ Point CTriangle::GetFigureCenter()
 void CTriangle::Draw(Output* pOut) const
 {
 	pOut->DrawTriangle(c1, c2, c3, FigGfxInfo, Selected);
-	
+}
+
+void CTriangle::ResizeByDragging(Point& P)
+{
+
 }
 
 void CTriangle::Move(Point Pm)

@@ -21,6 +21,11 @@ CSquare::CSquare(Point C, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
 	CSquare::Count++;
 }
 
+void CSquare::ResizeByDragging(Point& P)
+{
+
+}
+
 Point CSquare::GetFigureCenter()
 {
 	return center;

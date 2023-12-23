@@ -102,6 +102,23 @@ void Output::CreateStatusBar() const
 	pWind->SetBrush(UI.StatusBarColor);
 	pWind->DrawRectangle(0, UI.height - UI.StatusBarHeight, UI.width, UI.height);
 }
+
+void Output::ResizeByDraggingOutput(Point& P1)
+{
+		button mouse_button = LEFT_BUTTON;
+		/*while (1)
+		{
+			if (pWind->GetButtonState(mouse_button, P1.x, P1.y) == BUTTON_DOWN)
+				break;
+		}*/
+		/*while (pWind->GetButtonState(mouse_button, P.x, P.y) == BUTTON_UP)
+		{
+			pWind->GetMouseCoord(P.x, P.y);
+			if (P.y < UI.ToolBarHeight)
+				return NULL;
+		}*/
+		while (pWind->GetButtonState(mouse_button, P1.x, P1.y) == BUTTON_UP);
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::ClearStatusBar() const
 {

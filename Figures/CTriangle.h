@@ -13,6 +13,8 @@ public:
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
 
+	virtual void ResizeByDragging(Point& P);
+
 	static void SetCount(int i);
 
 	static int GetCount();

@@ -19,6 +19,8 @@ public:
 	void CreatePlayToolBar() const;	//creates Play mode toolbar & menu
 	void CreateStatusBar() const;	//create the status bar
 
+	void ResizeByDraggingOutput(Point& P1);
+
 	Input* CreateInput() const; //creates a pointer to the Input object
 	void ClearStatusBar() const;	//Clears the status bar
 	void ClearDrawArea() const;	//Clears the drawing area

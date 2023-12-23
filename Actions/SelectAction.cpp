@@ -11,10 +11,6 @@ bool Select::wasCanceled()
 {
 	return cType == RIGHT_CLICK;
 }
-void Select::RedoAction()
-{
-
-}
 void Select::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
@@ -28,7 +24,10 @@ void Select::ReadActionParameters()
 
 void Select::Execute()
 {
+	CFigure* selectedFigure;
+	Point P1;
 	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
 	if (pManager->GetFigsCount() == 0) {
 		pOut->PrintMessage("No figures to select");
 		return;
@@ -42,15 +41,27 @@ void Select::Execute()
 	}
 	if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 	{
-		CFigure *selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
+		selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
 		selectedFigure->SetSelected(true);
 		pManager->UpdateInterface();
 	}
 	else {
 		pManager->GetOutput()->PrintMessage("No object was selected.");
 	}
+	while (1)
+	{
+		pOut->ResizeByDraggingOutput(P1);
+		if (P1.y < UI.ToolBarHeight)
+			//break;
+		selectedFigure->ResizeByDragging(P1);
+		pManager->UpdateInterface();
+	}
 }
 void Select::UndoAction()
+{
+
+}
+void Select::RedoAction()
 {
 
 }

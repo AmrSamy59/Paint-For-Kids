@@ -22,6 +22,8 @@ public:
 
 	CFigure(GfxInfo FigureGfxInfo);
 
+	virtual void ResizeByDragging(Point& P) = 0;
+
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
 	virtual Point GetFigureCenter() = 0;

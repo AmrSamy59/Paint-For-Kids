@@ -22,6 +22,11 @@ CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 	CCircle::Count++;
 }
 
+void CCircle::ResizeByDragging(Point& P)
+{
+
+}
+
 Point CCircle::GetFigureCenter()
 {
 	return point1;
