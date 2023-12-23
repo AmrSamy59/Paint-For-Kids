@@ -52,9 +52,10 @@ void Select::Execute()
 	{
 		pOut->ResizeByDraggingOutput(P1);
 		if (P1.y < UI.ToolBarHeight)
-			//break;
+			break;
 		selectedFigure->ResizeByDragging(P1);
 		pManager->UpdateInterface();
+		Sleep(100);
 	}
 }
 void Select::UndoAction()
