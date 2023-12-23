@@ -37,15 +37,16 @@ ApplicationManager::ApplicationManager()
 	{
 		ActionListForRecording[i] = NULL;
 		PlayRecordingFigList[i] = NULL;
+		DeletedFigList[i] = NULL;
 	}
 	for (int i = 0; i < 5; i++)
 	{
 		ActionList[i] = NULL;
 		RedoActionList[i] = NULL;
 	}
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 15; i++)
 	{
-		DeletedFigList[i] = NULL;
+		DeletedActions[i] = NULL;
 	}
 }
 //==================================================================================//
@@ -167,7 +168,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 					AddActionForRecording(pAct);
 				}
 			}
-			else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct)))
+			else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct) 
+				|| dynamic_cast<UndoActionClass*>(pAct) || dynamic_cast<RedoActionClass*>(pAct)))
 				AddActionForRecording(pAct);
 			PermissionToStartRecord = (dynamic_cast<AddClearAllAction*>(pAct)) ? true : false;
 			if(!isPlayMode)
@@ -210,14 +212,19 @@ bool ApplicationManager::CheckRecording()
 void ApplicationManager::AddActionForRecording(Action* pAction)
 {
 	if (Action_Count_For_Recording < 20)
+	{
 		ActionListForRecording[Action_Count_For_Recording++] = pAction;
+		cout << "Action_Count_For_Recording:" << Action_Count_For_Recording << endl;
+	}
 	else
 	{
 		pOut->PrintMessage("Recording is over");
 		SetPermissionToRecord(false);
+		StartToRecord = false;
+		Action_Count_For_Recording = 0;
 	}
 }
-CFigure* ApplicationManager::ReturnLastFigureOfRedoList()
+/*CFigure* ApplicationManager::ReturnLastFigureOfRedoList()
 {
 	static unsigned short k;
 	static unsigned short PrevPassedFigCount = 0;
@@ -233,8 +240,8 @@ CFigure* ApplicationManager::ReturnLastFigureOfRedoList()
 		else
 			k++;
 	}
-}
-CFigure* ApplicationManager::ReturnLastFigureOnScreen(Required_Task_t task)
+}*/
+/*CFigure* ApplicationManager::ReturnLastFigureOnScreen(Required_Task_t task)
 {
 	static unsigned short k;
 	static unsigned short PrevPassedFigCount = 0;
@@ -269,17 +276,10 @@ CFigure* ApplicationManager::ReturnLastFigureOnScreen(Required_Task_t task)
 				k++;
 		}
 	}
-}
+}*/
 Action* ApplicationManager::ReturnLastAction()
 {
-	//static unsigned short count;
-	//static unsigned short PrevPassedActionCount = 0;
 	bool flag = true;
-	/*if (PrevPassedActionCount != Action_Count)
-	{
-		PrevPassedActionCount = Action_Count;
-		count = 1;
-	}*/
 	for (unsigned short i = 0;i < 5;i++)
 	{
 		flag &= (ActionList[i] == NULL) ? true : false;
@@ -306,53 +306,21 @@ Action* ApplicationManager::ReturnLastAction()
 			i--;
 		}
 	}
-	/*static unsigned short count;
-	static unsigned short PrevPassedActionCount = 0;
-	bool flag = true;
-	if (PrevPassedActionCount != Action_Count)
-	{
-		PrevPassedActionCount = Action_Count;
-		count = 1;
-	}
-	for (unsigned short i = Action_Count - 5;i < Action_Count;i++)
-	{
-		flag &= (ActionList[i] == NULL) ? true : false;
-	}
-	while (1)
-	{
-		if (flag)
-		{
-			pOut->PrintMessage("No more actions to be undoed");
-			ActionType ActType = GetUserAction();
-			ExecuteAction(ActType);
-			return NULL;
-		}
-		else if (ActionList[Action_Count - count])
-			return ActionList[Action_Count - count++];
-		else
-			count++;
-	}*/
 }
-void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
+/*void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
 {
 	if (Fig_Redo_Count < 200)
 		FigListForRedoAction[Fig_Redo_Count++] = pFigure;
-}
+}*/
 void ApplicationManager::AddForRedoAction(Action* pAction)
 {
-	Action* Deleted_Action = RedoActionList[0];
 	for (unsigned short i = 0;i < 4;i++)
 	{
 		RedoActionList[i] = RedoActionList[i + 1];
 	}
 	RedoActionList[4] = pAction;
 	Redo_Action_Count++;
-	if (Deleted_Action && dynamic_cast<AddDeleteAction*>(Deleted_Action))
-		delete Deleted_Action;
-	//if (Redo_Action_Count < 200)
-		//RedoActionList[Redo_Action_Count++] = pAction;
 }
-
 void ApplicationManager::AddPlayRecordingFigure(CFigure* pFigure)
 {
 	if (PlayRecordingFigCount < 20)
@@ -360,21 +328,42 @@ void ApplicationManager::AddPlayRecordingFigure(CFigure* pFigure)
 		PlayRecordingFigList[PlayRecordingFigCount++] = pFigure;
 	}
 }
-
+void ApplicationManager::SetFigureToNull(CFigure* pFigure)
+{
+	for (unsigned short i = 0;i < 200;i++)
+	{
+		if (FigList[i] == pFigure)
+		{
+			FigList[i] = NULL;
+			break;
+		}
+	}
+}
 void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 {
-	Action* Deleted_Action = ActionList[0];
+	static unsigned short j = 0;
+	if(ActionList[0] && dynamic_cast<DeleteAction*>(ActionList[0]))
+		DeletedActions[j++] = ActionList[0];
 	for (unsigned short i = 0;i < 4;i++)
 	{
 		ActionList[i] = ActionList[i + 1];
 	}
 	ActionList[4] = pAction;
 	Action_Count++;
-	if (Deleted_Action && dynamic_cast<AddDeleteAction*>(Deleted_Action))
-		delete Deleted_Action;
-	//if (Action_Count < MaxFigCount)
-		//ActionList[Action_Count++] = pAction;
-	//Setting Redo List To NULL
+	if (!StartToRecord)
+	{
+		for (unsigned int i = 0;i < 15;i++)
+		{
+			cout << "Deleted action " << i << ":" << DeletedActions[i] << endl;
+		}
+		for(unsigned short i = j++;i < 15;i++)
+			if (DeletedActions[i])
+			{
+				delete DeletedActions[i];
+				DeletedActions[i] = NULL;
+			}
+		j--;
+	}
 	if (E_Ok)
 	{
 		for (unsigned int i = 0;i < 5;i++)
@@ -386,32 +375,32 @@ void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 }
 Action* ApplicationManager::HandleAndReturnRedoActions()
 {
-	static unsigned short j;
-	static unsigned short PrevPassedRedoActionCount = 0;
 	bool flag = true;
-	if (PrevPassedRedoActionCount != Redo_Action_Count && flag)
-	{
-		PrevPassedRedoActionCount = Redo_Action_Count;
-		j = 1;
-	}
-	for (unsigned short i = 0;i < 200;i++)
+	for (unsigned short i = 0;i < 5;i++)
 	{
 		flag &= (RedoActionList[i] == NULL) ? true : false;
 	}
-
-	while(1)
+	if (flag)
 	{
-		if (flag)
+		pOut->PrintMessage("No more actions to be redoed");
+		ActionType ActType = GetUserAction();
+		ExecuteAction(ActType);
+		return NULL;
+	}
+	else
+	{
+		unsigned short i = 4;
+		while (i >= 0)
 		{
-			pOut->PrintMessage("No more actions to be redoed");
-			ActionType ActType = GetUserAction();
-			ExecuteAction(ActType);
-			return NULL;
+			if (RedoActionList[i])
+			{
+				Redo_Action_Count--;
+				cout << "I = " << i << endl;
+				cout << "Passed action = " << RedoActionList[i] << endl;
+				return RedoActionList[i];
+			}
+			i--;
 		}
-		else if (RedoActionList[Redo_Action_Count - j])
-			return RedoActionList[Redo_Action_Count - j++];
-		else
-			j++;
 	}
 }
 void ApplicationManager::SetRedoActionToNull(Action* pAction)
@@ -443,14 +432,32 @@ void ApplicationManager::ClearAll() {
 			delete FigList[i];
 			FigList[i] = NULL;
 		}
-		//if (ActionList[i] != NULL) {
-			//delete ActionList[i];
-			//ActionList[i] = NULL;
-		//}
-		if (DeletedFigList[i] != NULL)
+		if (i < 5)
 		{
-			delete DeletedFigList[i];
-			DeletedFigList[i] = NULL;
+			if (ActionList[i] != NULL) {
+				delete ActionList[i];
+				ActionList[i] = NULL;
+			}
+			if (RedoActionList[i] != NULL) {
+				delete RedoActionList[i];
+				RedoActionList[i] = NULL;
+			}
+		}
+		if (i < 20)
+		{
+			if (DeletedFigList[i] != NULL)
+			{
+				delete DeletedFigList[i];
+				DeletedFigList[i] = NULL;
+			}
+		}
+		if (i < 15)
+		{
+			if (DeletedActions[i] != NULL)
+			{
+				delete DeletedActions[i];
+				DeletedActions[i] = NULL;
+			}
 		}
 	}
 	FigCount = 0;
@@ -460,6 +467,7 @@ void ApplicationManager::ClearAll() {
 	CHexagon::SetCount(0);
 	CSquare::SetCount(0);
 	Action_Count = 0;
+	Redo_Action_Count = 0;
 }
 CFigure** ApplicationManager::GetFiguresToSave(int &count) const
 {
@@ -519,17 +527,16 @@ string* ApplicationManager::GetGraphFiles(int& lineCount) const
 //						Figures Management Functions								//
 //==================================================================================//
 //Add an Action to the list of Actions
-void ApplicationManager::AddAction(Action* pAction)
+/*void ApplicationManager::AddAction(Action* pAction)
 {
 	if (Action_Count < MaxFigCount)
 		ActionList[Action_Count++] = pAction;
-}
+}*/
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
 	if (FigCount < MaxFigCount)
 		FigList[FigCount++] = pFig;
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

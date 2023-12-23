@@ -13,6 +13,6 @@ public:
 	virtual void UndoAction();
 	//Add delete to the ApplicationManager
 	virtual void Execute();
-	~AddDeleteAction();
+	~DeleteAction();
 };
 

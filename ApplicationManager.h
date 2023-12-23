@@ -59,7 +59,7 @@ private:
 
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* FigListForRedoAction[MaxFigCount];
-	CFigure* DeletedFigList[10];
+	CFigure* DeletedFigList[20];
 	CFigure* PlayRecordingFigList[20];
 	CFigure* SelectedFig; //Pointer to the selected figure
 	CFigure* Playlist[MaxFigCount];
@@ -70,6 +70,7 @@ private:
 	Action* ActionListForRecording[20];
 	Action* ActionList[5];
 	Action* RedoActionList[5];
+	Action* DeletedActions[15];
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
@@ -119,10 +120,10 @@ public:
 	void SetPermissionToRecord(bool StartRecordiong);
 	bool GetRecordingPermission();
 	bool CheckRecording();
-	void AddAction(Action* pAction);
+	//void AddAction(Action* pAction);
 	Action* GetActionForRecording();
 	void AddActionForRecording(Action* pAction);
-	CFigure* ReturnLastFigureOfRedoList();
+	//CFigure* ReturnLastFigureOfRedoList();
 	void AddFigToRedoFigList(CFigure* pFigure);
 	void AddForRedoAction(Action* pAction);
 	void AddPlayRecordingFigure(CFigure* pFigure);
