@@ -17,6 +17,7 @@ private:
 	Point P1, P2; //Rectangle Corners
 	GfxInfo RectGfxInfo;
 	CFigure* LastDrawnRect;
+	CFigure* copyLastDrawnRect;
 public:
 	AddRectAction(ApplicationManager *pApp);
 	virtual void RedoAction();

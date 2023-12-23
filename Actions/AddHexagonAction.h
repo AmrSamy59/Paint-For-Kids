@@ -12,6 +12,7 @@ private:
 	Point center;
 	GfxInfo HexagonGfxInfo;
 	CFigure* LastDrawnHexagon;
+	CFigure* copyLastDrawnHexagon;
 public:
 	AddHexagonAction(ApplicationManager* pApp);
 

@@ -12,6 +12,7 @@ private:
 	Point p1, p2, p3;
 	GfxInfo triangleGfxInfo;
 	CFigure* LastDrawnTriangle;
+	CFigure* copyLastDrawnTriangle;
 public:
 	AddTriangleAction(ApplicationManager* pApp);
 	virtual void RedoAction();

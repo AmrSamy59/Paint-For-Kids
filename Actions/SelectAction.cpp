@@ -43,6 +43,7 @@ void Select::Execute()
 	{
 		selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
 		selectedFigure->SetSelected(true);
+		selectedID = selectedFigure->GetID();
 		pManager->UpdateInterface();
 	}
 	else {
@@ -57,6 +58,10 @@ void Select::Execute()
 		pManager->UpdateInterface();
 		Sleep(100);
 	}
+}
+void Select::PlayRecordingFunc()
+{
+	pManager->PlayRecordingSelect(selectedID)->SetSelected(true);
 }
 void Select::UndoAction()
 {

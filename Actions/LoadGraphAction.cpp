@@ -43,7 +43,7 @@ void LoadGraph::Load(string fName)
 				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
 				gfx.FillClr = pManager->GetOutput()->GetColorFromName(parmList[8]);
 				gfx.isFilled = gfx.FillClr != UI.DefaultFillColor;
-				CTriangle* Tri = new CTriangle(p1 , p2, p3, gfx);
+				CTriangle* Tri = new CTriangle(p1 , p2, p3, gfx, pManager->CheckZeroID());
 				pManager->AddFigure(Tri);
 			}
 			if (option == "HEXAGON") {
@@ -84,7 +84,7 @@ void LoadGraph::Load(string fName)
 				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
 				gfx.FillClr = pManager->GetOutput()->GetColorFromName(parmList[6]);
 				gfx.isFilled = gfx.FillClr != UI.DefaultFillColor;
-				CRectangle* Rect = new CRectangle(p1, p2, gfx);
+				CRectangle* Rect = new CRectangle(p1, p2, gfx, pManager->CheckZeroID());
 				pManager->AddFigure(Rect);
 			}
 			if (option == "CIRCLE") {
@@ -96,7 +96,7 @@ void LoadGraph::Load(string fName)
 				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
 				gfx.FillClr = pManager->GetOutput()->GetColorFromName(parmList[5]);
 				gfx.isFilled = gfx.FillClr != UI.DefaultFillColor;
-				CCircle* Circ = new CCircle(c, stoi(parmList[3]), gfx);
+				CCircle* Circ = new CCircle(c, stoi(parmList[3]), gfx, pManager->CheckZeroID());
 				pManager->AddFigure(Circ);
 			}
 		}

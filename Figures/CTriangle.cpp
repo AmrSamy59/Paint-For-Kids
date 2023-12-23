@@ -1,7 +1,7 @@
 #include "CTriangle.h"
 
 int CTriangle::Count = 0;
-CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
+CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo,bool zeroID):CFigure(FigureGfxInfo, zeroID)
 {
 	Type = "triangle";
 

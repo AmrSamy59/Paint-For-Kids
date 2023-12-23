@@ -37,6 +37,7 @@ void Move::ReadActionParameters()
 	}
 	if (pManager->GetSelectedFigure() != NULL)
 	{
+		selectedID = pManager->GetSelectedFigure()->GetID();
 		Pf[0] = pManager->GetSelectedFigure()->GetFigureCenter();
 		pOut->PrintMessage("The figure is attached to your cursor, left-click anywhere to keep the new position, right-click to cancel.");
 		//pOut->PrintMessage("Please set the new center of the selected figure");
@@ -94,6 +95,11 @@ void Move::Execute()
 		
 		fig->SetSelected(false);
 	}
+}
+void Move::PlayRecordingFunc()
+{
+	pManager->PlayRecordingSelect(selectedID)->Move(Pf[1]);
+	pManager->PlayRecordingSelect(selectedID)->SetSelected(false);
 }
 void Move::UndoAction()
 {

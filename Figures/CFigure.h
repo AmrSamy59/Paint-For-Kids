@@ -20,7 +20,7 @@ protected:
 	string Type; // type of figure
 public:
 
-	CFigure(GfxInfo FigureGfxInfo);
+	CFigure(GfxInfo FigureGfxInfo, bool zeroID);
 
 	virtual void ResizeByDragging(Point& P) = 0;
 
@@ -36,6 +36,7 @@ public:
 	void SetDeletedID(int i);
 
 	int GetID();
+	void SetID(int id1);
 	
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
@@ -45,6 +46,7 @@ public:
 
 	bool CheckDelete();
 	void SetDelete(bool delete1);
+
 
 	string GetType() const; // returns the type of the figure
 	///The following functions should be supported by the figure class
@@ -58,5 +60,7 @@ public:
 
 	//virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
 };
+
+
 
 #endif

@@ -28,8 +28,11 @@ void PlayRecording::Execute()
 	}
 	else
 		canPlay = true;
-	if (canPlay) {
-		pManager->ClearAll();
+	if (canPlay && pManager->GetRecordingsCount() > 0) {
+		pManager->HalfClearAll();
+		UI.FillColor = UI.DefaultFillColor;
+		UI.DrawColor = UI.DefaultDrawColor;
+		pOut->CreateDrawToolBar();
 		pManager->UpdatePlayRecordingInterface();
 		ReadActionParameters();
 		while (PassedRecordingAction) 
@@ -39,10 +42,10 @@ void PlayRecording::Execute()
 			pManager->UpdatePlayRecordingInterface();
 			ReadActionParameters();
 		}
-		Sleep(3000);
+		pManager->PlayRecordingComplete();
 	}
 	else
 	{
-		pOut->PrintMessage("You can't play any recording while recording!");
+		pOut->PrintMessage("You can't play any recording now!");
 	}
 }

@@ -46,7 +46,12 @@ void AddRectAction::ReadActionParameters()
 }
 void AddRectAction::PlayRecordingFunc()
 {
-	pManager->AddFigure(LastDrawnRect);
+	copyLastDrawnRect = new CRectangle(P1, P2, RectGfxInfo, pManager->CheckZeroID());
+	if (pManager->CheckZeroID())
+	{
+		pManager->SetZeroID(false);
+	}
+	pManager->AddPlayRecordingFigure(copyLastDrawnRect);
 }
 void AddRectAction::UndoAction()
 {
@@ -63,7 +68,11 @@ void AddRectAction::Execute()
 		return;
 	}
 	//Create a rectangle with the parameters read from the user
-	LastDrawnRect = new CRectangle(P1, P2, RectGfxInfo);
+	LastDrawnRect = new CRectangle(P1, P2, RectGfxInfo, pManager->CheckZeroID());
+	if (pManager->CheckZeroID())
+	{
+		pManager->SetZeroID(false);
+	}
 	
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(LastDrawnRect);

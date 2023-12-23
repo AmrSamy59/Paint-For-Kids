@@ -13,11 +13,13 @@ class Move : public Action
 private :
 	Point Pf[2];
 	CFigure* fig;
+	int selectedID;
 public:
 	Move(ApplicationManager* pApp);
 	virtual void RedoAction();
 	virtual void ReadActionParameters();
 	virtual void Execute();
+	virtual void PlayRecordingFunc();
 	virtual void UndoAction();
 };
 

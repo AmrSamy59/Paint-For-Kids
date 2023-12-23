@@ -37,6 +37,7 @@ void FillColorAction::ReadActionParameters()
 	}
 	if (SelectedFigure != NULL)
 	{
+		selectedID = SelectedFigure->GetID();
 		c_isFilled = SelectedFigure->GetFilledStatus();
 		c_fillColor = SelectedFigure->GetFillColor();
 		pOut->PrintMessage("Please select a color, right-click to cancel operation.");
@@ -86,6 +87,15 @@ void FillColorAction::Execute()
 	SelectedFigure->SetSelected(false);
 	pOut->CreateDrawToolBar();
 	pOut->PrintMessage("Successfully changed the filling color to: " + colorName);
+}
+
+void FillColorAction::PlayRecordingFunc()
+{
+	Output* pOut = pManager->GetOutput();
+	UI.FillColor = fillColor;
+	pOut->CreateDrawToolBar();
+	pManager->PlayRecordingSelect(selectedID)->ChngFillClr(fillColor);
+	pManager->PlayRecordingSelect(selectedID)->SetSelected(false);
 }
 
 void FillColorAction::UndoAction()

@@ -56,6 +56,7 @@ private:
 	int TriangleCount;
 	int HexagonCount;
 	int CircleCount;
+	bool ZeroID;
 
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* FigListForRedoAction[MaxFigCount];
@@ -91,7 +92,6 @@ public:
 	void Playlistformation();
 	void ResetPlayMode();
 	CFigure* GetRandomfigure();
-	void PlayByTypecounter();
 	void PlayModeClear();
 	int GetSpecificTypeCount(string figType, string figColName);
 	/////////////////////// PLAY MODE FUNCTION END ///////////////////////////////////////////
@@ -107,6 +107,9 @@ public:
 	void DeleteFigureComplete();
 	int GetSelectedFigureNumber();
 
+	bool CheckZeroID();
+	void SetZeroID(bool zeroID);
+
 	void sortFigList();
 
 	void sortDeleteList();
@@ -119,6 +122,7 @@ public:
 	void PassDeletedFigureToDeleteList(CFigure* pFig);
 	void SetPermissionToRecord(bool StartRecordiong);
 	bool GetRecordingPermission();
+	int GetRecordingsCount();
 	bool CheckRecording();
 	//void AddAction(Action* pAction);
 	Action* GetActionForRecording();
@@ -127,6 +131,8 @@ public:
 	void AddFigToRedoFigList(CFigure* pFigure);
 	void AddForRedoAction(Action* pAction);
 	void AddPlayRecordingFigure(CFigure* pFigure);
+	CFigure* PlayRecordingSelect(int id);
+	void PlayRecordingComplete();
 	Action* HandleAndReturnRedoActions();
 	void SetRedoActionToNull(Action *pAction);
 	void AddForUndoAction(Action* pAction,bool E_Ok);
@@ -135,6 +141,7 @@ public:
 	Action* ReturnLastAction();
 	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
+	void HalfClearAll();
 	CFigure** GetFiguresToSave(int &count) const;
 
 	

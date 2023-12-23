@@ -19,8 +19,11 @@ void AddClearAllAction::Execute()
 {
 	ReadActionParameters();
 	pManager->ClearAll();
+	UI.FillColor = UI.drawColorsEq[7];
+	UI.DrawColor = UI.DefaultDrawColor;
 	Output* pOut;
 	pOut = pManager->GetOutput();
+	pOut->CreateDrawToolBar();
 	pOut->PrintMessage("Clear successful!");
 
 }

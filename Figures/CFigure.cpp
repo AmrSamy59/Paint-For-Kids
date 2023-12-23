@@ -1,10 +1,14 @@
 #include "CFigure.h"
 #include <iostream>
 
-CFigure::CFigure(GfxInfo FigureGfxInfo)
+CFigure::CFigure(GfxInfo FigureGfxInfo, bool zeroID)
 { //constractor
 	static int Previous_ID = 0; // for all class
 	deleted = false;
+	if (zeroID)
+	{
+		Previous_ID = 0;
+	}
 	ID = Previous_ID++;
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
@@ -33,6 +37,10 @@ void CFigure::SetDeletedID(int i)
 int CFigure::GetID()
 {
 	return ID;
+}
+void CFigure::SetID(int id1)
+{
+	ID = id1;
 }
 void CFigure::ChngDrawClr(color Dclr) // oulinr color
 {	
@@ -80,6 +88,7 @@ void CFigure::SetDelete(bool delete1)
 {
 	deleted = delete1;
 }
+
 
 void CFigure::SetFigureAbilityToBeDrawn(bool PermissionToBeDrawn)
 {

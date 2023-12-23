@@ -13,6 +13,7 @@ private:
 	bool c_isFilled;
 	color fillColor;
 	bool isFilled;
+	int selectedID;
 public:
 	FillColorAction(ApplicationManager* pApp);
 	virtual void RedoAction();
@@ -21,6 +22,9 @@ public:
 
 	//Execute action (code depends on action type)
 	void Execute();
+
+	//Playing the recording of filling color action
+	virtual void PlayRecordingFunc();
 
 	//To undo this action (code depends on action type)
 	virtual void UndoAction();

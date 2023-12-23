@@ -36,6 +36,7 @@ void DrawColorAction::ReadActionParameters()
 	}
 	if (SelectedFigure != NULL)
 	{
+		selectedID = SelectedFigure->GetID();
 		c_drawColor = SelectedFigure->GetDrawColor();
 		pOut->PrintMessage("Please select a color, right-click to cancel operation.");
 		
@@ -79,6 +80,15 @@ void DrawColorAction::Execute()
 	pOut->CreateDrawToolBar();
 	pOut->PrintMessage("Successfully changed the drawing color to: " + colorName);
 
+}
+
+void DrawColorAction::PlayRecordingFunc()
+{
+	Output* pOut = pManager->GetOutput();
+	UI.DrawColor = drawColor != UI.DefaultFillColor ? drawColor : UI.DefaultDrawColor;
+	pOut->CreateDrawToolBar();
+	pManager->PlayRecordingSelect(selectedID)->ChngDrawClr(drawColor);
+	pManager->PlayRecordingSelect(selectedID)->SetSelected(false);
 }
 
 void DrawColorAction::UndoAction()

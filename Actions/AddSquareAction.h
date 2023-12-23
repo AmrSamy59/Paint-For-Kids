@@ -13,6 +13,7 @@ private:
 	Point CENTER; // center of square
 	GfxInfo squareGfxInfo; 
 	CFigure* LastDrawnSquare;
+	CFigure* copyLastDrawnSquare;
 public:
 	AddSquareAction(ApplicationManager* pApp);
 	virtual void RedoAction();

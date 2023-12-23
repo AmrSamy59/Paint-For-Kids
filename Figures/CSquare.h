@@ -8,7 +8,7 @@ private:
 	int L; // Half the length
 	static int Count; // number of figures of this type
 public:
-	CSquare(Point, GfxInfo FigureGfxInfo, int l=100); // Default Length = 100
+	CSquare(Point, GfxInfo FigureGfxInfo,bool ,int l = 100); // Default Length = 100
 	virtual Point GetFigureCenter();
 	virtual void Draw(Output* pOut) const;
 	virtual void Move(Point Pm);

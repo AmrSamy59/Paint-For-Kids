@@ -1,7 +1,7 @@
 #include "CSquare.h"
 
 int CSquare::Count = 0;
-CSquare::CSquare(Point C, GfxInfo FigureGfxInfo, int l):CFigure(FigureGfxInfo)
+CSquare::CSquare(Point C, GfxInfo FigureGfxInfo,bool zeroID,int l):CFigure(FigureGfxInfo, zeroID)
 {
 	Type = "square";
 
