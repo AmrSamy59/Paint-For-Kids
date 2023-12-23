@@ -30,16 +30,22 @@ ApplicationManager::ApplicationManager()
 	for (int i = 0; i < MaxFigCount; i++)
 	{
 		FigList[i] = NULL;
-		ActionList[i] = NULL;
-		RedoActionList[i] = NULL;
 		FigListForRedoAction[i] = NULL;
 		Playlist[i] = NULL;
-		DeletedFigList[i] = NULL;
 	}
 	for (int i = 0; i < 20; i++)
 	{
 		ActionListForRecording[i] = NULL;
 		PlayRecordingFigList[i] = NULL;
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		ActionList[i] = NULL;
+		RedoActionList[i] = NULL;
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		DeletedFigList[i] = NULL;
 	}
 }
 //==================================================================================//
@@ -253,7 +259,41 @@ CFigure* ApplicationManager::ReturnLastFigureOnScreen(Required_Task_t task)
 }
 Action* ApplicationManager::ReturnLastAction()
 {
-	static unsigned short count;
+	//static unsigned short count;
+	//static unsigned short PrevPassedActionCount = 0;
+	bool flag = true;
+	/*if (PrevPassedActionCount != Action_Count)
+	{
+		PrevPassedActionCount = Action_Count;
+		count = 1;
+	}*/
+	for (unsigned short i = 0;i < 5;i++)
+	{
+		flag &= (ActionList[i] == NULL) ? true : false;
+	}
+	if (flag)
+	{
+		pOut->PrintMessage("No more actions to be undoed");
+		ActionType ActType = GetUserAction();
+		ExecuteAction(ActType);
+		return NULL;
+	}
+	else
+	{
+		short i = 4;
+		while (i >= 0)
+		{
+			if (ActionList[i])
+			{
+				Action_Count--;
+				cout << "I = " << i << endl;
+				cout << "Passed action = " << ActionList[i] << endl;
+				return ActionList[i];
+			}
+			i--;
+		}
+	}
+	/*static unsigned short count;
 	static unsigned short PrevPassedActionCount = 0;
 	bool flag = true;
 	if (PrevPassedActionCount != Action_Count)
@@ -261,7 +301,7 @@ Action* ApplicationManager::ReturnLastAction()
 		PrevPassedActionCount = Action_Count;
 		count = 1;
 	}
-	for (unsigned short i = 0;i < 200;i++)
+	for (unsigned short i = Action_Count - 5;i < Action_Count;i++)
 	{
 		flag &= (ActionList[i] == NULL) ? true : false;
 	}
@@ -278,7 +318,7 @@ Action* ApplicationManager::ReturnLastAction()
 			return ActionList[Action_Count - count++];
 		else
 			count++;
-	}
+	}*/
 }
 void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
 {
@@ -287,8 +327,17 @@ void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
 }
 void ApplicationManager::AddForRedoAction(Action* pAction)
 {
-	if (Redo_Action_Count < 200)
-		RedoActionList[Redo_Action_Count++] = pAction;
+	Action* Deleted_Action = RedoActionList[0];
+	for (unsigned short i = 0;i < 4;i++)
+	{
+		RedoActionList[i] = RedoActionList[i + 1];
+	}
+	RedoActionList[4] = pAction;
+	Redo_Action_Count++;
+	if (Deleted_Action && dynamic_cast<AddDeleteAction*>(Deleted_Action))
+		delete Deleted_Action;
+	//if (Redo_Action_Count < 200)
+		//RedoActionList[Redo_Action_Count++] = pAction;
 }
 
 void ApplicationManager::AddPlayRecordingFigure(CFigure* pFigure)
@@ -301,12 +350,21 @@ void ApplicationManager::AddPlayRecordingFigure(CFigure* pFigure)
 
 void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 {
-	if (Action_Count < MaxFigCount)
-		ActionList[Action_Count++] = pAction;
+	Action* Deleted_Action = ActionList[0];
+	for (unsigned short i = 0;i < 4;i++)
+	{
+		ActionList[i] = ActionList[i + 1];
+	}
+	ActionList[4] = pAction;
+	Action_Count++;
+	if (Deleted_Action && dynamic_cast<AddDeleteAction*>(Deleted_Action))
+		delete Deleted_Action;
+	//if (Action_Count < MaxFigCount)
+		//ActionList[Action_Count++] = pAction;
 	//Setting Redo List To NULL
 	if (E_Ok)
 	{
-		for (unsigned int i = 0;i < 200;i++)
+		for (unsigned int i = 0;i < 5;i++)
 		{
 			RedoActionList[i] = NULL;
 		}
@@ -345,7 +403,7 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 }
 void ApplicationManager::SetRedoActionToNull(Action* pAction)
 {
-	for (unsigned short i = 0;i < Redo_Action_Count;i++)
+	for (unsigned short i = 0;i < 5;i++)
 	{
 		if (RedoActionList[i] == pAction)
 		{
@@ -356,7 +414,7 @@ void ApplicationManager::SetRedoActionToNull(Action* pAction)
 }
 void ApplicationManager::SetActionToNull(Action* pAction)
 {
-	for(unsigned short i = 0;i < Action_Count;i++)
+	for(unsigned short i = 0;i < 5;i++)
 	{
 		if (ActionList[i] == pAction)
 		{

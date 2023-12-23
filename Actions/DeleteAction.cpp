@@ -56,6 +56,11 @@ void AddDeleteAction::Execute()
 
 	pOut->PrintMessage("Figure has been deleted succesfully");
 }
+AddDeleteAction::~AddDeleteAction()
+{
+	delete Selected_Figure;
+	Selected_Figure = NULL;
+}
 void AddDeleteAction::UndoAction()
 {
 	if (Selected_Figure)
