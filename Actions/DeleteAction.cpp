@@ -71,27 +71,8 @@ void DeleteAction::UndoAction()
 		Selected_Figure->SetDelete(false);
 		pManager->AddFigure(Selected_Figure);
 		pManager->sortDeleteList();
-
-		if (dynamic_cast<CRectangle*>(Selected_Figure))
-		{
-			CRectangle::SetCount(CRectangle::GetCount() + 1);
-		}
-		else if (dynamic_cast<CSquare*>(Selected_Figure))
-		{
-			CSquare::SetCount(CSquare::GetCount() + 1);
-		}
-		else if (dynamic_cast<CTriangle*>(Selected_Figure))
-		{
-			CTriangle::SetCount(CTriangle::GetCount() + 1);
-		}
-		else if (dynamic_cast<CCircle*>(Selected_Figure))
-		{
-			CCircle::SetCount(CCircle::GetCount() + 1);
-		}
-		else if (dynamic_cast<CHexagon*>(Selected_Figure))
-		{
-			CHexagon::SetCount(CHexagon::GetCount() + 1);
-		}
+		pManager->UndoDeleteFigureComplete(Selected_Figure);
+		Selected_Figure = NULL;
 	}
 }
 void DeleteAction::RedoAction()
@@ -103,26 +84,6 @@ void DeleteAction::RedoAction()
 		Selected_Figure = NULL;
 		pManager->DeleteFigureComplete();
 
-		if (dynamic_cast<CRectangle*>(Selected_Figure))
-		{
-			CRectangle::SetCount(CRectangle::GetCount() - 1);
-		}
-		else if (dynamic_cast<CSquare*>(Selected_Figure))
-		{
-			CSquare::SetCount(CSquare::GetCount() - 1);
-		}
-		else if (dynamic_cast<CTriangle*>(Selected_Figure))
-		{
-			CTriangle::SetCount(CTriangle::GetCount() - 1);
-		}
-		else if (dynamic_cast<CCircle*>(Selected_Figure))
-		{
-			CCircle::SetCount(CCircle::GetCount() - 1);
-		}
-		else if (dynamic_cast<CHexagon*>(Selected_Figure))
-		{
-			CHexagon::SetCount(CHexagon::GetCount() - 1);
-		}
 	}
 	
 }

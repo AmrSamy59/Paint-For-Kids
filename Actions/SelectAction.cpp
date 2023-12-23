@@ -49,7 +49,7 @@ void Select::Execute()
 	else {
 		pManager->GetOutput()->PrintMessage("No object was selected.");
 	}
-	while (1)
+	/*while (1)
 	{
 		pOut->ResizeByDraggingOutput(P1);
 		if (P1.y < UI.ToolBarHeight)
@@ -57,7 +57,7 @@ void Select::Execute()
 		selectedFigure->ResizeByDragging(P1);
 		pManager->UpdateInterface();
 		Sleep(100);
-	}
+	}*/
 }
 void Select::PlayRecordingFunc()
 {

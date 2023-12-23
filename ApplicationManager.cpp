@@ -25,6 +25,11 @@ ApplicationManager::ApplicationManager()
 	Fig_Redo_Count = 0;
 	PlayRecordingFigCount = 0;
 	Action_Count_For_Recording = 0;
+	CRectangle::SetCount(0);
+	CCircle::SetCount(0);
+	CTriangle::SetCount(0);
+	CHexagon::SetCount(0);
+	CSquare::SetCount(0);
 	ZeroID = true;
 
 	//Create an array of figure pointers and set them to NULL		
@@ -679,6 +684,42 @@ void ApplicationManager::DeleteFigureComplete()
 		if (DeletedFigList[i]->GetDeletedID() > 20)
 		{
 			delete DeletedFigList[i];
+		}
+	}
+}
+
+void ApplicationManager::UndoDeleteFigureComplete(CFigure* figure)
+{
+	for (int i = 0; i < deletedFigCount; i++)
+	{
+		if (DeletedFigList[i] == figure)
+		{
+			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() - 1);
+			if (dynamic_cast<CRectangle*>(DeletedFigList[i]))
+			{
+				CRectangle::SetCount(CRectangle::GetCount() + 1);
+			}
+			else if (dynamic_cast<CSquare*>(DeletedFigList[i]))
+			{
+				CSquare::SetCount(CSquare::GetCount() + 1);
+			}
+			else if (dynamic_cast<CTriangle*>(DeletedFigList[i]))
+			{
+				CTriangle::SetCount(CTriangle::GetCount() + 1);
+			}
+			else if (dynamic_cast<CCircle*>(DeletedFigList[i]))
+			{
+				CCircle::SetCount(CCircle::GetCount() + 1);
+			}
+			else if (dynamic_cast<CHexagon*>(DeletedFigList[i]))
+			{
+				CHexagon::SetCount(CHexagon::GetCount() + 1);
+			}
+			DeletedFigList[i] = NULL;
+		}
+		if (DeletedFigList[i] != NULL)
+		{
+			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() - 1);
 		}
 	}
 }
