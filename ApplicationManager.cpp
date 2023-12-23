@@ -674,17 +674,51 @@ void ApplicationManager::DeleteFigureComplete()
 		}
 	}
 
+	for (int i = 0; i < PlayRecordingFigCount; i++)
+	{
+		if (PlayRecordingFigList[i] != NULL) {
+			if (PlayRecordingFigList[i]->CheckDelete())
+			{
+				if (dynamic_cast<CRectangle*>(PlayRecordingFigList[i]))
+				{
+					CRectangle::SetCount(CRectangle::GetCount() - 1);
+				}
+				else if (dynamic_cast<CSquare*>(PlayRecordingFigList[i]))
+				{
+					CSquare::SetCount(CSquare::GetCount() - 1);
+				}
+				else if (dynamic_cast<CTriangle*>(PlayRecordingFigList[i]))
+				{
+					CTriangle::SetCount(CTriangle::GetCount() - 1);
+				}
+				else if (dynamic_cast<CCircle*>(PlayRecordingFigList[i]))
+				{
+					CCircle::SetCount(CCircle::GetCount() - 1);
+				}
+				else if (dynamic_cast<CHexagon*>(PlayRecordingFigList[i]))
+				{
+					CHexagon::SetCount(CHexagon::GetCount() - 1);
+				}
+				DeletedFigList[deletedFigCount++] = PlayRecordingFigList[i];
+				PlayRecordingFigList[i] = NULL;
+				sortPlayRecordingFigList();
+				PlayRecordingFigCount--;
+			}
+		}
+	}
+
 	for (int i = 0; i < deletedFigCount; i++)
 	{
 
 		if (DeletedFigList[i] != NULL)
 		{
 			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() + 1);
+			if (DeletedFigList[i]->GetDeletedID() > 20)
+			{
+				delete DeletedFigList[i];
+			}
 		}
-		if (DeletedFigList[i]->GetDeletedID() > 20)
-		{
-			delete DeletedFigList[i];
-		}
+		
 	}
 }
 
@@ -758,7 +792,6 @@ void ApplicationManager::sortFigList() {
 				FigList[j] = FigList[j + 1];
 				FigList[j]->SetID(j);
 				FigList[j + 1] = temp;
-				FigList[j + 1]->SetID(j + 1);
 			}
 		}
 	}
@@ -774,6 +807,20 @@ void ApplicationManager::sortDeleteList() {
 				DeletedFigList[j + 1] = temp;
 				DeletedFigList[j + 1]->SetID(j + 1);
 				deletedFigCount--;
+			}
+		}
+	}
+}
+void ApplicationManager::sortPlayRecordingFigList()
+{
+	for (int i = 0; i < PlayRecordingFigCount - 1; ++i) {
+		for (int j = 0; j < PlayRecordingFigCount - i - 1; ++j) {
+			if (!PlayRecordingFigList[j] && PlayRecordingFigList[j + 1]) {
+				// Swap pointers if they need to be reordered
+				CFigure* temp = PlayRecordingFigList[j];
+				PlayRecordingFigList[j] = PlayRecordingFigList[j + 1];
+				PlayRecordingFigList[j]->SetID(j);
+				PlayRecordingFigList[j + 1] = temp;
 			}
 		}
 	}

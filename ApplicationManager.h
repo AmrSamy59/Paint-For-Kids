@@ -115,6 +115,8 @@ public:
 
 	void sortDeleteList();
 
+	void sortPlayRecordingFigList();
+
 	int GetFigsCount() const;
 	int GetColoredFigsCount(string c);
 	

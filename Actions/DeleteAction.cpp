@@ -49,6 +49,7 @@ void DeleteAction::Execute()
 	{
 		return;
 	}
+	selectedID = Selected_Figure->GetID();
 	Selected_Figure->SetFigureAbilityToBeDrawn(false);
 	Selected_Figure->SetSelected(false);
 	Selected_Figure->SetDelete(true);
@@ -74,6 +75,13 @@ void DeleteAction::UndoAction()
 		pManager->UndoDeleteFigureComplete(Selected_Figure);
 		Selected_Figure = NULL;
 	}
+}
+void DeleteAction::PlayRecordingFunc()
+{
+	pManager->PlayRecordingSelect(selectedID)->SetFigureAbilityToBeDrawn(false);
+	pManager->PlayRecordingSelect(selectedID)->SetSelected(false);
+	pManager->PlayRecordingSelect(selectedID)->SetDelete(true);
+	pManager->DeleteFigureComplete();
 }
 void DeleteAction::RedoAction()
 {
