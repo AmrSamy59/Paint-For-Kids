@@ -76,7 +76,7 @@ bool CFigure::isFigureShown() const
 	return AbleToBeDrawn;
 }
 
-bool CFigure::CheckDelete()
+bool CFigure::isDeleted()
 {
 	return deleted;
 }

@@ -555,7 +555,7 @@ CFigure** ApplicationManager::GetFiguresToSave(int &count) const
 	count = 0;
 	for (int i = 0; i < FigCount; i++)
 	{
-		if(FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->CheckDelete())
+		if(FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->isDeleted())
 		{
 			SaveFigList[i] = this->FigList[i];
 			count++;
@@ -675,7 +675,7 @@ void ApplicationManager::ProcessDeletedFigures()
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (FigList[i] != NULL) {
-			if (FigList[i]->CheckDelete())
+			if (FigList[i]->isDeleted())
 			{
 				if (dynamic_cast<CRectangle*>(FigList[i]))
 				{
@@ -709,7 +709,7 @@ void ApplicationManager::ProcessDeletedFigures()
 	for (int i = 0; i < PlayRecordingFigCount; i++)
 	{
 		if (PlayRecordingFigList[i] != NULL) {
-			if (PlayRecordingFigList[i]->CheckDelete())
+			if (PlayRecordingFigList[i]->isDeleted())
 			{
 				if (dynamic_cast<CRectangle*>(PlayRecordingFigList[i]))
 				{
@@ -831,7 +831,7 @@ void ApplicationManager::sortFigList() {
 void ApplicationManager::sortDeleteList() {
 	for (int i = 0; i < deletedFigCount - 1; ++i) {
 		for (int j = 0; j < deletedFigCount - i - 1; ++j) {
-			if ((!DeletedFigList[j] || !DeletedFigList[j]->CheckDelete()) && DeletedFigList[j + 1]) {
+			if ((!DeletedFigList[j] || !DeletedFigList[j]->isDeleted()) && DeletedFigList[j + 1]) {
 				// Swap pointers if they need to be reordered
 				CFigure* temp = DeletedFigList[j];
 				DeletedFigList[j] = DeletedFigList[j + 1];
@@ -907,7 +907,7 @@ Output *ApplicationManager::GetOutput() const
 ////////////////////////////////////////////////////////////////////////////////////
 void ApplicationManager::Playlistformation() {
 	for (int i = 0; i < FigCount; i++) {
-		if(FigList[i] && FigList[i]->isFigureShown())
+		if(FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->isDeleted())
 			Playlist[i] = FigList[i];
 		
 	}

@@ -43,7 +43,7 @@ public:
 	color GetDrawColor() const;		//returns the figure's border color
 	color GetFillColor() const;		//returns the figure's filling color
 
-	bool CheckDelete();
+	bool isDeleted();
 	void SetDelete(bool delete1);
 
 
