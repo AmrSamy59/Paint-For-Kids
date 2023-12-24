@@ -154,6 +154,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			isPlayMode = true;
 			pAct = new PlayByboth(this);
 			break;
+		case DRAW_SOUNDTOGGLE:
+			pAct = new Voice(this);
+			break;
+		
 		case EXIT:
 			///create ExitAction here
 			pAct = new Exit(this);

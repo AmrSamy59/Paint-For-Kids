@@ -32,6 +32,7 @@ enum ActionType //The actions supported
 	DRAW_RECORDING,	//Draw Recording Icon
 	DRAW_PLAYRECORDING,	//Draw Play recording Icon
 	DRAW_PAUSERECORING,	//Draw Pause recording Icon
+	DRAW_SOUNDTOGGLE,
 	EXIT,			//Exit
 	TO_DRAW,		//Switch interface to Draw mode
 	PLAYMODE_BYTYPE, //Draw Picking an item by type Icon

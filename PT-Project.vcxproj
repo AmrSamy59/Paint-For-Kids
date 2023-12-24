@@ -200,6 +200,7 @@
     <ClCompile Include="StartRecording.cpp" />
     <ClCompile Include="StopRecording.cpp" />
     <ClCompile Include="UndoActionClass.cpp" />
+    <ClCompile Include="Actions\Voice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -257,6 +258,7 @@
     <ClInclude Include="StartRecording.h" />
     <ClInclude Include="StopRecording.h" />
     <ClInclude Include="UndoActionClass.h" />
+    <ClInclude Include="Actions\Voice.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

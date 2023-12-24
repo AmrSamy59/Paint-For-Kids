@@ -108,6 +108,7 @@ ActionType Input::GetUserAction() const
 			case ITM_RECORDING:		return DRAW_RECORDING;
 			case ITM_PLAYRECORDING:	return DRAW_PLAYRECORDING;
 			case ITM_PAUSERECORING:	return DRAW_PAUSERECORING;
+			case ITM_SOUND:         return DRAW_SOUNDTOGGLE;
 			case ITM_PLAYMODE:		return TO_PLAY;
 			case ITM_EXIT:			return EXIT;	
 			default:				return EMPTY_DRAW_TOOLBAR;	//A click on empty place in desgin toolbar
