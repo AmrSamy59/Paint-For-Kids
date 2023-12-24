@@ -136,6 +136,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			canBeUndone = true;
 			pAct = new Move(this);
 			break;
+		case DRAW_SOUNDTOGGLE:
+			pAct = new ToggleSoundAction(this);
+			break;
 		case TO_PLAY:
 			pAct = new Switch(this);
 			break;
@@ -154,10 +157,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			isPlayMode = true;
 			pAct = new PlayByboth(this);
 			break;
-		case DRAW_SOUNDTOGGLE:
-			pAct = new ToggleSoundAction(this);
-			break;
-		
+	
 		case EXIT:
 			///create ExitAction here
 			pAct = new Exit(this);
