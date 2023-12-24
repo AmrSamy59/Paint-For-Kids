@@ -1,20 +1,24 @@
 #include "CFigure.h"
 #include <iostream>
 
-CFigure::CFigure(GfxInfo FigureGfxInfo, bool zeroID)
+int CFigure::Previous_ID = 0;
+
+CFigure::CFigure(GfxInfo FigureGfxInfo)
 { //constractor
-	static int Previous_ID = 0; // for all class
+	
 	deleted = false;
-	if (zeroID)
-	{
-		Previous_ID = 0;
-	}
-	ID = Previous_ID++;
+	ID = CFigure::Previous_ID++;
 	FigGfxInfo = FigureGfxInfo;	//Default status is non-filled.
 	Selected = false;
 	AbleToBeDrawn = true;
 	deletedID = 0;
 }
+
+void CFigure::ResetIDs()
+{
+	CFigure::Previous_ID = 0;
+}
+
 void CFigure::SetSelected(bool s)
 {	Selected = s; }
 

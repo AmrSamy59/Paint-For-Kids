@@ -2,7 +2,7 @@
 #include <cmath>
 
 int CCircle::Count = 0;
-CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo, bool zeroID) :CFigure(FigureGfxInfo, zeroID)
+CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Type = "circle";
 

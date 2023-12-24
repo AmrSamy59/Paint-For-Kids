@@ -9,11 +9,8 @@ AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 void AddCircleAction::PlayRecordingFunc()
 {
 	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
-	copyLastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	copyLastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
+
 	pManager->AddPlayRecordingFigure(copyLastDrawnCircle);
 }
 void AddCircleAction::RedoAction()
@@ -69,11 +66,8 @@ void AddCircleAction::Execute()
 		
 	//Create a circle with the parameters read from the user
 	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
-	LastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	LastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
+
 	CCircle* ptr=nullptr;
 //	copyLastDrawnCircle = ptr->SaveCopyOfFigure();
 	//Add the rectangle to the list of figures

@@ -39,11 +39,8 @@ void AddSquareAction::ReadActionParameters()
 
 void AddSquareAction::PlayRecordingFunc()
 {
-	copyLastDrawnSquare = new CSquare(CENTER, squareGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	copyLastDrawnSquare = new CSquare(CENTER, squareGfxInfo);
+
 	pManager->AddPlayRecordingFigure(copyLastDrawnSquare);
 }
 
@@ -56,11 +53,8 @@ void AddSquareAction::Execute()
 		return;
 	}
 	//create new square
-	LastDrawnSquare = new CSquare(CENTER, squareGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	LastDrawnSquare = new CSquare(CENTER, squareGfxInfo);
+
 	// add square to list of figures 
 	pManager->AddFigure(LastDrawnSquare);
 }

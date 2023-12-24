@@ -38,11 +38,8 @@ void AddHexagonAction::ReadActionParameters()
 
 void AddHexagonAction::PlayRecordingFunc()
 {
-	copyLastDrawnHexagon = new CHexagon(center, HexagonGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	copyLastDrawnHexagon = new CHexagon(center, HexagonGfxInfo);
+
 	pManager->AddPlayRecordingFigure(copyLastDrawnHexagon);
 }
 
@@ -57,11 +54,7 @@ void AddHexagonAction::Execute()
 	}
 
 	//Create a rectangle with the parameters read from the user
-	LastDrawnHexagon = new CHexagon(center,HexagonGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	LastDrawnHexagon = new CHexagon(center,HexagonGfxInfo);
 
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(LastDrawnHexagon);

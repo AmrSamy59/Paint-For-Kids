@@ -62,11 +62,8 @@ void AddTriangleAction::ReadActionParameters()
 
 void AddTriangleAction::PlayRecordingFunc()
 {
-	copyLastDrawnTriangle = new CTriangle(p1, p2, p3, triangleGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	copyLastDrawnTriangle = new CTriangle(p1, p2, p3, triangleGfxInfo);
+
 	pManager->AddPlayRecordingFigure(copyLastDrawnTriangle);
 }
 
@@ -80,11 +77,8 @@ void AddTriangleAction::Execute()
 	}
 
 	//Create a triangle with the parameters read from the user
-	LastDrawnTriangle = new CTriangle(p1, p2,p3, triangleGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	LastDrawnTriangle = new CTriangle(p1, p2,p3, triangleGfxInfo);
+
 
 	//Add the triandle to the list of figures
 	pManager->AddFigure(LastDrawnTriangle);

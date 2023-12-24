@@ -18,11 +18,13 @@ protected:
 	bool deleted;  //Checking whether the figure is deleted or not
 	int deletedID;
 	string Type; // type of figure
+	static int Previous_ID; // for all figures to have a unique ID
 public:
 
-	CFigure(GfxInfo FigureGfxInfo, bool zeroID);
+	CFigure(GfxInfo FigureGfxInfo);
 
 	virtual void ResizeByDragging(Point& P) = 0;
+	static void ResetIDs();
 
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected

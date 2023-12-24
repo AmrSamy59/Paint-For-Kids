@@ -25,7 +25,6 @@ ApplicationManager::ApplicationManager()
 	Fig_Redo_Count = 0;
 	PlayRecordingFigCount = 0;
 	Action_Count_For_Recording = 0;
-	ZeroID = true;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -512,7 +511,7 @@ void ApplicationManager::ClearAll() {
 	}
 	Action_Count = 0;
 	Redo_Action_Count = 0;
-	ZeroID = true;
+	CFigure::ResetIDs(); // Reset IDs to 0
 }
 
 void ApplicationManager::HalfClearAll()
@@ -546,7 +545,7 @@ void ApplicationManager::HalfClearAll()
 	{
 		CTriangle::DecreaseCount();
 	}
-	ZeroID = true;
+	CFigure::ResetIDs(); // Reset IDs to 0
 }
 
 CFigure** ApplicationManager::GetFiguresToSave(int &count) const
@@ -805,15 +804,6 @@ int ApplicationManager::GetSelectedFigureNumber()
 	return -1;
 }
 
-bool ApplicationManager::CheckZeroID()
-{
-	return ZeroID;
-}
-
-void ApplicationManager::SetZeroID(bool zeroID)
-{
-	ZeroID = zeroID;
-}
 
 void ApplicationManager::sortFigList() {
 	for (int i = 0; i < FigCount - 1; ++i) {

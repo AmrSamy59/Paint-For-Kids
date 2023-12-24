@@ -57,7 +57,6 @@ private:
 	int TriangleCount;
 	int HexagonCount;
 	int CircleCount;
-	bool ZeroID;
 
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* FigListForRedoAction[MaxFigCount];
@@ -108,9 +107,6 @@ public:
 	void ProcessDeletedFigures();
 	void RedoProcessDeletedFigures(CFigure* figure);
 	int GetSelectedFigureNumber();
-
-	bool CheckZeroID();
-	void SetZeroID(bool zeroID);
 
 	void sortFigList();
 
