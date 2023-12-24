@@ -2,9 +2,8 @@
 
 void Action::PlayActionVoice()
 {
-	if (voice != "novoice")
+	if (voice != "")
 	{
-		cout << 1 << endl;
 		PlaySoundA(voice.c_str(), NULL, SND_FILENAME| SND_ASYNC);
 	}
 }
