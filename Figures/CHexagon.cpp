@@ -141,5 +141,5 @@ int CHexagon::GetCount()
 
 CHexagon::~CHexagon()
 {
-	CHexagon::Count--;
+	//CHexagon::Count--;
 }

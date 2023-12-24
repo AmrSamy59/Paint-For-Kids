@@ -822,7 +822,7 @@ void ApplicationManager::sortFigList() {
 				// Swap pointers if they need to be reordered
 				CFigure* temp = FigList[j];
 				FigList[j] = FigList[j + 1];
-				FigList[j]->SetID(j);
+				//FigList[j]->SetID(j);
 				FigList[j + 1] = temp;
 			}
 		}
@@ -835,9 +835,9 @@ void ApplicationManager::sortDeleteList() {
 				// Swap pointers if they need to be reordered
 				CFigure* temp = DeletedFigList[j];
 				DeletedFigList[j] = DeletedFigList[j + 1];
-				DeletedFigList[j]->SetID(j);
+				//DeletedFigList[j]->SetID(j);
 				DeletedFigList[j + 1] = temp;
-				DeletedFigList[j + 1]->SetID(j + 1);
+				//DeletedFigList[j + 1]->SetID(j + 1);
 				deletedFigCount--;
 			}
 		}
@@ -851,7 +851,7 @@ void ApplicationManager::sortPlayRecordingFigList()
 				// Swap pointers if they need to be reordered
 				CFigure* temp = PlayRecordingFigList[j];
 				PlayRecordingFigList[j] = PlayRecordingFigList[j + 1];
-				PlayRecordingFigList[j]->SetID(j);
+				//PlayRecordingFigList[j]->SetID(j);
 				PlayRecordingFigList[j + 1] = temp;
 			}
 		}

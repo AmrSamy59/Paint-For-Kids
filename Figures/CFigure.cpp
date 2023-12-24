@@ -38,10 +38,7 @@ int CFigure::GetID()
 {
 	return ID;
 }
-void CFigure::SetID(int id1)
-{
-	ID = id1;
-}
+
 void CFigure::ChngDrawClr(color Dclr) // oulinr color
 {	
 	if (Dclr == UI.DefaultFillColor) {

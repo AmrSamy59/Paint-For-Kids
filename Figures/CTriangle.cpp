@@ -176,5 +176,5 @@ int CTriangle::GetCount()
 
 CTriangle::~CTriangle()
 {
-	CTriangle::Count--;
+	//CTriangle::Count--;
 }

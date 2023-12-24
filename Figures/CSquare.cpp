@@ -91,5 +91,5 @@ int CSquare::GetCount()
 
 CSquare::~CSquare()
 {
-	CSquare::Count--;
+	//CSquare::Count--;
 }

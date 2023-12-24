@@ -42,6 +42,7 @@ Output* pout = pManager->GetOutput();
 	{
 		sum += FigsCount[i];
 	}
+	cout << "the play sum" << sum << endl;
 	int Figureindex=0;
 	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
 	

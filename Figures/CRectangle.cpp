@@ -106,5 +106,5 @@ void CRectangle::IncreaseCount()
 
 CRectangle::~CRectangle()
 {
-	CRectangle::Count--;
+	//CRectangle::Count--;
 }
