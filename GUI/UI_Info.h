@@ -38,6 +38,7 @@ enum DrawMenuItem //The items of the Draw menu
 	ITM_PAUSERECORING, //Pause recording item in menu
 	ITM_PLAYMODE, //Play mode item in menu
 	ITM_SOUND, //Toggle sound item in menu
+	
 	ITM_EXIT,		//Exit item
 
 	DRAW_ITM_COUNT		//no. of menu items ==> This should be the last line in this enum

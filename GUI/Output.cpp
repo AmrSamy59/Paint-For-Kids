@@ -61,7 +61,7 @@ Output::Output()
 	"Rectangle", "Square", "Triangle", "Hexagon", "Circle",
 	"Select", "Colors", "Fill", "Outline", "Move", 
 	"Delete", "Undo", "Redo", "Clear All", "Save", 
-	"Load", "Record", "Play", "Pause", "Sound","Play Mode",  "Exit"
+	"Load", "Record", "Play", "Pause", "Play Mode", "Sound","Exit"
 	}};
 	UI.PlayMenuLabels = { new string[PLAY_ITM_COUNT]{
 		"By Type", "By Color", "By Both", "Draw Mode", "Exit"
@@ -161,9 +161,9 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_PLAYRECORDING] = "Menu_Playrecording.jpg";
 	MenuItemImages[ITM_PAUSERECORING] = "Menu_Pauserecording.jpg";
 	
-
-	MenuItemImages[ITM_PLAYMODE] = "Menu_PlayMode.jpg";
 	MenuItemImages[ITM_SOUND] = UI.SoundEnabled ? "Sound_Enabled.jpg" : "Sound_Disabled.jpg";
+	MenuItemImages[ITM_PLAYMODE] = "Menu_PlayMode.jpg";
+
 
 
 	
