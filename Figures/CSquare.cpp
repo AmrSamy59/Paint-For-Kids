@@ -26,6 +26,16 @@ void CSquare::ResizeByDragging(Point& P)
 
 }
 
+void CSquare::DecreasCount()
+{
+	Count--;
+}
+
+void CSquare::IncreasCount()
+{
+	Count++;
+}
+
 Point CSquare::GetFigureCenter()
 {
 	return center;
@@ -72,10 +82,6 @@ void CSquare::Save(ofstream& OutFile)
 
 }
 
-void CSquare::SetCount(int i)
-{
-	CSquare::Count = i;
-}
 
 
 int CSquare::GetCount()
