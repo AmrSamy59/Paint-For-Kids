@@ -4,10 +4,10 @@
 #include "../GUI/Output.h"
 #include"../GUI/Input.h"
 #include"../GUI/UI_Info.h"
-class Voice :public Action
+class ToggleSoundAction :public Action
 {
 public:
-	Voice(ApplicationManager* pApp);
+	ToggleSoundAction(ApplicationManager* pApp);
 	// virtual void slected_figure(Select*ptrselected );
 	void UndoAction();
 	void RedoAction();

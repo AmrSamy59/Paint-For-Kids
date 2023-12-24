@@ -142,6 +142,8 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_RECT] = "Menu_Rect.jpg";
 	MenuItemImages[ITM_SQUARE] = "Menu_Sqaure.jpg";
 	MenuItemImages[ITM_TRIANGLE] = "Menu_Triangle.jpg";
+	MenuItemImages[ITM_CIRC] = "Menu_Circ.jpg";
+	MenuItemImages[ITM_HEXA] = "Menu_Hexagon.jpg";
 	MenuItemImages[ITM_SELECT] = "Menu_Select.jpg";
 
 	MenuItemImages[ITM_COLORS] = imagesPath; // special case
@@ -158,11 +160,11 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_RECORDING]= "Menu_Recording.jpg";
 	MenuItemImages[ITM_PLAYRECORDING] = "Menu_Playrecording.jpg";
 	MenuItemImages[ITM_PAUSERECORING] = "Menu_Pauserecording.jpg";
-	MenuItemImages[ITM_SOUND] = UI.SoundEnabled ? "Sound_Enabled.jpg" : "Sound_Disabled.jpg";
+	
 
 	MenuItemImages[ITM_PLAYMODE] = "Menu_PlayMode.jpg";
-	MenuItemImages[ITM_CIRC] = "Menu_Circ.jpg";
-	MenuItemImages[ITM_HEXA] = "Menu_Hexagon.jpg";
+	MenuItemImages[ITM_SOUND] = UI.SoundEnabled ? "Sound_Enabled.jpg" : "Sound_Disabled.jpg";
+
 
 	
 	MenuItemImages[ITM_EXIT] = "Menu_Exit.jpg";

@@ -155,7 +155,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new PlayByboth(this);
 			break;
 		case DRAW_SOUNDTOGGLE:
-			pAct = new Voice(this);
+			pAct = new ToggleSoundAction(this);
 			break;
 		
 		case EXIT:
