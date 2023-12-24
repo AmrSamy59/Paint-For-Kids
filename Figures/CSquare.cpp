@@ -26,12 +26,12 @@ void CSquare::ResizeByDragging(Point& P)
 
 }
 
-void CSquare::DecreasCount()
+void CSquare::DecreaseCount()
 {
 	Count--;
 }
 
-void CSquare::IncreasCount()
+void CSquare::IncreaseCount()
 {
 	Count++;
 }

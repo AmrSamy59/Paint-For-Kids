@@ -491,24 +491,24 @@ void ApplicationManager::ClearAll() {
 	FigCount = 0;
 	while (CRectangle::GetCount() > 0)
 	{
-		CRectangle::DecreasCount();
+		CRectangle::DecreaseCount();
 	}
 	while (CCircle::GetCount() > 0)
 	{
-		CCircle::DecreasCount();
+		CCircle::DecreaseCount();
 
 	}
 	while (CHexagon::GetCount() > 0)
 	{
-		CHexagon::DecreasCount();
+		CHexagon::DecreaseCount();
 	}
 	while (CSquare::GetCount() > 0)
 	{
-		CSquare::DecreasCount();
+		CSquare::DecreaseCount();
 	}
 	while (CTriangle::GetCount() > 0)
 	{
-		CTriangle::DecreasCount();
+		CTriangle::DecreaseCount();
 	}
 	Action_Count = 0;
 	Redo_Action_Count = 0;
@@ -527,24 +527,24 @@ void ApplicationManager::HalfClearAll()
 	FigCount = 0;
 	while (CRectangle::GetCount() > 0)
 	{
-		CRectangle::DecreasCount();
+		CRectangle::DecreaseCount();
 	}
 	while (CCircle::GetCount() > 0)
 	{
-		CCircle::DecreasCount();
+		CCircle::DecreaseCount();
 
 	}
 	while (CHexagon::GetCount() > 0)
 	{
-		CHexagon::DecreasCount();
+		CHexagon::DecreaseCount();
 	}
 	while (CSquare::GetCount() > 0)
 	{
-		CSquare::DecreasCount();
+		CSquare::DecreaseCount();
 	}
 	while (CTriangle::GetCount() > 0)
 	{
-		CTriangle::DecreasCount();
+		CTriangle::DecreaseCount();
 	}
 	ZeroID = true;
 }
@@ -679,24 +679,24 @@ void ApplicationManager::ProcessDeletedFigures()
 			{
 				if (dynamic_cast<CRectangle*>(FigList[i]))
 				{
-					CRectangle::DecreasCount();
+					CRectangle::DecreaseCount();
 				}
 				else if (dynamic_cast<CSquare*>(FigList[i]))
 				{
-					CSquare::DecreasCount();
+					CSquare::DecreaseCount();
 				}
 				else if (dynamic_cast<CTriangle*>(FigList[i]))
 				{
-					CTriangle::DecreasCount();
+					CTriangle::DecreaseCount();
 				}
 				else if (dynamic_cast<CCircle*>(FigList[i]))
 				{
-					CCircle::DecreasCount();
+					CCircle::DecreaseCount();
 				//	cout << CCircle::GetCount() << endl;
 				}
 				else if (dynamic_cast<CHexagon*>(FigList[i]))
 				{
-					CHexagon::DecreasCount();
+					CHexagon::DecreaseCount();
 				}
 				DeletedFigList[deletedFigCount++] = FigList[i];
 				FigList[i] = NULL;
@@ -713,23 +713,23 @@ void ApplicationManager::ProcessDeletedFigures()
 			{
 				if (dynamic_cast<CRectangle*>(PlayRecordingFigList[i]))
 				{
-					CRectangle::DecreasCount();
+					CRectangle::DecreaseCount();
 				}
 				else if (dynamic_cast<CSquare*>(PlayRecordingFigList[i]))
 				{
-					CSquare::DecreasCount();
+					CSquare::DecreaseCount();
 				}
 				else if (dynamic_cast<CTriangle*>(PlayRecordingFigList[i]))
 				{
-					CTriangle::DecreasCount();
+					CTriangle::DecreaseCount();
 				}
 				else if (dynamic_cast<CCircle*>(PlayRecordingFigList[i]))
 				{
-					CCircle::DecreasCount();
+					CCircle::DecreaseCount();
 				}
 				else if (dynamic_cast<CHexagon*>(PlayRecordingFigList[i]))
 				{
-					CHexagon::DecreasCount();
+					CHexagon::DecreaseCount();
 				}
 				DeletedFigList[deletedFigCount++] = PlayRecordingFigList[i];
 				PlayRecordingFigList[i] = NULL;
@@ -763,23 +763,23 @@ void ApplicationManager::RedoProcessDeletedFigures(CFigure* figure)
 			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() - 1);
 			if (dynamic_cast<CRectangle*>(DeletedFigList[i]))
 			{
-				CRectangle::IncreasCount();
+				CRectangle::IncreaseCount();
 			}
 			else if (dynamic_cast<CSquare*>(DeletedFigList[i]))
 			{
-				CSquare::IncreasCount();
+				CSquare::IncreaseCount();
 			}
 			else if (dynamic_cast<CTriangle*>(DeletedFigList[i]))
 			{
-				CTriangle::IncreasCount();
+				CTriangle::IncreaseCount();
 			}
 			else if (dynamic_cast<CCircle*>(DeletedFigList[i]))
 			{
-				CCircle::IncreasCount();
+				CCircle::IncreaseCount();
 			}
 			else if (dynamic_cast<CHexagon*>(DeletedFigList[i]))
 			{
-				CHexagon::IncreasCount();
+				CHexagon::IncreaseCount();
 			}
 			DeletedFigList[i] = NULL;
 		}

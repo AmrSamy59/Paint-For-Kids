@@ -29,13 +29,13 @@ void CTriangle::ResizeByDragging(Point& P)
 
 }
 
-void CTriangle::DecreasCount()
+void CTriangle::DecreaseCount()
 {
 	Count--;
 
 }
 
-void CTriangle::IncreasCount()
+void CTriangle::IncreaseCount()
 {
 	Count++;
 }

@@ -93,13 +93,13 @@ int CRectangle::GetCount()
 	return CRectangle::Count;
 }
 
-void CRectangle::DecreasCount() {
+void CRectangle::DecreaseCount() {
 
 	Count--;
 
 }
 
-void CRectangle::IncreasCount()
+void CRectangle::IncreaseCount()
 {
 	Count++;
 }

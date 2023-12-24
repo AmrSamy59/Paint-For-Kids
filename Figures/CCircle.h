@@ -15,8 +15,8 @@ public:
 	virtual void Save(ofstream& OutFile);
 	//CCircle* SaveCopyOfFigure();
 	
-	static void DecreasCount();
-	static void IncreasCount();
+	static void DecreaseCount();
+	static void IncreaseCount();
 	virtual void ResizeByDragging(Point& P);
 
 	static int GetCount();

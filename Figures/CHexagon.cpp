@@ -122,13 +122,13 @@ void CHexagon::Save(ofstream& OutFile)
 
 
 
-void CHexagon::IncreasCount()
+void CHexagon::IncreaseCount()
 {
 	Count++;
 }
 
 
-void CHexagon::DecreasCount() {
+void CHexagon::DecreaseCount() {
 
 	Count--;
 

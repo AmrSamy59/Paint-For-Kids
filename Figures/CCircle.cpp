@@ -80,13 +80,13 @@ void CCircle::Save(ofstream& OutFile)
 }
 */
 
-void CCircle::DecreasCount() {
+void CCircle::DecreaseCount() {
 
 	Count --;
 
 }
 
-void CCircle::IncreasCount()
+void CCircle::IncreaseCount()
 {
 	Count++;
 }
