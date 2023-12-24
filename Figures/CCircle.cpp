@@ -79,11 +79,17 @@ void CCircle::Save(ofstream& OutFile)
 
 }
 */
-void CCircle::SetCount(int i)
-{
-	CCircle::Count = i;
+
+void CCircle::DecreaseCount() {
+
+	Count --;
+
 }
 
+void CCircle::IncreaseCount()
+{
+	Count++;
+}
 
 int CCircle::GetCount()
 {

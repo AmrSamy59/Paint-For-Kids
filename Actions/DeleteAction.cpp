@@ -42,6 +42,7 @@ void DeleteAction::Execute()
 	Output* pOut = pManager->GetOutput();
 	if (pManager->GetFigsCount() == 0) {
 		pOut->PrintMessage("No figures to delete");
+		Selected_Figure = NULL;
 		return;
 	}
 	ReadActionParameters();
@@ -72,7 +73,7 @@ void DeleteAction::UndoAction()
 		Selected_Figure->SetDelete(false);
 		pManager->AddFigure(Selected_Figure);
 		pManager->sortDeleteList();
-		pManager->UndoProcessDeletedFigures(Selected_Figure);
+		pManager->RedoProcessDeletedFigures(Selected_Figure);
 	}
 }
 void DeleteAction::PlayRecordingFunc()

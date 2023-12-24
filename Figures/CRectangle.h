@@ -18,11 +18,11 @@ public:
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);    //done in all with same implemation
 
-
+	static void DecreaseCount();
+	static void IncreaseCount();
 	virtual void ResizeByDragging(Point& P);
 
 	static int GetCount();
-	static void SetCount(int i);
 	~CRectangle();
 };
 

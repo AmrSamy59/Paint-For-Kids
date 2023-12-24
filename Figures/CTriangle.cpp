@@ -29,6 +29,17 @@ void CTriangle::ResizeByDragging(Point& P)
 
 }
 
+void CTriangle::DecreaseCount()
+{
+	Count--;
+
+}
+
+void CTriangle::IncreaseCount()
+{
+	Count++;
+}
+
 void CTriangle::Move(Point Pm)
 {
 	int diffX, diffY;
@@ -156,11 +167,6 @@ void CTriangle::Save(ofstream& OutFile)
 
 	OutFile << "TRIANGLE" << "\t" << ID << "\t" << c1.x << "\t" << c1.y << "\t" << c2.x << "\t" << c2.y << "\t" << c3.x << "\t" << c3.y 
 		<< "\t" << dcname << "\t" << fcname << endl;
-}
-
-void CTriangle::SetCount(int i)
-{
-	CTriangle::Count = i;
 }
 
 int CTriangle::GetCount()

@@ -33,15 +33,18 @@ Output* pout = pManager->GetOutput();
 	int TriangleCount = CTriangle::GetCount();
 	int HexagonCount = CHexagon::GetCount();
 	int CircleCount = CCircle::GetCount();
-	cout << " count =" << pManager->GetFigsCount()<<"/////"<<endl;
 	int Hits = 0;
 	int Misses = 0;
 	string FigNames[5] = { "rectangle", "square", "triangle", "hexagon", "circle" };
 	int FigsCount[5] = { RectCount,SquareCount,TriangleCount,HexagonCount,CircleCount };
-
+	int sum = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		sum += FigsCount[i];
+	}
 	int Figureindex=0;
 	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
-
+	
 	if (!randomfig) {
 			pout->PrintMessage("There are no figures to play with.");
 			return;

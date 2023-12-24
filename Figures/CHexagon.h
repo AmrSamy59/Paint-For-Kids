@@ -16,9 +16,9 @@ public:
 	virtual void Save(ofstream& OutFile);
 
 	virtual void ResizeByDragging(Point& P);
-
-	static void SetCount(int i);
-
+	static void DecreaseCount();
+	
+	static void IncreaseCount();
 	static int GetCount();
 	~CHexagon();
 

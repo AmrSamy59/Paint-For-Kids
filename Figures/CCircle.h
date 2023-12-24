@@ -14,8 +14,9 @@ public:
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
 	//CCircle* SaveCopyOfFigure();
-	static void SetCount(int i);
-
+	
+	static void DecreaseCount();
+	static void IncreaseCount();
 	virtual void ResizeByDragging(Point& P);
 
 	static int GetCount();
