@@ -29,6 +29,7 @@ void Select::Execute()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	if (pManager->GetFigsCount() == 0) {
+		isCanceled = true;
 		pOut->PrintMessage("No figures to select");
 		return;
 	}
@@ -47,6 +48,7 @@ void Select::Execute()
 		pManager->UpdateInterface();
 	}
 	else {
+		isCanceled = true;
 		pManager->GetOutput()->PrintMessage("No object was selected.");
 	}
 	/*while (1)

@@ -58,7 +58,7 @@ void SaveGraph::Execute()
 		Fout << "FIGCOUNT" << "\t" << FigCount << endl;
 
 		for (int i = 0; i < FigCount; i++) {
-			if (FigList[i] && FigList[i]->GetFigureAbilityToBeDrawn())
+			if (FigList[i] && FigList[i]->isFigureHidden())
 				FigList[i]->Save(Fout);
 		}
 

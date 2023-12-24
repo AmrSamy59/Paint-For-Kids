@@ -265,7 +265,7 @@ void ApplicationManager::AddActionForRecording(Action* pAction)
 		{
 			if (FigList[FigCount - k])
 			{
-				if (FigList[FigCount - k]->GetFigureAbilityToBeDrawn())
+				if (FigList[FigCount - k]->isFigureHidden())
 					return FigList[FigCount - k++];
 			}
 			else
@@ -278,7 +278,7 @@ void ApplicationManager::AddActionForRecording(Action* pAction)
 		{
 			if (FigList[FigCount - k])
 			{
-				if (FigList[FigCount - k]->GetFigureAbilityToBeDrawn() == false)
+				if (FigList[FigCount - k]->isFigureHidden() == false)
 					return FigList[FigCount - k++];
 			}
 			else
@@ -526,7 +526,7 @@ CFigure** ApplicationManager::GetFiguresToSave(int &count) const
 	count = 0;
 	for (int i = 0; i < FigCount; i++)
 	{
-		if(FigList[i] && FigList[i]->GetFigureAbilityToBeDrawn() && !FigList[i]->CheckDelete())
+		if(FigList[i] && FigList[i]->isFigureHidden() && !FigList[i]->CheckDelete())
 		{
 			SaveFigList[i] = this->FigList[i];
 			count++;
@@ -631,7 +631,7 @@ CFigure* ApplicationManager::GetSelectedFigure() const
 	int j = 0;
 	while (j < FigCount)
 	{
-		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->GetFigureAbilityToBeDrawn() == true)
+		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->isFigureHidden() == true)
 		{
 			return FigList[j];
 		}
@@ -639,7 +639,7 @@ CFigure* ApplicationManager::GetSelectedFigure() const
 	}
 	return NULL;
 }
-void ApplicationManager::DeleteFigureComplete()
+void ApplicationManager::ProcessDeletedFigures()
 {
 	for (int i = 0; i < FigCount; i++)
 	{
@@ -722,7 +722,7 @@ void ApplicationManager::DeleteFigureComplete()
 	}
 }
 
-void ApplicationManager::UndoDeleteFigureComplete(CFigure* figure)
+void ApplicationManager::UndoProcessDeletedFigures(CFigure* figure)
 {
 	for (int i = 0; i < deletedFigCount; i++)
 	{
@@ -764,7 +764,7 @@ int ApplicationManager::GetSelectedFigureNumber()
 	int j = 0;
 	while (j < FigCount)
 	{
-		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->GetFigureAbilityToBeDrawn() == true)
+		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->isFigureHidden() == true)
 		{
 			return j;
 		}
@@ -834,7 +834,7 @@ void ApplicationManager::UpdateInterface() const
 	pOut->ClearDrawArea();
 	for (int i = 0; i < FigCount; i++) {
 		if (FigList[i] != NULL)
-		  if(FigList[i]->GetFigureAbilityToBeDrawn())
+		  if(FigList[i]->isFigureHidden())
 			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 	}
 }
@@ -843,7 +843,7 @@ void ApplicationManager::UpdatePlayRecordingInterface() const {
 	pOut->ClearDrawArea();
 	for (int i = 0; i < 20; i++) {
 		if (PlayRecordingFigList[i] != NULL)
-			if(PlayRecordingFigList[i]->GetFigureAbilityToBeDrawn())
+			if(PlayRecordingFigList[i]->isFigureHidden())
 			PlayRecordingFigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 	}
 }
@@ -875,7 +875,7 @@ Output *ApplicationManager::GetOutput() const
 ////////////////////////////////////////////////////////////////////////////////////
 void ApplicationManager::Playlistformation() {
 	for (int i = 0; i < FigCount; i++) {
-		if(FigList[i] && FigList[i]->GetFigureAbilityToBeDrawn())
+		if(FigList[i] && FigList[i]->isFigureHidden())
 			Playlist[i] = FigList[i];
 	}
 }
@@ -909,7 +909,7 @@ void ApplicationManager::ResetPlayMode()
 	{
 		if (Playlist[i] != NULL)
 		{
-			Playlist[i]->SetFigureAbilityToBeDrawn(true);
+			Playlist[i]->setFigureHidden(true);
 			Playlist[i]->SetSelected(false);
 		}
 	}

@@ -104,8 +104,8 @@ public:
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
-	void DeleteFigureComplete();
-	void UndoDeleteFigureComplete(CFigure* figure);
+	void ProcessDeletedFigures();
+	void UndoProcessDeletedFigures(CFigure* figure);
 	int GetSelectedFigureNumber();
 
 	bool CheckZeroID();

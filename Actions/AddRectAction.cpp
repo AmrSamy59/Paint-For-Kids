@@ -8,7 +8,7 @@ AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
 
 void AddRectAction::RedoAction()
 {
-	LastDrawnRect->SetFigureAbilityToBeDrawn(true);
+	LastDrawnRect->setFigureHidden(true);
 	LastDrawnRect->SetDelete(false);
 	pManager->AddFigure(LastDrawnRect);
 }
@@ -57,9 +57,9 @@ void AddRectAction::PlayRecordingFunc()
 }
 void AddRectAction::UndoAction()
 {
-	LastDrawnRect->SetFigureAbilityToBeDrawn(false);
+	LastDrawnRect->setFigureHidden(false);
 	LastDrawnRect->SetDelete(true);
-	//pManager->DeleteFigureComplete();
+	//pManager->ProcessDeletedFigures();
 }
 //Execute the action
 void AddRectAction::Execute() 
