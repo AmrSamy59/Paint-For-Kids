@@ -162,7 +162,7 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_CIRC] = "Menu_Circ.jpg";
 	MenuItemImages[ITM_HEXA] = "Menu_Hexagon.jpg";
 
-	MenuItemImages[ITM_SOUND] = "Sound_Enabled.jpg";
+	MenuItemImages[ITM_SOUND] = UI.SoundEnabled ? "Sound_Enabled.jpg" : "Sound_Disabled.jpg";
 
 	MenuItemImages[ITM_EXIT] = "Menu_Exit.jpg";
 
