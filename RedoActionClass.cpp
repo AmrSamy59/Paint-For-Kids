@@ -23,7 +23,7 @@ void RedoActionClass::ReadActionParameters()
 void RedoActionClass::Execute()
 {
 	ReadActionParameters();
-	cout << "Passed Action:"<< PassedAction << endl;
+
 	if (PassedAction)
 	{
 		PassedAction->RedoAction();

@@ -72,7 +72,7 @@ void DeleteAction::UndoAction()
 		Selected_Figure->SetDelete(false);
 		pManager->AddFigure(Selected_Figure);
 		pManager->sortDeleteList();
-		pManager->UndoProcessDeletedFigures(Selected_Figure);
+		pManager->RedoProcessDeletedFigures(Selected_Figure);
 	}
 }
 void DeleteAction::PlayRecordingFunc()

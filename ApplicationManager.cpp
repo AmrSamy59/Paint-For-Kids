@@ -227,7 +227,7 @@ void ApplicationManager::AddActionForRecording(Action* pAction)
 	if (Action_Count_For_Recording < 20)
 	{
 		ActionListForRecording[Action_Count_For_Recording++] = pAction;
-		//cout << "Action_Count_For_Recording:" << Action_Count_For_Recording << endl;
+		
 	}
 	else
 	{
@@ -312,8 +312,7 @@ Action* ApplicationManager::ReturnLastAction()
 			if (ActionList[i])
 			{
 				Action_Count--;
-				//cout << "I = " << i << endl;
-				//cout << "Passed action = " << ActionList[i] << endl;
+				
 				return ActionList[i];
 			}
 			i--;
@@ -428,8 +427,7 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 			if (RedoActionList[i])
 			{
 				Redo_Action_Count--;
-				//cout << "I = " << i << endl;
-				//cout << "Passed action = " << RedoActionList[i] << endl;
+			
 				return RedoActionList[i];
 			}
 			i--;
@@ -592,6 +590,8 @@ void ApplicationManager::AddFigure(CFigure* pFig)
 {
 	if (FigCount < MaxFigCount)
 		FigList[FigCount++] = pFig;
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -726,7 +726,7 @@ void ApplicationManager::ProcessDeletedFigures()
 	}
 }
 
-void ApplicationManager::UndoProcessDeletedFigures(CFigure* figure)
+void ApplicationManager::RedoProcessDeletedFigures(CFigure* figure)
 {
 	for (int i = 0; i < deletedFigCount; i++)
 	{
@@ -878,9 +878,10 @@ Output *ApplicationManager::GetOutput() const
 {	return pOut; }
 ////////////////////////////////////////////////////////////////////////////////////
 void ApplicationManager::Playlistformation() {
-	for (int i = 0; i < FigCount; i++) {
+	for (int i = 0; i < 10; i++) {
 		if(FigList[i] && FigList[i]->isFigureHidden())
 			Playlist[i] = FigList[i];
+		
 	}
 }
 
@@ -897,11 +898,12 @@ void ApplicationManager::PlayModeClear()
 CFigure* ApplicationManager::GetRandomfigure()
 {
 	int randomnumber;
+	
 	if (CRectangle::GetCount() == 0 && CSquare::GetCount() == 0 && CCircle::GetCount() == 0 && CTriangle::GetCount() == 0 && CHexagon::GetCount() == 0)
 		return nullptr;
 	do
 	{
-	    randomnumber = rand() % FigCount;
+	    randomnumber = rand() % 200;
 	} while (FigList[randomnumber] == NULL);
 	return FigList[randomnumber];
 }

@@ -20,7 +20,9 @@ void AddCircleAction::RedoAction()
 {
 	LastDrawnCircle->setFigureHidden(true);
 	LastDrawnCircle->SetDelete(false);
+	pManager->RedoProcessDeletedFigures(LastDrawnCircle);
 	pManager->AddFigure(LastDrawnCircle);
+
 }
 void AddCircleAction::ReadActionParameters()
 {

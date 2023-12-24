@@ -106,7 +106,7 @@ public:
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
 	CFigure* GetSelectedFigure() const;
 	void ProcessDeletedFigures();
-	void UndoProcessDeletedFigures(CFigure* figure);
+	void RedoProcessDeletedFigures(CFigure* figure);
 	int GetSelectedFigureNumber();
 
 	bool CheckZeroID();
