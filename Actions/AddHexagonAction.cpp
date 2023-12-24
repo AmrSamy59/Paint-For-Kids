@@ -7,7 +7,7 @@ AddHexagonAction::AddHexagonAction(ApplicationManager* pApp):Action(pApp)
 }
 void AddHexagonAction::RedoAction()
 {
-	LastDrawnHexagon->SetFigureAbilityToBeDrawn(true);
+	LastDrawnHexagon->setFigureHidden(true);
 	LastDrawnHexagon->SetDelete(false);
 	pManager->AddFigure(LastDrawnHexagon);
 }
@@ -68,7 +68,7 @@ void AddHexagonAction::Execute()
 }
 void AddHexagonAction::UndoAction()
 {
-	LastDrawnHexagon->SetFigureAbilityToBeDrawn(false);
+	LastDrawnHexagon->setFigureHidden(false);
 	LastDrawnHexagon->SetDelete(true);
-	pManager->DeleteFigureComplete();
+	pManager->ProcessDeletedFigures();
 }

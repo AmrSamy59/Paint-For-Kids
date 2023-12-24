@@ -7,7 +7,7 @@ AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
 }
 void AddSquareAction::RedoAction()
 {
-	LastDrawnSquare->SetFigureAbilityToBeDrawn(true);
+	LastDrawnSquare->setFigureHidden(true);
 	LastDrawnSquare->SetDelete(false);
 	pManager->AddFigure(LastDrawnSquare);
 }
@@ -65,7 +65,7 @@ void AddSquareAction::Execute()
 }
 void AddSquareAction::UndoAction()
 {
-	LastDrawnSquare->SetFigureAbilityToBeDrawn(false);
+	LastDrawnSquare->setFigureHidden(false);
 	LastDrawnSquare->SetDelete(true);
-	pManager->DeleteFigureComplete();
+	pManager->ProcessDeletedFigures();
 }

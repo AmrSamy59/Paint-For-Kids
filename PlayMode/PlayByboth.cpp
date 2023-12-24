@@ -71,7 +71,7 @@ void PlayByboth::Execute()
 		{
 			ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
 			ptrfigure->SetSelected(true);
-			ptrfigure->SetFigureAbilityToBeDrawn(false);
+			ptrfigure->setFigureHidden(false);
 			pManager->UpdateInterface();
 
 			if (ptrfigure->GetType() == type && pout->GetColorName(ptrfigure->GetFillColor())== color_name)

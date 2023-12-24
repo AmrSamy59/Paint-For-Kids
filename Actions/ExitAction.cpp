@@ -14,7 +14,9 @@ void Exit::RedoAction()
 void Exit::Execute()
 {
 	PlayActionVoice();
-	Sleep(6000);
+	if(UI.SoundEnabled)
+	Sleep(1000);
+	
 	exit(0);
 }
 

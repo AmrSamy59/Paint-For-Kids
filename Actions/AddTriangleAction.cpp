@@ -7,7 +7,7 @@ AddTriangleAction::AddTriangleAction(ApplicationManager* pApp):Action(pApp)
 }
 void AddTriangleAction::RedoAction()
 {
-	LastDrawnTriangle->SetFigureAbilityToBeDrawn(true);
+	LastDrawnTriangle->setFigureHidden(true);
 	LastDrawnTriangle->SetDelete(false);
 	pManager->AddFigure(LastDrawnTriangle);
 }
@@ -91,7 +91,7 @@ void AddTriangleAction::Execute()
 }
 void AddTriangleAction::UndoAction()
 {
-	LastDrawnTriangle->SetFigureAbilityToBeDrawn(false);
+	LastDrawnTriangle->setFigureHidden(false);
 	LastDrawnTriangle->SetDelete(true);
-	pManager->DeleteFigureComplete();
+	pManager->ProcessDeletedFigures();
 }

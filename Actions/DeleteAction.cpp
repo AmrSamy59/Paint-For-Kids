@@ -50,10 +50,10 @@ void DeleteAction::Execute()
 		return;
 	}
 	selectedID = Selected_Figure->GetID();
-	Selected_Figure->SetFigureAbilityToBeDrawn(false);
+	Selected_Figure->setFigureHidden(false);
 	Selected_Figure->SetSelected(false);
 	Selected_Figure->SetDelete(true);
-	pManager->DeleteFigureComplete();
+	pManager->ProcessDeletedFigures();
 
 	pOut->PrintMessage("Figure has been deleted succesfully");
 }
@@ -68,27 +68,27 @@ void DeleteAction::UndoAction()
 	if (Selected_Figure)
 	{
 		
-		Selected_Figure->SetFigureAbilityToBeDrawn(true);
+		Selected_Figure->setFigureHidden(true);
 		Selected_Figure->SetDelete(false);
 		pManager->AddFigure(Selected_Figure);
 		pManager->sortDeleteList();
-		pManager->UndoDeleteFigureComplete(Selected_Figure);
+		pManager->UndoProcessDeletedFigures(Selected_Figure);
 	}
 }
 void DeleteAction::PlayRecordingFunc()
 {
-	pManager->PlayRecordingSelect(selectedID)->SetFigureAbilityToBeDrawn(false);
+	pManager->PlayRecordingSelect(selectedID)->setFigureHidden(false);
 	pManager->PlayRecordingSelect(selectedID)->SetSelected(false);
 	pManager->PlayRecordingSelect(selectedID)->SetDelete(true);
-	pManager->DeleteFigureComplete();
+	pManager->ProcessDeletedFigures();
 }
 void DeleteAction::RedoAction()
 {
 	if (Selected_Figure)
 	{
-		Selected_Figure->SetFigureAbilityToBeDrawn(false);
+		Selected_Figure->setFigureHidden(false);
 		Selected_Figure->SetDelete(true);
-		pManager->DeleteFigureComplete();
+		pManager->ProcessDeletedFigures();
 
 	}
 	
