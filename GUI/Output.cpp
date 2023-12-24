@@ -16,7 +16,7 @@ Output::Output()
 	//Initialize user interface parameters
 	UI.InterfaceMode = MODE_DRAW;
 
-	UI.width = int(screenWidth * 0.75); // make the size of the window 3/4 of the entire screen
+	UI.width = int(screenWidth * 0.85); // make the size of the window 3/4 of the entire screen
 	UI.height = int(screenHeight * 0.75);
 
 	UI.width = UI.width < (DRAW_ITM_COUNT * UI.MenuItemWidth) ?
@@ -61,11 +61,13 @@ Output::Output()
 	"Rectangle", "Square", "Triangle", "Hexagon", "Circle",
 	"Select", "Colors", "Fill", "Outline", "Move", 
 	"Delete", "Undo", "Redo", "Clear All", "Save", 
-	"Load", "Record", "Play", "Pause", "Play Mode", "Exit"
+	"Load", "Record", "Play", "Pause", "Play Mode", "Sound", "Exit"
 	}};
 	UI.PlayMenuLabels = { new string[PLAY_ITM_COUNT]{
 		"By Type", "By Color", "By Both", "Draw Mode", "Exit"
 	} };
+
+	UI.SoundEnabled = true;
 
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
@@ -159,6 +161,8 @@ void Output::CreateDrawToolBar() const
 	MenuItemImages[ITM_PLAYMODE] = "Menu_PlayMode.jpg";
 	MenuItemImages[ITM_CIRC] = "Menu_Circ.jpg";
 	MenuItemImages[ITM_HEXA] = "Menu_Hexagon.jpg";
+
+	MenuItemImages[ITM_SOUND] = "Sound_Enabled.jpg";
 
 	MenuItemImages[ITM_EXIT] = "Menu_Exit.jpg";
 
