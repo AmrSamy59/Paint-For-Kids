@@ -931,7 +931,7 @@ CFigure* ApplicationManager::GetRandomfigure()
 		return nullptr;
 	do
 	{
-	    randomnumber = rand() % 200;
+	    randomnumber = rand() % FigCount;
 	} while (FigList[randomnumber] == NULL);
 	return FigList[randomnumber];
 }
