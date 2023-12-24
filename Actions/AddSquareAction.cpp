@@ -9,6 +9,7 @@ void AddSquareAction::RedoAction()
 {
 	LastDrawnSquare->setFigureHidden(true);
 	LastDrawnSquare->SetDelete(false);
+	pManager->RedoProcessDeletedFigures(LastDrawnSquare);
 	pManager->AddFigure(LastDrawnSquare);
 }
 void AddSquareAction::ReadActionParameters()

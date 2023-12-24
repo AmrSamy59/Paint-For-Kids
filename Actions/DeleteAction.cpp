@@ -42,6 +42,7 @@ void DeleteAction::Execute()
 	Output* pOut = pManager->GetOutput();
 	if (pManager->GetFigsCount() == 0) {
 		pOut->PrintMessage("No figures to delete");
+		Selected_Figure = NULL;
 		return;
 	}
 	ReadActionParameters();

@@ -9,6 +9,7 @@ void AddHexagonAction::RedoAction()
 {
 	LastDrawnHexagon->setFigureHidden(true);
 	LastDrawnHexagon->SetDelete(false);
+	pManager->RedoProcessDeletedFigures(LastDrawnHexagon);
 	pManager->AddFigure(LastDrawnHexagon);
 }
 void AddHexagonAction::ReadActionParameters()

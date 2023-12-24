@@ -10,6 +10,7 @@ void AddRectAction::RedoAction()
 {
 	LastDrawnRect->setFigureHidden(true);
 	LastDrawnRect->SetDelete(false);
+	pManager->RedoProcessDeletedFigures(LastDrawnRect);
 	pManager->AddFigure(LastDrawnRect);
 }
 
@@ -59,7 +60,7 @@ void AddRectAction::UndoAction()
 {
 	LastDrawnRect->setFigureHidden(false);
 	LastDrawnRect->SetDelete(true);
-	//pManager->ProcessDeletedFigures();
+	pManager->ProcessDeletedFigures();
 }
 //Execute the action
 void AddRectAction::Execute() 

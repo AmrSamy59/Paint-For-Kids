@@ -909,8 +909,8 @@ CFigure* ApplicationManager::GetRandomfigure()
 }
 void ApplicationManager::ResetPlayMode()
 {
-	this->Playlistformation();
 
+	this->Playlistformation();
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (Playlist[i] != NULL)
