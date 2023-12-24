@@ -119,7 +119,7 @@ void PlayBycolor::Execute()
 		{
 			ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
 			ptrfigure->SetSelected(true);
-			ptrfigure->setFigureHidden(false);
+			ptrfigure->showFigure(false);
 			pManager->UpdateInterface();
 			color c = ptrfigure->GetFillColor();
 			string color_name = pout->GetColorName(c);

@@ -51,7 +51,7 @@ void DeleteAction::Execute()
 		return;
 	}
 	selectedID = Selected_Figure->GetID();
-	Selected_Figure->setFigureHidden(false);
+	Selected_Figure->showFigure(false);
 	Selected_Figure->SetSelected(false);
 	Selected_Figure->SetDelete(true);
 	pManager->ProcessDeletedFigures();
@@ -69,7 +69,7 @@ void DeleteAction::UndoAction()
 	if (Selected_Figure)
 	{
 		
-		Selected_Figure->setFigureHidden(true);
+		Selected_Figure->showFigure(true);
 		Selected_Figure->SetDelete(false);
 		pManager->AddFigure(Selected_Figure);
 		pManager->sortDeleteList();
@@ -78,7 +78,7 @@ void DeleteAction::UndoAction()
 }
 void DeleteAction::PlayRecordingFunc()
 {
-	pManager->PlayRecordingSelect(selectedID)->setFigureHidden(false);
+	pManager->PlayRecordingSelect(selectedID)->showFigure(false);
 	pManager->PlayRecordingSelect(selectedID)->SetSelected(false);
 	pManager->PlayRecordingSelect(selectedID)->SetDelete(true);
 	pManager->ProcessDeletedFigures();
@@ -87,7 +87,7 @@ void DeleteAction::RedoAction()
 {
 	if (Selected_Figure)
 	{
-		Selected_Figure->setFigureHidden(false);
+		Selected_Figure->showFigure(false);
 		Selected_Figure->SetDelete(true);
 		pManager->ProcessDeletedFigures();
 

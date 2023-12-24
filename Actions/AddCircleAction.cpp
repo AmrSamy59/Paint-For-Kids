@@ -18,7 +18,7 @@ void AddCircleAction::PlayRecordingFunc()
 }
 void AddCircleAction::RedoAction()
 {
-	LastDrawnCircle->setFigureHidden(true);
+	LastDrawnCircle->showFigure(true);
 	LastDrawnCircle->SetDelete(false);
 	pManager->RedoProcessDeletedFigures(LastDrawnCircle);
 	pManager->AddFigure(LastDrawnCircle);
@@ -83,7 +83,7 @@ void AddCircleAction::Execute()
 }
 void AddCircleAction::UndoAction()
 {
-	LastDrawnCircle->setFigureHidden(false);
+	LastDrawnCircle->showFigure(false);
 	LastDrawnCircle->SetDelete(true);
 	pManager->ProcessDeletedFigures();
 }

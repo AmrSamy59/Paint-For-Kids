@@ -51,8 +51,8 @@ public:
 	string GetType() const; // returns the type of the figure
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure/// 
-	void setFigureHidden(bool PermissionToBeDrawn);
-	bool isFigureHidden() const;
+	void showFigure(bool PermissionToBeDrawn);
+	bool isFigureShown() const;
 	///Decide the parameters that you should pass to each function	
 
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file

@@ -74,7 +74,7 @@ string CFigure::GetType() const
 {
 	return Type;
 }
-bool CFigure::isFigureHidden() const
+bool CFigure::isFigureShown() const
 {
 	return AbleToBeDrawn;
 }
@@ -90,7 +90,7 @@ void CFigure::SetDelete(bool delete1)
 }
 
 
-void CFigure::setFigureHidden(bool PermissionToBeDrawn)
+void CFigure::showFigure(bool PermissionToBeDrawn)
 {
 	AbleToBeDrawn = PermissionToBeDrawn;
 }
