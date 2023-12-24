@@ -10,7 +10,6 @@ private:
 	Point Corner1;	
 	Point Corner2;
 	static int Count; // number of figures of this type
-	int Difference;
 public:
 	CRectangle(Point , Point, GfxInfo FigureGfxInfo,bool );
 	virtual Point GetFigureCenter();
