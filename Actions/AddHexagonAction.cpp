@@ -67,4 +67,6 @@ void AddHexagonAction::Execute()
 void AddHexagonAction::UndoAction()
 {
 	LastDrawnHexagon->SetFigureAbilityToBeDrawn(false);
+	LastDrawnHexagon->SetDelete(true);
+	pManager->DeleteFigureComplete();
 }

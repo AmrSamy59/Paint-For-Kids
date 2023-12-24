@@ -56,6 +56,8 @@ void AddRectAction::PlayRecordingFunc()
 void AddRectAction::UndoAction()
 {
 	LastDrawnRect->SetFigureAbilityToBeDrawn(false);
+	LastDrawnRect->SetDelete(true);
+	pManager->DeleteFigureComplete();
 }
 //Execute the action
 void AddRectAction::Execute() 

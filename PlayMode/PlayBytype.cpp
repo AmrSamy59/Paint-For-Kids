@@ -33,7 +33,7 @@ Output* pout = pManager->GetOutput();
 	int TriangleCount = CTriangle::GetCount();
 	int HexagonCount = CHexagon::GetCount();
 	int CircleCount = CCircle::GetCount();
-
+	cout << " count =" << pManager->GetFigsCount()<<"/////"<<endl;
 	int Hits = 0;
 	int Misses = 0;
 	string FigNames[5] = { "rectangle", "square", "triangle", "hexagon", "circle" };

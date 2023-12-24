@@ -80,4 +80,6 @@ void AddCircleAction::Execute()
 void AddCircleAction::UndoAction()
 {
 	LastDrawnCircle->SetFigureAbilityToBeDrawn(false);
+	LastDrawnCircle->SetDelete(true);
+	pManager->DeleteFigureComplete();
 }

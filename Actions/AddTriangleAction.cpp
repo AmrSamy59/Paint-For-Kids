@@ -90,4 +90,6 @@ void AddTriangleAction::Execute()
 void AddTriangleAction::UndoAction()
 {
 	LastDrawnTriangle->SetFigureAbilityToBeDrawn(false);
+	LastDrawnTriangle->SetDelete(true);
+	pManager->DeleteFigureComplete();
 }

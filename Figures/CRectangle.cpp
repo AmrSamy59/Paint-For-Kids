@@ -34,9 +34,11 @@ void CRectangle::ResizeByDragging(Point& P)
 void CRectangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen
-	pOut->DrawRect(Corner1 - pointForResizing, Corner2 + pointForResizing, FigGfxInfo, Selected);
-	cout << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << endl;
-}
+	pOut->DrawRect(Corner1, Corner2 + pointForResizing, FigGfxInfo, Selected);
+	//cout << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << endl;
+
+	
+	}
 void CRectangle::Move(Point Pm)
 {
 	Point P1n, P2n;

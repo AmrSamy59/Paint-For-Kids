@@ -64,4 +64,6 @@ void AddSquareAction::Execute()
 void AddSquareAction::UndoAction()
 {
 	LastDrawnSquare->SetFigureAbilityToBeDrawn(false);
+	LastDrawnSquare->SetDelete(true);
+	pManager->DeleteFigureComplete();
 }

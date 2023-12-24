@@ -223,7 +223,7 @@ void ApplicationManager::AddActionForRecording(Action* pAction)
 	if (Action_Count_For_Recording < 20)
 	{
 		ActionListForRecording[Action_Count_For_Recording++] = pAction;
-		cout << "Action_Count_For_Recording:" << Action_Count_For_Recording << endl;
+		//cout << "Action_Count_For_Recording:" << Action_Count_For_Recording << endl;
 	}
 	else
 	{
@@ -308,8 +308,8 @@ Action* ApplicationManager::ReturnLastAction()
 			if (ActionList[i])
 			{
 				Action_Count--;
-				cout << "I = " << i << endl;
-				cout << "Passed action = " << ActionList[i] << endl;
+				//cout << "I = " << i << endl;
+				//cout << "Passed action = " << ActionList[i] << endl;
 				return ActionList[i];
 			}
 			i--;
@@ -424,8 +424,8 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 			if (RedoActionList[i])
 			{
 				Redo_Action_Count--;
-				cout << "I = " << i << endl;
-				cout << "Passed action = " << RedoActionList[i] << endl;
+				//cout << "I = " << i << endl;
+				//cout << "Passed action = " << RedoActionList[i] << endl;
 				return RedoActionList[i];
 			}
 			i--;
