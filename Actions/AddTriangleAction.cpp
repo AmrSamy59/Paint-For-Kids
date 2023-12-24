@@ -8,6 +8,8 @@ AddTriangleAction::AddTriangleAction(ApplicationManager* pApp):Action(pApp)
 void AddTriangleAction::RedoAction()
 {
 	LastDrawnTriangle->SetFigureAbilityToBeDrawn(true);
+	LastDrawnTriangle->SetDelete(false);
+	pManager->AddFigure(LastDrawnTriangle);
 }
 void AddTriangleAction::ReadActionParameters()
 {

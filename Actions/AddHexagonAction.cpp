@@ -8,6 +8,8 @@ AddHexagonAction::AddHexagonAction(ApplicationManager* pApp):Action(pApp)
 void AddHexagonAction::RedoAction()
 {
 	LastDrawnHexagon->SetFigureAbilityToBeDrawn(true);
+	LastDrawnHexagon->SetDelete(false);
+	pManager->AddFigure(LastDrawnHexagon);
 }
 void AddHexagonAction::ReadActionParameters()
 {

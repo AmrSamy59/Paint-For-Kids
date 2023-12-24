@@ -19,6 +19,8 @@ void AddCircleAction::PlayRecordingFunc()
 void AddCircleAction::RedoAction()
 {
 	LastDrawnCircle->SetFigureAbilityToBeDrawn(true);
+	LastDrawnCircle->SetDelete(false);
+	pManager->AddFigure(LastDrawnCircle);
 }
 void AddCircleAction::ReadActionParameters()
 {

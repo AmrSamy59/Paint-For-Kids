@@ -9,6 +9,8 @@ AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
 void AddRectAction::RedoAction()
 {
 	LastDrawnRect->SetFigureAbilityToBeDrawn(true);
+	LastDrawnRect->SetDelete(false);
+	pManager->AddFigure(LastDrawnRect);
 }
 
 void AddRectAction::ReadActionParameters() 
@@ -57,7 +59,7 @@ void AddRectAction::UndoAction()
 {
 	LastDrawnRect->SetFigureAbilityToBeDrawn(false);
 	LastDrawnRect->SetDelete(true);
-	pManager->DeleteFigureComplete();
+	//pManager->DeleteFigureComplete();
 }
 //Execute the action
 void AddRectAction::Execute() 

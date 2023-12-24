@@ -8,6 +8,8 @@ AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
 void AddSquareAction::RedoAction()
 {
 	LastDrawnSquare->SetFigureAbilityToBeDrawn(true);
+	LastDrawnSquare->SetDelete(false);
+	pManager->AddFigure(LastDrawnSquare);
 }
 void AddSquareAction::ReadActionParameters()
 {
