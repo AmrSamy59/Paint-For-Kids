@@ -906,7 +906,7 @@ Output *ApplicationManager::GetOutput() const
 {	return pOut; }
 ////////////////////////////////////////////////////////////////////////////////////
 void ApplicationManager::Playlistformation() {
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < FigCount; i++) {
 		if(FigList[i] && FigList[i]->isFigureShown())
 			Playlist[i] = FigList[i];
 		
