@@ -46,6 +46,8 @@ void DrawColorAction::ReadActionParameters()
 
 		while (!isCanceled && ((ActType < DRAW_COLOR_0) || (ActType > DRAW_COLOR_0 + (UI.c_rows * UI.c_cols) - 1))) {
 			ActType = pManager->GetUserAction();
+			if (ActType == OPERATION_CANCELED)
+				isCanceled = true;
 		}
 		drawColor = (UI.drawColorsEq[ActType - DRAW_COLOR_0]);
 	}
