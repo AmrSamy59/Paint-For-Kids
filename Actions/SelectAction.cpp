@@ -6,6 +6,7 @@
 Select::Select(ApplicationManager* pApp) :Action(pApp)
 {
 	voice = "Sound\\Shape Selected.wav";
+	selectedID = -1;
 }
 bool Select::wasCanceled()
 {
@@ -64,7 +65,8 @@ void Select::Execute()
 }
 void Select::PlayRecordingFunc()
 {
-	pManager->PlayRecordingSelect(selectedID)->SetSelected(true);
+	if(!isCanceled && selectedID != -1)
+		pManager->PlayRecordingSelect(selectedID)->SetSelected(true);
 }
 void Select::UndoAction()
 {
