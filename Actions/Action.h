@@ -15,7 +15,7 @@ class Action
 protected:
 	ApplicationManager *pManager;	//Actions needs AppMngr to do their job
 	bool isCanceled = false;
-	string voice="novoice";
+	string voice="";
 public:
 	
 	Action(ApplicationManager* pApp) { pManager = pApp;}	//constructor
