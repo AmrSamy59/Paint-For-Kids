@@ -61,6 +61,8 @@ void Select::Execute()
 				pManager->UpdateInterface();
 				Sleep(75);
 			}
+			selectedFigure->SetSelected(false);
+			pManager->UpdateInterface();
 		}
 	}
 	else {
