@@ -20,6 +20,20 @@ void RedoActionClass::ReadActionParameters()
 	PassedAction = pManager->HandleAndReturnRedoActions();
 }
 
+void RedoActionClass::SetActionID(int id)
+{
+	ActionID = id;
+}
+void RedoActionClass::SetSelectingNum(int c)
+{
+	selectingNum = c;
+}
+
+void RedoActionClass::PlayRecordingFunc()
+{
+	pManager->PlayRecordingUndo(ActionID, selectingNum)->RedoAction();
+}
+
 void RedoActionClass::Execute()
 {
 	ReadActionParameters();

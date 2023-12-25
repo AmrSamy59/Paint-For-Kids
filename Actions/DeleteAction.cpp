@@ -36,6 +36,10 @@ void DeleteAction::ReadActionParameters()
 			break;
 	}
 }
+void DeleteAction::setPlayRec(bool rec)
+{
+	playRec = rec;
+}
 //Add delete to the ApplicationManager
 void DeleteAction::Execute()
 {
@@ -71,7 +75,13 @@ void DeleteAction::UndoAction()
 		
 		Selected_Figure->showFigure(true);
 		Selected_Figure->SetDelete(false);
-		pManager->AddFigure(Selected_Figure);
+		if (!playRec) {
+			pManager->AddFigure(Selected_Figure);
+		}
+		if (playRec)
+		{
+			pManager->AddPlayRecordingFigure(Selected_Figure);
+		}
 		pManager->sortDeleteList();
 		pManager->RedoProcessDeletedFigures(Selected_Figure);
 	}
@@ -81,6 +91,7 @@ void DeleteAction::PlayRecordingFunc()
 	pManager->PlayRecordingSelect(selectedID)->showFigure(false);
 	pManager->PlayRecordingSelect(selectedID)->SetSelected(false);
 	pManager->PlayRecordingSelect(selectedID)->SetDelete(true);
+	Selected_Figure = pManager->PlayRecordingSelect(selectedID);
 	pManager->ProcessDeletedFigures();
 }
 void DeleteAction::RedoAction()

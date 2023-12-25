@@ -95,13 +95,27 @@ void DrawColorAction::PlayRecordingFunc()
 
 void DrawColorAction::UndoAction()
 {
-	if (c_drawColor == false)
-	{
-		SelectedFigure->SetFilledStatus(false);
+	if (!pManager->PlayRecordingSelect(selectedID)) {
+		if (c_drawColor == false)
+		{
+			SelectedFigure->SetFilledStatus(false);
+		}
+		else
+		{
+			SelectedFigure->ChngDrawClr(c_drawColor);
+		}
 	}
-	else
+
+	if (pManager->PlayRecordingSelect(selectedID))
 	{
-		SelectedFigure->ChngDrawClr(c_drawColor);
+		if (c_drawColor == false)
+		{
+			pManager->PlayRecordingSelect(selectedID)->SetFilledStatus(false);
+		}
+		else
+		{
+			pManager->PlayRecordingSelect(selectedID)->ChngDrawClr(c_drawColor);
+		}
 	}
 	UI.DrawColor = c_drawColor;
 	pManager->GetOutput()->CreateDrawToolBar();
@@ -109,13 +123,27 @@ void DrawColorAction::UndoAction()
 
 void DrawColorAction::RedoAction()
 {
-	if (drawColor == false)
-	{
-		SelectedFigure->SetFilledStatus(false);
+	if (!pManager->PlayRecordingSelect(selectedID)) {
+		if (drawColor == false)
+		{
+			SelectedFigure->SetFilledStatus(false);
+		}
+		else
+		{
+			SelectedFigure->ChngDrawClr(drawColor);
+		}
 	}
-	else
+
+	if (pManager->PlayRecordingSelect(selectedID))
 	{
-		SelectedFigure->ChngDrawClr(drawColor);
+		if (drawColor == false)
+		{
+			pManager->PlayRecordingSelect(selectedID)->SetFilledStatus(false);
+		}
+		else
+		{
+			pManager->PlayRecordingSelect(selectedID)->ChngDrawClr(drawColor);
+		}
 	}
 	UI.DrawColor = drawColor;
 	pManager->GetOutput()->CreateDrawToolBar();

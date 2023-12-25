@@ -103,9 +103,23 @@ void Move::PlayRecordingFunc()
 }
 void Move::UndoAction()
 {
-	fig->Move(Pf[0]);
+	if (!pManager->PlayRecordingSelect(selectedID)) {
+		fig->Move(Pf[0]);
+	}
+
+	if (pManager->PlayRecordingSelect(selectedID))
+	{
+		pManager->PlayRecordingSelect(selectedID)->Move(Pf[0]);
+	}
 }
 void Move::RedoAction()
 {
-	fig->Move(Pf[1]);
+	if (!pManager->PlayRecordingSelect(selectedID)) {
+		fig->Move(Pf[1]);
+	}
+
+	if (pManager->PlayRecordingSelect(selectedID))
+	{
+		pManager->PlayRecordingSelect(selectedID)->Move(Pf[1]);
+	}
 }

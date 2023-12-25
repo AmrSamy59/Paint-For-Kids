@@ -7,16 +7,27 @@ AddHexagonAction::AddHexagonAction(ApplicationManager* pApp):Action(pApp)
 }
 void AddHexagonAction::RedoAction()
 {
-	LastDrawnHexagon->showFigure(true);
-	LastDrawnHexagon->SetDelete(false);
-	pManager->RedoProcessDeletedFigures(LastDrawnHexagon);
-	pManager->AddFigure(LastDrawnHexagon);
+	if (!copyLastDrawnHexagon)
+	{
+		LastDrawnHexagon->showFigure(true);
+		LastDrawnHexagon->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(LastDrawnHexagon);
+		pManager->AddFigure(LastDrawnHexagon);
+	}
+	else
+	{
+		copyLastDrawnHexagon->showFigure(true);
+		copyLastDrawnHexagon->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(copyLastDrawnHexagon);
+		pManager->AddPlayRecordingFigure(copyLastDrawnHexagon);
+	}
 }
 void AddHexagonAction::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	copyLastDrawnHexagon = NULL;
 
 	pOut->PrintMessage("New Hexagon: Click at center, right-click to cancel operation");
 
@@ -64,5 +75,10 @@ void AddHexagonAction::UndoAction()
 {
 	LastDrawnHexagon->showFigure(false);
 	LastDrawnHexagon->SetDelete(true);
+	if (copyLastDrawnHexagon)
+	{
+		copyLastDrawnHexagon->showFigure(false);
+		copyLastDrawnHexagon->SetDelete(true);
+	}
 	pManager->ProcessDeletedFigures();
 }

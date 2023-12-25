@@ -15,17 +15,27 @@ void AddCircleAction::PlayRecordingFunc()
 }
 void AddCircleAction::RedoAction()
 {
-	LastDrawnCircle->showFigure(true);
-	LastDrawnCircle->SetDelete(false);
-	pManager->RedoProcessDeletedFigures(LastDrawnCircle);
-	pManager->AddFigure(LastDrawnCircle);
-
+	if (!copyLastDrawnCircle)
+	{
+		LastDrawnCircle->showFigure(true);
+		LastDrawnCircle->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(LastDrawnCircle);
+		pManager->AddFigure(LastDrawnCircle);
+	}
+	else
+	{
+		copyLastDrawnCircle->showFigure(true);
+		copyLastDrawnCircle->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(copyLastDrawnCircle);
+		pManager->AddPlayRecordingFigure(copyLastDrawnCircle);
+	}
 }
 void AddCircleAction::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	copyLastDrawnCircle = NULL;
 
 	pOut->PrintMessage("New Circle: Click at first point, right-click to cancel operation");
 
@@ -79,5 +89,10 @@ void AddCircleAction::UndoAction()
 {
 	LastDrawnCircle->showFigure(false);
 	LastDrawnCircle->SetDelete(true);
+	if (copyLastDrawnCircle)
+	{
+		copyLastDrawnCircle->showFigure(false);
+		copyLastDrawnCircle->SetDelete(true);
+	}
 	pManager->ProcessDeletedFigures();
 }

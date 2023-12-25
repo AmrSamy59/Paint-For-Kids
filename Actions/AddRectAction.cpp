@@ -8,10 +8,20 @@ AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
 
 void AddRectAction::RedoAction()
 {
-	LastDrawnRect->showFigure(true);
-	LastDrawnRect->SetDelete(false);
-	pManager->RedoProcessDeletedFigures(LastDrawnRect);
-	pManager->AddFigure(LastDrawnRect);
+	if (!copyLastDrawnRect)
+	{
+		LastDrawnRect->showFigure(true);
+		LastDrawnRect->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(LastDrawnRect);
+		pManager->AddFigure(LastDrawnRect);
+	}
+	else
+	{
+		copyLastDrawnRect->showFigure(true);
+		copyLastDrawnRect->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(copyLastDrawnRect);
+		pManager->AddPlayRecordingFigure(copyLastDrawnRect);
+	}
 }
 
 void AddRectAction::ReadActionParameters() 
@@ -19,6 +29,7 @@ void AddRectAction::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	copyLastDrawnRect = NULL;
 
 	pOut->PrintMessage("New Rectangle: Click at first corner, right-click to cancel operation");
 	
@@ -57,6 +68,11 @@ void AddRectAction::UndoAction()
 {
 	LastDrawnRect->showFigure(false);
 	LastDrawnRect->SetDelete(true);
+	if (copyLastDrawnRect)
+	{
+		copyLastDrawnRect->showFigure(false);
+		copyLastDrawnRect->SetDelete(true);
+	}
 	pManager->ProcessDeletedFigures();
 }
 //Execute the action

@@ -49,6 +49,7 @@ private:
 	int Action_Count_For_Recording;
 	int Action_Count;
 	int Redo_Action_Count;
+	int Redo_Recorded_Action_Count;
 	int Fig_Redo_Count;
 	int SelectedFigNum;
 	int PlayRecordingFigCount;
@@ -71,6 +72,7 @@ private:
 	Action* ActionListForRecording[20];
 	Action* ActionList[5];
 	Action* RedoActionList[5];
+	Action* RedoRecordedActionList[5];
 	Action* DeletedActions[15];
 	//Pointers to Input and Output classes
 	Input *pIn;
@@ -106,6 +108,7 @@ public:
 	CFigure* GetSelectedFigure() const;
 	void ProcessDeletedFigures();
 	void RedoProcessDeletedFigures(CFigure* figure);
+	void RedoProcessRecordedDeletedFigures(CFigure* figure);
 	int GetSelectedFigureNumber();
 
 	void sortFigList();
@@ -130,6 +133,8 @@ public:
 	//CFigure* ReturnLastFigureOfRedoList();
 	void AddFigToRedoFigList(CFigure* pFigure);
 	void AddForRedoAction(Action* pAction);
+	void AddForRedoRecordedAction(Action* pAction);
+	Action* PlayRecordingUndo(int actID, int c);
 	void AddPlayRecordingFigure(CFigure* pFigure);
 	CFigure* PlayRecordingSelect(int id);
 	void PlayRecordingComplete();
@@ -139,9 +144,10 @@ public:
 	void SetActionToNull(Action* pAction);
 	void SetFigureToNull(CFigure* pFigure);
 	Action* ReturnLastAction();
+	Action* ReturnLastRecordedAction();
 	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
-	void HalfClearAll();
+	void PlayRecordingClearAll();
 	CFigure** GetFiguresToSave(int &count) const;
 
 	

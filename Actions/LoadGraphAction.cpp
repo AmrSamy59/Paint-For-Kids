@@ -209,5 +209,14 @@ void LoadGraph::UndoAction()
 
 void LoadGraph::Execute()
 {
-	ReadActionParameters();
+	Output* pOut;
+	pOut = pManager->GetOutput();
+	if (!pManager->CheckRecording())
+	{
+		ReadActionParameters();
+	}
+	else
+	{
+		pOut->PrintMessage("You can't load a graph while recording!");
+	}
 }

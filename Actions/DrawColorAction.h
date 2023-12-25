@@ -11,7 +11,7 @@ private:
 	CFigure* SelectedFigure;
 	color c_drawColor;
 	color drawColor;
-	int selectedID;
+	int selectedID = -1;
 public:
 	DrawColorAction(ApplicationManager* pApp);
 	virtual void RedoAction();

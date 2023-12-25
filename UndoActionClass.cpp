@@ -13,6 +13,35 @@ void UndoActionClass::UndoAction()
 {
 
 }
+void UndoActionClass::PlayRecordingFunc()
+{
+	/*PassedRecordedAction = pManager->ReturnLastRecordedAction();
+	if (PassedAction)
+	{
+		PassedAction->UndoAction();
+		pManager->AddForRedoRecordedAction(PassedAction);
+		pManager->SetActionToNull(PassedAction);
+	}*/
+	if (dynamic_cast<DeleteAction*>(pManager->PlayRecordingUndo(ActionID, selectingNum)))
+	{
+		DeleteAction* temp = (DeleteAction*)pManager->PlayRecordingUndo(ActionID, selectingNum);
+		temp->setPlayRec(true);
+	}
+	pManager->PlayRecordingUndo(ActionID, selectingNum)->UndoAction();
+	
+}
+int UndoActionClass::GetActionID()
+{
+	return ActionID;
+}
+void UndoActionClass::SetActionID(int id)
+{
+	ActionID = id;
+}
+void UndoActionClass::SetSelectingNum(int c)
+{
+	selectingNum = c;
+}
 void UndoActionClass::RedoAction()
 {
 

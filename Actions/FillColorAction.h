@@ -13,7 +13,7 @@ private:
 	bool c_isFilled;
 	color fillColor;
 	bool isFilled;
-	int selectedID;
+	int selectedID = -1;
 public:
 	FillColorAction(ApplicationManager* pApp);
 	virtual void RedoAction();

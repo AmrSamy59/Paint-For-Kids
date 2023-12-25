@@ -7,16 +7,27 @@ AddTriangleAction::AddTriangleAction(ApplicationManager* pApp):Action(pApp)
 }
 void AddTriangleAction::RedoAction()
 {
-	LastDrawnTriangle->showFigure(true);
-	LastDrawnTriangle->SetDelete(false);
-	pManager->RedoProcessDeletedFigures(LastDrawnTriangle);
-	pManager->AddFigure(LastDrawnTriangle);
+	if (!copyLastDrawnTriangle)
+	{
+		LastDrawnTriangle->showFigure(true);
+		LastDrawnTriangle->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(LastDrawnTriangle);
+		pManager->AddFigure(LastDrawnTriangle);
+	}
+	else
+	{
+		copyLastDrawnTriangle->showFigure(true);
+		copyLastDrawnTriangle->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(copyLastDrawnTriangle);
+		pManager->AddPlayRecordingFigure(copyLastDrawnTriangle);
+	}
 }
 void AddTriangleAction::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	copyLastDrawnTriangle = NULL;
 
 	pOut->PrintMessage("New triangle: Click at first vertex, right-click to cancel operation");
 
@@ -88,5 +99,10 @@ void AddTriangleAction::UndoAction()
 {
 	LastDrawnTriangle->showFigure(false);
 	LastDrawnTriangle->SetDelete(true);
+	if (copyLastDrawnTriangle)
+	{
+		copyLastDrawnTriangle->showFigure(false);
+		copyLastDrawnTriangle->SetDelete(true);
+	}
 	pManager->ProcessDeletedFigures();
 }
