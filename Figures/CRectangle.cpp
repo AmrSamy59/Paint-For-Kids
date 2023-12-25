@@ -1,9 +1,9 @@
 #include "CRectangle.h"
 #include <iostream>
 using namespace std;
-
+//mohamed
 int CRectangle::Count = 0;
-CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo, bool zeroID):CFigure(FigureGfxInfo, zeroID)
+CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
 {
 	pointForResizing.x = 0;
 	pointForResizing.y = 0;
@@ -37,7 +37,7 @@ void CRectangle::Draw(Output* pOut) const
 	//Call Output::DrawRect to draw a rectangle on the screen
 	pOut->DrawRect(Corner1, Corner2 + pointForResizing, FigGfxInfo, Selected);
 	//cout << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << endl;
-	}
+}
 void CRectangle::Move(Point Pm)
 {
 	Point P1n, P2n;
