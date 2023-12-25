@@ -5,6 +5,8 @@ int CCircle::Count = 0;
 CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Type = "circle";
+	pointForResizing.x = 0;
+	pointForResizing.y = 0;
 
 	point1 = P1;
 
@@ -22,9 +24,11 @@ CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 	CCircle::Count++;
 }
 
-void CCircle::ResizeByDragging(Point& P)
+void CCircle::ResizeByDragging(Point& P0, Point& P1)
 {
-
+	int DifferenceX = (P1.x - P0.x);
+	int DifferenceY = (P1.y - P0.y);
+	radius = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
 }
 
 Point CCircle::GetFigureCenter()

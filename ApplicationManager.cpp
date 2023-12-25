@@ -116,7 +116,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new LoadGraph(this);
 			break;
 		case DRAW_SELECT:
-			pAct = new Select(this);
+			pAct = new Select(this,true);
 			break;
 		case DRAW_RECORDING:
 			pAct = new StartRecording(this);
@@ -198,7 +198,6 @@ Action* ApplicationManager::GetActionForRecording()
 	{
 		i = 0;
 		Action_Count_For_Recording = 0;
-		pOut->PrintMessage("Nothing to be recorded");
 		return NULL;
 	}
 }

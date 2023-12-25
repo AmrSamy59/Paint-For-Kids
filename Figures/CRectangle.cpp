@@ -1,4 +1,5 @@
 #include "CRectangle.h"
+#include <cmath>
 #include <iostream>
 using namespace std;
 //mohamed
@@ -23,11 +24,10 @@ Point CRectangle::GetFigureCenter()
 	return p;
 }
 	
-void CRectangle::ResizeByDragging(Point& P)
+void CRectangle::ResizeByDragging(Point& P0, Point& P1)
 {
-	Point PRectangle = GetFigureCenter();
-	int DifferenceX = (P.x - PRectangle.x);
-	int DifferenceY = (P.y - PRectangle.y);
+	int DifferenceX = (P1.x - P0.x);
+	int DifferenceY = (P1.y - P0.y);
 	pointForResizing.x = DifferenceX;
 	pointForResizing.y = DifferenceY;
 }

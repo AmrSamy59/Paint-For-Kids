@@ -3,8 +3,9 @@
 #include "..\GUI\Input.h"
 #include "..\ApplicationManager.h"
 
-Select::Select(ApplicationManager* pApp) :Action(pApp)
+Select::Select(ApplicationManager* pApp,bool flg ) :Action(pApp)
 {
+	flag = flg;
 	voice = "Sound\\Shape Selected.wav";
 	selectedID = -1;
 }
@@ -26,7 +27,10 @@ void Select::ReadActionParameters()
 void Select::Execute()
 {
 	CFigure* selectedFigure;
+	Point P0;
 	Point P1;
+	bool bool0;
+	bool bool1 = true;
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	if (pManager->GetFigsCount() == 0) {
@@ -47,20 +51,22 @@ void Select::Execute()
 		selectedFigure->SetSelected(true);
 		selectedID = selectedFigure->GetID();
 		pManager->UpdateInterface();
+		if (flag)
+		{
+			bool0 = pOut->ResizeByDraggingOutput0(P0);
+			while (bool0 && bool1)
+			{
+				bool1 = pOut->ResizeByDraggingOutput1(P1);
+				selectedFigure->ResizeByDragging(P0, P1);
+				pManager->UpdateInterface();
+				Sleep(75);
+			}
+		}
 	}
 	else {
 		isCanceled = true;
 		pManager->GetOutput()->PrintMessage("No object was selected.");
 	}
-	/*while (1)
-	{
-		pOut->ResizeByDraggingOutput(P1);
-		if (P1.y < UI.ToolBarHeight)
-			break;
-		selectedFigure->ResizeByDragging(P1);
-		pManager->UpdateInterface();
-		Sleep(100);
-	}*/
 }
 void Select::PlayRecordingFunc()
 {

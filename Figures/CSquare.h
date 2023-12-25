@@ -1,6 +1,7 @@
 #ifndef CSQUARE_H
 #define CSQUARE_H
 #include "../Figures/CFigure.h"
+
 //#include "DEFS.h"
 class CSquare : public CFigure {
 private:
@@ -15,7 +16,7 @@ public:
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
 
-	virtual void ResizeByDragging(Point& P);
+	virtual void ResizeByDragging(Point& P0, Point& P1);
 	static void DecreaseCount();
 	static void IncreaseCount();
 	static int GetCount();

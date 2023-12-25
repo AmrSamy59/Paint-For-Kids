@@ -20,7 +20,7 @@ public:
 
 	static void DecreaseCount();
 	static void IncreaseCount();
-	virtual void ResizeByDragging(Point& P);
+	virtual void ResizeByDragging(Point& P0, Point& P1);
 
 	static int GetCount();
 	~CRectangle();

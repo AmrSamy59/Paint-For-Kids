@@ -1,8 +1,10 @@
 #ifndef _CCircle_H
 #define _CCircle_H
 #include"../Figures/CFigure.h"
+
 class CCircle :public CFigure {
 private:
+	Point pointForResizing;
 	Point point1;
 	int radius; // Because it doesn't always depend on Second Point
 	static int Count; // number of figures of this type
@@ -17,7 +19,7 @@ public:
 	
 	static void DecreaseCount();
 	static void IncreaseCount();
-	virtual void ResizeByDragging(Point& P);
+	virtual void ResizeByDragging(Point& P0, Point& P1);
 
 	static int GetCount();
 	~CCircle();

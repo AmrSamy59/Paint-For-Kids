@@ -4,7 +4,8 @@ int CTriangle::Count = 0;
 CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
 {
 	Type = "triangle";
-
+	pointForResizing.x = 0;
+	pointForResizing.y = 0;
 	c1 = p1;
 	c2 = p2;
 	c3 = p3;
@@ -19,20 +20,23 @@ Point CTriangle::GetFigureCenter()
 	return Center;
 }
 
-void CTriangle::Draw(Output* pOut) const
+
+void CTriangle::ResizeByDragging(Point& P0, Point& P1)
 {
-	pOut->DrawTriangle(c1, c2, c3, FigGfxInfo, Selected);
+	int DifferenceX = (P1.x - P0.x);
+	int DifferenceY = (P1.y - P0.y);
+	pointForResizing.x = DifferenceX;
+	pointForResizing.y = DifferenceY;
 }
 
-void CTriangle::ResizeByDragging(Point& P)
+void CTriangle::Draw(Output* pOut) const
 {
-
+	pOut->DrawTriangle(c1 + pointForResizing, c2 - pointForResizing, c3 + pointForResizing, FigGfxInfo, Selected);
 }
 
 void CTriangle::DecreaseCount()
 {
 	Count--;
-
 }
 
 void CTriangle::IncreaseCount()

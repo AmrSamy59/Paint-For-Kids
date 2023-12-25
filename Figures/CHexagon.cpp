@@ -22,9 +22,11 @@ CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo ,int l):CFigure(FigureGfxInfo)
 	CHexagon::Count++;
 }
 
-void CHexagon::ResizeByDragging(Point& P)
+void CHexagon::ResizeByDragging(Point& P0, Point& P1)
 {
-
+	int DifferenceX = (P1.x - P0.x);
+	int DifferenceY = (P1.y - P0.y);
+	L = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
 }
 
 Point CHexagon::GetFigureCenter()
