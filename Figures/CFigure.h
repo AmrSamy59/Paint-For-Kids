@@ -18,11 +18,13 @@ protected:
 	bool deleted;  //Checking whether the figure is deleted or not
 	int deletedID;
 	string Type; // type of figure
+	static int Previous_ID; // for all figures to have a unique ID
 public:
 
-	CFigure(GfxInfo FigureGfxInfo, bool zeroID);
+	CFigure(GfxInfo FigureGfxInfo);
 
 	virtual void ResizeByDragging(Point& P) = 0;
+	static void ResetIDs();
 
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
@@ -36,7 +38,6 @@ public:
 	void SetDeletedID(int i);
 
 	int GetID();
-	void SetID(int id1);
 	
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
@@ -44,15 +45,15 @@ public:
 	color GetDrawColor() const;		//returns the figure's border color
 	color GetFillColor() const;		//returns the figure's filling color
 
-	bool CheckDelete();
+	bool isDeleted();
 	void SetDelete(bool delete1);
 
 
 	string GetType() const; // returns the type of the figure
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure/// 
-	void setFigureHidden(bool PermissionToBeDrawn);
-	bool isFigureHidden() const;
+	void showFigure(bool PermissionToBeDrawn);
+	bool isFigureShown() const;
 	///Decide the parameters that you should pass to each function	
 
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file

@@ -9,26 +9,33 @@ AddCircleAction::AddCircleAction(ApplicationManager* pApp):Action(pApp)
 void AddCircleAction::PlayRecordingFunc()
 {
 	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
-	copyLastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	copyLastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
+
 	pManager->AddPlayRecordingFigure(copyLastDrawnCircle);
 }
 void AddCircleAction::RedoAction()
 {
-	LastDrawnCircle->setFigureHidden(true);
-	LastDrawnCircle->SetDelete(false);
-	pManager->RedoProcessDeletedFigures(LastDrawnCircle);
-	pManager->AddFigure(LastDrawnCircle);
-
+	if (!copyLastDrawnCircle)
+	{
+		LastDrawnCircle->showFigure(true);
+		LastDrawnCircle->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(LastDrawnCircle);
+		pManager->AddFigure(LastDrawnCircle);
+	}
+	else
+	{
+		copyLastDrawnCircle->showFigure(true);
+		copyLastDrawnCircle->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(copyLastDrawnCircle);
+		pManager->AddPlayRecordingFigure(copyLastDrawnCircle);
+	}
 }
 void AddCircleAction::ReadActionParameters()
 {
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	copyLastDrawnCircle = NULL;
 
 	pOut->PrintMessage("New Circle: Click at first point, right-click to cancel operation");
 
@@ -69,11 +76,8 @@ void AddCircleAction::Execute()
 		
 	//Create a circle with the parameters read from the user
 	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
-	LastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	LastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
+
 	CCircle* ptr=nullptr;
 //	copyLastDrawnCircle = ptr->SaveCopyOfFigure();
 	//Add the rectangle to the list of figures
@@ -83,7 +87,12 @@ void AddCircleAction::Execute()
 }
 void AddCircleAction::UndoAction()
 {
-	LastDrawnCircle->setFigureHidden(false);
+	LastDrawnCircle->showFigure(false);
 	LastDrawnCircle->SetDelete(true);
+	if (copyLastDrawnCircle)
+	{
+		copyLastDrawnCircle->showFigure(false);
+		copyLastDrawnCircle->SetDelete(true);
+	}
 	pManager->ProcessDeletedFigures();
 }

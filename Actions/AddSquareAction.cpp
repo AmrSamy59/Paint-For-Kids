@@ -7,16 +7,27 @@ AddSquareAction::AddSquareAction(ApplicationManager* pApp) :Action(pApp)
 }
 void AddSquareAction::RedoAction()
 {
-	LastDrawnSquare->setFigureHidden(true);
-	LastDrawnSquare->SetDelete(false);
-	pManager->RedoProcessDeletedFigures(LastDrawnSquare);
-	pManager->AddFigure(LastDrawnSquare);
+	if (!copyLastDrawnSquare)
+	{
+		LastDrawnSquare->showFigure(true);
+		LastDrawnSquare->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(LastDrawnSquare);
+		pManager->AddFigure(LastDrawnSquare);
+	}
+	else
+	{
+		copyLastDrawnSquare->showFigure(true);
+		copyLastDrawnSquare->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(copyLastDrawnSquare);
+		pManager->AddPlayRecordingFigure(copyLastDrawnSquare);
+	}
 }
 void AddSquareAction::ReadActionParameters()
 {
 	// two pointer one to output and another for input
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
+	copyLastDrawnSquare = NULL;
 	pout->PrintMessage("New Square: Click for center, right-click to cancel operation");
 	///////////// read center for square //////////////////
 	clicktype cType;
@@ -39,11 +50,8 @@ void AddSquareAction::ReadActionParameters()
 
 void AddSquareAction::PlayRecordingFunc()
 {
-	copyLastDrawnSquare = new CSquare(CENTER, squareGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	copyLastDrawnSquare = new CSquare(CENTER, squareGfxInfo);
+
 	pManager->AddPlayRecordingFigure(copyLastDrawnSquare);
 }
 
@@ -56,17 +64,19 @@ void AddSquareAction::Execute()
 		return;
 	}
 	//create new square
-	LastDrawnSquare = new CSquare(CENTER, squareGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	LastDrawnSquare = new CSquare(CENTER, squareGfxInfo);
+
 	// add square to list of figures 
 	pManager->AddFigure(LastDrawnSquare);
 }
 void AddSquareAction::UndoAction()
 {
-	LastDrawnSquare->setFigureHidden(false);
+	LastDrawnSquare->showFigure(false);
 	LastDrawnSquare->SetDelete(true);
+	if (copyLastDrawnSquare)
+	{
+		copyLastDrawnSquare->showFigure(false);
+		copyLastDrawnSquare->SetDelete(true);
+	}
 	pManager->ProcessDeletedFigures();
 }

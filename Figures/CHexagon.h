@@ -8,7 +8,7 @@ private:
 	int L; // Half The Height
 	static int Count; // number of figures of this type
 public:
-	CHexagon(Point,GfxInfo FigureGfxInfo,bool zeroID, int l=100); // Default Length = 100
+	CHexagon(Point,GfxInfo FigureGfxInfo, int l=100); // Default Length = 100
 	virtual Point GetFigureCenter();
 	virtual void Draw(Output* pOut) const;
 	virtual void Move(Point Pm);

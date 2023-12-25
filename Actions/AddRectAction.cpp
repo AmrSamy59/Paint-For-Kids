@@ -8,10 +8,20 @@ AddRectAction::AddRectAction(ApplicationManager * pApp):Action(pApp)
 
 void AddRectAction::RedoAction()
 {
-	LastDrawnRect->setFigureHidden(true);
-	LastDrawnRect->SetDelete(false);
-	pManager->RedoProcessDeletedFigures(LastDrawnRect);
-	pManager->AddFigure(LastDrawnRect);
+	if (!copyLastDrawnRect)
+	{
+		LastDrawnRect->showFigure(true);
+		LastDrawnRect->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(LastDrawnRect);
+		pManager->AddFigure(LastDrawnRect);
+	}
+	else
+	{
+		copyLastDrawnRect->showFigure(true);
+		copyLastDrawnRect->SetDelete(false);
+		pManager->RedoProcessDeletedFigures(copyLastDrawnRect);
+		pManager->AddPlayRecordingFigure(copyLastDrawnRect);
+	}
 }
 
 void AddRectAction::ReadActionParameters() 
@@ -19,6 +29,7 @@ void AddRectAction::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	copyLastDrawnRect = NULL;
 
 	pOut->PrintMessage("New Rectangle: Click at first corner, right-click to cancel operation");
 	
@@ -49,17 +60,19 @@ void AddRectAction::ReadActionParameters()
 }
 void AddRectAction::PlayRecordingFunc()
 {
-	copyLastDrawnRect = new CRectangle(P1, P2, RectGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
+	copyLastDrawnRect = new CRectangle(P1, P2, RectGfxInfo);
+
 	pManager->AddPlayRecordingFigure(copyLastDrawnRect);
 }
 void AddRectAction::UndoAction()
 {
-	LastDrawnRect->setFigureHidden(false);
+	LastDrawnRect->showFigure(false);
 	LastDrawnRect->SetDelete(true);
+	if (copyLastDrawnRect)
+	{
+		copyLastDrawnRect->showFigure(false);
+		copyLastDrawnRect->SetDelete(true);
+	}
 	pManager->ProcessDeletedFigures();
 }
 //Execute the action
@@ -73,12 +86,8 @@ void AddRectAction::Execute()
 		return;
 	}
 	//Create a rectangle with the parameters read from the user
-	LastDrawnRect = new CRectangle(P1, P2, RectGfxInfo, pManager->CheckZeroID());
-	if (pManager->CheckZeroID())
-	{
-		pManager->SetZeroID(false);
-	}
-	
+	LastDrawnRect = new CRectangle(P1, P2, RectGfxInfo);
+
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(LastDrawnRect);
 }

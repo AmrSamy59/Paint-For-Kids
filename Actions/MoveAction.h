@@ -13,7 +13,7 @@ class Move : public Action
 private :
 	Point Pf[2];
 	CFigure* fig;
-	int selectedID;
+	int selectedID = -1;
 public:
 	Move(ApplicationManager* pApp);
 	virtual void RedoAction();

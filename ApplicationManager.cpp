@@ -22,10 +22,10 @@ ApplicationManager::ApplicationManager()
 	deletedFigCount = 0;
 	Action_Count = 0;
 	Redo_Action_Count = 0;
+	Redo_Recorded_Action_Count = 0;
 	Fig_Redo_Count = 0;
 	PlayRecordingFigCount = 0;
 	Action_Count_For_Recording = 0;
-	ZeroID = true;
 
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
@@ -187,8 +187,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 Action* ApplicationManager::GetActionForRecording()
 {
 	static unsigned short i = 0;
-	if (ActionListForRecording[i] != NULL && i < 20)
+	if (ActionListForRecording[i] != NULL && i < 20) {
 		return ActionListForRecording[i++];
+		if (dynamic_cast<UndoActionClass*>(ActionListForRecording[i]))
+		{
+
+		}
+	}
 	else
 	{
 		i = 0;
@@ -264,7 +269,7 @@ void ApplicationManager::AddActionForRecording(Action* pAction)
 		{
 			if (FigList[FigCount - k])
 			{
-				if (FigList[FigCount - k]->isFigureHidden())
+				if (FigList[FigCount - k]->isFigureShown())
 					return FigList[FigCount - k++];
 			}
 			else
@@ -277,7 +282,7 @@ void ApplicationManager::AddActionForRecording(Action* pAction)
 		{
 			if (FigList[FigCount - k])
 			{
-				if (FigList[FigCount - k]->isFigureHidden() == false)
+				if (FigList[FigCount - k]->isFigureShown() == false)
 					return FigList[FigCount - k++];
 			}
 			else
@@ -314,6 +319,36 @@ Action* ApplicationManager::ReturnLastAction()
 		}
 	}
 }
+Action* ApplicationManager::ReturnLastRecordedAction()
+{
+	bool flag = true;
+	for (unsigned short i = 0; i < 5; i++)
+	{
+		flag &= (ActionListForRecording[i] == NULL) ? true : false;
+	}
+	if (flag)
+	{
+		pOut->PrintMessage("No more actions to be undoed");
+		ActionType ActType = GetUserAction();
+		ExecuteAction(ActType);
+		return NULL;
+	}
+	else
+	{
+		short i = 4;
+		while (i >= 0)
+		{
+			if (ActionListForRecording[i])
+			{
+				Action_Count_For_Recording--;
+				cout << "I = " << i << endl;
+				cout << "Passed action = " << ActionListForRecording[i] << endl;
+				return ActionListForRecording[i];
+			}
+			i--;
+		}
+	}
+}
 /*void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
 {
 	if (Fig_Redo_Count < 200)
@@ -327,6 +362,22 @@ void ApplicationManager::AddForRedoAction(Action* pAction)
 	}
 	RedoActionList[4] = pAction;
 	Redo_Action_Count++;
+}
+void ApplicationManager::AddForRedoRecordedAction(Action* pAction)
+{
+	for (unsigned short i = 0; i < 4; i++)
+	{
+		RedoRecordedActionList[i] = RedoRecordedActionList[i + 1];
+	}
+	RedoRecordedActionList[4] = pAction;
+	Redo_Recorded_Action_Count++;
+}
+Action* ApplicationManager::PlayRecordingUndo(int actID, int c)
+{
+	if (actID > 1)
+	{
+		return ActionListForRecording[actID - c];
+	}
 }
 void ApplicationManager::AddPlayRecordingFigure(CFigure* pFigure)
 {
@@ -477,6 +528,14 @@ void ApplicationManager::ClearAll() {
 				delete DeletedFigList[i];
 				DeletedFigList[i] = NULL;
 			}
+			/*if (ActionListForRecording[i] != NULL) {
+				delete ActionListForRecording[i];
+				ActionListForRecording[i] = NULL;
+			}
+			if (PlayRecordingFigList[i] != NULL) {
+				delete PlayRecordingFigList[i];
+				PlayRecordingFigList[i] = NULL;
+			}*/
 		}
 		if (i < 15)
 		{
@@ -489,33 +548,12 @@ void ApplicationManager::ClearAll() {
 	}
 	SetPermissionToRecord(false);
 	FigCount = 0;
-	while (CRectangle::GetCount() > 0)
-	{
-		CRectangle::DecreaseCount();
-	}
-	while (CCircle::GetCount() > 0)
-	{
-		CCircle::DecreaseCount();
-
-	}
-	while (CHexagon::GetCount() > 0)
-	{
-		CHexagon::DecreaseCount();
-	}
-	while (CSquare::GetCount() > 0)
-	{
-		CSquare::DecreaseCount();
-	}
-	while (CTriangle::GetCount() > 0)
-	{
-		CTriangle::DecreaseCount();
-	}
 	Action_Count = 0;
 	Redo_Action_Count = 0;
-	ZeroID = true;
+	Action_Count_For_Recording = 0;
 }
 
-void ApplicationManager::HalfClearAll()
+void ApplicationManager::PlayRecordingClearAll()
 {
 	for (int i = 0; i < MaxFigCount; i++)
 	{
@@ -546,7 +584,7 @@ void ApplicationManager::HalfClearAll()
 	{
 		CTriangle::DecreaseCount();
 	}
-	ZeroID = true;
+	CFigure::ResetIDs(); // Reset IDs to 0
 }
 
 CFigure** ApplicationManager::GetFiguresToSave(int &count) const
@@ -555,7 +593,7 @@ CFigure** ApplicationManager::GetFiguresToSave(int &count) const
 	count = 0;
 	for (int i = 0; i < FigCount; i++)
 	{
-		if(FigList[i] && FigList[i]->isFigureHidden() && !FigList[i]->CheckDelete())
+		if(FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->isDeleted())
 		{
 			SaveFigList[i] = this->FigList[i];
 			count++;
@@ -662,7 +700,7 @@ CFigure* ApplicationManager::GetSelectedFigure() const
 	int j = 0;
 	while (j < FigCount)
 	{
-		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->isFigureHidden() == true)
+		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->isFigureShown() == true)
 		{
 			return FigList[j];
 		}
@@ -675,7 +713,7 @@ void ApplicationManager::ProcessDeletedFigures()
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (FigList[i] != NULL) {
-			if (FigList[i]->CheckDelete())
+			if (FigList[i]->isDeleted())
 			{
 				if (dynamic_cast<CRectangle*>(FigList[i]))
 				{
@@ -709,7 +747,7 @@ void ApplicationManager::ProcessDeletedFigures()
 	for (int i = 0; i < PlayRecordingFigCount; i++)
 	{
 		if (PlayRecordingFigList[i] != NULL) {
-			if (PlayRecordingFigList[i]->CheckDelete())
+			if (PlayRecordingFigList[i]->isDeleted())
 			{
 				if (dynamic_cast<CRectangle*>(PlayRecordingFigList[i]))
 				{
@@ -781,7 +819,49 @@ void ApplicationManager::RedoProcessDeletedFigures(CFigure* figure)
 			{
 				CHexagon::IncreaseCount();
 			}
+			deletedFigCount--;
+			FigCount++;
 			DeletedFigList[i] = NULL;
+			sortDeleteList();
+		}
+		if (DeletedFigList[i] != NULL)
+		{
+			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() - 1);
+		}
+	}
+}
+
+void ApplicationManager::RedoProcessRecordedDeletedFigures(CFigure* figure)
+{
+	for (int i = 0; i < deletedFigCount; i++)
+	{
+		if (DeletedFigList[i] == figure)
+		{
+			DeletedFigList[i]->SetDeletedID(DeletedFigList[i]->GetDeletedID() - 1);
+			if (dynamic_cast<CRectangle*>(DeletedFigList[i]))
+			{
+				CRectangle::IncreaseCount();
+			}
+			else if (dynamic_cast<CSquare*>(DeletedFigList[i]))
+			{
+				CSquare::IncreaseCount();
+			}
+			else if (dynamic_cast<CTriangle*>(DeletedFigList[i]))
+			{
+				CTriangle::IncreaseCount();
+			}
+			else if (dynamic_cast<CCircle*>(DeletedFigList[i]))
+			{
+				CCircle::IncreaseCount();
+			}
+			else if (dynamic_cast<CHexagon*>(DeletedFigList[i]))
+			{
+				CHexagon::IncreaseCount();
+			}
+			deletedFigCount--;
+			PlayRecordingFigCount++;
+			DeletedFigList[i] = NULL;
+			sortDeleteList();
 		}
 		if (DeletedFigList[i] != NULL)
 		{
@@ -796,7 +876,7 @@ int ApplicationManager::GetSelectedFigureNumber()
 	int j = 0;
 	while (j < FigCount)
 	{
-		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->isFigureHidden() == true)
+		if (FigList[j] != NULL && FigList[j]->IsSelected() == true && FigList[j]->isFigureShown() == true)
 		{
 			return j;
 		}
@@ -805,15 +885,6 @@ int ApplicationManager::GetSelectedFigureNumber()
 	return -1;
 }
 
-bool ApplicationManager::CheckZeroID()
-{
-	return ZeroID;
-}
-
-void ApplicationManager::SetZeroID(bool zeroID)
-{
-	ZeroID = zeroID;
-}
 
 void ApplicationManager::sortFigList() {
 	for (int i = 0; i < FigCount - 1; ++i) {
@@ -822,7 +893,6 @@ void ApplicationManager::sortFigList() {
 				// Swap pointers if they need to be reordered
 				CFigure* temp = FigList[j];
 				FigList[j] = FigList[j + 1];
-				FigList[j]->SetID(j);
 				FigList[j + 1] = temp;
 			}
 		}
@@ -831,13 +901,11 @@ void ApplicationManager::sortFigList() {
 void ApplicationManager::sortDeleteList() {
 	for (int i = 0; i < deletedFigCount - 1; ++i) {
 		for (int j = 0; j < deletedFigCount - i - 1; ++j) {
-			if ((!DeletedFigList[j] || !DeletedFigList[j]->CheckDelete()) && DeletedFigList[j + 1]) {
+			if ((!DeletedFigList[j] || !DeletedFigList[j]->isDeleted()) && DeletedFigList[j + 1]) {
 				// Swap pointers if they need to be reordered
 				CFigure* temp = DeletedFigList[j];
 				DeletedFigList[j] = DeletedFigList[j + 1];
-				DeletedFigList[j]->SetID(j);
 				DeletedFigList[j + 1] = temp;
-				DeletedFigList[j + 1]->SetID(j + 1);
 				deletedFigCount--;
 			}
 		}
@@ -851,7 +919,6 @@ void ApplicationManager::sortPlayRecordingFigList()
 				// Swap pointers if they need to be reordered
 				CFigure* temp = PlayRecordingFigList[j];
 				PlayRecordingFigList[j] = PlayRecordingFigList[j + 1];
-				PlayRecordingFigList[j]->SetID(j);
 				PlayRecordingFigList[j + 1] = temp;
 			}
 		}
@@ -866,7 +933,7 @@ void ApplicationManager::UpdateInterface() const
 	pOut->ClearDrawArea();
 	for (int i = 0; i < FigCount; i++) {
 		if (FigList[i] != NULL)
-		  if(FigList[i]->isFigureHidden())
+		  if(FigList[i]->isFigureShown())
 			FigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 	}
 }
@@ -875,7 +942,7 @@ void ApplicationManager::UpdatePlayRecordingInterface() const {
 	pOut->ClearDrawArea();
 	for (int i = 0; i < 20; i++) {
 		if (PlayRecordingFigList[i] != NULL)
-			if(PlayRecordingFigList[i]->isFigureHidden())
+			if(PlayRecordingFigList[i]->isFigureShown())
 			PlayRecordingFigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 	}
 }
@@ -906,8 +973,8 @@ Output *ApplicationManager::GetOutput() const
 {	return pOut; }
 ////////////////////////////////////////////////////////////////////////////////////
 void ApplicationManager::Playlistformation() {
-	for (int i = 0; i < 10; i++) {
-		if(FigList[i] && FigList[i]->isFigureHidden())
+	for (int i = 0; i < FigCount; i++) {
+		if(FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->isDeleted())
 			Playlist[i] = FigList[i];
 		
 	}
@@ -931,19 +998,18 @@ CFigure* ApplicationManager::GetRandomfigure()
 		return nullptr;
 	do
 	{
-	    randomnumber = rand() % 200;
+	    randomnumber = rand() % FigCount;
 	} while (FigList[randomnumber] == NULL);
 	return FigList[randomnumber];
 }
 void ApplicationManager::ResetPlayMode()
 {
 
-	this->Playlistformation();
 	for (int i = 0; i < FigCount; i++)
 	{
 		if (Playlist[i] != NULL)
 		{
-			Playlist[i]->setFigureHidden(true);
+			Playlist[i]->showFigure(true);
 			Playlist[i]->SetSelected(false);
 		}
 	}

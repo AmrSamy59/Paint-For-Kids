@@ -42,6 +42,7 @@ Output* pout = pManager->GetOutput();
 	{
 		sum += FigsCount[i];
 	}
+	cout << "the play sum" << sum << endl;
 	int Figureindex=0;
 	CFigure* randomfig = pManager->GetRandomfigure(); //random figure
 	
@@ -91,7 +92,7 @@ Output* pout = pManager->GetOutput();
 		{
 			ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
 			ptrfigure->SetSelected(true);
-			ptrfigure->setFigureHidden(false);
+			ptrfigure->showFigure(false);
 			pManager->UpdateInterface();
 
 			if(ptrfigure->GetType() == FigNames[Figureindex])

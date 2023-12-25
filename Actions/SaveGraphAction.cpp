@@ -37,51 +37,58 @@ void SaveGraph::UndoAction()
 
 void SaveGraph::Execute()
 {
-	ReadActionParameters();
-	if (isCanceled) {
-		return;
-	}
 	Output* pOut = pManager->GetOutput();
-	ofstream Fout;
+	if (!pManager->CheckRecording())
+	{
+		ReadActionParameters();
+		if (isCanceled) {
+			return;
+		}
+		ofstream Fout;
 
-	if (!(fname.length() >= 4 && fname.substr(fname.length() - 4) == ".txt")) {
-		fname += ".txt";
-	}
+		if (!(fname.length() >= 4 && fname.substr(fname.length() - 4) == ".txt")) {
+			fname += ".txt";
+		}
 
-	string fpath = UI.graphsDir + "/" + fname;
+		string fpath = UI.graphsDir + "/" + fname;
 
-	Fout.open(fpath);
-	if (Fout.is_open()) {
+		Fout.open(fpath);
+		if (Fout.is_open()) {
 
-		string drawColor = UI.DrawColor == UI.DefaultDrawColor ? "DEFAULT_DRAW_CLR" : pOut->GetColorName(UI.DrawColor);
-		Fout << "SETTINGS" << "\t" << drawColor << "\t" << pOut->GetColorName(UI.FillColor) << endl;
-		Fout << "FIGCOUNT" << "\t" << FigCount << endl;
+			string drawColor = UI.DrawColor == UI.DefaultDrawColor ? "DEFAULT_DRAW_CLR" : pOut->GetColorName(UI.DrawColor);
+			Fout << "SETTINGS" << "\t" << drawColor << "\t" << pOut->GetColorName(UI.FillColor) << endl;
+			Fout << "FIGCOUNT" << "\t" << FigCount << endl;
 
 		for (int i = 0; i < FigCount; i++) {
-			if (FigList[i] && FigList[i]->isFigureHidden())
+			if (FigList[i] && FigList[i]->isFigureShown())
 				FigList[i]->Save(Fout);
 		}
 
 
-		int fcount;
-		string* graphFiles = pManager->GetGraphFiles(fcount);
-		ofstream gFile;
-		gFile.open(UI.graphsFile);
-		if (gFile.is_open()) {
-			for (int i = 0; i < fcount; i++) {
-				gFile << graphFiles[i] << endl;
+			int fcount;
+			string* graphFiles = pManager->GetGraphFiles(fcount);
+			ofstream gFile;
+			gFile.open(UI.graphsFile);
+			if (gFile.is_open()) {
+				for (int i = 0; i < fcount; i++) {
+					gFile << graphFiles[i] << endl;
+				}
+				gFile << fname << endl;
+
+				delete[] graphFiles;
+				gFile.close();
 			}
-			gFile << fname << endl;
 
-			delete[] graphFiles;
-			gFile.close();
+			pOut->PrintMessage("Graph has been saved succesfully to: " + fpath);
+			Fout.close();
 		}
-
-		pOut->PrintMessage("Graph has been saved succesfully to: " + fpath);
-		Fout.close();
+		else {
+			pOut->PrintMessage("Failed to save graph to: " + fpath);
+			isCanceled = true;
+		}
 	}
-	else {
-		pOut->PrintMessage("Failed to save graph to: " + fpath);
-		isCanceled = true;
+	else
+	{
+		pOut->PrintMessage("You can't save a graph while recording!");
 	}
 }

@@ -11,7 +11,7 @@ private:
 	Point Corner2;
 	static int Count; // number of figures of this type
 public:
-	CRectangle(Point , Point, GfxInfo FigureGfxInfo,bool );
+	CRectangle(Point , Point, GfxInfo FigureGfxInfo);
 	virtual Point GetFigureCenter();
 	virtual void Draw(Output* pOut) const;
 	virtual void Move(Point Pm);

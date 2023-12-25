@@ -36,6 +36,10 @@ void DeleteAction::ReadActionParameters()
 			break;
 	}
 }
+void DeleteAction::setPlayRec(bool rec)
+{
+	playRec = rec;
+}
 //Add delete to the ApplicationManager
 void DeleteAction::Execute()
 {
@@ -51,7 +55,7 @@ void DeleteAction::Execute()
 		return;
 	}
 	selectedID = Selected_Figure->GetID();
-	Selected_Figure->setFigureHidden(false);
+	Selected_Figure->showFigure(false);
 	Selected_Figure->SetSelected(false);
 	Selected_Figure->SetDelete(true);
 	pManager->ProcessDeletedFigures();
@@ -69,25 +73,32 @@ void DeleteAction::UndoAction()
 	if (Selected_Figure)
 	{
 		
-		Selected_Figure->setFigureHidden(true);
+		Selected_Figure->showFigure(true);
 		Selected_Figure->SetDelete(false);
-		pManager->AddFigure(Selected_Figure);
+		if (!playRec) {
+			pManager->AddFigure(Selected_Figure);
+		}
+		if (playRec)
+		{
+			pManager->AddPlayRecordingFigure(Selected_Figure);
+		}
 		pManager->sortDeleteList();
 		pManager->RedoProcessDeletedFigures(Selected_Figure);
 	}
 }
 void DeleteAction::PlayRecordingFunc()
 {
-	pManager->PlayRecordingSelect(selectedID)->setFigureHidden(false);
+	pManager->PlayRecordingSelect(selectedID)->showFigure(false);
 	pManager->PlayRecordingSelect(selectedID)->SetSelected(false);
 	pManager->PlayRecordingSelect(selectedID)->SetDelete(true);
+	Selected_Figure = pManager->PlayRecordingSelect(selectedID);
 	pManager->ProcessDeletedFigures();
 }
 void DeleteAction::RedoAction()
 {
 	if (Selected_Figure)
 	{
-		Selected_Figure->setFigureHidden(false);
+		Selected_Figure->showFigure(false);
 		Selected_Figure->SetDelete(true);
 		pManager->ProcessDeletedFigures();
 

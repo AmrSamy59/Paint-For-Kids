@@ -7,7 +7,7 @@ private:
 	int radius; // Because it doesn't always depend on Second Point
 	static int Count; // number of figures of this type
 public:
-	CCircle(Point, int ,GfxInfo FigureGfxInfo, bool );
+	CCircle(Point, int ,GfxInfo FigureGfxInfo);
 	virtual Point GetFigureCenter();
 	virtual void Draw(Output* pOut) const;
 	virtual void Move(Point Pm);

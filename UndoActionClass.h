@@ -16,11 +16,17 @@ class UndoActionClass :	public Action
 private:
 	Action* PassedAction;
 	CFigure* PassedFigure;
+	int ActionID;
+	int selectingNum = 2;
 public:
 	UndoActionClass(ApplicationManager* pApp);
 	virtual void RedoAction();
 	virtual void ReadActionParameters();
 	virtual void UndoAction();
+	virtual void PlayRecordingFunc();
+	int GetActionID();
+	void SetActionID(int id);
+	void SetSelectingNum(int c);
 	virtual void Execute();
 
 };

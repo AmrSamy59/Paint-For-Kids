@@ -2,7 +2,7 @@
 #include<cmath>
 
 int CHexagon::Count = 0;
-CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo,bool zeroID ,int l):CFigure(FigureGfxInfo, zeroID)
+CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo ,int l):CFigure(FigureGfxInfo)
 {
 	Type = "hexagon";
 
@@ -141,5 +141,5 @@ int CHexagon::GetCount()
 
 CHexagon::~CHexagon()
 {
-	CHexagon::Count--;
+	//CHexagon::Count--;
 }
