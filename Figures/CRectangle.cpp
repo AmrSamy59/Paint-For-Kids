@@ -3,7 +3,7 @@
 using namespace std;
 
 int CRectangle::Count = 0;
-CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo),Difference(0)
+CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo, bool zeroID):CFigure(FigureGfxInfo, zeroID)
 {
 	pointForResizing.x = 0;
 	pointForResizing.y = 0;
@@ -26,9 +26,10 @@ Point CRectangle::GetFigureCenter()
 void CRectangle::ResizeByDragging(Point& P)
 {
 	Point PRectangle = GetFigureCenter();
-	Difference = (P.x - PRectangle.x);
-	pointForResizing.x = Difference;
-	pointForResizing.y = Difference;
+	int DifferenceX = (P.x - PRectangle.x);
+	int DifferenceY = (P.y - PRectangle.y);
+	pointForResizing.x = DifferenceX;
+	pointForResizing.y = DifferenceY;
 }
 
 void CRectangle::Draw(Output* pOut) const
