@@ -3,7 +3,7 @@
 using namespace std;
 
 //Constructor
-//Test Comment
+//Test Comment2
 ApplicationManager::ApplicationManager()
 {
 	//Create Input and output
