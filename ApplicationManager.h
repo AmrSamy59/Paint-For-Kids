@@ -49,7 +49,6 @@ private:
 	int Action_Count_For_Recording;
 	int Action_Count;
 	int Redo_Action_Count;
-	int Redo_Recorded_Action_Count;
 	int Fig_Redo_Count;
 	int SelectedFigNum;
 	int PlayRecordingFigCount;
@@ -122,7 +121,7 @@ public:
 	
 	void DrawModeOriginal();
 
-	void PassDeletedFigureToDeleteList(CFigure* pFig);
+//	void PassDeletedFigureToDeleteList(CFigure* pFig);
 	void SetPermissionToRecord(bool StartRecordiong);
 	bool GetRecordingPermission();
 	int GetRecordingsCount();
@@ -131,9 +130,8 @@ public:
 	Action* GetActionForRecording();
 	void AddActionForRecording(Action* pAction);
 	//CFigure* ReturnLastFigureOfRedoList();
-	void AddFigToRedoFigList(CFigure* pFigure);
+//	void AddFigToRedoFigList(CFigure* pFigure);
 	void AddForRedoAction(Action* pAction);
-	void AddForRedoRecordedAction(Action* pAction);
 	Action* PlayRecordingUndo(int actID, int c);
 	void AddPlayRecordingFigure(CFigure* pFigure);
 	CFigure* PlayRecordingSelect(int id);
@@ -144,8 +142,7 @@ public:
 	void SetActionToNull(Action* pAction);
 	void SetFigureToNull(CFigure* pFigure);
 	Action* ReturnLastAction();
-	Action* ReturnLastRecordedAction();
-	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
+//	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
 	void PlayRecordingClearAll();
 	CFigure** GetFiguresToSave(int &count) const;
@@ -158,6 +155,7 @@ public:
 	Output *GetOutput() const; //Return pointer to the output
 	void UpdateInterface() const;	//Redraws all the drawing window	
 	void UpdatePlayRecordingInterface() const;
+	void ExitProgram();
 };
 
 #endif

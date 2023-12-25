@@ -22,7 +22,6 @@ ApplicationManager::ApplicationManager()
 	deletedFigCount = 0;
 	Action_Count = 0;
 	Redo_Action_Count = 0;
-	Redo_Recorded_Action_Count = 0;
 	Fig_Redo_Count = 0;
 	PlayRecordingFigCount = 0;
 	Action_Count_For_Recording = 0;
@@ -319,36 +318,7 @@ Action* ApplicationManager::ReturnLastAction()
 		}
 	}
 }
-Action* ApplicationManager::ReturnLastRecordedAction()
-{
-	bool flag = true;
-	for (unsigned short i = 0; i < 5; i++)
-	{
-		flag &= (ActionListForRecording[i] == NULL) ? true : false;
-	}
-	if (flag)
-	{
-		pOut->PrintMessage("No more actions to be undoed");
-		ActionType ActType = GetUserAction();
-		ExecuteAction(ActType);
-		return NULL;
-	}
-	else
-	{
-		short i = 4;
-		while (i >= 0)
-		{
-			if (ActionListForRecording[i])
-			{
-				Action_Count_For_Recording--;
-				cout << "I = " << i << endl;
-				cout << "Passed action = " << ActionListForRecording[i] << endl;
-				return ActionListForRecording[i];
-			}
-			i--;
-		}
-	}
-}
+
 /*void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
 {
 	if (Fig_Redo_Count < 200)
@@ -363,15 +333,7 @@ void ApplicationManager::AddForRedoAction(Action* pAction)
 	RedoActionList[4] = pAction;
 	Redo_Action_Count++;
 }
-void ApplicationManager::AddForRedoRecordedAction(Action* pAction)
-{
-	for (unsigned short i = 0; i < 4; i++)
-	{
-		RedoRecordedActionList[i] = RedoRecordedActionList[i + 1];
-	}
-	RedoRecordedActionList[4] = pAction;
-	Redo_Recorded_Action_Count++;
-}
+
 Action* ApplicationManager::PlayRecordingUndo(int actID, int c)
 {
 	if (actID > 1)
@@ -946,6 +908,7 @@ void ApplicationManager::UpdatePlayRecordingInterface() const {
 			PlayRecordingFigList[i]->Draw(pOut);	//Call Draw function (virtual member fn)
 	}
 }
+
 void ApplicationManager::PlayModeClearSelection()
 {
 	SelectedFigNum = GetSelectedFigureNumber();
@@ -1052,6 +1015,29 @@ int ApplicationManager::GetSpecificTypeCount(string figType, string figColName)
 	return typeColorCounter;
 
 	}
+
+void ApplicationManager::ExitProgram()
+{
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i] != NULL) {
+			delete FigList[i];
+		}
+		if (ActionList[i] != NULL) {
+			delete ActionList[i];
+		}
+		if (RedoActionList[i] != NULL) {
+			delete RedoActionList[i];
+		}
+		if (i < 20) {
+			if(ActionListForRecording[i] != NULL)
+			  delete ActionListForRecording[i];
+		}
+	}
+	delete pIn;
+	delete pOut;
+}
+
 //Destructor
 ApplicationManager::~ApplicationManager()
 {
