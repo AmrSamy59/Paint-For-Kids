@@ -37,6 +37,7 @@ ApplicationManager::ApplicationManager()
 		ActionListForRecording[i] = NULL;
 		PlayRecordingFigList[i] = NULL;
 		DeletedFigList[i] = NULL;
+		CopyFigList[i] = NULL;
 	}
 	for (int i = 0; i < 5; i++)
 	{
@@ -195,7 +196,7 @@ Action* ApplicationManager::GetActionForRecording()
 	else
 	{
 		i = 0;
-		Action_Count_For_Recording = 0;
+	//	Action_Count_For_Recording = 0;
 		return NULL;
 	}
 }
@@ -307,12 +308,13 @@ CFigure* ApplicationManager::PlayRecordingSelect(int id)
 
 void ApplicationManager::PlayRecordingComplete()
 {
-	for (int i = 0; i < PlayRecordingFigCount; i++)
+	for (int i = 0; i < 20; i++)
 	{
-		FigList[i] = PlayRecordingFigList[i];
-		//PlayRecordingFigList[i] = NULL;
+		if (CopyFigList[i] != NULL) {
+			FigList[i] = CopyFigList[i];
+			CopyFigList[i] = NULL;
+		}
 	}
-	FigCount = PlayRecordingFigCount;
 }
 
 void ApplicationManager::SetFigureToNull(CFigure* pFigure)
@@ -443,14 +445,14 @@ void ApplicationManager::ClearAll() {
 				delete DeletedFigList[i];
 				DeletedFigList[i] = NULL;
 			}
-			/*if (ActionListForRecording[i] != NULL) {
+			if (ActionListForRecording[i] != NULL) {
 				delete ActionListForRecording[i];
 				ActionListForRecording[i] = NULL;
 			}
 			if (PlayRecordingFigList[i] != NULL) {
 				delete PlayRecordingFigList[i];
 				PlayRecordingFigList[i] = NULL;
-			}*/
+			}
 		}
 		if (i < 10)
 		{
@@ -468,14 +470,22 @@ void ApplicationManager::ClearAll() {
 
 void ApplicationManager::PlayRecordingClearAll()
 {
-	for (int i = 0; i < MaxFigCount; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		if (FigList[i] != NULL) {
-			delete FigList[i];
+			CopyFigList[i] = FigList[i];
 			FigList[i] = NULL;
 		}
 	}
-	FigCount = 0;
+	for (int i = 0; i < 20; i++)
+	{
+		if (PlayRecordingFigList[i] != NULL)
+		{
+			delete PlayRecordingFigList[i];
+			PlayRecordingFigList[i] = NULL;
+		}
+	}
+/*	FigCount = 0;
 	while (CRectangle::GetCount() > 0)
 	{
 		CRectangle::DecreaseCount();
@@ -497,7 +507,7 @@ void ApplicationManager::PlayRecordingClearAll()
 	{
 		CTriangle::DecreaseCount();
 	}
-	CFigure::ResetIDs(); // Reset IDs to 0
+	CFigure::ResetIDs(); // Reset IDs to 0 */
 }
 
 CFigure** ApplicationManager::GetFiguresToSave(int &count) const
