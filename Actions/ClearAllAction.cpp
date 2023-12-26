@@ -19,8 +19,6 @@ void AddClearAllAction::Execute()
 {
 	Output* pOut;
 	pOut = pManager->GetOutput();
-	if (!pManager->CheckRecording())
-	{
 		ReadActionParameters();
 		pManager->ClearAll();
 		while (CRectangle::GetCount() > 0)
@@ -49,12 +47,6 @@ void AddClearAllAction::Execute()
 		UI.DrawColor = UI.DefaultDrawColor;
 		pOut->CreateDrawToolBar();
 		pOut->PrintMessage("Clear successful!");
-	}
-	else
-	{
-		pOut->PrintMessage("You can't do clear all operation while recording!");
-	}
-
 }
 void AddClearAllAction::UndoAction()
 {

@@ -296,7 +296,8 @@ CFigure* ApplicationManager::PlayRecordingSelect(int id)
 	{
 		if (PlayRecordingFigList[i] != NULL)
 		{
-			if (PlayRecordingFigList[i]->IsSelected() && i != id)
+			cout << PlayRecordingFigList[i]->GetID();
+			if (PlayRecordingFigList[i]->IsSelected() && PlayRecordingFigList[i]->GetID() != id)
 				PlayRecordingFigList[i]->SetSelected(false);
 		}
 		if (PlayRecordingFigList[i]->GetID() == id)
@@ -315,6 +316,12 @@ void ApplicationManager::PlayRecordingComplete()
 		if (CopyFigList[i] != NULL) {
 			FigList[i] = CopyFigList[i];
 			CopyFigList[i] = NULL;
+		}
+
+		if (PlayRecordingFigList[i] != NULL)
+		{
+			delete PlayRecordingFigList[i];
+			PlayRecordingFigList[i] = NULL;
 		}
 	}
 }
@@ -431,13 +438,13 @@ void ApplicationManager::ClearAll() {
 		if (i < 5)
 		{
 			if (ActionList[i] != NULL) {
-				delete ActionList[i];
+				//delete ActionList[i];
 				ActionList[i] = NULL;
 			}
 			if (RedoActionList[i] != NULL) {
-				delete RedoActionList[i];
+				//delete RedoActionList[i];
 				RedoActionList[i] = NULL;
-			}
+			} 
 		}
 		if (i < 20)
 		{
@@ -465,7 +472,9 @@ void ApplicationManager::ClearAll() {
 		}
 	}
 	SetPermissionToRecord(false);
+	StartToRecord = false;
 	FigCount = 0;
+	PlayRecordingFigCount = 0;
 	Action_Count_For_Recording = 0;
 	Deleted_Action_Count = 0;
 	HandleCounter = 0;
@@ -478,14 +487,6 @@ void ApplicationManager::PlayRecordingClearAll()
 		if (FigList[i] != NULL) {
 			CopyFigList[i] = FigList[i];
 			FigList[i] = NULL;
-		}
-	}
-	for (int i = 0; i < 20; i++)
-	{
-		if (PlayRecordingFigList[i] != NULL)
-		{
-			delete PlayRecordingFigList[i];
-			PlayRecordingFigList[i] = NULL;
 		}
 	}
 /*	FigCount = 0;
@@ -509,8 +510,8 @@ void ApplicationManager::PlayRecordingClearAll()
 	while (CTriangle::GetCount() > 0)
 	{
 		CTriangle::DecreaseCount();
-	}
-	CFigure::ResetIDs(); // Reset IDs to 0 */
+	}*/
+	CFigure::ResetIDs(); // Reset IDs to 0 
 }
 
 int ApplicationManager::GetFigsCountToSave() const
