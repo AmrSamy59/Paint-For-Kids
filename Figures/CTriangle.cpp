@@ -178,6 +178,12 @@ int CTriangle::GetCount()
 	return CTriangle::Count;
 }
 
+void CTriangle::PrintInfo(Output* pOut)
+{
+	string s = "Triangle ID: " + to_string(ID) + ", Fill Color: " + pOut->GetColorName(FigGfxInfo.FillClr) + ", Draw Color: " + pOut->GetColorName(FigGfxInfo.DrawClr) + ", Point 1: (" + to_string(c1.x) + "," + to_string(c1.y) + "), Point 2: (" + to_string(c2.x) + "," + to_string(c2.y) + "), Point 3: (" + to_string(c3.x) + "," + to_string(c3.y) + ")";
+	pOut->PrintMessage(s);
+}
+
 CTriangle::~CTriangle()
 {
 	//CTriangle::Count--;

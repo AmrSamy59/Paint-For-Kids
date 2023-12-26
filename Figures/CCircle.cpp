@@ -100,6 +100,11 @@ int CCircle::GetCount()
 	return CCircle::Count;
 }
 
+void CCircle::PrintInfo(Output* pOut) {
+	string s = "Circle ID: " + to_string(ID) + ", Fill Color: " + pOut->GetColorName(FigGfxInfo.FillClr) + ", Draw Color: " + pOut->GetColorName(FigGfxInfo.DrawClr) + ", Radius: " + to_string(radius);
+	pOut->PrintMessage(s);
+}
+
 CCircle::~CCircle()
 {
 	//CCircle::Count--;
