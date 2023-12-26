@@ -62,17 +62,23 @@ void Move::Execute()
 	fig = pManager->GetSelectedFigure();
 	if (fig != NULL)
 	{
+		Point CheckPf;
+		buttonstate leftClick0;
+		buttonstate leftClick1;
+		buttonstate rightClick;
 		int x, y;
 		while (1) {
-			buttonstate leftClick = pIn->GetButtonState(LEFT_BUTTON, x, y);
-			buttonstate rightClick = pIn->GetButtonState(RIGHT_BUTTON, x, y);
-			if (x > 0 && x < UI.width && y > UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight) {
+			leftClick0 = pIn->GetButtonState(LEFT_BUTTON, CheckPf.x, CheckPf.y);
+			Sleep(5);
+			leftClick1 = pIn->GetButtonState(LEFT_BUTTON, x, y);
+			rightClick = pIn->GetButtonState(RIGHT_BUTTON, x, y);
+			if ((x > 0 && x < UI.width && y > UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight) &&!(CheckPf.x == x && CheckPf.y == y)) {
 				Pf[1].x = x;
 				Pf[1].y = y;
 				fig->Move(Pf[1]);
 				pManager->UpdateInterface();
 			}
-			if (leftClick == BUTTON_DOWN)
+			if (leftClick1 == BUTTON_DOWN)
 			{
 				fig->Move(Pf[1]);
 				pManager->UpdateInterface();
