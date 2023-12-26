@@ -72,7 +72,7 @@ void LoadGraph::Load(string fName)
 				CSquare* Sq = new CSquare(c, gfx, L);
 				pManager->AddFigure(Sq);
 			}
-			if (option == "RECTANGLE") {
+			if (option == "RECT") {
 				Point p1, p2;
 				p1.x = stoi(parmList[1]);
 				p1.y = stoi(parmList[2]);
