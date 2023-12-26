@@ -104,8 +104,9 @@ Output* pout = pManager->GetOutput();
 
 	}
 	pout->PrintMessage("You got " + to_string(Hits) + " Correct Hit(s) ["+ FigNames[Figureindex]  +"(s)] & " + to_string(Misses) + " Misses!      Click anywhere to end the game.");
-	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
 	pin->GetPointClicked(Ps.x, Ps.y);
+	pManager->ResetPlayMode(); // Reset Play Mode after the game ends
+	
 	
 	
 	pout->ClearStatusBar();

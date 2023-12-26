@@ -66,6 +66,7 @@ void PlayRecording::Execute()
 	}
 	else
 	{
+		isCanceled = true;
 		pOut->PrintMessage("You can't play any recording now!");
 	}
 }
