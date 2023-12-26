@@ -146,9 +146,11 @@ public:
 //	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
 	void PlayRecordingClearAll();
-	CFigure** GetFiguresToSave(int &count) const;
+	int GetFigsCountToSave() const;
 
 	
+	void SaveAll(string fname) const;
+
 	string* GetGraphFiles(int& lineCount) const;
 	//CFigure* Getplaylist();
 	// -- Interface Management Functions

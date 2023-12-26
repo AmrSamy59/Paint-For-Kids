@@ -510,19 +510,61 @@ void ApplicationManager::PlayRecordingClearAll()
 	CFigure::ResetIDs(); // Reset IDs to 0 */
 }
 
-CFigure** ApplicationManager::GetFiguresToSave(int &count) const
+int ApplicationManager::GetFigsCountToSave() const
 {
-	CFigure** SaveFigList = new CFigure*[FigCount];
-	count = 0;
+	int count = 0;
 	for (int i = 0; i < FigCount; i++)
 	{
 		if(FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->isDeleted())
 		{
-			SaveFigList[i] = this->FigList[i];
 			count++;
 		}
 	}
-	return SaveFigList;
+	return count;
+}
+
+void ApplicationManager::SaveAll(string fname) const {
+	ofstream Fout;
+
+	if (!(fname.length() >= 4 && fname.substr(fname.length() - 4) == ".txt")) {
+		fname += ".txt";
+	}
+
+	string fpath = UI.graphsDir + "/" + fname;
+
+	Fout.open(fpath);
+	if (Fout.is_open()) {
+
+		string drawColor = UI.DrawColor == UI.DefaultDrawColor ? "DEFAULT_DRAW_CLR" : pOut->GetColorName(UI.DrawColor);
+		Fout << "SETTINGS" << "\t" << drawColor << "\t" << pOut->GetColorName(UI.FillColor) << endl;
+		Fout << "FIGCOUNT" << "\t" << FigCount << endl;
+
+		for (int i = 0; i < FigCount; i++) {
+			if (FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->isDeleted())
+				FigList[i]->Save(Fout);
+		}
+
+
+		int fcount;
+		string* graphFiles = GetGraphFiles(fcount);
+		ofstream gFile;
+		gFile.open(UI.graphsFile);
+		if (gFile.is_open()) {
+			for (int i = 0; i < fcount; i++) {
+				gFile << graphFiles[i] << endl;
+			}
+			gFile << fname << endl;
+
+			delete[] graphFiles;
+			gFile.close();
+		}
+
+		pOut->PrintMessage("Graph has been saved succesfully to: " + fpath);
+		Fout.close();
+	}
+	else {
+		pOut->PrintMessage("Failed to save graph to: " + fpath);
+	}
 }
 string* ApplicationManager::GetGraphFiles(int& lineCount) const
 {
