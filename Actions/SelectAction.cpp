@@ -47,6 +47,7 @@ void Select::Execute()
 	}
 	if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
 	{
+		// mo
 		selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
 		selectedFigure->SetSelected(true);
 		selectedID = selectedFigure->GetID();
