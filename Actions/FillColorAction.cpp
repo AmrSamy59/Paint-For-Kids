@@ -104,21 +104,19 @@ void FillColorAction::UndoAction()
 {
 	if (!pManager->PlayRecordingSelect(selectedID)) {
 		SelectedFigure->ChngFillClr(c_fillColor);
+
 		if (c_isFilled == false)
 		{
 			SelectedFigure->SetFilledStatus(false);
 	
 		}
 	}
-	if (pManager->PlayRecordingSelect(selectedID))
+	else
 	{
+		pManager->PlayRecordingSelect(selectedID)->ChngFillClr(c_fillColor);
 		if (c_isFilled == false)
 		{
 			pManager->PlayRecordingSelect(selectedID)->SetFilledStatus(false);
-		}
-		else
-		{
-			pManager->PlayRecordingSelect(selectedID)->ChngFillClr(c_fillColor);
 		}
 	}
 	UI.FillColor = c_fillColor;
@@ -127,25 +125,21 @@ void FillColorAction::UndoAction()
 void FillColorAction::RedoAction()
 {
 	if (!pManager->PlayRecordingSelect(selectedID)) {
+		SelectedFigure->ChngFillClr(fillColor);
+
 		if (isFilled == false)
 		{
 			SelectedFigure->SetFilledStatus(false);
 		}
-		else
-		{
-			SelectedFigure->ChngFillClr(fillColor);
-		}
 	}
-	if (pManager->PlayRecordingSelect(selectedID))
+	else
 	{
+		pManager->PlayRecordingSelect(selectedID)->ChngFillClr(fillColor);
 		if (isFilled == false)
 		{
 			pManager->PlayRecordingSelect(selectedID)->SetFilledStatus(false);
 		}
-		else
-		{
-			pManager->PlayRecordingSelect(selectedID)->ChngFillClr(fillColor);
-		}
+
 	}
 	UI.FillColor = fillColor;
 	pManager->GetOutput()->CreateDrawToolBar();
