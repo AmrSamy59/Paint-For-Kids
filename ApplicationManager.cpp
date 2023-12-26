@@ -1020,12 +1020,6 @@ void ApplicationManager::ExitProgram()
 		if (FigList[i] != NULL) {
 			delete FigList[i];
 		}
-		if (ActionList[i] != NULL) {
-			delete ActionList[i];
-		}
-		if (RedoActionList[i] != NULL) {
-			delete RedoActionList[i];
-		}
 		if (i < 20) {
 			if(ActionListForRecording[i] != NULL)
 			  delete ActionListForRecording[i];

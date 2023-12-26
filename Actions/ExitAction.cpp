@@ -17,7 +17,7 @@ void Exit::Execute()
 	if(UI.SoundEnabled)
 	Sleep(1000);
 	
-	pManager->ExitProgram();
+	pManager->ExitProgram(); 
 	exit(0);
 }
 

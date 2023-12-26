@@ -21,7 +21,7 @@ void AddClearAllAction::Execute()
 	pOut = pManager->GetOutput();
 		ReadActionParameters();
 		pManager->ClearAll();
-		while (CRectangle::GetCount() > 0)
+		while (CRectangle::GetCount() > 0) //Sets the count of every figure to zero
 		{
 			CRectangle::DecreaseCount();
 		}
@@ -42,9 +42,9 @@ void AddClearAllAction::Execute()
 		{
 			CTriangle::DecreaseCount();
 		}
-		CFigure::ResetIDs(); // Reset IDs to 0
-		UI.FillColor = UI.drawColorsEq[7];
-		UI.DrawColor = UI.DefaultDrawColor;
+		CFigure::ResetIDs(); // Reset IDs to 0 //Reseting the IDs system
+		UI.FillColor = UI.drawColorsEq[7]; //Setting the UI fill color to the default fill color
+		UI.DrawColor = UI.DefaultDrawColor; //Setting the UI draw color to the default draw color
 		pOut->CreateDrawToolBar();
 		pOut->PrintMessage("Clear successful!");
 }
