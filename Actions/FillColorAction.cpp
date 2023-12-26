@@ -103,13 +103,11 @@ void FillColorAction::PlayRecordingFunc()
 void FillColorAction::UndoAction()
 {
 	if (!pManager->PlayRecordingSelect(selectedID)) {
+		SelectedFigure->ChngFillClr(c_fillColor);
 		if (c_isFilled == false)
 		{
 			SelectedFigure->SetFilledStatus(false);
-		}
-		else
-		{
-			SelectedFigure->ChngFillClr(c_fillColor);
+	
 		}
 	}
 	if (pManager->PlayRecordingSelect(selectedID))
