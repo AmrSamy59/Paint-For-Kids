@@ -54,21 +54,20 @@ void Select::Execute()
 		}
 		pManager->UnselectAll();
 		
-		// mo
 		selectedFigure->SetSelected(true);
 		selectedID = selectedFigure->GetID();
 		pManager->UpdateInterface();
 		if (flag)
 		{
-			pIn->GetButtonState(LEFT_BUTTON, P0.x, P0.y);
+			pIn->GetButtonState(LEFT_BUTTON, P0.x, P0.y); 
 			selectedFigure->PrintInfo(pOut);
-			bool0 = pOut->ResizeByDraggingOutput0(P0);
+			bool0 = pOut->ResizeByDraggingOutput0(P0); //Getting First Point Coordinates
 			if (P0.y < UI.ToolBarHeight)
 				return;
 			while (bool0 && bool1)
 			{
-				bool1 = pOut->ResizeByDraggingOutput1(P1);
-				selectedFigure->ResizeByDragging(P0, P1);
+				bool1 = pOut->ResizeByDraggingOutput1(P1); //Getting Second Point Coordinates
+				selectedFigure->ResizeByDragging(P0, P1); //Passing Points to figure to be redrawn
 				pManager->UpdateInterface();
 				Sleep(75);
 			}
