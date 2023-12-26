@@ -4,7 +4,6 @@
 
 class CCircle :public CFigure {
 private:
-	Point pointForResizing;
 	Point point1;
 	int radius; // Because it doesn't always depend on Second Point
 	static int Count; // number of figures of this type
