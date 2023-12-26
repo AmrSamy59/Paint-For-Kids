@@ -9,25 +9,20 @@ CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo ,int l):CFigure(FigureGfxInfo)
 	center = c;
 	L = l;
 
-	int toolBarH = UI.ToolBarHeight + 3;
-	int statusBarH = UI.height - UI.StatusBarHeight - 3;
-
-	if (abs(center.y - toolBarH) < L) {
-		L = abs(center.y - toolBarH);
-	}
-	if (abs(statusBarH - center.y) < L) {
-		L = abs(statusBarH - center.y);
-	}
+	RefineShape();
 
 	CHexagon::Count++;
 }
 
-void CHexagon::ResizeByDragging(Point& P0, Point& P1)
+void CHexagon::ResizeByDragging(Point& P1)
 {
+	if (P1.x < 0 || P1.y < 0 || P1.x > UI.width || P1.y > UI.height)
+		return;
 	Point PHexagon = GetFigureCenter();
 	int DifferenceX = (P1.x - PHexagon.x);
 	int DifferenceY = (P1.y - PHexagon.y);
 	L = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
+	RefineShape();
 }
 
 Point CHexagon::GetFigureCenter()
@@ -38,6 +33,19 @@ Point CHexagon::GetFigureCenter()
 void CHexagon::Draw(Output* pOut) const
 {
 	pOut->DrawHexagon(center, L, FigGfxInfo, Selected);
+}
+
+void CHexagon::RefineShape()
+{
+	int toolBarH = UI.ToolBarHeight + 3;
+	int statusBarH = UI.height - UI.StatusBarHeight - 3;
+
+	if (abs(center.y - toolBarH) < L) {
+		L = abs(center.y - toolBarH);
+	}
+	if (abs(statusBarH - center.y) < L) {
+		L = abs(statusBarH - center.y);
+	}
 }
 
 void CHexagon::Move(Point Pm)

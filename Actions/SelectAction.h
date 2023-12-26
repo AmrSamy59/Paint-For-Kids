@@ -13,7 +13,7 @@ private :
 	CFigure* selectedFigure;
 	bool wasUnselected;
 	int selectedID;
-	bool flag;
+	bool isSelectButton; // true if the action is triggered by the select button, false if it's triggered by any other action
 public :
 	Select(ApplicationManager* pApp,bool flg = false);
 	bool wasCanceled();

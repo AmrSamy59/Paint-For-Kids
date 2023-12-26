@@ -12,7 +12,7 @@ void DrawColorAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	while (1)
+	while (1) // loop until a figure is selected, or the user cancels the operation
 	{
 		SelectedFigure = pManager->GetSelectedFigure();
 		if (SelectedFigure == NULL)
@@ -49,7 +49,7 @@ void DrawColorAction::ReadActionParameters()
 			if (ActType == OPERATION_CANCELED)
 				isCanceled = true;
 		}
-		drawColor = (UI.drawColorsEq[ActType - DRAW_COLOR_0]);
+		drawColor = (UI.drawColorsEq[ActType - DRAW_COLOR_0]); // get the color the user selected
 	}
 
 }
@@ -73,13 +73,13 @@ void DrawColorAction::Execute()
 		return;
 	}
 
-	UI.DrawColor = drawColor != UI.DefaultFillColor ? drawColor : UI.DefaultDrawColor;
+	UI.DrawColor = drawColor != UI.DefaultFillColor ? drawColor : UI.DefaultDrawColor; // Change the drawing color in the interface
 
 	SelectedFigure->ChngDrawClr(drawColor);
 
 	string colorName = pOut->GetColorName(drawColor);
 	SelectedFigure->SetSelected(false);
-	pOut->CreateDrawToolBar();
+	pOut->CreateDrawToolBar(); // Create the draw toolbar again to update the drawing color
 	pOut->PrintMessage("Successfully changed the drawing color to: " + colorName);
 
 }

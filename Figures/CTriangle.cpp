@@ -9,28 +9,155 @@ CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo):CFigur
 	c1 = p1;
 	c2 = p2;
 	c3 = p3;
+	cc1 = c1;
+	cc2 = c2;
+	cc3 = c3;
 	CTriangle::Count++;
 }
 
 Point CTriangle::GetFigureCenter()
 {
 	Point Center;
-	Center.x = (c1.x + c2.x + c3.x) / 3;
-	Center.y = (c1.y + c2.y + c3.y) / 3;
+	Center.x = (cc1.x + cc2.x + cc3.x) / 3;
+	Center.y = (cc1.y + cc2.y + cc3.y) / 3;
 	return Center;
 }
 
-void CTriangle::ResizeByDragging(Point& P0, Point& P1)
+void CTriangle::ResizeByDragging(Point& P1)
 {
-	int DifferenceX = (P1.x - P0.x);
-	int DifferenceY = (P1.y - P0.y);
-	pointForResizing.x = DifferenceX;
-	pointForResizing.y = DifferenceY;
+	if (P1.x < 0 || P1.y < 0 || P1.x > UI.width || P1.y > UI.height)
+		return;
+
+
+	Point Center = GetFigureCenter();
+
+	int DifferenceX = abs(P1.x - Center.x);
+	int DifferenceY = abs(P1.y - Center.y);
+	
+	int diff = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
+
+	if (c1.x > Center.x) {
+		int diffx = cc1.x - Center.x;
+		int diffy = cc1.y - Center.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c1.x = cc1.x + abs(diff * ((diffx) / l));
+	}
+	else {
+		int diffx = Center.x - cc1.x;
+		int diffy = Center.y - cc1.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c1.x = cc1.x - abs(diff * ((diffx) / l));
+	}
+
+	if (c2.x > Center.x) {
+		int diffx = cc2.x - Center.x;
+		int diffy = cc2.y - Center.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c2.x = cc2.x + abs(diff * (float(diffx) / l));
+	}
+	else {
+		int diffx = Center.x - cc2.x;
+		int diffy = Center.y - cc2.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c2.x = cc2.x - abs(diff * (float(diffx) / l));
+	}
+
+	if (c3.x > Center.x) {
+		int diffx = cc3.x - Center.x;
+		int diffy = cc3.y - Center.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c3.x = cc3.x + abs(diff * (float(diffx) / l));
+	}
+	else {
+		int diffx = Center.x - cc3.x;
+		int diffy = Center.y - cc3.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c3.x = cc3.x - abs(diff * (float(diffx) / l));
+	}
+
+	if (c1.y > Center.y) {
+		int diffx = cc1.x - Center.x;
+		int diffy = cc1.y - Center.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c1.y = cc1.y + abs(diff * (float(diffy) / l));
+	}
+	else {
+		int diffx = Center.x - cc1.x;
+		int diffy = Center.y - cc1.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c1.y = cc1.y - abs(diff * (float(diffy) / l));
+	}
+
+	if (c2.y > Center.y) {
+		int diffx = cc2.x - Center.x;
+		int diffy = cc2.y - Center.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c2.y = cc2.y + abs(diff * (float(diffy) / l));
+	}
+	else {
+		int diffx = Center.x - cc2.x;
+		int diffy = Center.y - cc2.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c2.y = cc2.y - abs(diff * (float(diffy) / l));
+	}
+
+	if (c3.y > Center.y) {
+		int diffx = cc3.x - Center.x;
+		int diffy = cc3.y - Center.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c3.y = cc3.y + abs(diff * (float(diffy) / l));
+	}
+	else {
+		int diffx = Center.x - cc3.x;
+		int diffy = Center.y - cc3.y;
+		int l = sqrt((diffx * diffx) + (diffy * diffy));
+		c3.y = cc3.y - abs(diff * (float(diffy) / l));
+	}
+	
+
+	RefineShape();
+
+	//c1.x = c1.x + c1.x *;
+
+
+	//pointForResizing.x = DifferenceX;
+	//pointForResizing.y = DifferenceY;
 }
 
 void CTriangle::Draw(Output* pOut) const
 {
 	pOut->DrawTriangle(c1 + pointForResizing, c2 - pointForResizing, c3 + pointForResizing, FigGfxInfo, Selected);
+}
+
+void CTriangle::RefineShape()
+{
+	if(c1.x > UI.width)
+		c1.x = UI.width - 1;
+	if (c1.x < 0)
+		c1.x = 1;
+	if (c1.y > UI.height - UI.StatusBarHeight)
+		c1.y = UI.height - UI.StatusBarHeight - 3;
+	if (c1.y < UI.ToolBarHeight)
+		c1.y = UI.ToolBarHeight + 3;
+
+	if (c2.x > UI.width)
+		c2.x = UI.width - 1;
+	if (c2.x < 0)
+		c2.x = 1;
+	if (c2.y > UI.height - UI.StatusBarHeight)
+		c2.y = UI.height - UI.StatusBarHeight - 3;
+	if (c2.y < UI.ToolBarHeight)
+		c2.y = UI.ToolBarHeight + 3;
+	
+	if (c3.x > UI.width)
+		c3.x = UI.width - 1;
+	if (c3.x < 0)
+		c3.x = 1;
+	if (c3.y > UI.height - UI.StatusBarHeight)
+		c3.y = UI.height - UI.StatusBarHeight - 3;
+	if (c3.y < UI.ToolBarHeight)
+		c3.y = UI.ToolBarHeight + 3;
+
 }
 
 void CTriangle::DecreaseCount()

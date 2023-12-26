@@ -12,24 +12,19 @@ CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 
 	radius = r;
 
-	int toolBarH = UI.ToolBarHeight + 3;
-	int statusBarH = UI.height - UI.StatusBarHeight - 3;
-
-	if (abs(P1.y - toolBarH) < radius) {
-		radius = abs(P1.y - toolBarH);
-	}
-	if (abs(statusBarH - P1.y) < radius) {
-		radius = abs(statusBarH - P1.y);
-	}
+	RefineShape();
 	CCircle::Count++;
 }
 
-void CCircle::ResizeByDragging(Point& P0, Point& P1)
+void CCircle::ResizeByDragging(Point& P1)
 {
+	if (P1.x < 0 || P1.y < 0 || P1.x > UI.width || P1.y > UI.height)
+		return;
 	Point PCircle = GetFigureCenter();
 	int DifferenceX = (P1.x - PCircle.x);
 	int DifferenceY = (P1.y - PCircle.y);
 	radius = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
+	RefineShape();
 }
 
 Point CCircle::GetFigureCenter()
@@ -41,7 +36,18 @@ void CCircle::Draw(Output* pOut) const
 {
 	pOut->DrawCirc(point1, radius, FigGfxInfo, Selected);
 }
+void CCircle::RefineShape()
+{
+	int toolBarH = UI.ToolBarHeight + 3;
+	int statusBarH = UI.height - UI.StatusBarHeight - 3;
 
+	if (abs(point1.y - toolBarH) < radius) {
+		radius = abs(point1.y - toolBarH);
+	}
+	if (abs(statusBarH - point1.y) < radius) {
+		radius = abs(statusBarH - point1.y);
+	}
+}
 void CCircle::Move(Point Pm)
 {
 	if (Pm.y + radius > (UI.height - UI.StatusBarHeight))

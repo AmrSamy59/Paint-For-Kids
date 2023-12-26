@@ -23,7 +23,7 @@ public:
 
 	CFigure(GfxInfo FigureGfxInfo);
 
-	virtual void ResizeByDragging(Point& P0,Point& P1) = 0;
+	virtual void ResizeByDragging(Point& P1) = 0;
 	static void ResetIDs();
 
 	void SetSelected(bool s);	//select/unselect the figure
@@ -57,6 +57,7 @@ public:
 
 	virtual void Save(ofstream &OutFile) = 0;	//Save the figure parameters to the file
 	virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
+	virtual void RefineShape() = 0; // Refine the shape of the figure after resizing // Amr Samy
 	bool operator==(CFigure& fig); // checks if two figures are equal
 
 };

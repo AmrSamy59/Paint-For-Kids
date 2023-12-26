@@ -9,6 +9,11 @@ CSquare::CSquare(Point C, GfxInfo FigureGfxInfo,int l):CFigure(FigureGfxInfo)
 
 	L = l;
 
+	RefineShape();
+	CSquare::Count++;
+}
+void CSquare::RefineShape()
+{
 	int toolBarH = UI.ToolBarHeight + 3;
 	int statusBarH = UI.height - UI.StatusBarHeight - 3;
 
@@ -18,15 +23,17 @@ CSquare::CSquare(Point C, GfxInfo FigureGfxInfo,int l):CFigure(FigureGfxInfo)
 	if (abs(statusBarH - center.y) < L) {
 		L = abs(statusBarH - center.y);
 	}
-	CSquare::Count++;
 }
 
-void CSquare::ResizeByDragging(Point& P0, Point& P1)
+void CSquare::ResizeByDragging(Point& P1)
 {
+	if (P1.x < 0 || P1.y < 0 || P1.x > UI.width || P1.y > UI.height)
+		return;
 	Point PSquare = GetFigureCenter();
 	int DifferenceX = (P1.x - PSquare.x);
 	int DifferenceY = (P1.y - PSquare.y);
 	L = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
+	RefineShape();
 }
 
 void CSquare::DecreaseCount()

@@ -3,7 +3,7 @@
 
 Select::Select(ApplicationManager* pApp,bool flg ) :Action(pApp)
 {
-	flag = flg;
+	isSelectButton = flg;
 	voice = "Sound\\Shape Selected.wav";
 	selectedID = -1;
 	wasUnselected = false;
@@ -58,17 +58,20 @@ void Select::Execute()
 		selectedFigure->SetSelected(true);
 		selectedID = selectedFigure->GetID();
 		pManager->UpdateInterface();
-		if (flag)
+		if (isSelectButton)
 		{
-			pIn->GetButtonState(LEFT_BUTTON, P0.x, P0.y);
 			selectedFigure->PrintInfo(pOut);
-			bool0 = pOut->ResizeByDraggingOutput0(P0);
+
+			
+			pIn->GetButtonState(LEFT_BUTTON, P0.x, P0.y); // Resize by dragging
+			bool0 = pOut->ResizeByDraggingOutput0(P0); // First Point clicked, returns true if the point is in the drawing area, so the user can resize the shape
 			if (P0.y < UI.ToolBarHeight)
 				return;
 			while (bool0 && bool1)
 			{
-				bool1 = pOut->ResizeByDraggingOutput1(P1);
-				selectedFigure->ResizeByDragging(P0, P1);
+				pOut->PrintMessage("Resizing the shape.");
+				bool1 = pOut->ResizeByDraggingOutput1(P1); // Second Point clicked, that's the point that moves while resizing, returns true if the point is in the drawing area, so the user can resize the shape
+				selectedFigure->ResizeByDragging(P1);
 				pManager->UpdateInterface();
 				Sleep(75);
 			}

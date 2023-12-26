@@ -13,7 +13,7 @@ void FillColorAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	
-	while (1)
+	while (1) // loop until a figure is selected, or the user cancels the operation
 	{
 		SelectedFigure = pManager->GetSelectedFigure();
 		if (SelectedFigure == NULL)
@@ -52,7 +52,7 @@ void FillColorAction::ReadActionParameters()
 				isCanceled = true;
 		}
 		fillColor = (UI.drawColorsEq[ActType - DRAW_COLOR_0]);
-		if (fillColor != UI.DefaultFillColor)
+		if (fillColor != UI.DefaultFillColor) // if the user selected a color other than the default one, then the figure is filled
 			isFilled = true;
 		else
 			isFilled = false;
@@ -81,13 +81,13 @@ void FillColorAction::Execute()
 	}
 
 
-	UI.FillColor = fillColor;
+	UI.FillColor = fillColor; // change the fill color in the UI
 
 	SelectedFigure->ChngFillClr(fillColor);
 
 	string colorName = pOut->GetColorName(fillColor);
 	SelectedFigure->SetSelected(false);
-	pOut->CreateDrawToolBar();
+	pOut->CreateDrawToolBar(); // create the draw toolbar again to update the fill color button
 	pOut->PrintMessage("Successfully changed the filling color to: " + colorName);
 }
 
@@ -146,7 +146,5 @@ void FillColorAction::RedoAction()
 }
 
 FillColorAction::~FillColorAction()
-{
-	//SelectedFigure = NULL;
-	
+{	
 }

@@ -9,28 +9,28 @@ void LoadGraph::RedoAction()
 }
 void LoadGraph::Load(string fName)
 {
-	ifstream graphFile(UI.graphsDir + "/" + fName);
+	ifstream graphFile(UI.graphsDir + "/" + fName); // Open the file, located in the graphs directory
 	if (graphFile.is_open()) {
 		string line;
-		pManager->ClearAll();
-		int fCount = 0;
+		pManager->ClearAll(); // Clear all figures & options, before loading the new ones
+		int fCount = 0; // figure count
 		while (getline(graphFile, line)) { // I know it's more practical to use vectors in that case, but since we it wasn't in our course scope sooo..
-			string delimiter = "\t";
-			string option = line.substr(0, line.find(delimiter));
+			string delimiter = "\t"; // tab, the spacing between the option and its parameters
+			string option = line.substr(0, line.find(delimiter)); // option name
 
-			string* parmList = GetOptionParameters(line, option, delimiter);
+			string* parmList = GetOptionParameters(line, option, delimiter); // option parameters, stored in an array of strings
 			GfxInfo gfx;
 
 			if (option == "SETTINGS") {
-				UI.DrawColor = pManager->GetOutput()->GetColorFromName(parmList[0]);
-				UI.FillColor = pManager->GetOutput()->GetColorFromName(parmList[1]);
+				UI.DrawColor = pManager->GetOutput()->GetColorFromName(parmList[0]); // Get the draw color from the name
+				UI.FillColor = pManager->GetOutput()->GetColorFromName(parmList[1]); // Get the fill color from the name
 			}
 			if (option == "FIGCOUNT") {
-				fCount = stoi(parmList[0]);
+				fCount = stoi(parmList[0]); // Get the figure count
 			}
 
-			if (option == "TRIANGLE") {
-				Point p1, p2, p3;
+			if (option == "TRIANGLE") { // Triangle parameters
+				Point p1, p2, p3; // Triangle vertices
 				p1.x = stoi(parmList[1]);
 				p1.y = stoi(parmList[2]);
 				p2.x = stoi(parmList[3]);
@@ -46,11 +46,11 @@ void LoadGraph::Load(string fName)
 				CTriangle* Tri = new CTriangle(p1 , p2, p3, gfx);
 				pManager->AddFigure(Tri);
 			}
-			if (option == "HEXAGON") {
-				Point c;
+			if (option == "HEXAGON") { // Hexagon parameters
+				Point c; // Hexagon center
 				c.x = stoi(parmList[1]);
 				c.y = stoi(parmList[2]);
-				int L = stoi(parmList[3]);
+				int L = stoi(parmList[3]); // Hexagon side length
 
 				gfx.DrawClr = pManager->GetOutput()->GetColorFromName(parmList[4]);
 				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
@@ -59,11 +59,11 @@ void LoadGraph::Load(string fName)
 				CHexagon* Hex = new CHexagon(c, gfx, L);
 				pManager->AddFigure(Hex);
 			}
-			if (option == "SQUARE") {
-				Point c;
+			if (option == "SQUARE") { // Square parameters
+				Point c; // Square center
 				c.x = stoi(parmList[1]);
 				c.y = stoi(parmList[2]);
-				int L = stoi(parmList[3]);
+				int L = stoi(parmList[3]); // Square side length
 
 				gfx.DrawClr = pManager->GetOutput()->GetColorFromName(parmList[4]);
 				gfx.DrawClr = gfx.DrawClr != UI.DefaultFillColor ? gfx.DrawClr : UI.DefaultDrawColor;
@@ -72,8 +72,8 @@ void LoadGraph::Load(string fName)
 				CSquare* Sq = new CSquare(c, gfx, L);
 				pManager->AddFigure(Sq);
 			}
-			if (option == "RECT") {
-				Point p1, p2;
+			if (option == "RECT") { // Rectangle parameters
+				Point p1, p2; // Rectangle vertices
 				p1.x = stoi(parmList[1]);
 				p1.y = stoi(parmList[2]);
 				p2.x = stoi(parmList[3]);
@@ -87,8 +87,8 @@ void LoadGraph::Load(string fName)
 				CRectangle* Rect = new CRectangle(p1, p2, gfx);
 				pManager->AddFigure(Rect);
 			}
-			if (option == "CIRCLE") {
-				Point c;
+			if (option == "CIRCLE") { // Circle parameters
+				Point c; // Circle center
 				c.x = stoi(parmList[1]);
 				c.y = stoi(parmList[2]);
 
@@ -106,7 +106,7 @@ void LoadGraph::Load(string fName)
 	}
 	pManager->GetOutput()->PrintMessage("Failed to load graph: " + fName);
 }
-string* LoadGraph::GetOptionParameters(string line, string option, string delimiter) {
+string* LoadGraph::GetOptionParameters(string line, string option, string delimiter) { // Extract the option parameters from the line
 	int pSize = 0;
 	if (option == "SETTINGS")
 		pSize = 2;
@@ -140,7 +140,8 @@ string* LoadGraph::GetOptionParameters(string line, string option, string delimi
 	return parmList;
 }
 void LoadGraph::ReadActionParameters()
-{
+{	// We open a new window to select the graph to load
+	// instead of manually typing the name of the graph
 	//Create the output window
 	Output* pOut = pManager->GetOutput();
 	int gCount = 0;
@@ -197,7 +198,7 @@ void LoadGraph::ReadActionParameters()
 
 	Load(gFiles[row_clicked]);
 	
-	delete lWind;
+	delete lWind; // Close the window
 
 }
 

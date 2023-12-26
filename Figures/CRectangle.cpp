@@ -24,13 +24,17 @@ Point CRectangle::GetFigureCenter()
 	return p;
 }
 	
-void CRectangle::ResizeByDragging(Point& P0, Point& P1)
+void CRectangle::ResizeByDragging(Point& P1)
 {
+	if(P1.x < 0 || P1.y < 0 || P1.x > UI.width || P1.y > UI.height)
+		return;
 	Point RectangleCenter = Corner2;
 	int DifferenceX = (P1.x - RectangleCenter.x);
 	int DifferenceY = (P1.y - RectangleCenter.y);
 	pointForResizing.x = DifferenceX;
 	pointForResizing.y = DifferenceY;
+	Corner2 = Corner2 + pointForResizing;
+	RefineShape();
 }
 
 void CRectangle::PrintInfo(Output* pOut)
@@ -42,8 +46,29 @@ void CRectangle::PrintInfo(Output* pOut)
 void CRectangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen
-	pOut->DrawRect(Corner1, Corner2 + pointForResizing, FigGfxInfo, Selected);
+	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
 	//cout << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << endl;
+}
+void CRectangle::RefineShape()
+{
+	int toolBarH = UI.ToolBarHeight + 3;
+	int statusBarH = UI.height - UI.StatusBarHeight - 3;
+	if (Corner2.x < 0)
+	{
+		Corner2.x = 0;
+	}
+	if (Corner2.y < toolBarH)
+	{
+		Corner2.y = toolBarH;
+	}
+	if (Corner2.x > UI.width)
+	{
+		Corner2.x = UI.width;
+	}
+	if (Corner2.y > statusBarH)
+	{
+		Corner2.y = statusBarH;
+	}
 }
 void CRectangle::Move(Point Pm)
 {

@@ -982,7 +982,7 @@ int ApplicationManager::GetColoredFigsCount(string c)
 	int count = 0;
 	Output* pOut = GetOutput();
 	for (int i = 0; i < FigCount; i++) {
-			if (FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
+			if (FigList[i] && FigList[i]->GetFillColor() == pOut->GetColorFromName(c))
 				count++;
 	}
 	return count;

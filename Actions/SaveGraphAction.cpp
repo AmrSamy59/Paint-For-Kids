@@ -22,7 +22,7 @@ void SaveGraph::ReadActionParameters()
 	}
 	pOut->PrintMessage("Enter file name, Use your keyboard to type (Press ESC to cancel) .");
 	fname = pIn->GetSrting(pOut);
-	if (fname == "") {
+	if (fname == "") { // Cancel operation
 		pOut->PrintMessage("Operation canceled.");
 		isCanceled = true;
 		return;

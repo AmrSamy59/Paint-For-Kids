@@ -12,6 +12,7 @@ public:
 	CCircle(Point, int ,GfxInfo FigureGfxInfo);
 	virtual Point GetFigureCenter();
 	virtual void Draw(Output* pOut) const;
+	virtual void RefineShape();
 	virtual void Move(Point Pm);
 	virtual bool CheckSelection(int x, int y);
 	virtual void Save(ofstream& OutFile);
@@ -19,7 +20,7 @@ public:
 	
 	static void DecreaseCount();
 	static void IncreaseCount();
-	virtual void ResizeByDragging(Point& P0, Point& P1);
+	virtual void ResizeByDragging(Point& P1);
 	virtual void PrintInfo(Output* pOut);
 
 	static int GetCount();
