@@ -20,7 +20,6 @@ Point CTriangle::GetFigureCenter()
 	return Center;
 }
 
-
 void CTriangle::ResizeByDragging(Point& P0, Point& P1)
 {
 	int DifferenceX = (P1.x - P0.x);
@@ -43,6 +42,8 @@ void CTriangle::IncreaseCount()
 {
 	Count++;
 }
+
+
 
 void CTriangle::Move(Point Pm)
 {

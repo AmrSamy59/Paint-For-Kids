@@ -24,8 +24,9 @@ CHexagon::CHexagon(Point c, GfxInfo FigureGfxInfo ,int l):CFigure(FigureGfxInfo)
 
 void CHexagon::ResizeByDragging(Point& P0, Point& P1)
 {
-	int DifferenceX = (P1.x - P0.x);
-	int DifferenceY = (P1.y - P0.y);
+	Point PHexagon = GetFigureCenter();
+	int DifferenceX = (P1.x - PHexagon.x);
+	int DifferenceY = (P1.y - PHexagon.y);
 	L = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
 }
 

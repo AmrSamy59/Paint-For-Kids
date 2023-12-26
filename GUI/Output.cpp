@@ -118,17 +118,6 @@ bool Output::ResizeByDraggingOutput0(Point& P0)
 bool Output::ResizeByDraggingOutput1(Point& P1)
 {
 		button mouse_button = LEFT_BUTTON;
-		/*while (1)
-		{
-			if (pWind->GetButtonState(mouse_button, P1.x, P1.y) == BUTTON_DOWN)
-				break;
-		}*/
-		/*while (pWind->GetButtonState(mouse_button, P.x, P.y) == BUTTON_UP)
-		{
-			pWind->GetMouseCoord(P.x, P.y);
-			if (P.y < UI.ToolBarHeight)
-				return NULL;
-		}*/
 		if (pWind->GetButtonState(mouse_button, P1.x, P1.y) == BUTTON_DOWN)
 			return true;
 		else

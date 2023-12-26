@@ -23,8 +23,9 @@ CSquare::CSquare(Point C, GfxInfo FigureGfxInfo,int l):CFigure(FigureGfxInfo)
 
 void CSquare::ResizeByDragging(Point& P0, Point& P1)
 {
-	int DifferenceX = (P1.x - P0.x);
-	int DifferenceY = (P1.y - P0.y);
+	Point PSquare = GetFigureCenter();
+	int DifferenceX = (P1.x - PSquare.x);
+	int DifferenceY = (P1.y - PSquare.y);
 	L = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
 }
 

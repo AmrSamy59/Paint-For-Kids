@@ -26,8 +26,9 @@ CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 
 void CCircle::ResizeByDragging(Point& P0, Point& P1)
 {
-	int DifferenceX = (P1.x - P0.x);
-	int DifferenceY = (P1.y - P0.y);
+	Point PCircle = GetFigureCenter();
+	int DifferenceX = (P1.x - PCircle.x);
+	int DifferenceY = (P1.y - PCircle.y);
 	radius = sqrt((DifferenceX * DifferenceX) + (DifferenceY * DifferenceY));
 }
 
