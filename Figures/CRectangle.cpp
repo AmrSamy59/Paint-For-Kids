@@ -136,8 +136,3 @@ void CRectangle::IncreaseCount()
 {
 	Count++;
 }
-
-CRectangle::~CRectangle()
-{
-	//CRectangle::Count--;
-}

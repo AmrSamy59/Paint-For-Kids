@@ -104,8 +104,3 @@ void CSquare::PrintInfo(Output* pOut)
 	string s = "Square ID: " + to_string(ID) + ", Fill Color: " + pOut->GetColorName(FigGfxInfo.FillClr) + ", Draw Color: " + pOut->GetColorName(FigGfxInfo.DrawClr) + ", Center: (" + to_string(center.x) + "," + to_string(center.y) + "), Length: " + to_string(L);
 	pOut->PrintMessage(s);
 }
-
-CSquare::~CSquare()
-{
-	//CSquare::Count--;
-}

@@ -2,8 +2,8 @@
 #define _ADDAQUAREACTION_H
 
 #include "..\Actions\Action.h"
-#include"../Figures\CSquare.h"
-#include"../ApplicationManager.h"
+#include "../Figures\CSquare.h"
+#include "../ApplicationManager.h"
 #include "../GUI/Input.h"
 #include "../GUI/Output.h"
 #include "..\Actions\DeleteAction.h"

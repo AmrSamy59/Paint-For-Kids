@@ -1,0 +1,7 @@
+SETTINGS	Yellow	Yellow
+FIGCOUNT	5
+SQUARE	0	175	206	100	Transparent	Red
+RECT	1	443	214	869	331	Transparent	Purple
+HEXAGON	2	363	461	100	Green	Transparent
+CIRCLE	3	1062	238	101	Transparent	Transparent
+TRIANGLE	4	696	446	1078	431	763	522	Yellow	Yellow

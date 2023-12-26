@@ -2,17 +2,17 @@
 #define _LOAD_GRAPH_ACTION_H
 
 #include "../Actions/Action.h"
-#include"../ApplicationManager.h"
+#include "../ApplicationManager.h"
 #include "../GUI/Input.h"
 #include "../GUI/Output.h"
 #include "..\Actions\DeleteAction.h"
 #include <iostream>
 #include "../Figures\CFigure.h"
 #include "..\Actions\AddRectAction.h"
-#include"AddSquareAction.h"
-#include"AddTriangleAction.h"
-#include"AddHexagonAction.h"
-#include"AddCircleAction.h"
+#include "AddSquareAction.h"
+#include "AddTriangleAction.h"
+#include "AddHexagonAction.h"
+#include "AddCircleAction.h"
 
 class LoadGraph : public Action
 {

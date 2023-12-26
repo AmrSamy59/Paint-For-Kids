@@ -1,0 +1,10 @@
+SETTINGS	Red	Green
+FIGCOUNT	8
+HEXAGON	0	151	175	100	Transparent	Transparent
+HEXAGON	1	363	309	100	Transparent	Yellow
+TRIANGLE	2	473	392	554	200	572	438	Transparent	Transparent
+SQUARE	3	117	459	100	Transparent	Green
+RECT	4	718	82	809	98	Transparent	Transparent
+HEXAGON	5	437	575	30	Transparent	Transparent
+HEXAGON	6	1170	253	100	Red	Transparent
+CIRCLE	7	789	343	99	Red	Green

@@ -107,7 +107,7 @@ void LoadGraph::Load(string fName)
 	pManager->GetOutput()->PrintMessage("Failed to load graph: " + fName);
 }
 string* LoadGraph::GetOptionParameters(string line, string option, string delimiter) { // Extract the option parameters from the line
-	int pSize = 0;
+	int pSize = 0; // Size of the parameters array
 	if (option == "SETTINGS")
 		pSize = 2;
 	if (option == "FIGCOUNT")

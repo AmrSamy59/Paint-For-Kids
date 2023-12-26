@@ -143,10 +143,15 @@
     <ClCompile Include="Actions\FillColorAction.cpp" />
     <ClCompile Include="Actions\LoadGraphAction.cpp" />
     <ClCompile Include="Actions\MoveAction.cpp" />
+    <ClCompile Include="Actions\PlayRecording.cpp" />
+    <ClCompile Include="Actions\RedoActionClass.cpp" />
     <ClCompile Include="Actions\SaveGraphAction.cpp" />
     <ClCompile Include="Actions\SelectAction.cpp" />
+    <ClCompile Include="Actions\StartRecording.cpp" />
+    <ClCompile Include="Actions\StopRecording.cpp" />
     <ClCompile Include="Actions\SwitchToDrawModeAction.cpp" />
     <ClCompile Include="Actions\SwitchToPlayModeAction.cpp" />
+    <ClCompile Include="Actions\UndoActionClass.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -196,11 +201,6 @@
     <ClCompile Include="PlayMode\PlayByboth.cpp" />
     <ClCompile Include="PlayMode\PlayBycolor.cpp" />
     <ClCompile Include="PlayMode\PlayBytype.cpp" />
-    <ClCompile Include="PlayRecording.cpp" />
-    <ClCompile Include="RedoActionClass.cpp" />
-    <ClCompile Include="StartRecording.cpp" />
-    <ClCompile Include="StopRecording.cpp" />
-    <ClCompile Include="UndoActionClass.cpp" />
     <ClCompile Include="Actions\ToggleSoundAction.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -215,12 +215,17 @@
     <ClInclude Include="Actions\DrawColorAction.h" />
     <ClInclude Include="Actions\ExitAction.h" />
     <ClInclude Include="Actions\FillColorAction.h" />
+    <ClInclude Include="Actions\PlayRecording.h" />
+    <ClInclude Include="Actions\RedoActionClass.h" />
+    <ClInclude Include="Actions\StartRecording.h" />
+    <ClInclude Include="Actions\StopRecording.h" />
     <ClInclude Include="Actions\SwitchToDrawModeAction.h" />
     <ClInclude Include="Actions\LoadGraphAction.h" />
     <ClInclude Include="Actions\MoveAction.h" />
     <ClInclude Include="Actions\SaveGraphAction.h" />
     <ClInclude Include="Actions\SelectAction.h" />
     <ClInclude Include="Actions\SwitchToPlayModeAction.h" />
+    <ClInclude Include="Actions\UndoActionClass.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
@@ -255,11 +260,6 @@
     <ClInclude Include="PlayMode\PlayByboth.h" />
     <ClInclude Include="PlayMode\PlayBycolor.h" />
     <ClInclude Include="PlayMode\PlayBytype.h" />
-    <ClInclude Include="PlayRecording.h" />
-    <ClInclude Include="RedoActionClass.h" />
-    <ClInclude Include="StartRecording.h" />
-    <ClInclude Include="StopRecording.h" />
-    <ClInclude Include="UndoActionClass.h" />
     <ClInclude Include="Actions\ToggleSoundAction.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,0 @@
-SETTINGS	Red	Black
-FIGCOUNT	6
-SQUARE	0	336	244	100	Transparent	Transparent
-SQUARE	1	678	258	100	Transparent	Transparent
-TRIANGLE	2	71	138	92	255	195	195	Transparent	Red
-RECT	3	1245	104	230	74	Yellow	Red
-HEXAGON	4	36	593	12	Yellow	Green
-CIRCLE	5	1094	356	208	Red	Black

@@ -1,3 +1,0 @@
-SETTINGS	DEFAULT_DRAW_CLR	Transparent
-FIGCOUNT	1
-SQUARE	0	219	313	100	Transparent	Transparent

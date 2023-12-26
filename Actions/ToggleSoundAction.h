@@ -1,9 +1,9 @@
 #pragma once
 #include "Action.h"
-#include"../ApplicationManager.h"
+#include "../ApplicationManager.h"
 #include "../GUI/Output.h"
-#include"../GUI/Input.h"
-#include"../GUI/UI_Info.h"
+#include "../GUI/Input.h"
+#include "../GUI/UI_Info.h"
 class ToggleSoundAction :public Action
 {
 public:

@@ -81,14 +81,6 @@ void CCircle::Save(ofstream& OutFile)
 	OutFile << "CIRCLE" << "\t" << ID << "\t" << point1.x << "\t" << point1.y << "\t" << radius << "\t" << dcname << "\t" << fcname << endl;
 }
 
-/*CCircle* CCircle::SaveCopyOfFigure()
-{
-	CCircle* x = new CCircle(*this);
-	return x;
-
-}
-*/
-
 void CCircle::DecreaseCount() {
 
 	Count--;
@@ -108,9 +100,4 @@ int CCircle::GetCount()
 void CCircle::PrintInfo(Output* pOut) {
 	string s = "Circle ID: " + to_string(ID) + ", Fill Color: " + pOut->GetColorName(FigGfxInfo.FillClr) + ", Draw Color: " + pOut->GetColorName(FigGfxInfo.DrawClr) + ", Radius: " + to_string(radius);
 	pOut->PrintMessage(s);
-}
-
-CCircle::~CCircle()
-{
-	//CCircle::Count--;
 }

@@ -24,14 +24,6 @@ void SwitchToPlayMode::Execute()
 			pOut->CreatePlayToolBar();
 			pOut->ClearStatusBar();
 			pManager->PlayModeClearSelection();	
-	/*	if (switch1 == 0)
-		{
-			voice = "Sound\\Switching To Draw Mode.wav";
-			pManager->PlayModeClear();
-			pOut->CreateDrawToolBar();
-			pOut->ClearStatusBar();
-			pManager->DrawModeOriginal();
-		} */
 	}
 	else
 	{

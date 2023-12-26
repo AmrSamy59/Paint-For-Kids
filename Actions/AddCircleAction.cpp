@@ -79,11 +79,10 @@ void AddCircleAction::Execute()
 	LastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
 
 	CCircle* ptr=nullptr;
-//	copyLastDrawnCircle = ptr->SaveCopyOfFigure();
+	//	copyLastDrawnCircle = ptr->SaveCopyOfFigure();
 	//Add the rectangle to the list of figures
 	pManager->AddFigure(LastDrawnCircle);
 
-	//pManager->AddFigureplay(copyLastDrawnCircle);
 }
 void AddCircleAction::UndoAction()
 {

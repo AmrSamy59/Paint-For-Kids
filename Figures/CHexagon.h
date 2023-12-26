@@ -1,6 +1,6 @@
 #ifndef _CHEXAGON_H
 #define _CHEXAGON_H
-#include"../Figures/CFigure.h"
+#include "../Figures/CFigure.h"
 
 class CHexagon :public CFigure
 {
@@ -23,7 +23,6 @@ public:
 	static void IncreaseCount();
 	static int GetCount();
 	virtual void PrintInfo(Output* pOut);
-	~CHexagon();
 
 };
 

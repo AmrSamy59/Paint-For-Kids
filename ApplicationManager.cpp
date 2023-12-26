@@ -2,8 +2,6 @@
 #include <iostream>
 using namespace std;
 
-//Constructor
-//Test3
 ApplicationManager::ApplicationManager()
 {
 	//Create Input and output
@@ -19,7 +17,6 @@ ApplicationManager::ApplicationManager()
 	StartToRecord = false;
 
 	FigCount = 0;
-	//playCount = 0;
 	deletedFigCount = 0;
 	Fig_Redo_Count = 0;
 	PlayRecordingFigCount = 0;
@@ -199,7 +196,6 @@ Action* ApplicationManager::GetActionForRecording()
 	else
 	{
 		i = 0;
-	//	Action_Count_For_Recording = 0;
 		return NULL;
 	}
 }
@@ -438,21 +434,14 @@ void ApplicationManager::ClearAll() {
 		if (i < 5)
 		{
 			if (ActionList[i] != NULL) {
-				//delete ActionList[i];
 				ActionList[i] = NULL;
 			}
 			if (RedoActionList[i] != NULL) {
-				//delete RedoActionList[i];
 				RedoActionList[i] = NULL;
 			} 
 		}
 		if (i < 20)
 		{
-			/*if (DeletedFigList[i] != NULL)
-			{
-				delete DeletedFigList[i];
-				DeletedFigList[i] = NULL;
-			}*/
 			if (ActionListForRecording[i] != NULL) {
 				delete ActionListForRecording[i];
 				ActionListForRecording[i] = NULL;
@@ -489,28 +478,7 @@ void ApplicationManager::PlayRecordingClearAll()
 			FigList[i] = NULL;
 		}
 	}
-/*	FigCount = 0;
-	while (CRectangle::GetCount() > 0)
-	{
-		CRectangle::DecreaseCount();
-	}
-	while (CCircle::GetCount() > 0)
-	{
-		CCircle::DecreaseCount();
 
-	}
-	while (CHexagon::GetCount() > 0)
-	{
-		CHexagon::DecreaseCount();
-	}
-	while (CSquare::GetCount() > 0)
-	{
-		CSquare::DecreaseCount();
-	}
-	while (CTriangle::GetCount() > 0)
-	{
-		CTriangle::DecreaseCount();
-	}*/
 	CFigure::ResetIDs(); // Reset IDs to 0 
 }
 

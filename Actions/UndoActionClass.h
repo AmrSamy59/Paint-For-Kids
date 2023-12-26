@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Actions\Action.h"
+#include "Action.h"
 
-#include "ApplicationManager.h"
-#include "GUI\input.h"
-#include "GUI\Output.h"
-#include "Figures/CRectangle.h"
-#include "Actions/DeleteAction.h"
-#include "Figures/CFigure.h"
+#include "../ApplicationManager.h"
+#include "../GUI/input.h"
+#include "../GUI/Output.h"
+#include "../Actions/DeleteAction.h"
+#include "../Figures/CFigure.h"
 
 
 

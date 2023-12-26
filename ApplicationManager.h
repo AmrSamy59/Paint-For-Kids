@@ -7,11 +7,11 @@
 #include "GUI\input.h"
 #include "GUI\output.h"
 #include "Actions\AddRectAction.h"
-#include"Actions\AddSquareAction.h"
-#include"Actions\AddTriangleAction.h"
+#include "Actions\AddSquareAction.h"
+#include "Actions\AddTriangleAction.h"
 #include "Actions\SelectAction.h"
-#include"Actions\AddHexagonAction.h"
-#include"Actions\AddCircleAction.h"
+#include "Actions\AddHexagonAction.h"
+#include "Actions\AddCircleAction.h"
 #include "Actions\ClearAllAction.h"
 #include "Actions\DeleteAction.h"
 #include "Actions\MoveAction.h"
@@ -19,18 +19,18 @@
 #include "Actions/SwitchToPlayModeAction.h"
 #include "Actions\SaveGraphAction.h"
 #include "Actions\LoadGraphAction.h"
-#include"PlayMode\PlayBytype.h"
-#include"PlayMode/PlayBycolor.h"
-#include"PlayMode/PlayByboth.h"
+#include "PlayMode\PlayBytype.h"
+#include "PlayMode/PlayBycolor.h"
+#include "PlayMode/PlayByboth.h"
 #include "Actions\ExitAction.h"
 #include "Actions\FillColorAction.h"
 #include "Actions\DrawColorAction.h"
-#include "UndoActionClass.h"
-#include "RedoActionClass.h"
-#include "StartRecording.h"
-#include "StopRecording.h"
-#include "PlayRecording.h"
-#include"Actions/ToggleSoundAction.h"
+#include "Actions/UndoActionClass.h"
+#include "Actions/RedoActionClass.h"
+#include "Actions/StartRecording.h"
+#include "Actions/StopRecording.h"
+#include "Actions/PlayRecording.h"
+#include "Actions/ToggleSoundAction.h"
 #include <fstream>
 #include <filesystem>
 
@@ -45,7 +45,6 @@ class ApplicationManager
 
 private:
 	int FigCount;		//Actual number of figures
-	//int playCount;
 	int deletedFigCount;
 	int Action_Count_For_Recording;
 	int Fig_Redo_Count;
@@ -137,17 +136,13 @@ public:
 //	void PassDeletedFigureToDeleteList(CFigure* pFig);
 	int GetRecordingsCount();
 	bool CheckRecording();
-	//void AddAction(Action* pAction);
 	Action* GetActionForRecording();
-	//CFigure* ReturnLastFigureOfRedoList();
-//	void AddFigToRedoFigList(CFigure* pFigure);
 	
 	Action* PlayRecordingUndo(int actID, int c);
 	void AddPlayRecordingFigure(CFigure* pFigure);
 	CFigure* PlayRecordingSelect(int id);
 	void PlayRecordingComplete();
 	void SetFigureToNull(CFigure* pFigure); // setting figure to null
-//	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
 	void PlayRecordingClearAll();
 	int GetFigsCountToSave() const;
@@ -156,7 +151,6 @@ public:
 	void SaveAll(string fname) const;
 
 	string* GetGraphFiles(int& lineCount) const;
-	//CFigure* Getplaylist();
 	// -- Interface Management Functions
 	Input *GetInput() const; //Return pointer to the input
 	Output *GetOutput() const; //Return pointer to the output

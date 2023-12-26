@@ -1,6 +1,6 @@
 #ifndef _CTRIANGLR_H
 #define _CTRIANGLR_H
-#include"../Figures\CFigure.h"
+#include "../Figures\CFigure.h"
 class CTriangle :public CFigure {
 private:
 	Point pointForResizing;
@@ -21,7 +21,6 @@ public:
 
 	static int GetCount();
 	virtual void PrintInfo(Output* pOut);
-	~CTriangle();
 };
 #endif // !1
 

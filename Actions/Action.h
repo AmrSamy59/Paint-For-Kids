@@ -4,7 +4,7 @@
 #include "..\DEFS.h"
 #include <iostream>
 #include<string>
-#include"../GUI/UI_Info.h"
+#include "../GUI/UI_Info.h"
 #include<windows.h>
 #include<mmsystem.h>
 #pragma comment (lib,"winmm.lib")

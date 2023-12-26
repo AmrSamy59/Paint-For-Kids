@@ -25,7 +25,6 @@ public:
 	virtual void PrintInfo(Output* pOut);
 
 	static int GetCount();
-	~CRectangle();
 };
 
 #endif

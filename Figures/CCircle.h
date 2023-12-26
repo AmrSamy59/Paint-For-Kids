@@ -1,6 +1,6 @@
 #ifndef _CCircle_H
 #define _CCircle_H
-#include"../Figures/CFigure.h"
+#include "../Figures/CFigure.h"
 
 class CCircle :public CFigure {
 private:
@@ -23,7 +23,6 @@ public:
 	virtual void PrintInfo(Output* pOut);
 
 	static int GetCount();
-	~CCircle();
 };
 
 

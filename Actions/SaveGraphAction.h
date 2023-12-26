@@ -2,7 +2,7 @@
 #define _SAVE_GRAPH_ACTION_H
 
 #include "../Actions/Action.h"
-#include"../ApplicationManager.h"
+#include "../ApplicationManager.h"
 #include "../GUI/Input.h"
 #include "../GUI/Output.h"
 #include "..\Actions\DeleteAction.h"

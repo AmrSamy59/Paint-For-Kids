@@ -144,7 +144,3 @@ void FillColorAction::RedoAction()
 	UI.FillColor = fillColor;
 	pManager->GetOutput()->CreateDrawToolBar();
 }
-
-FillColorAction::~FillColorAction()
-{	
-}

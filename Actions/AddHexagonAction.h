@@ -1,8 +1,8 @@
 #ifndef _ADD_HEXAGON_ACTION_H
 #define _ADD_HEXAGON_ACTION_H
-#include"../Actions\Action.h"
-#include"../Figures\CHexagon.h"
-#include"../ApplicationManager.h"
+#include "../Actions\Action.h"
+#include "../Figures\CHexagon.h"
+#include "../ApplicationManager.h"
 #include "../GUI/Input.h"
 #include "../GUI/Output.h"
 #include "..\Actions\DeleteAction.h"

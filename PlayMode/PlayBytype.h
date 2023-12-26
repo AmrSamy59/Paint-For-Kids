@@ -1,16 +1,16 @@
 #pragma once
 #include "../DEFS.h"
 #include "../GUI/Output.h"
-#include"../Actions/SelectAction.h"
-#include"../Actions/Action.h"
-#include"../ApplicationManager.h"
-#include"../Actions/SelectAction.h"
-#include"../Figures/CFigure.h"
-#include"../Figures/CRectangle.h"
-#include"../Figures/CHexagon.h"
-#include"../Figures/CCircle.h"
-#include"../Figures/CSquare.h"
-#include"../Figures/CTriangle.h"
+#include "../Actions/SelectAction.h"
+#include "../Actions/Action.h"
+#include "../ApplicationManager.h"
+#include "../Actions/SelectAction.h"
+#include "../Figures/CFigure.h"
+#include "../Figures/CRectangle.h"
+#include "../Figures/CHexagon.h"
+#include "../Figures/CCircle.h"
+#include "../Figures/CSquare.h"
+#include "../Figures/CTriangle.h"
 class PlayByType :public Action {
 private:
 	Point Ps;

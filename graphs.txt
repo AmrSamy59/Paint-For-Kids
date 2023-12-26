@@ -1,6 +1,3 @@
-ww3.txt
-squah.txt
-aaaaaaaaaaaaaaaaaaaaaaa.txt
-ababab.txt
-ggg.txt
-yarb.txt
+figures1.txt
+figures2.txt
+figures3.txt

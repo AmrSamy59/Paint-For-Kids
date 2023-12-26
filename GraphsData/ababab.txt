@@ -1,7 +1,0 @@
-SETTINGS	DEFAULT_DRAW_CLR	Transparent
-FIGCOUNT	5
-SQUARE	0	257	316	100	Transparent	Transparent
-HEXAGON	1	671	287	100	Transparent	Transparent
-HEXAGON	2	875	278	100	Transparent	Transparent
-CIRCLE	3	1103	293	56	Transparent	Transparent
-RECT	4	372	183	507	466	Transparent	Transparent
