@@ -582,25 +582,22 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 		
 		if (FigList[i] != NULL && FigList[i]->CheckSelection(x, y))
 		{
-			int j = 0;
-			while (j < FigCount)
-			{
-				if (FigList[j] != NULL)
-					FigList[j]->SetSelected(false);
-				j++;
-			}
-			
 			return FigList[i];
 		}
 	}
 
-	for (int j = 0; j < FigCount; j++)
-	{
-		if (FigList[j] != NULL)
-			FigList[j]->SetSelected(false);
-	}
-
 	return NULL;
+}
+CFigure* ApplicationManager::UnselectAll() {
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i] != NULL)
+		{
+			FigList[i]->SetSelected(false);
+		}
+	}
+	return NULL;
+
 }
 CFigure* ApplicationManager::GetSelectedFigure() const
 {
