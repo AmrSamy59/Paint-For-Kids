@@ -40,9 +40,6 @@ void Move::ReadActionParameters()
 		selectedID = pManager->GetSelectedFigure()->GetID();
 		Pf[0] = pManager->GetSelectedFigure()->GetFigureCenter();
 		pOut->PrintMessage("The figure is attached to your cursor, left-click anywhere to keep the new position, right-click to cancel.");
-		//pOut->PrintMessage("Please set the new center of the selected figure");
-		//pIn->GetPointClicked(Pf[1].x, Pf[1].y);
-		//pOut->ClearStatusBar();
 	}
 	else
 	{

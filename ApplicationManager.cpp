@@ -292,7 +292,6 @@ CFigure* ApplicationManager::PlayRecordingSelect(int id)
 	{
 		if (PlayRecordingFigList[i] != NULL)
 		{
-			cout << PlayRecordingFigList[i]->GetID();
 			if (PlayRecordingFigList[i]->IsSelected() && PlayRecordingFigList[i]->GetID() != id)
 				PlayRecordingFigList[i]->SetSelected(false);
 		}

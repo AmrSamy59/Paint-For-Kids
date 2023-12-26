@@ -50,7 +50,6 @@ void PlayBycolor::Execute()
 	const int FigsCount = pManager->GetFigsCount(); 
 	int color_index = 0;
 	CFigure* randomfig = pManager->GetRandomfigure(); // random figure
-	cout << "color " << endl;
 	color c = randomfig->GetFillColor();  // get color for the choosen random figures
 	
 	/////////////////////////////////

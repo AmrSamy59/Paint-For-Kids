@@ -46,10 +46,11 @@ void Select::Execute()
 	selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
 	if (selectedFigure != NULL)
 	{
+		selectedID = selectedFigure->GetID();
+
 		if (pManager->GetSelectedFigure() == selectedFigure) {
 			selectedFigure->SetSelected(false);
 			pOut->PrintMessage("Successfully unselected the figure.");
-			selectedID = selectedFigure->GetID();
 			wasUnselected = true;
 			return;
 		}
@@ -77,7 +78,6 @@ void Select::Execute()
 			selectedFigure->SetSelected(false);
 			pManager->UpdateInterface();
 		}
-		selectedID = selectedFigure->GetID();
 	}
 	else {
 		isCanceled = true;
@@ -89,7 +89,6 @@ void Select::PlayRecordingFunc()
 	if (!isCanceled && selectedID != -1) {
 		pManager->PlayRecordingSelect(selectedID)->SetSelected(!wasUnselected);
 	}
-		
 }
 void Select::UndoAction()
 {

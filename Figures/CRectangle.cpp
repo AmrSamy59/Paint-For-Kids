@@ -47,7 +47,6 @@ void CRectangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen
 	pOut->DrawRect(Corner1, Corner2, FigGfxInfo, Selected);
-	//cout << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << endl;
 }
 void CRectangle::RefineShape()
 {
