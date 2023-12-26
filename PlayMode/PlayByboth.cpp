@@ -69,6 +69,7 @@ void PlayByboth::Execute()
 		}
 		ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
 		if (ptrfigure != NULL && ptrfigure->isFigureShown())
+		{
 			ptrfigure->SetSelected(true);
 			ptrfigure->showFigure(false);
 			pManager->UpdateInterface();
