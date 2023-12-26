@@ -11,16 +11,16 @@ using namespace std;
 class Move : public Action
 {
 private :
-	Point Pf[2];
-	CFigure* fig;
-	int selectedID = -1;
+	Point Pf[2];    //An array contains the initial center of the figure before moving and the final center after moving
+	CFigure* fig;  //The figure that moves
+	int selectedID = -1; //The ID of the figure that moves
 public:
-	Move(ApplicationManager* pApp);
-	virtual void RedoAction();
-	virtual void ReadActionParameters();
+	Move(ApplicationManager* pApp); //Constructor
+	virtual void RedoAction(); //Redo (Move Action)
+	virtual void ReadActionParameters(); 
 	virtual void Execute();
-	virtual void PlayRecordingFunc();
-	virtual void UndoAction();
+	virtual void PlayRecordingFunc(); //Play (Move Action) in the recording
+	virtual void UndoAction(); //Undo (Move Action)
 };
 
 #endif // !_MOVE_H

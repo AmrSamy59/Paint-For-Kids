@@ -135,10 +135,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new ToggleSoundAction(this);
 			break;
 		case TO_PLAY:
-			pAct = new Switch(this);
+			pAct = new SwitchToPlayMode(this);
 			break;
 		case TO_DRAW:
-			pAct = new Switch(this);   
+			pAct = new SwitchToDrawMode(this);   
 			break;
 		case PLAYMODE_BYTYPE:
 			isPlayMode = true;
@@ -351,15 +351,21 @@ void ApplicationManager::AddPlayRecordingFigure(CFigure* pFigure)
 
 CFigure* ApplicationManager::PlayRecordingSelect(int id)
 {
-	for (int i = 0; i < PlayRecordingFigCount; i++)
+	int i = 0;
+	while(i < PlayRecordingFigCount)
 	{
 		if (PlayRecordingFigList[i] != NULL)
 		{
 			if (PlayRecordingFigList[i]->IsSelected() && i != id)
 				PlayRecordingFigList[i]->SetSelected(false);
 		}
+		if (PlayRecordingFigList[i]->GetID() == id)
+		{
+			return PlayRecordingFigList[i];
+		}
+		i++;
 	}
-	return PlayRecordingFigList[id];
+	return nullptr;
 }
 
 void ApplicationManager::PlayRecordingComplete()
@@ -692,7 +698,6 @@ void ApplicationManager::ProcessDeletedFigures()
 				else if (dynamic_cast<CCircle*>(FigList[i]))
 				{
 					CCircle::DecreaseCount();
-				//	cout << CCircle::GetCount() << endl;
 				}
 				else if (dynamic_cast<CHexagon*>(FigList[i]))
 				{

@@ -172,7 +172,7 @@
     <ClCompile Include="Actions\SelectAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\SwitchAction.cpp">
+    <ClCompile Include="Actions\SwitchToPlayModeAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
     <ClCompile Include="Figures\CCircle.cpp">
@@ -229,6 +229,7 @@
     <ClCompile Include="Actions\Action.cpp" />
     <ClCompile Include="Actions\SaveGraphAction.cpp" />
     <ClCompile Include="Actions\ToggleSoundAction.cpp" />
+    <ClCompile Include="Actions\SwitchToDrawModeAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -334,7 +335,7 @@
     <ClInclude Include="Actions\SelectAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\SwitchAction.h">
+    <ClInclude Include="Actions\SwitchToPlayModeAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\Action.h">
@@ -393,6 +394,7 @@
     </ClInclude>
     <ClInclude Include="Actions\SaveGraphAction.h" />
     <ClInclude Include="Actions\ToggleSoundAction.h" />
+    <ClInclude Include="Actions\SwitchToDrawModeAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

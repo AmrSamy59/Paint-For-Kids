@@ -27,7 +27,7 @@ public:
 	virtual void PlayRecordingFunc()
 	{
 
-	}
+	};
 	//Reads parameters required for action to execute (code depends on action type)
 	virtual void ReadActionParameters() = 0;
 	//Execute action (code depends on action type)

@@ -145,7 +145,8 @@
     <ClCompile Include="Actions\MoveAction.cpp" />
     <ClCompile Include="Actions\SaveGraphAction.cpp" />
     <ClCompile Include="Actions\SelectAction.cpp" />
-    <ClCompile Include="Actions\SwitchAction.cpp" />
+    <ClCompile Include="Actions\SwitchToDrawModeAction.cpp" />
+    <ClCompile Include="Actions\SwitchToPlayModeAction.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -214,11 +215,12 @@
     <ClInclude Include="Actions\DrawColorAction.h" />
     <ClInclude Include="Actions\ExitAction.h" />
     <ClInclude Include="Actions\FillColorAction.h" />
+    <ClInclude Include="Actions\SwitchToDrawModeAction.h" />
     <ClInclude Include="Actions\LoadGraphAction.h" />
     <ClInclude Include="Actions\MoveAction.h" />
     <ClInclude Include="Actions\SaveGraphAction.h" />
     <ClInclude Include="Actions\SelectAction.h" />
-    <ClInclude Include="Actions\SwitchAction.h" />
+    <ClInclude Include="Actions\SwitchToPlayModeAction.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />

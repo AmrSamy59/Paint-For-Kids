@@ -1,45 +1,37 @@
-#include "SwitchAction.h"
+#include "SwitchToPlayModeAction.h"
 #include "..\ApplicationManager.h"
 #include "../GUI/Output.h"
 
-Switch::Switch(ApplicationManager* pApp) :Action(pApp)
+SwitchToPlayMode::SwitchToPlayMode(ApplicationManager* pApp) :Action(pApp)
 {}
 
-void Switch::ReadActionParameters()
+void SwitchToPlayMode::ReadActionParameters()
 {
-	if (UI.InterfaceMode == MODE_PLAY)
-		switch1 = 0;
-	if (UI.InterfaceMode == MODE_DRAW)
-		switch1 = 1;
 }
-void Switch::UndoAction()
+void SwitchToPlayMode::UndoAction()
 {
 
 }
-void Switch::RedoAction()
+void SwitchToPlayMode::RedoAction()
 {
 }
-void Switch::Execute()
+void SwitchToPlayMode::Execute()
 {
 	Output* pOut = pManager->GetOutput();
 	if (!pManager->CheckRecording())
 	{
-		ReadActionParameters();
-		if (switch1 == 1)
-		{
 			voice = "Sound\\Switching To Play Mode.wav";
 			pOut->CreatePlayToolBar();
 			pOut->ClearStatusBar();
-			pManager->PlayModeClearSelection();
-		}
-		if (switch1 == 0)    //has to be completed in (Switch to draw mode task)
+			pManager->PlayModeClearSelection();	
+	/*	if (switch1 == 0)
 		{
 			voice = "Sound\\Switching To Draw Mode.wav";
 			pManager->PlayModeClear();
 			pOut->CreateDrawToolBar();
 			pOut->ClearStatusBar();
 			pManager->DrawModeOriginal();
-		}
+		} */
 	}
 	else
 	{

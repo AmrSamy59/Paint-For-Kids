@@ -45,9 +45,8 @@ public:
 	color GetDrawColor() const;		//returns the figure's border color
 	color GetFillColor() const;		//returns the figure's filling color
 
-	bool isDeleted();
-	void SetDelete(bool delete1);
-
+	bool isDeleted();     //Checks whether the figure is deleted or not 
+	void SetDelete(bool delete1);   //Delete or undelete the figure
 
 	string GetType() const; // returns the type of the figure
 	///The following functions should be supported by the figure class

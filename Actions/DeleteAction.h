@@ -4,9 +4,9 @@
 
 class DeleteAction : public Action
 {private:
-	CFigure* Selected_Figure;
-	int selectedID = -1;
-	bool playRec = false;
+	CFigure* Selected_Figure;  //A pointer to the selected figure
+	int selectedID = -1;   //shows the ID of the deleted figure
+	bool playRec = false;  //Checking whether the program is playing the record or not
 public:
 	DeleteAction(ApplicationManager* pApp);
 	virtual void RedoAction();
