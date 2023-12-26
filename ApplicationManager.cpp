@@ -391,7 +391,7 @@ void ApplicationManager::SetFigureToNull(CFigure* pFigure)
 }
 void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 {
-	static unsigned short j = 0;
+	static short j = 0;
 	if(ActionList[0] && dynamic_cast<DeleteAction*>(ActionList[0]))
 		DeletedActions[j++] = ActionList[0];
 	for (unsigned short i = 0;i < 4;i++)
@@ -402,13 +402,13 @@ void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 	Action_Count++;
 	if (!StartToRecord)
 	{
-		for(unsigned short i = j++;i < 15;i++)
+		for(unsigned short i = j - 1;i < 15;i++)
 			if (DeletedActions[i])
 			{
 				delete DeletedActions[i];
 				DeletedActions[i] = NULL;
 			}
-		j--;
+		//j--;
 	}
 	if (E_Ok)
 	{
