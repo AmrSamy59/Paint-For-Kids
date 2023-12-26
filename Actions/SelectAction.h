@@ -2,12 +2,16 @@
 #define _SELECT_H
 
 #include "../Actions/Action.h"
-
+#include "..\GUI\Output.h"
+#include "..\GUI\Input.h"
+#include "..\ApplicationManager.h"
 class Select : public Action
 {
 private :
 	Point Ps;
 	clicktype cType;
+	CFigure* selectedFigure;
+	bool wasUnselected;
 	int selectedID;
 	bool flag;
 public :

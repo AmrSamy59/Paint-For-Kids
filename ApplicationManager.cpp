@@ -37,6 +37,7 @@ ApplicationManager::ApplicationManager()
 		ActionListForRecording[i] = NULL;
 		PlayRecordingFigList[i] = NULL;
 		DeletedFigList[i] = NULL;
+		CopyFigList[i] = NULL;
 	}
 	for (int i = 0; i < 5; i++)
 	{
@@ -195,7 +196,7 @@ Action* ApplicationManager::GetActionForRecording()
 	else
 	{
 		i = 0;
-		Action_Count_For_Recording = 0;
+	//	Action_Count_For_Recording = 0;
 		return NULL;
 	}
 }
@@ -307,12 +308,13 @@ CFigure* ApplicationManager::PlayRecordingSelect(int id)
 
 void ApplicationManager::PlayRecordingComplete()
 {
-	for (int i = 0; i < PlayRecordingFigCount; i++)
+	for (int i = 0; i < 20; i++)
 	{
-		FigList[i] = PlayRecordingFigList[i];
-		//PlayRecordingFigList[i] = NULL;
+		if (CopyFigList[i] != NULL) {
+			FigList[i] = CopyFigList[i];
+			CopyFigList[i] = NULL;
+		}
 	}
-	FigCount = PlayRecordingFigCount;
 }
 
 void ApplicationManager::SetFigureToNull(CFigure* pFigure)
@@ -443,14 +445,14 @@ void ApplicationManager::ClearAll() {
 				delete DeletedFigList[i];
 				DeletedFigList[i] = NULL;
 			}
-			/*if (ActionListForRecording[i] != NULL) {
+			if (ActionListForRecording[i] != NULL) {
 				delete ActionListForRecording[i];
 				ActionListForRecording[i] = NULL;
 			}
 			if (PlayRecordingFigList[i] != NULL) {
 				delete PlayRecordingFigList[i];
 				PlayRecordingFigList[i] = NULL;
-			}*/
+			}
 		}
 		if (i < 10)
 		{
@@ -468,14 +470,22 @@ void ApplicationManager::ClearAll() {
 
 void ApplicationManager::PlayRecordingClearAll()
 {
-	for (int i = 0; i < MaxFigCount; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		if (FigList[i] != NULL) {
-			delete FigList[i];
+			CopyFigList[i] = FigList[i];
 			FigList[i] = NULL;
 		}
 	}
-	FigCount = 0;
+	for (int i = 0; i < 20; i++)
+	{
+		if (PlayRecordingFigList[i] != NULL)
+		{
+			delete PlayRecordingFigList[i];
+			PlayRecordingFigList[i] = NULL;
+		}
+	}
+/*	FigCount = 0;
 	while (CRectangle::GetCount() > 0)
 	{
 		CRectangle::DecreaseCount();
@@ -497,22 +507,64 @@ void ApplicationManager::PlayRecordingClearAll()
 	{
 		CTriangle::DecreaseCount();
 	}
-	CFigure::ResetIDs(); // Reset IDs to 0
+	CFigure::ResetIDs(); // Reset IDs to 0 */
 }
 
-CFigure** ApplicationManager::GetFiguresToSave(int &count) const
+int ApplicationManager::GetFigsCountToSave() const
 {
-	CFigure** SaveFigList = new CFigure*[FigCount];
-	count = 0;
+	int count = 0;
 	for (int i = 0; i < FigCount; i++)
 	{
 		if(FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->isDeleted())
 		{
-			SaveFigList[i] = this->FigList[i];
 			count++;
 		}
 	}
-	return SaveFigList;
+	return count;
+}
+
+void ApplicationManager::SaveAll(string fname) const {
+	ofstream Fout;
+
+	if (!(fname.length() >= 4 && fname.substr(fname.length() - 4) == ".txt")) {
+		fname += ".txt";
+	}
+
+	string fpath = UI.graphsDir + "/" + fname;
+
+	Fout.open(fpath);
+	if (Fout.is_open()) {
+
+		string drawColor = UI.DrawColor == UI.DefaultDrawColor ? "DEFAULT_DRAW_CLR" : pOut->GetColorName(UI.DrawColor);
+		Fout << "SETTINGS" << "\t" << drawColor << "\t" << pOut->GetColorName(UI.FillColor) << endl;
+		Fout << "FIGCOUNT" << "\t" << FigCount << endl;
+
+		for (int i = 0; i < FigCount; i++) {
+			if (FigList[i] && FigList[i]->isFigureShown() && !FigList[i]->isDeleted())
+				FigList[i]->Save(Fout);
+		}
+
+
+		int fcount;
+		string* graphFiles = GetGraphFiles(fcount);
+		ofstream gFile;
+		gFile.open(UI.graphsFile);
+		if (gFile.is_open()) {
+			for (int i = 0; i < fcount; i++) {
+				gFile << graphFiles[i] << endl;
+			}
+			gFile << fname << endl;
+
+			delete[] graphFiles;
+			gFile.close();
+		}
+
+		pOut->PrintMessage("Graph has been saved succesfully to: " + fpath);
+		Fout.close();
+	}
+	else {
+		pOut->PrintMessage("Failed to save graph to: " + fpath);
+	}
 }
 string* ApplicationManager::GetGraphFiles(int& lineCount) const
 {
@@ -582,25 +634,22 @@ CFigure *ApplicationManager::GetFigure(int x, int y) const
 		
 		if (FigList[i] != NULL && FigList[i]->CheckSelection(x, y))
 		{
-			int j = 0;
-			while (j < FigCount)
-			{
-				if (FigList[j] != NULL)
-					FigList[j]->SetSelected(false);
-				j++;
-			}
-			
 			return FigList[i];
 		}
 	}
 
-	for (int j = 0; j < FigCount; j++)
-	{
-		if (FigList[j] != NULL)
-			FigList[j]->SetSelected(false);
-	}
-
 	return NULL;
+}
+CFigure* ApplicationManager::UnselectAll() {
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i] != NULL)
+		{
+			FigList[i]->SetSelected(false);
+		}
+	}
+	return NULL;
+
 }
 CFigure* ApplicationManager::GetSelectedFigure() const
 {

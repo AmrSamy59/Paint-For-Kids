@@ -20,6 +20,7 @@ public:
 	static void DecreaseCount();
 	static void IncreaseCount();
 	virtual void ResizeByDragging(Point& P0, Point& P1);
+	virtual void PrintInfo(Output* pOut);
 
 	static int GetCount();
 	~CCircle();

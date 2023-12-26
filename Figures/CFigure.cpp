@@ -80,6 +80,11 @@ bool CFigure::isFigureShown() const
 	return AbleToBeDrawn;
 }
 
+bool CFigure::operator==(CFigure& fig)
+{
+	return (this->ID == fig.GetID());
+}
+
 bool CFigure::isDeleted()
 {
 	return deleted;

@@ -33,6 +33,12 @@ void CRectangle::ResizeByDragging(Point& P0, Point& P1)
 	pointForResizing.y = DifferenceY;
 }
 
+void CRectangle::PrintInfo(Output* pOut)
+{
+	string s = "Rectangle ID: " + to_string(ID) + ", Fill Color: " + pOut->GetColorName(FigGfxInfo.FillClr) + ", Draw Color: " + pOut->GetColorName(FigGfxInfo.DrawClr) + ", Corner1: (" + to_string(Corner1.x) + "," + to_string(Corner1.y) + "), Corner2: (" + to_string(Corner2.x) + "," + to_string(Corner2.y) + ")";
+	pOut->PrintMessage(s);
+}
+
 void CRectangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawRect to draw a rectangle on the screen

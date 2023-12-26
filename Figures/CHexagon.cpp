@@ -142,6 +142,12 @@ int CHexagon::GetCount()
 	return CHexagon::Count;
 }
 
+void CHexagon::PrintInfo(Output* pOut)
+{
+	string s = "Hexagon ID: " + to_string(ID) + ", Fill Color: " + pOut->GetColorName(FigGfxInfo.FillClr) + ", Draw Color: " + pOut->GetColorName(FigGfxInfo.DrawClr) + ", Side Length: " + to_string(L);
+	pOut->PrintMessage(s);
+}
+
 CHexagon::~CHexagon()
 {
 	//CHexagon::Count--;

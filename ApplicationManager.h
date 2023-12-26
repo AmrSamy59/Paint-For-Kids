@@ -61,6 +61,7 @@ private:
 	CFigure* FigListForRedoAction[MaxFigCount];
 	CFigure* DeletedFigList[20];
 	CFigure* PlayRecordingFigList[20];
+	CFigure* CopyFigList[20];
 	CFigure* SelectedFig; //Pointer to the selected figure
 	CFigure* Playlist[MaxFigCount];
 
@@ -103,6 +104,7 @@ public:
 	// -- Figures Management Functions
 	void AddFigure(CFigure* pFig);          //Adds a new figure to the FigList
 	CFigure *GetFigure(int x, int y) const; //Search for a figure given a point inside the figure
+	CFigure* UnselectAll();
 	CFigure* GetSelectedFigure() const;
 	void ProcessDeletedFigures();
 	void RedoProcessDeletedFigures(CFigure* figure);
@@ -144,9 +146,11 @@ public:
 //	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
 	void PlayRecordingClearAll();
-	CFigure** GetFiguresToSave(int &count) const;
+	int GetFigsCountToSave() const;
 
 	
+	void SaveAll(string fname) const;
+
 	string* GetGraphFiles(int& lineCount) const;
 	//CFigure* Getplaylist();
 	// -- Interface Management Functions

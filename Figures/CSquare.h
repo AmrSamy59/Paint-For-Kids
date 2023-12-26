@@ -20,6 +20,7 @@ public:
 	static void DecreaseCount();
 	static void IncreaseCount();
 	static int GetCount();
+	virtual void PrintInfo(Output* pOut);
 	~CSquare();
 
 

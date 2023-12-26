@@ -1,13 +1,12 @@
 #include "..\Actions\SelectAction.h"
-#include "..\GUI\Output.h"
-#include "..\GUI\Input.h"
-#include "..\ApplicationManager.h"
+
 
 Select::Select(ApplicationManager* pApp,bool flg ) :Action(pApp)
 {
 	flag = flg;
 	voice = "Sound\\Shape Selected.wav";
 	selectedID = -1;
+	wasUnselected = false;
 }
 bool Select::wasCanceled()
 {
@@ -26,7 +25,6 @@ void Select::ReadActionParameters()
 
 void Select::Execute()
 {
-	CFigure* selectedFigure;
 	Point P0;
 	Point P1;
 	bool bool0;
@@ -45,15 +43,25 @@ void Select::Execute()
 		pOut->PrintMessage("Successfully canceled the operation.");
 		return;
 	}
-	if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
+	selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
+	if (selectedFigure != NULL)
 	{
-		selectedFigure = pManager->GetFigure(Ps.x, Ps.y);
+		if (pManager->GetSelectedFigure() == selectedFigure) {
+			selectedFigure->SetSelected(false);
+			pOut->PrintMessage("Successfully unselected the figure.");
+			wasUnselected = true;
+			return;
+		}
+		pManager->UnselectAll();
+		
+		// mo
 		selectedFigure->SetSelected(true);
 		selectedID = selectedFigure->GetID();
 		pManager->UpdateInterface();
 		if (flag)
 		{
 			pIn->GetButtonState(LEFT_BUTTON, P0.x, P0.y);
+			selectedFigure->PrintInfo(pOut);
 			bool0 = pOut->ResizeByDraggingOutput0(P0);
 			if (P0.y < UI.ToolBarHeight)
 				return;
@@ -75,8 +83,10 @@ void Select::Execute()
 }
 void Select::PlayRecordingFunc()
 {
-	if(!isCanceled && selectedID != -1)
-		pManager->PlayRecordingSelect(selectedID)->SetSelected(true);
+	if (!isCanceled && selectedID != -1) {
+		pManager->PlayRecordingSelect(selectedID)->SetSelected(!wasUnselected);
+	}
+		
 }
 void Select::UndoAction()
 {

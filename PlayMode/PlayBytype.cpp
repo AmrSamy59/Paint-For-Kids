@@ -88,9 +88,10 @@ Output* pout = pManager->GetOutput();
 			return;
 
 		}
-		if (pManager->GetFigure(Ps.x, Ps.y) != NULL)
+		ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
+		if (ptrfigure != NULL && ptrfigure->isFigureShown())
 		{
-			ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
+			
 			ptrfigure->SetSelected(true);
 			ptrfigure->showFigure(false);
 			pManager->UpdateInterface();
