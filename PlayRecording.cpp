@@ -62,6 +62,7 @@ void PlayRecording::Execute()
 			ReadActionParameters();
 			n++;
 		}
+		Sleep(1500);
 		pManager->PlayRecordingComplete();
 	}
 	else

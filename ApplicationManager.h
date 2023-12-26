@@ -61,6 +61,7 @@ private:
 	CFigure* FigListForRedoAction[MaxFigCount];
 	CFigure* DeletedFigList[20];
 	CFigure* PlayRecordingFigList[20];
+	CFigure* CopyFigList[20];
 	CFigure* SelectedFig; //Pointer to the selected figure
 	CFigure* Playlist[MaxFigCount];
 
