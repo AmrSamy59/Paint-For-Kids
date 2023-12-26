@@ -57,6 +57,9 @@ private:
 	int HexagonCount;
 	int CircleCount;
 
+	unsigned short Deleted_Action_Count; //Deleted Action Counter
+	short HandleCounter; //Counter To Handle relation between Undo&Redo and Recording
+
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* FigListForRedoAction[MaxFigCount];
 	CFigure* DeletedFigList[20];
@@ -68,22 +71,16 @@ private:
 	bool PermissionToStartRecord;
 	bool StartToRecord;
 
-	Action* ActionListForRecording[20];
-	Action* ActionList[5];
-	Action* RedoActionList[5];
-	Action* RedoRecordedActionList[5];
-	Action* DeletedActions[10];
+	Action* ActionListForRecording[20]; //List for Recording Actions
+	Action* ActionList[5]; //List for Undo Actions
+	Action* RedoActionList[5]; //List for Redo Actions
+	Action* RedoRecordedActionList[5]; 
+	Action* DeletedActions[10]; //List for Deleted Actions
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;
 	
 public:	
-
-	typedef enum
-	{
-		DRAWN,
-		DELETED
-	}Required_Task_t;
 	ApplicationManager(); 
 	~ApplicationManager();
 	/// 
@@ -122,27 +119,34 @@ public:
 	
 	void DrawModeOriginal();
 
+	/******************************Undo And Redo Functions*********************************/
+	void AddForRedoAction(Action* pAction); //Add redo action to redo List
+	Action* ReturnLastAction(); //returning last undo action if available
+	Action* HandleAndReturnRedoActions(); //returning last redo action if available
+	void SetRedoActionToNull(Action *pAction); //setting redo action to null in redo list
+	void AddForUndoAction(Action* pAction,bool E_Ok); //Add undo action to undo List
+	void SetActionToNull(Action* pAction); //setting undo Action To Null
+	////////////////////////////////////////////////////////////////////////////////////
+	
+	/******************************Starting To Record Functions*******************************/
+	void SetPermissionToRecord(bool StartRecordiong); //Able and Disable recording
+	bool GetRecordingPermission(); //getting recording permission to start
+	void AddActionForRecording(Action* pAction); //Add recording action to recording list
+	///////////////////////////////////////////////////////////////////////////////////////////
+
 //	void PassDeletedFigureToDeleteList(CFigure* pFig);
-	void SetPermissionToRecord(bool StartRecordiong);
-	bool GetRecordingPermission();
 	int GetRecordingsCount();
 	bool CheckRecording();
 	//void AddAction(Action* pAction);
 	Action* GetActionForRecording();
-	void AddActionForRecording(Action* pAction);
 	//CFigure* ReturnLastFigureOfRedoList();
 //	void AddFigToRedoFigList(CFigure* pFigure);
-	void AddForRedoAction(Action* pAction);
+	
 	Action* PlayRecordingUndo(int actID, int c);
 	void AddPlayRecordingFigure(CFigure* pFigure);
 	CFigure* PlayRecordingSelect(int id);
 	void PlayRecordingComplete();
-	Action* HandleAndReturnRedoActions();
-	void SetRedoActionToNull(Action *pAction);
-	void AddForUndoAction(Action* pAction,bool E_Ok);
-	void SetActionToNull(Action* pAction);
-	void SetFigureToNull(CFigure* pFigure);
-	Action* ReturnLastAction();
+	void SetFigureToNull(CFigure* pFigure); // setting figure to null
 //	CFigure* ReturnLastFigureOnScreen(Required_Task_t task);
 	void ClearAll();
 	void PlayRecordingClearAll();

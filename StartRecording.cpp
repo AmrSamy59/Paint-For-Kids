@@ -27,7 +27,7 @@ void StartRecording::Execute()
 	if (PermissionToStartRecord)
 	{
 		pOut->PrintMessage("Recording has been started");
-		pManager->SetPermissionToRecord(true);
+		pManager->SetPermissionToRecord(true); //abling recording
 	}
 	else
 		pOut->PrintMessage("You Cannot Record Now");

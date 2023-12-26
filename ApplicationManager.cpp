@@ -25,6 +25,9 @@ ApplicationManager::ApplicationManager()
 	PlayRecordingFigCount = 0;
 	Action_Count_For_Recording = 0;
 
+	Deleted_Action_Count = 0;
+	HandleCounter = 0;
+
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 	{
@@ -202,14 +205,14 @@ Action* ApplicationManager::GetActionForRecording()
 }
 void ApplicationManager::SetPermissionToRecord(bool StartRecordiong)
 {
-	StartToRecord = StartRecordiong;
+	StartToRecord = StartRecordiong; //true if recording is on 
 	if(StartToRecord)
 		for (unsigned short i = 0;i < 20;i++)
-			ActionListForRecording[i] = NULL;
+			ActionListForRecording[i] = NULL; //resetiing Recording actionss
 }
 bool ApplicationManager::GetRecordingPermission()
 {
-	return PermissionToStartRecord;
+	return PermissionToStartRecord; //getting permission to record
 }
 int ApplicationManager::GetRecordingsCount()
 {
@@ -224,8 +227,7 @@ void ApplicationManager::AddActionForRecording(Action* pAction)
 {
 	if (Action_Count_For_Recording < 20)
 	{
-		ActionListForRecording[Action_Count_For_Recording++] = pAction;
-		
+		ActionListForRecording[Action_Count_For_Recording++] = pAction; //Adding action to recording list
 	}
 	else
 	{
@@ -240,7 +242,7 @@ Action* ApplicationManager::ReturnLastAction()
 	bool flag = true;
 	for (unsigned short i = 0;i < 5;i++)
 	{
-		flag &= (ActionList[i] == NULL) ? true : false;
+		flag &= (ActionList[i] == NULL) ? true : false; //flag = true if no more actions to be undoed
 	}
 	if (flag)
 	{
@@ -256,7 +258,7 @@ Action* ApplicationManager::ReturnLastAction()
 		{
 			if (ActionList[i])
 			{				
-				return ActionList[i];
+				return ActionList[i]; //Returning Last Undo Action if available
 			}
 			i--;
 		}
@@ -267,7 +269,7 @@ void ApplicationManager::AddForRedoAction(Action* pAction)
 {
 	for (unsigned short i = 0;i < 4;i++)
 	{
-		RedoActionList[i] = RedoActionList[i + 1];
+		RedoActionList[i] = RedoActionList[i + 1]; //Adding Action to Redo List
 	}
 	RedoActionList[4] = pAction;
 }
@@ -330,31 +332,30 @@ void ApplicationManager::SetFigureToNull(CFigure* pFigure)
 }
 void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 {
-	static short k = 0;
-	static unsigned short l = 0;
 	Action* PtrToOutcastDeletedAction;
 	PtrToOutcastDeletedAction = ActionList[0];
 	for (unsigned short i = 0;i < 4;i++)
 	{
-		ActionList[i] = ActionList[i + 1];
+		ActionList[i] = ActionList[i + 1]; //Shofting Array one index left
 	}
-	ActionList[4] = pAction;
+	ActionList[4] = pAction; //Adding Action to Undo list
+	/**************************Handling Deleted Actions between recoeding and Undo&Redo***********************************/
 	if (StartToRecord)
 	{
-		if (k++ == 5)
+		if (HandleCounter++ == 5)
 		{
-			k = 5;
+			HandleCounter = 5;
 		}
 	}
-	if (k > 0)
+	if (HandleCounter > 0)
 	{
 		if (PtrToOutcastDeletedAction && dynamic_cast<DeleteAction*>(PtrToOutcastDeletedAction))
 		{
-			DeletedActions[l++] = PtrToOutcastDeletedAction;
-			k--;
+			DeletedActions[Deleted_Action_Count++] = PtrToOutcastDeletedAction;
+			HandleCounter--;
 		}
 	}
-	else if (k == 0 && !StartToRecord)
+	else if (HandleCounter == 0 && !StartToRecord)
 	{
 		if (PtrToOutcastDeletedAction && dynamic_cast<DeleteAction*>(PtrToOutcastDeletedAction))
 		{
@@ -362,6 +363,7 @@ void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 			PtrToOutcastDeletedAction = NULL;
 		}
 	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	if (E_Ok)
 	{
 		for (unsigned int i = 0;i < 5;i++)
@@ -375,7 +377,7 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 	bool flag = true;
 	for (unsigned short i = 0;i < 5;i++)
 	{
-		flag &= (RedoActionList[i] == NULL) ? true : false;
+		flag &= (RedoActionList[i] == NULL) ? true : false; //flag = true if no more actions to be redoed
 	}
 	if (flag)
 	{
@@ -391,7 +393,7 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 		{
 			if (RedoActionList[i])
 			{			
-				return RedoActionList[i];
+				return RedoActionList[i]; //returning last redo action if available
 			}
 			i--;
 		}
@@ -403,7 +405,7 @@ void ApplicationManager::SetRedoActionToNull(Action* pAction)
 	{
 		if (RedoActionList[i] == pAction)
 		{
-			RedoActionList[i] = NULL;
+			RedoActionList[i] = NULL; //setting redo action to NUll
 			break;
 		}
 	}
@@ -414,7 +416,7 @@ void ApplicationManager::SetActionToNull(Action* pAction)
 	{
 		if (ActionList[i] == pAction)
 		{
-			ActionList[i] = NULL;
+			ActionList[i] = NULL; //Setting Undo action to null
 			break;
 		}
 	}
@@ -426,7 +428,6 @@ void ApplicationManager::ClearAll() {
 			delete FigList[i];
 			FigList[i] = NULL;
 		}
-
 		if (i < 5)
 		{
 			if (ActionList[i] != NULL) {
@@ -440,11 +441,11 @@ void ApplicationManager::ClearAll() {
 		}
 		if (i < 20)
 		{
-			if (DeletedFigList[i] != NULL)
+			/*if (DeletedFigList[i] != NULL)
 			{
 				delete DeletedFigList[i];
 				DeletedFigList[i] = NULL;
-			}
+			}*/
 			if (ActionListForRecording[i] != NULL) {
 				delete ActionListForRecording[i];
 				ActionListForRecording[i] = NULL;
@@ -466,6 +467,8 @@ void ApplicationManager::ClearAll() {
 	SetPermissionToRecord(false);
 	FigCount = 0;
 	Action_Count_For_Recording = 0;
+	Deleted_Action_Count = 0;
+	HandleCounter = 0;
 }
 
 void ApplicationManager::PlayRecordingClearAll()

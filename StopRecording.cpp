@@ -20,6 +20,6 @@ void StopRecording::ReadActionParameters()
 void StopRecording::Execute()
 {
 	Output* pOut = pManager->GetOutput();
-	pManager->SetPermissionToRecord(false);
+	pManager->SetPermissionToRecord(false); // disabling record
 	pOut->PrintMessage("Recording has been stopped");
 }
