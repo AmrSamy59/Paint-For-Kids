@@ -21,8 +21,6 @@ ApplicationManager::ApplicationManager()
 	FigCount = 0;
 	//playCount = 0;
 	deletedFigCount = 0;
-	Action_Count = 0;
-	Redo_Action_Count = 0;
 	Fig_Redo_Count = 0;
 	PlayRecordingFigCount = 0;
 	Action_Count_For_Recording = 0;
@@ -45,7 +43,7 @@ ApplicationManager::ApplicationManager()
 		ActionList[i] = NULL;
 		RedoActionList[i] = NULL;
 	}
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		DeletedActions[i] = NULL;
 	}
@@ -176,7 +174,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			else if (StartToRecord && (dynamic_cast<Select*>(pAct) || dynamic_cast<AddClearAllAction*>(pAct) 
 				|| dynamic_cast<UndoActionClass*>(pAct) || dynamic_cast<RedoActionClass*>(pAct)))
 				AddActionForRecording(pAct);
-			PermissionToStartRecord = (dynamic_cast<AddClearAllAction*>(pAct)) ? true : false;
+			PermissionToStartRecord = (dynamic_cast<AddClearAllAction*>(pAct) || dynamic_cast<ToggleSoundAction*>(pAct)) ? true : false;
 			if(!isPlayMode)
 				pAct->PlayActionVoice();
 		}
@@ -236,59 +234,6 @@ void ApplicationManager::AddActionForRecording(Action* pAction)
 		Action_Count_For_Recording = 0;
 	}
 }
-/*CFigure* ApplicationManager::ReturnLastFigureOfRedoList()
-{
-	static unsigned short k;
-	static unsigned short PrevPassedFigCount = 0;
-	if (PrevPassedFigCount != Fig_Redo_Count)
-	{
-		PrevPassedFigCount = Fig_Redo_Count;
-		k = 1;
-	}
-	while (1)
-	{
-		if (FigListForRedoAction[Fig_Redo_Count - k])
-			return FigListForRedoAction[Fig_Redo_Count - k++];
-		else
-			k++;
-	}
-}*/
-/*CFigure* ApplicationManager::ReturnLastFigureOnScreen(Required_Task_t task)
-{
-	static unsigned short k;
-	static unsigned short PrevPassedFigCount = 0;
-	if (PrevPassedFigCount != FigCount)
-	{
-		PrevPassedFigCount = FigCount;
-		k = 1;
-	}
-	if (task == DRAWN)
-	{
-		while (1)
-		{
-			if (FigList[FigCount - k])
-			{
-				if (FigList[FigCount - k]->isFigureShown())
-					return FigList[FigCount - k++];
-			}
-			else
-				k++;
-		}
-	}
-	if (task == DELETED)
-	{
-		while (1)
-		{
-			if (FigList[FigCount - k])
-			{
-				if (FigList[FigCount - k]->isFigureShown() == false)
-					return FigList[FigCount - k++];
-			}
-			else
-				k++;
-		}
-	}
-}*/
 Action* ApplicationManager::ReturnLastAction()
 {
 	bool flag = true;
@@ -309,9 +254,7 @@ Action* ApplicationManager::ReturnLastAction()
 		while (i >= 0)
 		{
 			if (ActionList[i])
-			{
-				Action_Count--;
-				
+			{				
 				return ActionList[i];
 			}
 			i--;
@@ -319,11 +262,6 @@ Action* ApplicationManager::ReturnLastAction()
 	}
 }
 
-/*void ApplicationManager::AddFigToRedoFigList(CFigure* pFigure)
-{
-	if (Fig_Redo_Count < 200)
-		FigListForRedoAction[Fig_Redo_Count++] = pFigure;
-}*/
 void ApplicationManager::AddForRedoAction(Action* pAction)
 {
 	for (unsigned short i = 0;i < 4;i++)
@@ -331,7 +269,6 @@ void ApplicationManager::AddForRedoAction(Action* pAction)
 		RedoActionList[i] = RedoActionList[i + 1];
 	}
 	RedoActionList[4] = pAction;
-	Redo_Action_Count++;
 }
 
 Action* ApplicationManager::PlayRecordingUndo(int actID, int c)
@@ -391,24 +328,37 @@ void ApplicationManager::SetFigureToNull(CFigure* pFigure)
 }
 void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 {
-	static short j = 0;
-	if(ActionList[0] && dynamic_cast<DeleteAction*>(ActionList[0]))
-		DeletedActions[j++] = ActionList[0];
+	static short k = 0;
+	static unsigned short l = 0;
+	Action* PtrToOutcastDeletedAction;
+	PtrToOutcastDeletedAction = ActionList[0];
 	for (unsigned short i = 0;i < 4;i++)
 	{
 		ActionList[i] = ActionList[i + 1];
 	}
 	ActionList[4] = pAction;
-	Action_Count++;
-	if (!StartToRecord)
+	if (StartToRecord)
 	{
-		for(unsigned short i = j - 1;i < 15;i++)
-			if (DeletedActions[i])
-			{
-				delete DeletedActions[i];
-				DeletedActions[i] = NULL;
-			}
-		//j--;
+		if (k++ == 5)
+		{
+			k = 5;
+		}
+	}
+	if (k > 0)
+	{
+		if (PtrToOutcastDeletedAction && dynamic_cast<DeleteAction*>(PtrToOutcastDeletedAction))
+		{
+			DeletedActions[l++] = PtrToOutcastDeletedAction;
+			k--;
+		}
+	}
+	else if (k == 0 && !StartToRecord)
+	{
+		if (PtrToOutcastDeletedAction && dynamic_cast<DeleteAction*>(PtrToOutcastDeletedAction))
+		{
+			delete PtrToOutcastDeletedAction;
+			PtrToOutcastDeletedAction = NULL;
+		}
 	}
 	if (E_Ok)
 	{
@@ -416,7 +366,6 @@ void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 		{
 			RedoActionList[i] = NULL;
 		}
-		Redo_Action_Count = 0;
 	}
 }
 Action* ApplicationManager::HandleAndReturnRedoActions()
@@ -439,9 +388,7 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 		while (i >= 0)
 		{
 			if (RedoActionList[i])
-			{
-				Redo_Action_Count--;
-			
+			{			
 				return RedoActionList[i];
 			}
 			i--;
@@ -505,7 +452,7 @@ void ApplicationManager::ClearAll() {
 				PlayRecordingFigList[i] = NULL;
 			}*/
 		}
-		if (i < 15)
+		if (i < 10)
 		{
 			if (DeletedActions[i] != NULL)
 			{
@@ -516,8 +463,6 @@ void ApplicationManager::ClearAll() {
 	}
 	SetPermissionToRecord(false);
 	FigCount = 0;
-	Action_Count = 0;
-	Redo_Action_Count = 0;
 	Action_Count_For_Recording = 0;
 }
 
@@ -612,12 +557,6 @@ string* ApplicationManager::GetGraphFiles(int& lineCount) const
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
-//Add an Action to the list of Actions
-/*void ApplicationManager::AddAction(Action* pAction)
-{
-	if (Action_Count < MaxFigCount)
-		ActionList[Action_Count++] = pAction;
-}*/
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {

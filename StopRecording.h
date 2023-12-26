@@ -10,6 +10,7 @@
 class StopRecording :	public Action
 {
 private:
+	
 public:
 	StopRecording(ApplicationManager* pApp);	//constructor
 	void UndoAction();

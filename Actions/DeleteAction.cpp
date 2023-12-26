@@ -66,13 +66,12 @@ DeleteAction::~DeleteAction()
 {
 	pManager->SetFigureToNull(Selected_Figure);
 	delete Selected_Figure;
-	Selected_Figure = NULL;
+	Selected_Figure = NULL; 
 }
 void DeleteAction::UndoAction()
 {
 	if (Selected_Figure)
 	{
-		
 		Selected_Figure->showFigure(true);
 		Selected_Figure->SetDelete(false);
 		if (!playRec) {
