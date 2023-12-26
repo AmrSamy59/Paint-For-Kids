@@ -69,10 +69,10 @@ void Move::Execute()
 		int x, y;
 		while (1) {
 			leftClick0 = pIn->GetButtonState(LEFT_BUTTON, CheckPf.x, CheckPf.y);
-			Sleep(5);
+			Sleep(5); // to differentiate between two different points
 			leftClick1 = pIn->GetButtonState(LEFT_BUTTON, x, y);
 			rightClick = pIn->GetButtonState(RIGHT_BUTTON, x, y);
-			if ((x > 0 && x < UI.width && y > UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight) &&!(CheckPf.x == x && CheckPf.y == y)) {
+			if ((x > 0 && x < UI.width && y > UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight) && !(CheckPf.x == x && CheckPf.y == y)) {
 				Pf[1].x = x;
 				Pf[1].y = y;
 				fig->Move(Pf[1]);
