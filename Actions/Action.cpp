@@ -7,3 +7,8 @@ void Action::PlayActionVoice()
 			PlaySoundA(voice.c_str(), NULL, SND_FILENAME | SND_ASYNC);
 		}
 }
+
+Action::~Action()
+{
+
+}

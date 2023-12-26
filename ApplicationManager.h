@@ -48,8 +48,6 @@ private:
 	//int playCount;
 	int deletedFigCount;
 	int Action_Count_For_Recording;
-	int Action_Count;
-	int Redo_Action_Count;
 	int Fig_Redo_Count;
 	int SelectedFigNum;
 	int PlayRecordingFigCount;
@@ -73,7 +71,7 @@ private:
 	Action* ActionList[5];
 	Action* RedoActionList[5];
 	Action* RedoRecordedActionList[5];
-	Action* DeletedActions[15];
+	Action* DeletedActions[10];
 	//Pointers to Input and Output classes
 	Input *pIn;
 	Output *pOut;

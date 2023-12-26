@@ -26,8 +26,9 @@ Point CRectangle::GetFigureCenter()
 	
 void CRectangle::ResizeByDragging(Point& P0, Point& P1)
 {
-	int DifferenceX = (P1.x - P0.x);
-	int DifferenceY = (P1.y - P0.y);
+	Point RectangleCenter = Corner2;
+	int DifferenceX = (P1.x - RectangleCenter.x);
+	int DifferenceY = (P1.y - RectangleCenter.y);
 	pointForResizing.x = DifferenceX;
 	pointForResizing.y = DifferenceY;
 }

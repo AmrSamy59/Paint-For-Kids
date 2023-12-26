@@ -54,6 +54,16 @@ void Select::Execute()
 		if (flag)
 		{
 			bool0 = pOut->ResizeByDraggingOutput0(P0);
+			if (P0.y < UI.ToolBarHeight)
+				return;
+			Sleep(4);
+			pOut->ResizeByDraggingOutput1(P1);
+			if (P1.x == P0.x && P1.y == P0.y)
+			{
+				selectedFigure->SetSelected(false);
+				pManager->UpdateInterface();
+				return;
+			}
 			while (bool0 && bool1)
 			{
 				bool1 = pOut->ResizeByDraggingOutput1(P1);
