@@ -5,8 +5,6 @@ int CCircle::Count = 0;
 CCircle::CCircle(Point P1, int r, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	Type = "circle";
-	pointForResizing.x = 0;
-	pointForResizing.y = 0;
 
 	point1 = P1;
 

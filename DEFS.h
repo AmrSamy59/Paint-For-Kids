@@ -50,6 +50,7 @@ enum ActionType //The actions supported
 
 struct Point	//To be used for figures points
 { int x,y; 
+//Operator Overloading to add and subtract points
 const Point operator+(const Point& P) const {
 	Point jh;
 	jh.x = x + P.x;

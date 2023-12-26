@@ -1,7 +1,7 @@
 #include "MoveAction.h"
 
 
-Move::Move(ApplicationManager* pApp) : Action(pApp)
+Move::Move(ApplicationManager * pApp) : Action(pApp)
 {
 	voice = "Sound\\Shape Moved.wav";
 }
@@ -12,7 +12,7 @@ void Move::ReadActionParameters()
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	
+
 	int x, y;
 	while (1)
 	{
@@ -65,22 +65,17 @@ void Move::Execute()
 	fig = pManager->GetSelectedFigure();
 	if (fig != NULL)
 	{
-		Point CheckPf;
 		int x, y;
 		while (1) {
-			buttonstate leftClick0;
-			buttonstate leftClick1;
-			leftClick0 = pIn->GetButtonState(LEFT_BUTTON, CheckPf.x, CheckPf.y);
-			Sleep(5);
-			leftClick1 = pIn->GetButtonState(LEFT_BUTTON, x, y);
+			buttonstate leftClick = pIn->GetButtonState(LEFT_BUTTON, x, y);
 			buttonstate rightClick = pIn->GetButtonState(RIGHT_BUTTON, x, y);
-			if ((x > 0 && x < UI.width && y > UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight) && !(CheckPf.x == x && CheckPf.y == y)) {
+			if (x > 0 && x < UI.width && y > UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight) {
 				Pf[1].x = x;
 				Pf[1].y = y;
 				fig->Move(Pf[1]);
 				pManager->UpdateInterface();
 			}
-			if (leftClick1 == BUTTON_DOWN)
+			if (leftClick == BUTTON_DOWN)
 			{
 				fig->Move(Pf[1]);
 				pManager->UpdateInterface();
@@ -97,7 +92,7 @@ void Move::Execute()
 			}
 			Sleep(5); // 5ms delay, to avoid hogging the CPU
 		}
-		
+
 		fig->SetSelected(false);
 	}
 }

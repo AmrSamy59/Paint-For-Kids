@@ -13,9 +13,9 @@ public:
 	//Reads delete parameters
 	virtual void ReadActionParameters();
 	virtual void UndoAction();
-	virtual void PlayRecordingFunc();
+	virtual void PlayRecordingFunc(); //Playing the (delete action) while playing the record
 	//Add delete to the ApplicationManager
-	void setPlayRec(bool rec);
+	void setPlayRec(bool rec); //When playing the record, setting PlayRec to true 
 	virtual void Execute();
 	~DeleteAction();
 };

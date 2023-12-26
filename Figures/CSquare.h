@@ -5,7 +5,7 @@
 //#include "DEFS.h"
 class CSquare : public CFigure {
 private:
-	Point center;
+	Point center; 
 	int L; // Half the length
 	static int Count; // number of figures of this type
 public:

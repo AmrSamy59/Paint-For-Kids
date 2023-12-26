@@ -49,14 +49,13 @@ void Select::Execute()
 		if (pManager->GetSelectedFigure() == selectedFigure) {
 			selectedFigure->SetSelected(false);
 			pOut->PrintMessage("Successfully unselected the figure.");
+			selectedID = selectedFigure->GetID();
 			wasUnselected = true;
 			return;
 		}
 		pManager->UnselectAll();
 		
-		// mo
 		selectedFigure->SetSelected(true);
-		selectedID = selectedFigure->GetID();
 		pManager->UpdateInterface();
 		if (isSelectButton)
 		{
@@ -78,6 +77,7 @@ void Select::Execute()
 			selectedFigure->SetSelected(false);
 			pManager->UpdateInterface();
 		}
+		selectedID = selectedFigure->GetID();
 	}
 	else {
 		isCanceled = true;

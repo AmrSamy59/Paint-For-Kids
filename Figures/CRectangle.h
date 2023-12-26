@@ -6,7 +6,7 @@
 class CRectangle : public CFigure
 {
 private:
-	Point pointForResizing;
+	Point pointForResizing; //Point to resize figure coordinates
 	Point Corner1;	
 	Point Corner2;
 	static int Count; // number of figures of this type
