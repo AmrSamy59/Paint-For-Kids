@@ -3,7 +3,7 @@
 using namespace std;
 PlayBycolor::PlayBycolor(ApplicationManager* pApp):Action(pApp)
 {
-	voice = "Sound\\Pick By Color.wav";
+	voice = "Sound\\Pick By Color.wav"; // voice 
 }
 
 void PlayBycolor::UndoAction()
@@ -20,20 +20,22 @@ void PlayBycolor::ReadActionParameters()
 
 void PlayBycolor::Execute()
 {
-	PlayActionVoice();
+	PlayActionVoice();  // function that play voice here to play voice after click icon Immediately
+	//Get a Pointer to the Input / Output Interfaces
 	Output* pout = pManager->GetOutput();
 	Input* pin = pManager->GetInput();
-	const int c_count = UI.c_cols * UI.c_rows;
-	int* ColorsCount = new int[c_count];
+	const int c_count = UI.c_cols * UI.c_rows; // colors count 
+	int* ColorsCount = new int[c_count]; // array of colors count
 	for (int i = 0; i < c_count; i++) {
 		ColorsCount[i] = 0;
 	}
-	
+	// initialize list
 	int Sum_of_colors = 0;
 	for (int i = 0; i < c_count; i++) {
 		ColorsCount[i] = pManager->GetColoredFigsCount(UI.drawColors[i]);
 		Sum_of_colors += ColorsCount[i];
 	}
+	// get counts for all colors in our UI 
 
 	if(Sum_of_colors== ColorsCount[c_count-1])
 	{
@@ -41,14 +43,15 @@ void PlayBycolor::Execute()
 		delete[] ColorsCount;
 		return;
 	}
-	int	Hits = 0;
-	int Misses = 0;
-	pManager->Playlistformation();
-	const int FigsCount = pManager->GetFigsCount();
+	// condition if all figures has no color (tranparant)
+	int Hits = 0; // hits for correct answer
+	int Misses = 0; // Misses for wrong answer
+	pManager->Playlistformation(); //  playable figures list 
+	const int FigsCount = pManager->GetFigsCount(); 
 	int color_index = 0;
-	CFigure* randomfig = pManager->GetRandomfigure();
+	CFigure* randomfig = pManager->GetRandomfigure(); // random figure
 	cout << "color " << endl;
-	color c = randomfig->GetFillColor();
+	color c = randomfig->GetFillColor();  // get color for the choosen random figures
 	
 	/////////////////////////////////
 
@@ -57,13 +60,11 @@ void PlayBycolor::Execute()
 		if (UI.drawColorsEq[i] == c)
 		{
 			color_index = i;
-			if (color_index == 7)
-				
-			break;
+		
 		}
 	} /// search for color index in array of color in UI
 
-	string randomColor = pout->GetColorName(c);
+	string randomColor = pout->GetColorName(c); // color name 
 	
 	while (randomColor == "Transparent")
 	{
@@ -78,9 +79,7 @@ void PlayBycolor::Execute()
 		if (UI.drawColorsEq[i] == c)
 		{
 			color_index = i;
-			if (color_index == 7)
-				
-				break;
+		
 		}
 	}   /// search for color index in array of color in UI after neglected transparent color 
 	
@@ -90,7 +89,7 @@ void PlayBycolor::Execute()
 	while(Hits < ColorsCount[color_index])
 	{
 		cType = pin->GetPointClicked(Ps.x, Ps.y);
-		
+		//////////// cancel by right click ////////////////
 		if (cType == RIGHT_CLICK)
 		{
 			pout->PrintMessage("Operation canceled (Right Click), You got " + to_string(Hits) + " Correct Hit(s) [" + randomColor + " Figures] & " + to_string(Misses) + " Misses!");
@@ -100,6 +99,7 @@ void PlayBycolor::Execute()
 
 			return;
 		}
+		//////////// cancel by change operation by click on icons in play mode /////////
 		if (Ps.x <= PLAY_ITM_COUNT * UI.MenuItemWidth && Ps.y <= UI.ToolBarHeight) //// 250 is icons size 5*50=250 //////
 		{
 			pout->PrintMessage("Operation canceled (Mode Changed), You got " + to_string(Hits) + " Correct Hit(s) [" + randomColor + " Figures] & " + to_string(Misses) + " Misses!");
@@ -119,6 +119,7 @@ void PlayBycolor::Execute()
 		ptrfigure = pManager->GetFigure(Ps.x, Ps.y);
 		if (ptrfigure != NULL && ptrfigure->isFigureShown())
 		{
+			// condtion --> in this point if found figure and figure not hidden 
 			ptrfigure->SetSelected(true);
 			ptrfigure->showFigure(false);
 			pManager->UpdateInterface();
