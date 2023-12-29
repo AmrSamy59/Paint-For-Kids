@@ -51,7 +51,7 @@ void AddSquareAction::ReadActionParameters()
 void AddSquareAction::PlayRecordingFunc()
 {
 	copyLastDrawnSquare = new CSquare(CENTER, squareGfxInfo);
-
+	CSquare::DecreaseCount();
 	pManager->AddPlayRecordingFigure(copyLastDrawnSquare);
 }
 

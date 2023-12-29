@@ -61,7 +61,7 @@ void Select::Execute()
 		if (isSelectButton)
 		{
 			selectedFigure->PrintInfo(pOut);
-
+			PlayActionVoice();
 			
 			pIn->GetButtonState(LEFT_BUTTON, P0.x, P0.y); // Resize by dragging
 			bool0 = pOut->ResizeByDraggingOutput0(P0); // First Point clicked, returns true if the point is in the drawing area, so the user can resize the shape

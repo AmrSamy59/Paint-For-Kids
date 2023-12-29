@@ -29,7 +29,9 @@ void StartRecording::Execute()
 		pOut->PrintMessage("Recording has been started");
 		pManager->SetPermissionToRecord(true); //abling recording
 	}
-	else
+	else {
 		pOut->PrintMessage("You Cannot Record Now");
+		isCanceled = true;
+	}
 }
 

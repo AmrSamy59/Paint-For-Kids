@@ -1,0 +1,8 @@
+SETTINGS	Green	Blue
+FIGCOUNT	13
+HEXAGON	1	197	303	100	Transparent	Transparent
+SQUARE	3	974	259	100	Transparent	Transparent
+SQUARE	4	365	215	100	Transparent	Blue
+HEXAGON	5	365	510	95	Transparent	Transparent
+SQUARE	6	100	97	30	Green	Blue
+SQUARE	2	669	311	100	Green	Transparent

@@ -61,7 +61,7 @@ Output::Output()
 	"Rectangle", "Square", "Triangle", "Hexagon", "Circle",
 	"Select", "Colors", "Fill", "Outline", "Move", 
 	"Delete", "Undo", "Redo", "Clear All", "Save", 
-	"Load", "Record", "Play", "Pause", "Play Mode", "Sound","Exit"
+	"Load", "Record", "Play", "Stop", "Play Mode", "Sound","Exit"
 	}};
 	UI.PlayMenuLabels = { new string[PLAY_ITM_COUNT]{
 		"By Type", "By Color", "By Both", "Draw Mode", "Exit"

@@ -117,11 +117,6 @@ void CTriangle::ResizeByDragging(Point& P1)
 
 	RefineShape();
 
-	//c1.x = c1.x + c1.x *;
-
-
-	//pointForResizing.x = DifferenceX;
-	//pointForResizing.y = DifferenceY;
 }
 
 void CTriangle::Draw(Output* pOut) const
