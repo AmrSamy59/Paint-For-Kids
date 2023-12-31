@@ -249,14 +249,13 @@ Action* ApplicationManager::ReturnLastAction()
 	}
 	else
 	{
-		short i = 4;
-		while (i >= 0)
-		{
-			if (ActionList[i])
-			{				
-				return ActionList[i]; //Returning Last Undo Action if available
-			}
-			i--;
+		Action* Ptr = ActionList[4];
+		for (short j = 3;j >= 0;j--)
+			ActionList[j + 1] = ActionList[j];
+		ActionList[0] = NULL;
+		if (Ptr)
+		{				
+			return Ptr; //Returning Last Undo Action if available
 		}
 	}
 }
@@ -338,7 +337,7 @@ void ApplicationManager::AddForUndoAction(Action* pAction, bool E_Ok)
 	PtrToOutcastDeletedAction = ActionList[0];
 	for (unsigned short i = 0;i < 4;i++)
 	{
-		ActionList[i] = ActionList[i + 1]; //Shofting Array one index left
+		ActionList[i] = ActionList[i + 1]; //Shifting Array one index left
 	}
 	ActionList[4] = pAction; //Adding Action to Undo list
 	/**************************Handling Deleted Actions between recoeding and Undo&Redo***********************************/
@@ -390,14 +389,13 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 	}
 	else
 	{
-		unsigned short i = 4;
-		while (i >= 0)
+		Action* Ptr = RedoActionList[4];
+		for (short j = 3;j >= 0;j--)
+			RedoActionList[j + 1] = RedoActionList[j];
+		RedoActionList[0] = NULL;
+		if (Ptr)
 		{
-			if (RedoActionList[i])
-			{			
-				return RedoActionList[i]; //returning last redo action if available
-			}
-			i--;
+			return Ptr; //Returning Last Undo Action if available
 		}
 	}
 }
