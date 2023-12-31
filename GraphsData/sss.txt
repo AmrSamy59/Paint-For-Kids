@@ -1,0 +1,3 @@
+SETTINGS	DEFAULT_DRAW_CLR	Transparent
+FIGCOUNT	1
+RECT	0	225	191	398	262	Transparent	Transparent

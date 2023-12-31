@@ -176,7 +176,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 				|| dynamic_cast<UndoActionClass*>(pAct) || dynamic_cast<RedoActionClass*>(pAct)))
 				AddActionForRecording(pAct);
 			PermissionToStartRecord = (dynamic_cast<AddClearAllAction*>(pAct) || dynamic_cast<ToggleSoundAction*>(pAct)) ? true : false;
-			if(!isPlayMode)
+			if(!isPlayMode && !dynamic_cast<Select*>(pAct))
 				pAct->PlayActionVoice();
 		}
 		if (dynamic_cast<Exit*>(pAct))
@@ -238,11 +238,11 @@ Action* ApplicationManager::ReturnLastAction()
 	bool flag = true;
 	for (unsigned short i = 0;i < 5;i++)
 	{
-		flag &= (ActionList[i] == NULL) ? true : false; //flag = true if no more actions to be undoed
+		flag &= (ActionList[i] == NULL) ? true : false; //flag = true if no more actions to be undone
 	}
 	if (flag)
 	{
-		pOut->PrintMessage("No more actions to be undoed");
+		pOut->PrintMessage("No more actions to be undone");
 		ActionType ActType = GetUserAction();
 		ExecuteAction(ActType);
 		return NULL;
@@ -378,11 +378,11 @@ Action* ApplicationManager::HandleAndReturnRedoActions()
 	bool flag = true;
 	for (unsigned short i = 0;i < 5;i++)
 	{
-		flag &= (RedoActionList[i] == NULL) ? true : false; //flag = true if no more actions to be redoed
+		flag &= (RedoActionList[i] == NULL) ? true : false; //flag = true if no more actions to be redone
 	}
 	if (flag)
 	{
-		pOut->PrintMessage("No more actions to be redoed");
+		pOut->PrintMessage("No more actions to be redone");
 		ActionType ActType = GetUserAction();
 		ExecuteAction(ActType);
 		return NULL;
@@ -871,7 +871,7 @@ void ApplicationManager::UpdatePlayRecordingInterface() const {
 	}
 }
 
-void ApplicationManager::PlayModeClearSelection()
+void ApplicationManager::PlayModeClearSelection() // Switch between draw/play modes
 {
 	SelectedFigNum = GetSelectedFigureNumber();
 	for (int i = 0; i < FigCount; i++)
@@ -881,7 +881,7 @@ void ApplicationManager::PlayModeClearSelection()
 	}
 	
 }
-void ApplicationManager::DrawModeOriginal()
+void ApplicationManager::DrawModeOriginal() // Switch between draw/play modes
 {
 	for (int i = 0; i < FigCount; i++)
 	{
@@ -920,6 +920,8 @@ CFigure* ApplicationManager::GetRandomfigure()
 	int randomnumber;
 	
 	if (CRectangle::GetCount() == 0 && CSquare::GetCount() == 0 && CCircle::GetCount() == 0 && CTriangle::GetCount() == 0 && CHexagon::GetCount() == 0)
+		return nullptr;
+	if (FigCount == 0)
 		return nullptr;
 	do
 	{

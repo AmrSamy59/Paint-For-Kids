@@ -48,6 +48,7 @@ void SaveGraph::Execute()
 	}
 	else
 	{
+		isCanceled = true;
 		pOut->PrintMessage("You can't save a graph while recording!");
 	}
 }

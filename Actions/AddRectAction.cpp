@@ -61,7 +61,7 @@ void AddRectAction::ReadActionParameters()
 void AddRectAction::PlayRecordingFunc()
 {
 	copyLastDrawnRect = new CRectangle(P1, P2, RectGfxInfo);
-
+	CRectangle::DecreaseCount();
 	pManager->AddPlayRecordingFigure(copyLastDrawnRect);
 }
 void AddRectAction::UndoAction()

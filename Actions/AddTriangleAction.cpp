@@ -74,7 +74,7 @@ void AddTriangleAction::ReadActionParameters()
 void AddTriangleAction::PlayRecordingFunc()
 {
 	copyLastDrawnTriangle = new CTriangle(p1, p2, p3, triangleGfxInfo);
-
+	CTriangle::DecreaseCount();
 	pManager->AddPlayRecordingFigure(copyLastDrawnTriangle);
 }
 

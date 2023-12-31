@@ -15,7 +15,7 @@ void Exit::Execute()
 {
 	PlayActionVoice();
 	if(UI.SoundEnabled)
-	Sleep(1000);
+	Sleep(1500);
 	
 	pManager->ExitProgram(); 
 	exit(0);

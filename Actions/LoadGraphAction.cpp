@@ -218,6 +218,7 @@ void LoadGraph::Execute()
 	}
 	else
 	{
+		isCanceled = true;
 		pOut->PrintMessage("You can't load a graph while recording!");
 	}
 }

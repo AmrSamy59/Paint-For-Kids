@@ -10,6 +10,7 @@ void AddCircleAction::PlayRecordingFunc()
 {
 	int radius = int(sqrt(double((P1.x - P2.x) * (P1.x - P2.x) + (P1.y - P2.y) * (P1.y - P2.y))));
 	copyLastDrawnCircle = new CCircle(P1, radius, CircleGfxInfo);
+	CCircle::DecreaseCount();
 
 	pManager->AddPlayRecordingFigure(copyLastDrawnCircle);
 }

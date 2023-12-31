@@ -50,7 +50,7 @@ void AddHexagonAction::ReadActionParameters()
 void AddHexagonAction::PlayRecordingFunc()
 {
 	copyLastDrawnHexagon = new CHexagon(center, HexagonGfxInfo);
-
+	CHexagon::DecreaseCount();
 	pManager->AddPlayRecordingFigure(copyLastDrawnHexagon);
 }
 
