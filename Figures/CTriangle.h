@@ -1,9 +1,12 @@
 #ifndef _CTRIANGLR_H
 #define _CTRIANGLR_H
 #include "../Figures\CFigure.h"
+#include <cmath>
 class CTriangle :public CFigure {
 private:
-	Point pointForResizing;
+	Point pointForResizing1;
+	Point pointForResizing2;
+	Point pointForResizing3;
 	Point c1, c2, c3, cc1, cc2, cc3;
 	static int Count; // number of figures of this type
 public:

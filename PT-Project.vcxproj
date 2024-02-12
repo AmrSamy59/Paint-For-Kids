@@ -202,6 +202,7 @@
     <ClCompile Include="PlayMode\PlayBycolor.cpp" />
     <ClCompile Include="PlayMode\PlayBytype.cpp" />
     <ClCompile Include="Actions\ToggleSoundAction.cpp" />
+    <ClCompile Include="Actions\ResizeByDragging.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -261,6 +262,8 @@
     <ClInclude Include="PlayMode\PlayBycolor.h" />
     <ClInclude Include="PlayMode\PlayBytype.h" />
     <ClInclude Include="Actions\ToggleSoundAction.h" />
+    <ClInclude Include="Actions\ResizeByDraggingAction.h" />
+    <ClInclude Include="Actions\ResizeByDragging.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

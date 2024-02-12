@@ -4,8 +4,12 @@ int CTriangle::Count = 0;
 CTriangle::CTriangle(Point p1, Point p2, Point p3, GfxInfo FigureGfxInfo):CFigure(FigureGfxInfo)
 {
 	Type = "triangle";
-	pointForResizing.x = 0;
-	pointForResizing.y = 0;
+	pointForResizing1.x = 0;
+	pointForResizing1.y = 0;
+	pointForResizing2.x = 0;
+	pointForResizing2.y = 0;
+	pointForResizing3.x = 0;
+	pointForResizing3.y = 0;
 	c1 = p1;
 	c2 = p2;
 	c3 = p3;
@@ -24,6 +28,32 @@ Point CTriangle::GetFigureCenter()
 }
 
 void CTriangle::ResizeByDragging(Point& P1)
+{
+	double DirectionVector1x = c1.x - GetFigureCenter().x;
+	double DirectionVector1y = c1.y - GetFigureCenter().y;
+	double DirectionVector2x = c2.x - GetFigureCenter().x;
+	double DirectionVector2y = c2.y - GetFigureCenter().y;
+	double DirectionVector3x = c3.x - GetFigureCenter().x;
+	double DirectionVector3y = c3.y - GetFigureCenter().y;
+
+	double UitVector1x = DirectionVector1x / sqrt(DirectionVector1x * DirectionVector1x + DirectionVector1y * DirectionVector1y);
+	double UitVector1y = DirectionVector1y / sqrt(DirectionVector1x * DirectionVector1x + DirectionVector1y * DirectionVector1y);
+	double UitVector2x = DirectionVector2x / sqrt(DirectionVector2x * DirectionVector2x + DirectionVector2y * DirectionVector2y);
+	double UitVector2y = DirectionVector2y / sqrt(DirectionVector2x * DirectionVector2x + DirectionVector2y * DirectionVector2y);
+	double UitVector3x = DirectionVector3x / sqrt(DirectionVector3x * DirectionVector3x + DirectionVector3y * DirectionVector3y);
+	double UitVector3y = DirectionVector3y / sqrt(DirectionVector3x * DirectionVector3x + DirectionVector3y * DirectionVector3y);
+
+	double length = sqrt((P1.y - GetFigureCenter().y) * (P1.y - GetFigureCenter().y) + (P1.x - GetFigureCenter().x) * (P1.x - GetFigureCenter().x));
+
+	pointForResizing1.x = UitVector1x * length;
+	pointForResizing1.y = UitVector1y * length;
+	pointForResizing2.x = UitVector2x * length;
+	pointForResizing2.y = UitVector2y * length;
+	pointForResizing3.x = UitVector3x * length;
+	pointForResizing3.y = UitVector3y * length;
+}
+
+/*void CTriangle::ResizeByDragging(Point& P1)
 {
 	if (P1.x < 0 || P1.y < 0 || P1.x > UI.width || P1.y > UI.height)
 		return;
@@ -117,11 +147,11 @@ void CTriangle::ResizeByDragging(Point& P1)
 
 	RefineShape();
 
-}
+}*/
 
 void CTriangle::Draw(Output* pOut) const
 {
-	pOut->DrawTriangle(c1 + pointForResizing, c2 - pointForResizing, c3 + pointForResizing, FigGfxInfo, Selected);
+	pOut->DrawTriangle(c1 + pointForResizing1, c2 + pointForResizing2, c3 + pointForResizing3, FigGfxInfo, Selected);
 }
 
 void CTriangle::RefineShape()

@@ -211,25 +211,16 @@
     <ClCompile Include="Actions\DrawColorAction.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
-    <ClCompile Include="UndoActionClass.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="RedoActionClass.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="StartRecording.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayRecording.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="StopRecording.cpp">
-      <Filter>Action Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Actions\Action.cpp" />
     <ClCompile Include="Actions\SaveGraphAction.cpp" />
     <ClCompile Include="Actions\ToggleSoundAction.cpp" />
     <ClCompile Include="Actions\SwitchToDrawModeAction.cpp" />
+    <ClCompile Include="Actions\PlayRecording.cpp" />
+    <ClCompile Include="Actions\RedoActionClass.cpp" />
+    <ClCompile Include="Actions\StartRecording.cpp" />
+    <ClCompile Include="Actions\StopRecording.cpp" />
+    <ClCompile Include="Actions\UndoActionClass.cpp" />
+    <ClCompile Include="Actions\ResizeByDragging.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -377,24 +368,16 @@
     <ClInclude Include="Actions\DrawColorAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
-    <ClInclude Include="UndoActionClass.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="RedoActionClass.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="StartRecording.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayRecording.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="StopRecording.h">
-      <Filter>Action Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Actions\SaveGraphAction.h" />
     <ClInclude Include="Actions\ToggleSoundAction.h" />
     <ClInclude Include="Actions\SwitchToDrawModeAction.h" />
+    <ClInclude Include="Actions\PlayRecording.h" />
+    <ClInclude Include="Actions\RedoActionClass.h" />
+    <ClInclude Include="Actions\StartRecording.h" />
+    <ClInclude Include="Actions\StopRecording.h" />
+    <ClInclude Include="Actions\UndoActionClass.h" />
+    <ClInclude Include="Actions\ResizeByDraggingAction.h" />
+    <ClInclude Include="Actions\ResizeByDragging.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
